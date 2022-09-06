@@ -15,5 +15,5 @@ spring:
     hibernate:
       ddl-auto: create
       naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # naming strategy -> table name is same with class name
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true

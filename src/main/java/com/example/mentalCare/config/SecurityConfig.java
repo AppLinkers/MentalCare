@@ -24,7 +24,6 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final FormAuthenticationProvider formAuthenticationProvider;
     private final FormAuthenticationSuccessHandler formAuthenticationSuccessHandler;
     private final FormAuthenticationFailureHandler formAuthenticationFailureHandler;
 
@@ -41,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(formAuthenticationProvider);
+        auth.authenticationProvider(new FormAuthenticationProvider());
     }
 
     @Override
