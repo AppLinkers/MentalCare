@@ -6,9 +6,13 @@ import com.example.mentalCare.advice.FormAuthenticationSuccessHandler;
 import com.example.mentalCare.user.controller.UserAuthController;
 import com.example.mentalCare.user.domain.User;
 import com.example.mentalCare.user.domain.UserDetail;
+import com.example.mentalCare.user.domain.type.Position;
 import com.example.mentalCare.user.domain.type.Role;
+import com.example.mentalCare.user.dto.PlayerSignUpReq;
+import com.example.mentalCare.user.dto.ReadUserInfoRes;
 import com.example.mentalCare.user.dto.UserLoginReq;
 import com.example.mentalCare.user.service.UserAuthService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,31 +66,61 @@ public class UserAuthControllerUnitTest {
         // then
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(view().name("login"));
+                .andExpect(view().name("user/login"));
 
     }
 
     /**
+     * @Test public void 로그인_성공_테스트() throws Exception {
+     * // given
+     * User user = new User(1L, "test_login_id", passwordEncoder.encode("test_login_pw"), "test_name", 10, Role.PLAYER);
+     * <p>
+     * // stub
+     * List<GrantedAuthority> roles = new ArrayList<>();
+     * roles.add(new SimpleGrantedAuthority(Role.PLAYER.toString()));
+     * when(formAuthenticationProvider.authenticate(any())).thenReturn(new UsernamePasswordAuthenticationToken("test_login_id", "test_login_pw", roles));
+     * <p>
+     * UserLoginReq request = new UserLoginReq();
+     * request.setLogin_id("test_login_id");
+     * request.setLogin_pw("test_login_pw");
+     * String content = new ObjectMapper().writeValueAsString(request);
+     * <p>
+     * // when
+     * ResultActions resultActions = mockMvc.perform(post("/login_proc")
+     * .contentType(MediaType.APPLICATION_JSON)
+     * .content(content));
+     * <p>
+     * System.out.println(resultActions);
+     * }
+     */
+
     @Test
-    public void 로그인_성공_테스트() throws Exception {
+    public void 선수_회원가입_테스트() throws Exception {
         // given
-        User user = new User(1L, "test_login_id", passwordEncoder.encode("test_login_pw"), "test_name", 10, Role.PLAYER);
-
-        // stub
-        List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority(Role.PLAYER.toString()));
-        when(formAuthenticationProvider.authenticate(any())).thenReturn(new UsernamePasswordAuthenticationToken("test_login_id", "test_login_pw", roles));
-
-        UserLoginReq request = new UserLoginReq();
+        PlayerSignUpReq request = new PlayerSignUpReq();
         request.setLogin_id("test_login_id");
         request.setLogin_pw("test_login_pw");
+        request.setName("test_name");
+        request.setAge(10);
+        request.setPosition(Position.FW);
+
+        // Object to JSON
         String content = new ObjectMapper().writeValueAsString(request);
 
+        // stub
+        when(userAuthService.signUp(request)).thenReturn(ReadUserInfoRes.builder()
+                .id(1L)
+                .login_id("test_login_id")
+                .build());
+
         // when
-        ResultActions resultActions = mockMvc.perform(post("/login_proc")
+        ResultActions resultActions = mockMvc.perform(post("/sign_up")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(content));
 
-        System.out.println(resultActions);
-    }*/
+        // then
+        resultActions
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/user/login"));
+    }
 }

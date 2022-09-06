@@ -30,7 +30,7 @@ public class UserAuthController {
      */
     @GetMapping("/login")
     public String loginPage(UserLoginReq request) {
-        return "login";
+        return "user/login";
     }
 
     /**
@@ -44,7 +44,7 @@ public class UserAuthController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
 
-        return "redirect:/login";
+        return "redirect:user/login";
     }
 
     /**
@@ -52,15 +52,15 @@ public class UserAuthController {
      */
     @GetMapping("/sign_up")
     public String signUpPage(PlayerSignUpReq playerSignUpReq, DirectorSignUpReq directorSignUpReq) {
-        return "signUp";
+        return "user/sign_up";
     }
 
     /**
      * SignUp Service
      */
-    @PostMapping("/signUp")
-    public String signUp(PlayerSignUpReq playerSignUpReq, DirectorSignUpReq directorSignUpReq) {
-        userAuthService.signUp(userSignUpReq);
-        return "redirect:/login";
+    @PostMapping("/sign_up")
+    public String signUp(UserSignUpReq request) {
+        userAuthService.signUp(request);
+        return "redirect:user/login";
     }
 }
