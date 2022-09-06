@@ -55,7 +55,7 @@ public class UserAuthService implements UserDetailsService {
     @Transactional
     public ReadUserInfoRes signUp(UserSignUpReq request) {
         validateDuplicated(request.getLogin_id());
-        System.out.println(request.getLogin_id());
+
         User savedUser = new User();
 
         if (request.getClass().equals(PlayerSignUpReq.class)) {

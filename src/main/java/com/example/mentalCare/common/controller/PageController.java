@@ -1,7 +1,5 @@
-package com.example.mentalCare.user.controller;
+package com.example.mentalCare.common.controller;
 
-
-import com.example.mentalCare.user.dto.UserLoginReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +10,7 @@ public class PageController {
 
     @GetMapping("/")
     public String index(){
-        return "init";
+        return "common/main";
     }
-
 
 }

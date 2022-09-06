@@ -15,17 +15,16 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <!-- STYLE SHEET -->
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/nav.css">
-    <link rel="stylesheet" href="../css/init.css">
+    <link rel="stylesheet" href="/css/common/style.css">
+    <link rel="stylesheet" href="/css/common/nav.css">
+    <link rel="stylesheet" href="/css/common/main.css">
 </head>
 <body>
-
     <!-- =========== NAVBAR ========== -->
     <nav>
         <div class="container nav__container">
             <button class="menu-btn" id="menu-btn"><i class="uil uil-bars"></i></button>
-            <a href="init.html"><h3>Mental Care</h3></a>
+            <a href="main.html"><h3>Mental Care</h3></a>
             <a th:href="@{/login}"><button class="login-btn" ><i class="uil uil-sign-in-alt"></i></button></a>
         </div>
     </nav>
@@ -37,14 +36,14 @@
                 <h3>Mental Care</h3>
             </div>
             <div class="menu-content">
-                <a href="profile.html"><h1>프로필</h1></a>
-                <a href="test.html"><h1>검사하기</h1></a>
-                <a href="test_result.html"><h1>검사내역</h1></a>
+                <a href="../profile.html"><h1>프로필</h1></a>
+                <a href="../test.html"><h1>검사하기</h1></a>
+                <a href="../test_result.html"><h1>검사내역</h1></a>
                 <a id="admin" class="admin-btn"><h1>관리자 <i id="admin-ic" class="uil uil-angle-down"></i></h1></a>
                 <div class="menu-admin" id="adminList">
-                    <a href="member.html"><h2>멤버 관리</h2></a>
-                    <a href="consult.html"><h2>컨설팅 목록</h2></a>
-                    <a href="test_admin.html"><h2>검사 목록</h2></a>
+                    <a href="../member.html"><h2>멤버 관리</h2></a>
+                    <a href="../consult.html"><h2>컨설팅 목록</h2></a>
+                    <a href="../test_admin.html"><h2>검사 목록</h2></a>
                 </div>
             </div>
         </div>
@@ -56,9 +55,9 @@
                 <h1>프로를 위한 멘탈 서비스</h1>
                 <h3>다음 경기를 위해 체크해보세요</h3>
             </div>
-            <button class="btn" onclick="location.href='login.html';">시작하기</button>
+            <button class="btn" th:onclick="|location.href='/login'|">시작하기</button>
         </div>
     </section>
-    <script src="/javascript/menu.js"></script>
+    <script src="/javascript/common/menu.js"></script>
 </body>
 </html>

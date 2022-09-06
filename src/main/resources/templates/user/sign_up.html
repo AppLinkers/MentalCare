@@ -15,15 +15,15 @@
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     
         <!-- STYLE SHEET -->
-        <link rel="stylesheet" href="../css/style.css">
-        <link rel="stylesheet" href="../css/signup.css">
+        <link rel="stylesheet" href="/css/common/style.css">
+        <link rel="stylesheet" href="/css/user/signup.css">
 </head>
 <body>
     <section id="signup">
         <div class="container signup__container">
             <div class="signup__content">
-                <a href="init.html"><h2>회원가입</h2></a>
-                <form th:method="post" th:action="@{/signUp}" th:object="${userSignUpReq}" >
+                <a href="../common/main.html"><h2>회원가입</h2></a>
+                <form th:method="post" th:action="@{/signUp}" th:object="${directorSignUpReq}" >
                     <div class="form-group">
                         <label for="name">이름</label>
                         <input id="name" type="text" class="btn btn-input" th:field="*{name}" placeholder="이름을 입력하세요">
@@ -35,7 +35,7 @@
                     <label for="role">역할</label>
                     <div class="select-menu">
                         <div class="select-btn">
-                            <input id="role" class="sBtn-text" th:field="*{role}"  placeholder="역할을 선택하세요" readonly>
+                            <input id="role" class="sBtn-text"  placeholder="역할을 선택하세요" readonly>
                             <i class="uil uil-angle-down"></i>
                         </div>
                         <ul class="options">
@@ -61,6 +61,6 @@
             </div>
         </div>
     </section>
-    <script src="/javascript/signup.js"></script>
+    <script src="/javascript/user/signup.js"></script>
 </body>
 </html>
