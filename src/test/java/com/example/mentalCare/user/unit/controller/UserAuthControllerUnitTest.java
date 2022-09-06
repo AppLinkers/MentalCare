@@ -8,6 +8,7 @@ import com.example.mentalCare.user.domain.User;
 import com.example.mentalCare.user.domain.UserDetail;
 import com.example.mentalCare.user.domain.type.Position;
 import com.example.mentalCare.user.domain.type.Role;
+import com.example.mentalCare.user.dto.DirectorSignUpReq;
 import com.example.mentalCare.user.dto.PlayerSignUpReq;
 import com.example.mentalCare.user.dto.ReadUserInfoRes;
 import com.example.mentalCare.user.dto.UserLoginReq;
@@ -121,6 +122,35 @@ public class UserAuthControllerUnitTest {
         // then
         resultActions
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/user/login"));
+                .andExpect(view().name("redirect:user/login"));
+    }
+
+    @Test
+    public void 감독_회원가입_테스트() throws Exception {
+        // given
+        DirectorSignUpReq request = new DirectorSignUpReq();
+        request.setLogin_id("test_login_id");
+        request.setLogin_pw("test_login_pw");
+        request.setName("test_name");
+        request.setAge(10);
+
+        // Object to JSON
+        String content = new ObjectMapper().writeValueAsString(request);
+
+        // stub
+        when(userAuthService.signUp(request)).thenReturn(ReadUserInfoRes.builder()
+                .id(1L)
+                .login_id("test_login_id")
+                .build());
+
+        // when
+        ResultActions resultActions = mockMvc.perform(post("/sign_up")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content));
+
+        // then
+        resultActions
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:user/login"));
     }
 }

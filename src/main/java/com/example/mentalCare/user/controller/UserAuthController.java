@@ -63,4 +63,12 @@ public class UserAuthController {
         userAuthService.signUp(request);
         return "redirect:user/login";
     }
+
+    /**
+     * Profile Page
+     */
+    @GetMapping("/profile")
+    public String profilePage() {
+        return "user/profile";
+    }
 }
