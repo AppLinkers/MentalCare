@@ -1,5 +1,9 @@
 package com.example.mentalCare.user.controller;
 
+import com.example.mentalCare.user.domain.User;
+import com.example.mentalCare.user.domain.type.Position;
+import com.example.mentalCare.user.dto.DirectorSignUpReq;
+import com.example.mentalCare.user.dto.PlayerSignUpReq;
 import com.example.mentalCare.user.dto.UserLoginReq;
 import com.example.mentalCare.user.dto.UserSignUpReq;
 import com.example.mentalCare.user.service.UserAuthService;
@@ -10,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,16 +51,16 @@ public class UserAuthController {
      * SignUp Page
      */
     @GetMapping("/sign_up")
-    public String signUpPage(UserSignUpReq request) {
+    public String signUpPage(PlayerSignUpReq playerSignUpReq, DirectorSignUpReq directorSignUpReq) {
         return "signUp";
     }
 
     /**
      * SignUp Service
      */
-    public String signUp(UserSignUpReq request) {
-        userAuthService.signUp(request);
-
+    @PostMapping("/signUp")
+    public String signUp(PlayerSignUpReq playerSignUpReq, DirectorSignUpReq directorSignUpReq) {
+        userAuthService.signUp(userSignUpReq);
         return "redirect:/login";
     }
 }

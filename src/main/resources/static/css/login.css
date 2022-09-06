@@ -1,0 +1,46 @@
+.back {
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    font-size: 2rem;
+}
+
+.login__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+}
+.login__content form{
+    margin-top: 4rem;
+}
+.login__content input{
+    width: 100%;
+    margin-top: 1rem;
+}
+.login__content button{
+    margin-top: 1.5rem;
+    width: 100%;
+    cursor: pointer;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    background: var(--color-light);
+    margin-top: 2.5rem;
+}
+
+.option {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+}
+.option span {
+    cursor: pointer;
+    color: var(--color-gray);
+}

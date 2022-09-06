@@ -1,0 +1,165 @@
+/* =================GENERAL CSS================ */
+:root {
+    --color-primary: #6951FF;
+    --color-white: #fff;
+    --color-light: #f4f4f4;
+    --color-black: #000f37;
+    --color-dark: #575757;
+    --color-gray: #9e9e9e;
+    --color-lightgray: #c2c2c2;
+    --color-darkblue: #3a4ca8;
+
+    --transition: all 400ms ease;
+
+    --card-border-radius: 4rem;
+
+    --container-width: 84%;
+    --container-width-tablet: 90%;
+    --container-width-phone: 94%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    /* 100 , 300, 400, 500, 700, 900 사용가능 */
+    font-family: 'Noto Sans KR', sans-serif;
+    color: var(--color-black);
+    line-height: 1.7;
+    background: var(--color-white);
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+
+.container {
+    width: var(--container-width);
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 5.6rem;
+    line-height: 1;
+    font-weight: 500;
+    color: var(--color-black);
+}
+
+h2 {
+    font-size: 3rem;
+    font-weight: 400;
+    line-height: 1;
+}
+
+h3 {
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+a {
+    color: var(--color-black);
+    font-weight: 300;
+}
+
+button {
+    background: transparent;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+.btn {
+    display: inline-block;
+    padding: 1.2rem 2.3rem;
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-weight: 500;
+    border-radius: 0.2rem;
+    transition: all 300ms ease;
+}
+
+.btn-varient {
+    background: var(--color-darkblue);
+    color: var(--color-white);
+    transition: all 300ms ease;
+}
+
+.btn-input {
+    padding: 1.2rem 1rem;
+    background: var(--color-white);
+    color: var(--color-dark);
+    border: solid 1px var(--color-gray);
+}
+.btn-input:focus{
+    border: solid 1px var(--color-black);
+}
+
+.avatar {
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+section {
+    max-width: 100vw;
+}
+
+/* =================MEDIA QEURIES
+(TABLETS)================ */
+@media screen and (max-width: 1024px) {
+    .container{
+        width: var(--container-width-tablet);
+    }
+
+    h1 {
+        font-size: 4.2rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    h3 {
+        font-size: 1.9rem;
+    }
+}
+
+/* =================MEDIA QEURIES
+(PHONES)================ */
+@media screen and (max-width: 600px) {
+    html {
+        font-size: 14px;
+    }
+
+    .container{
+        width: var(--container-width-phone);
+    }
+
+    h1 {
+        font-size: 2.8rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    h3 {
+        font-size: 1.4rem;
+    }
+
+}

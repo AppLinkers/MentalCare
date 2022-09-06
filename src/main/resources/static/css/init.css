@@ -1,0 +1,36 @@
+nav button i {
+    color: var(--color-white);
+}
+
+nav h3{
+    font-weight: 700;
+    color: var(--color-white);
+}
+
+/* ============ Content ============ */
+section#init {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(../images/football.jpg);
+    background-size: cover;
+}
+
+.init__container {    
+    padding: 3rem 1rem;
+    display: flex;
+    flex-direction: column;
+}
+.init__text{
+    color: var(--color-white);
+    margin-top: 20rem;
+}
+.init__text h1{
+    color: var(--color-white);
+    margin-bottom: 1rem;
+}
+.init__container button {
+    width: 40%;
+    opacity: 0.8;
+    font-size: 1.1rem;
+    margin-top: 3rem;
+    cursor: pointer;
+}
