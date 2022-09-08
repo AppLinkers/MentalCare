@@ -13,7 +13,6 @@ import com.example.mentalCare.user.repository.DirectorRepository;
 import com.example.mentalCare.user.repository.PlayerRepository;
 import com.example.mentalCare.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
+
 @Service
 @RequiredArgsConstructor
 public class UserAuthService implements UserDetailsService {
@@ -41,7 +40,6 @@ public class UserAuthService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findUserByLogin_id(username).orElseThrow(() -> new UsernameNotFoundException("아이디가 존재하지 않습니다."));
-
         List<GrantedAuthority> roles = new ArrayList<>();
         roles.add(new SimpleGrantedAuthority(user.getRole().toString()));
 
@@ -53,38 +51,20 @@ public class UserAuthService implements UserDetailsService {
     }
 
     @Transactional
-    public ReadUserInfoRes signUp(UserSignUpReq request) {
+    public ReadUserInfoRes signUp(PlayerSignUpReq request) {
         validateDuplicated(request.getLogin_id());
 
-        User savedUser = new User();
+        User user = userSignUpReqToUser(request, Role.PLAYER);
 
-        if (request.getClass().equals(PlayerSignUpReq.class)) {
-            User user = userSignUpReqToUser(request, Role.PLAYER);
+        User savedUser = userRepository.save(user);
 
-            savedUser = userRepository.save(user);
+        Player player = Player.builder()
+                .user(savedUser)
+                .position(request.getPosition())
+                .build();
 
-            PlayerSignUpReq playerSignUpReq = (PlayerSignUpReq) request;
+        playerRepository.save(player);
 
-            Player player = Player.builder()
-                    .user(savedUser)
-                    .position(playerSignUpReq.getPosition())
-                    .build();
-
-            playerRepository.save(player);
-        } else if (request.getClass().equals(DirectorSignUpReq.class)) {
-            User user = userSignUpReqToUser(request, Role.DIRECTOR);
-
-            savedUser = userRepository.save(user);
-
-            DirectorSignUpReq directorSignUpReq = (DirectorSignUpReq) request;
-
-            Director director = Director.builder()
-                    .user(savedUser)
-                    .build();
-
-            directorRepository.save(director);
-
-        }
 
         return ReadUserInfoRes.builder()
                 .id(savedUser.getId())
@@ -92,6 +72,30 @@ public class UserAuthService implements UserDetailsService {
                 .build();
 
     }
+
+    @Transactional
+    public ReadUserInfoRes signUp(DirectorSignUpReq request) {
+        validateDuplicated(request.getLogin_id());
+
+        User user = userSignUpReqToUser(request, Role.DIRECTOR);
+
+        User savedUser = userRepository.save(user);
+
+        Director director = Director.builder()
+                .user(savedUser)
+                .build();
+
+        directorRepository.save(director);
+
+
+        return ReadUserInfoRes.builder()
+                .id(savedUser.getId())
+                .login_id(savedUser.getLogin_id())
+                .build();
+
+    }
+
+
 
     public void validateDuplicated(String login_id) {
         userRepository.findUserByLogin_id(login_id).ifPresent(
@@ -109,6 +113,10 @@ public class UserAuthService implements UserDetailsService {
                 .age(request.getAge())
                 .role(role)
                 .build();
+    }
+
+    public String test() {
+        return "userAuthService test";
     }
 
 

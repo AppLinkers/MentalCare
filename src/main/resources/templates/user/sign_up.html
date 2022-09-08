@@ -22,8 +22,8 @@
     <section id="signup">
         <div class="container signup__container">
             <div class="signup__content">
-                <a href="../common/main.html"><h2>회원가입</h2></a>
-                <form th:method="post" th:action="@{/signUp}" th:object="${directorSignUpReq}" >
+                <h2>회원가입</h2>
+                <form th:method="post" th:action="@{/sign_up/director}" th:object="${directorSignUpReq}">
                     <div class="form-group">
                         <label for="name">이름</label>
                         <input id="name" type="text" class="btn btn-input" th:field="*{name}" placeholder="이름을 입력하세요">
@@ -56,7 +56,7 @@
                         <input id="re-password" type="password" class="btn btn-input" placeholder="비밀번호를 다시 입력하세요">
                     </div>
                     
-                    <button class="btn">로그인</button>
+                    <button class="btn">회원가입</button>
                 </form>
             </div>
         </div>

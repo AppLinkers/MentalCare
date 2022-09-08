@@ -13,7 +13,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +31,7 @@ public class UserAuthController {
      * Login Page
      */
     @GetMapping("/login")
-    public String loginPage(UserLoginReq request) {
+    public String loginPage() {
         return "user/login";
     }
 
@@ -44,24 +46,35 @@ public class UserAuthController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
 
-        return "redirect:user/login";
+        return "redirect:/login";
     }
 
     /**
      * SignUp Page
      */
     @GetMapping("/sign_up")
-    public String signUpPage(PlayerSignUpReq playerSignUpReq, DirectorSignUpReq directorSignUpReq) {
+    public String signUpPage(Model model) {
+        model.addAttribute("playerSignUpReq", new PlayerSignUpReq());
+        model.addAttribute("directorSignUpReq", new DirectorSignUpReq());
         return "user/sign_up";
     }
 
     /**
-     * SignUp Service
+     * Player SignUp Service
      */
-    @PostMapping("/sign_up")
-    public String signUp(UserSignUpReq request) {
+    @PostMapping("/sign_up/player")
+    public String playerSignUp(@ModelAttribute PlayerSignUpReq request, Model model) {
         userAuthService.signUp(request);
-        return "redirect:user/login";
+        return "redirect:/login";
+    }
+
+    /**
+     * Director SignUp Service
+     */
+    @PostMapping("/sign_up/director")
+    public String directorSignUp(@ModelAttribute DirectorSignUpReq request, Model model) {
+        userAuthService.signUp(request);
+        return "redirect:/login";
     }
 
     /**

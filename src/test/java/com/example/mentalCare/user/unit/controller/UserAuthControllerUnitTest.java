@@ -4,33 +4,21 @@ import com.example.mentalCare.advice.FormAuthenticationFailureHandler;
 import com.example.mentalCare.advice.FormAuthenticationProvider;
 import com.example.mentalCare.advice.FormAuthenticationSuccessHandler;
 import com.example.mentalCare.user.controller.UserAuthController;
-import com.example.mentalCare.user.domain.User;
-import com.example.mentalCare.user.domain.UserDetail;
 import com.example.mentalCare.user.domain.type.Position;
-import com.example.mentalCare.user.domain.type.Role;
 import com.example.mentalCare.user.dto.DirectorSignUpReq;
 import com.example.mentalCare.user.dto.PlayerSignUpReq;
 import com.example.mentalCare.user.dto.ReadUserInfoRes;
-import com.example.mentalCare.user.dto.UserLoginReq;
 import com.example.mentalCare.user.service.UserAuthService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -42,9 +30,6 @@ public class UserAuthControllerUnitTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @MockBean
     private UserAuthService userAuthService;
@@ -105,9 +90,6 @@ public class UserAuthControllerUnitTest {
         request.setAge(10);
         request.setPosition(Position.FW);
 
-        // Object to JSON
-        String content = new ObjectMapper().writeValueAsString(request);
-
         // stub
         when(userAuthService.signUp(request)).thenReturn(ReadUserInfoRes.builder()
                 .id(1L)
@@ -115,14 +97,19 @@ public class UserAuthControllerUnitTest {
                 .build());
 
         // when
-        ResultActions resultActions = mockMvc.perform(post("/sign_up")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(content));
+        ResultActions resultActions = mockMvc.perform(
+                post("/sign_up/player")
+                        .param("login_id", "test_login_id")
+                        .param("login_pw", "test_login_pw")
+                        .param("name", "test_name")
+                        .param("age", "10")
+                        .param("position", "FW")
+                );
 
         // then
         resultActions
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:user/login"));
+                .andExpect(view().name("redirect:/login"));
     }
 
     @Test
@@ -134,9 +121,6 @@ public class UserAuthControllerUnitTest {
         request.setName("test_name");
         request.setAge(10);
 
-        // Object to JSON
-        String content = new ObjectMapper().writeValueAsString(request);
-
         // stub
         when(userAuthService.signUp(request)).thenReturn(ReadUserInfoRes.builder()
                 .id(1L)
@@ -144,13 +128,17 @@ public class UserAuthControllerUnitTest {
                 .build());
 
         // when
-        ResultActions resultActions = mockMvc.perform(post("/sign_up")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(content));
+        ResultActions resultActions = mockMvc.perform(
+                post("/sign_up/director")
+                        .param("login_id", "test_login_id")
+                        .param("login_pw", "test_login_pw")
+                        .param("name", "test_name")
+                        .param("age", "10")
+        );
 
         // then
         resultActions
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:user/login"));
+                .andExpect(view().name("redirect:/login"));
     }
 }
