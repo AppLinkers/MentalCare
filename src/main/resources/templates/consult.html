@@ -16,49 +16,63 @@
 
     <!-- STYLE SHEET -->
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/nav.css">
-    <link rel="stylesheet" href="../css/consult.css">
+    <link rel="stylesheet" href="../css/member.css">
 </head>
 <body>
 
-    <!-- =========== NAVBAR ========== -->
-    <nav>
-        <div class="container nav__container">
-            <button class="menu-btn" id="menu-btn"><i class="uil uil-bars"></i></button>
-            <a href="init.html"><h3>Mental Care</h3></a>
-            <button class="login-btn" onclick="location.href='login.html';" ><i class="uil uil-sign-in-alt"></i></button>
-        </div>
-    </nav>
-    <!-- =========== MENU ========== -->
-    <menu id="menu">
-        <div class="container menu__container">
-            <div class="menu-head">
-                <i class="uil uil-multiply" id="close"></i>
-                <h3>Mental Care</h3>
-            </div>
-            <div class="menu-content">
-                <a href="profile.html"><h1>프로필</h1></a>
-                <a href="test.html"><h1>검사하기</h1></a>
-                <a href="test_result.html"><h1>검사내역</h1></a>
-                <a id="admin" class="admin-btn"><h1>관리자 <i id="admin-ic" class="uil uil-angle-down"></i></h1></a>
-                <div class="menu-admin" id="adminList">
-                    <a href="member.html"><h2>멤버 관리</h2></a>
-                    <a href="consult.html"><h2>컨설팅 목록</h2></a>
-                    <a href="test_admin.html"><h2>검사 목록</h2></a>
+<!-- =========== NAVBAR ========== -->
+<nav id="nav">
+</nav>
+
+<!-- =========== CONSULT MEMBER ========== -->
+<section id="member">
+    <div class="container title">
+        <h2>컨설팅 목록</h2>
+    </div>
+    <div class="line"></div>
+    <div class="member__list">
+        <article>
+            <div class="container member__con">
+                <div class="member__info">
+                    <div class="member__img">
+                        <img src="../images/workout-2928389_1920.jpg">
+                    </div>
+                    <div class="member__text">
+                        <div class="member__name">
+                            <h3>Robort</h3>
+                        </div>
+                        <h4>트레이너, 32살</h4>
+                    </div>
+                </div>
+                <div class="go__icon">
+                    <i class="uil uil-angle-right-b"></i>
                 </div>
             </div>
-        </div>
-    </menu>
-    <!-- =========== MAIN ========== -->
-    <!-- <section id="init">
-        <div class="container init__container">
-            <div class="init__text">
-                <h1>프로를 위한 멘탈 서비스</h1>
-                <h3>다음 경기를 위해 체크해보세요</h3>
+            <div class="line inside__large"></div>
+        </article>
+        <article>
+            <div class="container member__con">
+                <div class="member__info">
+                    <div class="member__img">
+                        <img src="../images/portrait-4179340_1920.jpg">
+                    </div>
+                    <div class="member__text">
+                        <div class="member__name">
+                            <h3>Julie</h3>
+                        </div>
+                        <h4>상담가, 27살</h4>
+                    </div>
+                </div>
+                <div class="go__icon">
+                    <i class="uil uil-angle-right-b"></i>
+                </div>
             </div>
-            <button class="btn" onclick="location.href='login.html';">시작하기</button>
-        </div>
-    </section>
-    <script src="../javascript/menu.js"></script> -->
+            <div class="line inside__large"></div>
+        </article>
+    </div>
+</section>
+
+<!-- =========== JAVASCRIPT ========== -->
+<script src="/javascript/base.js"></script>
 </body>
 </html>

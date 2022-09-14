@@ -55,12 +55,5 @@ public class UserAuthController {
         return "signUp";
     }
 
-    /**
-     * SignUp Service
-     */
-    @PostMapping("/signUp")
-    public String signUp(PlayerSignUpReq playerSignUpReq, DirectorSignUpReq directorSignUpReq) {
-        userAuthService.signUp(userSignUpReq);
-        return "redirect:/login";
-    }
+
 }

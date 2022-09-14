@@ -22,43 +22,87 @@
 <body>
 
     <!-- =========== NAVBAR ========== -->
-    <nav>
-        <div class="container nav__container">
-            <button class="menu-btn" id="menu-btn"><i class="uil uil-bars"></i></button>
-            <a href="init.html"><h3>Mental Care</h3></a>
-            <button class="login-btn" onclick="location.href='login.html';" ><i class="uil uil-sign-in-alt"></i></button>
-        </div>
+    <nav id="nav">
     </nav>
-    <!-- =========== MENU ========== -->
-    <menu id="menu">
-        <div class="container menu__container">
-            <div class="menu-head">
-                <i class="uil uil-multiply" id="close"></i>
-                <h3>Mental Care</h3>
+
+    <!-- =========== CATEGORY ========== -->
+    <section id="categories">
+        <div class="container category__container">
+            <div class="title">
+                <h3>카테고리</h3>
+                <button class="btn btn-edit">수정</button>
             </div>
-            <div class="menu-content">
-                <a href="profile.html"><h1>프로필</h1></a>
-                <a><h1>검사하기</h1></a>
-                <a><h1>검사내역</h1></a>
-                <a id="admin" class="admin-btn"><h1>관리자 <i id="admin-ic" class="uil uil-angle-down"></i></h1></a>
-                <div class="menu-admin" id="adminList">
-                    <a><h2>멤버 관리</h2></a>
-                    <a><h2>컨설팅 목록</h2></a>
-                    <a><h2>검사 목록</h2></a>
+            <div class="type__container">
+                <div class="type">
+                    <input type="radio" name="type" value="경기력" id="type1"/>
+                    <label class="type__radio" for="type1">경기력</label>
+                </div>
+                <div class="type">
+                    <input type="radio" name="type" value="생활" id="type2"/>
+                    <label class="type__radio" for="type2">생활</label>
+                </div>
+                <div class="type">
+                    <input type="radio" name="type" value="진로" id="type3"/>
+                    <label class="type__radio" for="type3">진로</label>
+                </div>
+                <div class="type">
+                    <input type="radio" name="type" value="관계" id="type4"/>
+                    <label class="type__radio" for="type4">관계</label>
                 </div>
             </div>
         </div>
-    </menu>
-    <!-- =========== MAIN ========== -->
-    <!-- <section id="init">
-        <div class="container init__container">
-            <div class="init__text">
-                <h1>프로를 위한 멘탈 서비스</h1>
-                <h3>다음 경기를 위해 체크해보세요</h3>
+        <div class="line inside__large"></div>
+    </section>
+
+    <!-- =========== DETAIL ========== -->
+    <section id="detail">
+        <div class="container detail__container">
+            <div class="title">
+                <h3 id="detail__title">검사 관리</h3>
+                <button class="btn btn-edit">추가</button>
             </div>
-            <button class="btn" onclick="location.href='login.html';">시작하기</button>
+            <div class="detail label">
+                <p>유형</p>
+                <p>세부 질문</p>
+                <p>관리</p>
+            </div>
+            <div class="line"></div>
+            <ul>
+                <li>
+                    <div class="detail list">
+                        <h4>유형</h4>
+                        <h4>XX 스트레스 강도 체크 해주세요</h4>
+                        <p>관리</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="detail list">
+                        <h4>유형</h4>
+                        <h4>XX 스트레스 강도 체크 해주세요</h4>
+                        <p>관리</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="detail list">
+                        <h4>유형</h4>
+                        <h4>XX 스트레스 강도 체크 해주세요</h4>
+                        <p>관리</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="detail list">
+                        <h4>유형</h4>
+                        <h4>XX 스트레스 강도 체크 해주세요</h4>
+                        <p>관리</p>
+                    </div>
+                </li>
+            </ul>
         </div>
     </section>
-    <script src="../javascript/menu.js"></script> -->
+
+    
+    <!-- =========== JAVASCRIPT ========== -->
+    <script src="../javascript/base.js"></script>
+    <script src="../javascript/test_admin.js"></script> 
 </body>
 </html>
