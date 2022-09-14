@@ -17,6 +17,11 @@ public class PageController {
     public String callNav(){return "common/nav";}
 
 
+    @GetMapping("/testAdmin")
+    public String testAdmin(){
+        return "manage/test_admin";
+    }
+
 
 
 

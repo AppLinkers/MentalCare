@@ -37,14 +37,14 @@
                 <h3>Mental Care</h3>
             </div>
             <div class="menu-content">
-                <a href="../user/profile.html"><h1>프로필</h1></a>
-                <a href="../test/test.html"><h1>검사하기</h1></a>
-                <a href="../test/test_result.html"><h1>검사내역</h1></a>
+                <a th:href="@{/profile}"><h1>프로필</h1></a>
+                <a th:href="@{/test}"><h1>검사하기</h1></a>
+                <a th:href="@{/test/result}"><h1>검사내역</h1></a>
                 <a id="admin" class="admin-btn"><h1>관리자 <i id="admin-ic" class="uil uil-angle-down"></i></h1></a>
                 <div class="menu-admin" id="adminList">
-                    <a href="../manage/member.html"><h2>멤버 관리</h2></a>
-                    <a href="../manage/consult.html"><h2>컨설팅 목록</h2></a>
-                    <a href="../manage/test_admin.html"><h2>검사 목록</h2></a>
+                    <a th:href="@{/member}"><h2>멤버 관리</h2></a>
+                    <a href="#"><h2>컨설팅 목록</h2></a>
+                    <a th:href="@{/testAdmin}"><h2>검사 목록</h2></a>
                 </div>
             </div>
         </div>

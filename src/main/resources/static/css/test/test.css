@@ -1,0 +1,44 @@
+section#test {
+    height: calc(100vh - 5rem);
+    margin-top: 5rem;
+}
+.test__container{
+    height: calc(100vh - 14rem);
+}
+.title {
+    padding-top: 3rem;
+}
+.title h2{
+    font-weight: 700;
+}
+.test__main {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+}
+.test__card {
+    height: 42%;
+    border-radius: var(--card-border-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--color-white);
+    text-shadow: 1px 1px 3px var(--color-black);
+    padding: 3rem 0;
+}
+.test__card:nth-child(1) {
+    background: var(--color-purple);
+}
+.test__card:nth-child(2) {
+    background: var(--color-green);
+}
+.card__text {
+    text-align: center;
+}
+.card__text h3{
+    margin-bottom: 0.2rem;
+}
