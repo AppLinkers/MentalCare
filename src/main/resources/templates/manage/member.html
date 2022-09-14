@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <!-- STYLE SHEET -->
+<<<<<<< HEAD:src/main/resources/templates/member.html
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/member.css">
 </head>
@@ -49,6 +50,38 @@
                 </div>
                 <div class="go__icon">
                     <i class="uil uil-angle-right-b"></i>
+=======
+    <link rel="stylesheet" href="/css/common/style.css">
+    <link rel="stylesheet" href="/css/common/nav.css">
+    <link rel="stylesheet" href="/css/manage/member.css">
+</head>
+<body>
+
+    <!-- =========== NAVBAR ========== -->
+    <nav>
+        <div class="container nav__container">
+            <button class="menu-btn" id="menu-btn"><i class="uil uil-bars"></i></button>
+            <a href="../common/main.html"><h3>Mental Care</h3></a>
+            <button class="login-btn" th:onclick="|location.href='/login'|" ><i class="uil uil-sign-in-alt"></i></button>
+        </div>
+    </nav>
+    <!-- =========== MENU ========== -->
+    <menu id="menu">
+        <div class="container menu__container">
+            <div class="menu-head">
+                <i class="uil uil-multiply" id="close"></i>
+                <h3>Mental Care</h3>
+            </div>
+            <div class="menu-content">
+                <a href="../user/profile.html"><h1>프로필</h1></a>
+                <a href="../test/test.html"><h1>검사하기</h1></a>
+                <a href="../test/test_result.html"><h1>검사내역</h1></a>
+                <a id="admin" class="admin-btn"><h1>관리자 <i id="admin-ic" class="uil uil-angle-down"></i></h1></a>
+                <div class="menu-admin" id="adminList">
+                    <a href="member.html"><h2>멤버 관리</h2></a>
+                    <a href="consult.html"><h2>컨설팅 목록</h2></a>
+                    <a href="test_admin.html"><h2>검사 목록</h2></a>
+>>>>>>> b3317c578695ac663f95df452639d73d482e0274:src/main/resources/templates/manage/member.html
                 </div>
             </div>
             <div class="line inside__large"></div>
@@ -73,6 +106,7 @@
                     <i class="uil uil-angle-right-b"></i>
                 </div>
             </div>
+<<<<<<< HEAD:src/main/resources/templates/member.html
             <div class="line inside__large"></div>
         </article>
     </div>
@@ -80,5 +114,11 @@
 
 <!-- =========== JAVASCRIPT ========== -->
 <script src="/javascript/base.js"></script>
+=======
+            <button class="btn" th:onclick="|location.href='/login'|">시작하기</button>
+        </div>
+    </section>
+    <script src="/javascript/common/menu.js"></script> -->
+>>>>>>> b3317c578695ac663f95df452639d73d482e0274:src/main/resources/templates/manage/member.html
 </body>
 </html>

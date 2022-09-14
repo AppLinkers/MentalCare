@@ -15,14 +15,23 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <!-- STYLE SHEET -->
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/nav.css">
-    <link rel="stylesheet" href="../css/test_admin.css">
+    <link rel="stylesheet" href="/css/common/style.css">
+    <link rel="stylesheet" href="/css/common/nav.css">
+    <link rel="stylesheet" href="/css/manage/test_admin.css">
 </head>
 <body>
 
     <!-- =========== NAVBAR ========== -->
+<<<<<<< HEAD:src/main/resources/templates/test_admin.html
     <nav id="nav">
+=======
+    <nav>
+        <div class="container nav__container">
+            <button class="menu-btn" id="menu-btn"><i class="uil uil-bars"></i></button>
+            <a href="../common/main.html"><h3>Mental Care</h3></a>
+            <button class="login-btn" th:onclick="|location.href='/login'|" ><i class="uil uil-sign-in-alt"></i></button>
+        </div>
+>>>>>>> b3317c578695ac663f95df452639d73d482e0274:src/main/resources/templates/manage/test_admin.html
     </nav>
 
     <!-- =========== CATEGORY ========== -->
@@ -32,6 +41,7 @@
                 <h3>카테고리</h3>
                 <button class="btn btn-edit">수정</button>
             </div>
+<<<<<<< HEAD:src/main/resources/templates/test_admin.html
             <div class="type__container">
                 <div class="type">
                     <input type="radio" name="type" value="경기력" id="type1"/>
@@ -48,6 +58,17 @@
                 <div class="type">
                     <input type="radio" name="type" value="관계" id="type4"/>
                     <label class="type__radio" for="type4">관계</label>
+=======
+            <div class="menu-content">
+                <a href="../user/profile.html"><h1>프로필</h1></a>
+                <a><h1>검사하기</h1></a>
+                <a><h1>검사내역</h1></a>
+                <a id="admin" class="admin-btn"><h1>관리자 <i id="admin-ic" class="uil uil-angle-down"></i></h1></a>
+                <div class="menu-admin" id="adminList">
+                    <a><h2>멤버 관리</h2></a>
+                    <a><h2>컨설팅 목록</h2></a>
+                    <a><h2>검사 목록</h2></a>
+>>>>>>> b3317c578695ac663f95df452639d73d482e0274:src/main/resources/templates/manage/test_admin.html
                 </div>
             </div>
         </div>

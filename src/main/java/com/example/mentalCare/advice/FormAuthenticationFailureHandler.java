@@ -17,6 +17,7 @@ public class FormAuthenticationFailureHandler extends SimpleUrlAuthenticationFai
         String errorMsg = exception.getMessage();
 
         setDefaultFailureUrl("/login?error=true&exception=" + errorMsg);
+        System.out.println(errorMsg);
         super.onAuthenticationFailure(request, response, exception);
     }
 }

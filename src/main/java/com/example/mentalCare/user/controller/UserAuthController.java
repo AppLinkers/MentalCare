@@ -13,7 +13,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,8 +31,8 @@ public class UserAuthController {
      * Login Page
      */
     @GetMapping("/login")
-    public String loginPage(UserLoginReq request) {
-        return "login";
+    public String loginPage(UserLoginReq userLoginReq) {
+        return "user/login";
     }
 
     /**
@@ -51,9 +53,34 @@ public class UserAuthController {
      * SignUp Page
      */
     @GetMapping("/sign_up")
-    public String signUpPage(PlayerSignUpReq playerSignUpReq, DirectorSignUpReq directorSignUpReq) {
-        return "signUp";
+    public String signUpPage(Model model, PlayerSignUpReq playerSignUpReq, DirectorSignUpReq directorSignUpReq) {
+        model.addAttribute("playerSignUpReq", playerSignUpReq);
+        model.addAttribute("directorSignUpReq", directorSignUpReq);
+        return "user/sign_up";
+    }
+    /**
+     * Player SignUp Service
+     */
+    @PostMapping("/sign_up/player")
+    public String playerSignUp(@ModelAttribute PlayerSignUpReq request, Model model) {
+        userAuthService.signUp(request);
+        return "redirect:/login";
     }
 
+    /**
+     * Director SignUp Service
+     */
+    @PostMapping("/sign_up/director")
+    public String directorSignUp(@ModelAttribute DirectorSignUpReq request, Model model) {
+        userAuthService.signUp(request);
+        return "redirect:/login";
+    }
 
+    /**
+     * Profile Page
+     */
+    @GetMapping("/profile")
+    public String profilePage() {
+        return "user/profile";
+    }
 }

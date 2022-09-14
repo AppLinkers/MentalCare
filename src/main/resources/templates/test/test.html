@@ -15,9 +15,9 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <!-- STYLE SHEET -->
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/nav.css">
-    <link rel="stylesheet" href="../css/test.css">
+    <link rel="stylesheet" href="/css/common/style.css">
+    <link rel="stylesheet" href="/css/common/nav.css">
+    <link rel="stylesheet" href="/css/test/test.css">
 </head>
 <body>
 
@@ -25,8 +25,8 @@
     <nav>
         <div class="container nav__container">
             <button class="menu-btn" id="menu-btn"><i class="uil uil-bars"></i></button>
-            <a href="init.html"><h3>Mental Care</h3></a>
-            <button class="login-btn" onclick="location.href='login.html';" ><i class="uil uil-sign-in-alt"></i></button>
+            <a href="../common/main.html"><h3>Mental Care</h3></a>
+            <button class="login-btn" th:onclick="|location.href='/login'|" ><i class="uil uil-sign-in-alt"></i></button>
         </div>
     </nav>
     <!-- =========== MENU ========== -->
@@ -37,7 +37,7 @@
                 <h3>Mental Care</h3>
             </div>
             <div class="menu-content">
-                <a href="profile.html"><h1>프로필</h1></a>
+                <a href="../user/profile.html"><h1>프로필</h1></a>
                 <a><h1>검사하기</h1></a>
                 <a><h1>검사내역</h1></a>
                 <a id="admin" class="admin-btn"><h1>관리자 <i id="admin-ic" class="uil uil-angle-down"></i></h1></a>
