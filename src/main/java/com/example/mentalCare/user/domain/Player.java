@@ -1,9 +1,12 @@
 package com.example.mentalCare.user.domain;
 
-import javax.persistence.*;
-
 import com.example.mentalCare.user.domain.type.Position;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Entity
 @Data
