@@ -9,13 +9,10 @@ import com.example.mentalCare.user.dto.DirectorSignUpReq;
 import com.example.mentalCare.user.dto.PlayerSignUpReq;
 import com.example.mentalCare.user.dto.ReadUserInfoRes;
 import com.example.mentalCare.user.service.UserAuthService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -56,29 +53,22 @@ public class UserAuthControllerUnitTest {
 
     }
 
-    /**
-     * @Test public void 로그인_성공_테스트() throws Exception {
-     * // given
-     * User user = new User(1L, "test_login_id", passwordEncoder.encode("test_login_pw"), "test_name", 10, Role.PLAYER);
-     * <p>
-     * // stub
-     * List<GrantedAuthority> roles = new ArrayList<>();
-     * roles.add(new SimpleGrantedAuthority(Role.PLAYER.toString()));
-     * when(formAuthenticationProvider.authenticate(any())).thenReturn(new UsernamePasswordAuthenticationToken("test_login_id", "test_login_pw", roles));
-     * <p>
-     * UserLoginReq request = new UserLoginReq();
-     * request.setLogin_id("test_login_id");
-     * request.setLogin_pw("test_login_pw");
-     * String content = new ObjectMapper().writeValueAsString(request);
-     * <p>
-     * // when
-     * ResultActions resultActions = mockMvc.perform(post("/login_proc")
-     * .contentType(MediaType.APPLICATION_JSON)
-     * .content(content));
-     * <p>
-     * System.out.println(resultActions);
-     * }
-     */
+// 삭제 예정
+//    @Test public void 로그인_성공_테스트() throws Exception {
+//       // given
+//
+//       // stub
+//       List<GrantedAuthority> roles = new ArrayList<>();
+//       roles.add(new SimpleGrantedAuthority(Role.PLAYER.toString()));
+//       when(formAuthenticationProvider.authenticate(any())).thenReturn(new UsernamePasswordAuthenticationToken("test_login_id", "test_login_pw", roles));
+//
+//       // when
+//       ResultActions resultActions = mockMvc.perform(formLogin("/login_proc")
+//               .user("test_login_id")
+//               .password("test_login_pw"));
+//
+//        resultActions.andExpect(authenticated());
+//    }
 
     @Test
     public void 선수_회원가입_테스트() throws Exception {
