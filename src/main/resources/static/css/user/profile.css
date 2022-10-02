@@ -6,14 +6,13 @@ section#profile {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 1.5rem;
 }
 .profile__card {
     background: var(--color-primary);
     width: 100%;
     height: calc(100vh - 6rem - 1.5rem);
     border-radius: var(--card-border-radius);
-    box-shadow: 3px 5px 5px var(--color-dark);
+    box-shadow: 3px 3px 6px var(--color-dark);
     display: flex;
     flex-direction: column;
     padding: 4rem 3rem;
@@ -23,14 +22,19 @@ section#profile {
     display: flex;
     justify-content: space-between;
 }
-.refresh {
-    background: var(--color-darkblue);
-    width: 2rem;
-    height: 2rem;
+.dday {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 0.4rem;
+    flex-direction: column;
+}
+.dday p {
+    margin-bottom: 0.2rem;
+    font-size: 0.8rem;
+    color: var(--color-lightgray);
+}
+.dday h3 {
+    font-weight: 700;
 }
 .card__content {
     display: flex;
@@ -53,8 +57,8 @@ section#profile {
     margin-top: 2rem;
 }
 .img__con {
-    width: 10rem;
-    height: 10rem;
+    width: 8rem;
+    height: 8rem;
     border-radius: 50%;
     overflow: hidden;
 }

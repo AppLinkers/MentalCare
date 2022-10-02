@@ -16,10 +16,20 @@ public class testController {
         return "test/test";
     }
 
+    @GetMapping("/myResult")
+    public String myResult() {
+        return "test/my_result";
+    }
+
+    @GetMapping("/testing")
+    public String goToTest() {
+        return "test/testing";
+    }
+
     /**
      * Test Result Page
      */
-    @GetMapping("/test/result")
+    @GetMapping("/testList")
     public String testResultPage() {
         return "test/test_result";
     }
