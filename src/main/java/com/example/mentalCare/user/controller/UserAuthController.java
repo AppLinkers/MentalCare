@@ -1,13 +1,9 @@
 package com.example.mentalCare.user.controller;
 
-import com.example.mentalCare.user.domain.User;
-import com.example.mentalCare.user.domain.type.Position;
 import com.example.mentalCare.user.dto.DirectorSignUpReq;
 import com.example.mentalCare.user.dto.PlayerSignUpReq;
 import com.example.mentalCare.user.dto.UserLoginReq;
-import com.example.mentalCare.user.dto.UserSignUpReq;
 import com.example.mentalCare.user.service.UserAuthService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -3,7 +3,6 @@ package com.example.mentalCare.advice;
 import com.example.mentalCare.user.domain.UserDetail;
 import com.example.mentalCare.user.service.UserAuthService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
