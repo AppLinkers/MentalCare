@@ -46,6 +46,17 @@ public class DiagnoseService {
                 ));
     }
 
+
+    public GetTestRes getTestById(Long id){
+        Test test = testRepository.findByTestId(id);
+        return GetTestRes.builder()
+                .test_id(test.getTest_id())
+                .date(test.getDate())
+                .user_id(test.getUser_id())
+                .diagnoseList(test.getDiagnoseList())
+                .build();
+    }
+
     public List<GetTestRes> getAllTestByUserId(String userId){
         List<GetTestRes> result = new ArrayList<>();
         Optional<List<Test>> testList = testRepository.findAllTestByUserId(userId);
@@ -55,7 +66,7 @@ public class DiagnoseService {
                     test -> {
                         result.add(
                                 GetTestRes.builder()
-                                        .id(test.getId())
+                                        .test_id(test.getTest_id())
                                         .user_id(test.getUser_id())
                                         .date(test.getDate())
                                         .diagnoseList(test.getDiagnoseList())

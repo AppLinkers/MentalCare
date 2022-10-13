@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class GetTestRes {
 
-    private Long id;
+    private Long test_id;
     private String user_id;
     private String date;
     private List<Diagnose> diagnoseList;

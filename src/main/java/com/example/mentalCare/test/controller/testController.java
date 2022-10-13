@@ -14,6 +14,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,11 +35,10 @@ public class testController {
         return "test/test";
     }
 
-    @GetMapping("/myResult")
-    public String myResult(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<GetDiagnoseRes> diagnoseList = diagnoseService.getAllDiagnose(pageable);
-        List<GetDiagnoseRes> dList = diagnoseList.getContent();
-        model.addAttribute("diagnoseList", diagnoseList);
+    @GetMapping("/myResult/{id}")
+    public String myResult(Model model, @PathVariable(value="id") Long id) {
+        model.addAttribute("diagnoseList", diagnoseService.getTestById(id).getDiagnoseList());
+        model.addAttribute("date", diagnoseService.getTestById(id).getDate());
         return "test/my_result";
     }
 
