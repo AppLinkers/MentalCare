@@ -1,10 +1,8 @@
 package com.example.mentalCare.user.domain.Diagnose;
 
 import com.example.mentalCare.test.domain.Answer;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.lang.Nullable;
@@ -19,11 +17,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Diagnose {
+@ToString(callSuper = true)
+public class Diagnose{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="diagnose_id")
     private Long id;
+
+    @JoinColumn(name= "diagnose_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long diagnose_id;
 
     private String diagnoseTitle;
 

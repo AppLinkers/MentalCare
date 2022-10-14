@@ -11,6 +11,7 @@ public class BuildDiagnoseReq {
 
     private String diagnoseTitle;
     private String userId;
+    private Long test_id;
 
     
 }

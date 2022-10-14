@@ -2,6 +2,7 @@ package com.example.mentalCare.user.domain.Diagnose;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
@@ -11,14 +12,20 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 
 
-@Data
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="question_id")
     private Long id;
+
+    @JoinColumn(name= "diagnose_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long question_id;
 
     private String questionContext;
     private int weight;
@@ -27,6 +34,5 @@ public class Question {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "diagnose_id")
     private Diagnose diagnose;
-
 
 }

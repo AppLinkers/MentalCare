@@ -4,10 +4,9 @@ package com.example.mentalCare.user.service;
 import com.example.mentalCare.user.domain.Diagnose.Diagnose;
 import com.example.mentalCare.user.domain.Diagnose.Question;
 import com.example.mentalCare.user.domain.Diagnose.Test;
-import com.example.mentalCare.user.dto.BuildDiagnoseReq;
-import com.example.mentalCare.user.dto.GetDiagnoseRes;
-import com.example.mentalCare.user.dto.GetTestRes;
+import com.example.mentalCare.user.dto.*;
 import com.example.mentalCare.user.repository.DiagnoseRepository;
+import com.example.mentalCare.user.repository.QuestionRepository;
 import com.example.mentalCare.user.repository.TestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,14 +24,9 @@ public class DiagnoseService {
 
     private final DiagnoseRepository diagnoseRepository;
     private final TestRepository testRepository;
+    private final QuestionRepository questionRepository;
 
-    public void buildDiagnose(BuildDiagnoseReq request)throws IOException {
-        Diagnose diagnose = Diagnose.builder()
-                .diagnoseTitle(request.getDiagnoseTitle())
-                .userId(request.getUserId())
-                .build();
-        diagnoseRepository.save(diagnose);
-    }
+
 
     public Page<GetDiagnoseRes> getAllDiagnose(Pageable pageable){
         Page<Diagnose> findDiagnoseList = diagnoseRepository.findAll(pageable);
@@ -55,6 +49,35 @@ public class DiagnoseService {
                 .user_id(test.getUser_id())
                 .diagnoseList(test.getDiagnoseList())
                 .build();
+    }
+
+
+    public void writeTest(WriteTestReq req, AnswerQuestion answerReq){
+        Test testForm = testRepository.findByTestId(0L);
+
+        Test test = Test.builder()
+                .user_id(req.getUser_id())
+                .date(req.getDate())
+                .build();
+
+        testRepository.save(test);
+
+        for(int i=0; i<testForm.getDiagnoseList().size(); i++){
+            Diagnose diagnose = Diagnose.builder()
+                    .diagnoseTitle(testForm.getDiagnoseList().get(i).getDiagnoseTitle())
+                    .test(test)
+                    .userId("asdf")
+                    .build();
+            diagnoseRepository.save(diagnose);
+            for(int j=0; j<testForm.getDiagnoseList().get(i).getQuestionList().size(); j++){
+                Question question = new Question();
+                question.setWeight(1);
+                question.setQuestionContext(testForm.getDiagnoseList().get(i).getQuestionList().get(j).getQuestionContext());
+                question.setDiagnose(diagnose);
+                questionRepository.save(question);
+            }
+        }
+
     }
 
     public List<GetTestRes> getAllTestByUserId(String userId){

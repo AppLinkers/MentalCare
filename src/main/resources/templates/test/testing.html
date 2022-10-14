@@ -28,12 +28,13 @@
                 </div>
                 <h3>생활 스트레스</h3>
             </div>
-            <form th:action= "@{/myResult}">
-                <div class="form-group">
+            <form th:method="post"th:action= "@{/addTest}" th:object="${answerReq}" enctype="multipart/form-data">
+                <div class="form-group" th:each="diagnose : ${diagnose}">
                     <div class="question">
-                        <h3>스트레스 강도는 어떤가요?</h3>
+                        <h2 th:text="${diagnose.diagnoseTitle}">스트레스 강도는 어떤가요?</h2>
                     </div>
-                    <div class="check__group">
+                    <div class="check__group" th:each="question: ${diagnose.questionList}">
+                        <h4 th:text="${question.questionContext}">test</h4>
                         <div class="check__con">
                             <div class="check">
                                 <input type="radio" name="check" value="worst" id="worst"/>
@@ -66,31 +67,31 @@
                 </div>
                 
                 </div>
-                <div class="question">
-                    <h3>스트레스 요인으로는 어떤것이 있나요?</h3>
-                </div>
-                <ul class="detail__group">
-                    <li>
-                        <div class="detail__box">
-                            <h3>기술</h3>
-                            <i class="uil uil-angle-down"></i>
-                        </div>
-                        <div class="detail__inside">
-                            <div class="type">
-                                <h4>패스</h4>
-                            </div>
-                            <div class="type">
-                                <h4>슛</h4>
-                            </div>
-                            <div class="type">
-                                <h4>키핑</h4>
-                            </div>
-                            <div class="type">
-                                <h4>트래핑</h4>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+<!--                <div class="question">-->
+<!--                    <h3>스트레스 요인으로는 어떤것이 있나요?</h3>-->
+<!--                </div>-->
+<!--                <ul class="detail__group">-->
+<!--                    <li>-->
+<!--                        <div class="detail__box">-->
+<!--                            <h3>기술</h3>-->
+<!--                            <i class="uil uil-angle-down"></i>-->
+<!--                        </div>-->
+<!--                        <div class="detail__inside">-->
+<!--                            <div class="type">-->
+<!--                                <h4>패스</h4>-->
+<!--                            </div>-->
+<!--                            <div class="type">-->
+<!--                                <h4>슛</h4>-->
+<!--                            </div>-->
+<!--                            <div class="type">-->
+<!--                                <h4>키핑</h4>-->
+<!--                            </div>-->
+<!--                            <div class="type">-->
+<!--                                <h4>트래핑</h4>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                </ul>-->
 
                 <div class="card__button">
                    <button class="btn" type="submit">검사완료 ( 1 / 11 )</button>
