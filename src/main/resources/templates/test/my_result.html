@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,187 +15,187 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <!-- STYLE SHEET -->
-    <link rel="stylesheet" href="../css/common/style.css">
-    <link rel="stylesheet" href="../css/test/my_result.css">
+    <link rel="stylesheet" href="../../static/css/common/style.css">
+    <link rel="stylesheet" href="../../static/css/test/my_result.css">
 </head>
 <body>
 
-    <!-- =========== NAVBAR ========== -->
-    <nav id="nav">
-    </nav>
+<!-- =========== NAVBAR ========== -->
+<nav id="nav">
+</nav>
 
-    <!-- =========== MEMBER ========== -->
-    <section id="member">
-        <div class="container member__con">
-            <div class="member__info">
-                <div class="member__img">
-                    <img src="../images/son.png">
-                </div>
-                <div class="member__text">
-                    <div class="member__name">
-                        <h3>손흥민</h3>
-                        <div class="type">
-                            <h4>선수</h4>
-                        </div>
-                    </div>
-                    <h4>FW, 30살</h4>
-                    <p>최근 업데이트 : 2022.09.26</p>
-                </div>
+<!-- =========== MEMBER ========== -->
+<section id="member">
+    <div class="container member__con">
+        <div class="member__info">
+            <div class="member__img">
+                <img src="../images/son.png">
             </div>
-            <div class="member__chart">
-                <canvas id="doughnut" width="120" height="120"></canvas>
+            <div class="member__text">
+                <div class="member__name">
+                    <h3>손흥민</h3>
+                    <div class="type">
+                        <h4>선수</h4>
+                    </div>
+                </div>
+                <h4>FW, 30살</h4>
+                <p>최근 업데이트 : 2022.09.26</p>
             </div>
         </div>
-        <div class="line inside__large"></div>
-    </section>
+        <div class="member__chart">
+            <canvas id="doughnut" width="120" height="120"></canvas>
+        </div>
+    </div>
+    <div class="line inside__large"></div>
+</section>
 
-    <!-- =========== RESULT ========== -->
-    <section id="result">
-        <div class="container result__container">
-            <!-- result-header -->
-            <div class="result__header">
-                <div class="result__label">
-                    <div class="label-type">
-                        <div class="label-color"></div>
-                        <h4>양호</h4>
-                    </div>
-                    <div class="label-type">
-                        <div class="label-color"></div>
-                        <h4>보통</h4>
-                    </div>
-                    <div class="label-type">
-                        <div class="label-color"></div>
-                        <h4>심각</h4>
-                    </div>
+<!-- =========== RESULT ========== -->
+<section id="result">
+    <div class="container result__container">
+        <!-- result-header -->
+        <div class="result__header">
+            <div class="result__label">
+                <div class="label-type">
+                    <div class="label-color"></div>
+                    <h4>양호</h4>
+                </div>
+                <div class="label-type">
+                    <div class="label-color"></div>
+                    <h4>보통</h4>
+                </div>
+                <div class="label-type">
+                    <div class="label-color"></div>
+                    <h4>심각</h4>
                 </div>
             </div>
-            <!-- result-list -->
-            <div class="result__list" th:each="diagnose : ${diagnoseList}">
-                <article>
-                    <div class="result__box">
-                        <div class="result__name">
-                            <h3 th:text="${diagnose.diagnoseTitle}">관계</h3>
-                            마지막 검사 : <p th:text="${date}"> 2022.09.26</p>
-                        </div>
-                        <i class="uil uil-angle-down"></i>
-                    </div>
-                    <div class="result__chart">
-                        <canvas id="bar"></canvas>
-                    </div>
-                </article>
-                <article>
-                    <div class="result__box">
-                        <div class="result__name">
-                            <h3>진로</h3>
-                            <p>마지막 검사 : 2022.09.26</p>
-                        </div>
-                        <i class="uil uil-angle-down"></i>
-                    </div>
-                    <div class="result__chart">
-                        <canvas id="bar"></canvas>
-                    </div>
-                </article>
-                <article>
-                    <div class="result__box">
-                        <div class="result__name">
-                            <h3>부상</h3>
-                            <p>마지막 검사 : 2022.09.26</p>
-                        </div>
-                        <i class="uil uil-angle-down"></i>
-                    </div>
-                    <div class="result__chart">
-                        <canvas id="bar"></canvas>
-                    </div>
-                </article>
-                <article>
-                    <div class="result__box">
-                        <div class="result__name">
-                            <h3>생활</h3>
-                            <p>마지막 검사 : 2022.09.26</p>
-                        </div>
-                        <i class="uil uil-angle-down"></i>
-                    </div>
-                    <div class="result__chart">
-                        <canvas id="bar"></canvas>
-                    </div>
-                </article>
-                <article>
-                    <div class="result__box">
-                        <div class="result__name">
-                            <h3>기능 불만</h3>
-                            <p>마지막 검사 : 2022.09.26</p>
-                        </div>
-                        <i class="uil uil-angle-down"></i>
-                    </div>
-                    <div class="result__chart">
-                        <canvas id="bar"></canvas>
-                    </div>
-                </article>
-            </div>
         </div>
-    </section>
+        <!-- result-list -->
+        <div class="result__list" th:each="diagnose : ${diagnoseList}">
+            <article>
+                <div class="result__box">
+                    <div class="result__name">
+                        <h3 th:text="${diagnose.diagnoseTitle}">관계</h3>
+                        마지막 검사 : <p th:text="${date}"> 2022.09.26</p>
+                    </div>
+                    <i class="uil uil-angle-down"></i>
+                </div>
+                <div class="result__chart">
+                    <canvas id="bar"></canvas>
+                </div>
+            </article>
+            <article>
+                <div class="result__box">
+                    <div class="result__name">
+                        <h3>진로</h3>
+                        <p>마지막 검사 : 2022.09.26</p>
+                    </div>
+                    <i class="uil uil-angle-down"></i>
+                </div>
+                <div class="result__chart">
+                    <canvas id="bar"></canvas>
+                </div>
+            </article>
+            <article>
+                <div class="result__box">
+                    <div class="result__name">
+                        <h3>부상</h3>
+                        <p>마지막 검사 : 2022.09.26</p>
+                    </div>
+                    <i class="uil uil-angle-down"></i>
+                </div>
+                <div class="result__chart">
+                    <canvas id="bar"></canvas>
+                </div>
+            </article>
+            <article>
+                <div class="result__box">
+                    <div class="result__name">
+                        <h3>생활</h3>
+                        <p>마지막 검사 : 2022.09.26</p>
+                    </div>
+                    <i class="uil uil-angle-down"></i>
+                </div>
+                <div class="result__chart">
+                    <canvas id="bar"></canvas>
+                </div>
+            </article>
+            <article>
+                <div class="result__box">
+                    <div class="result__name">
+                        <h3>기능 불만</h3>
+                        <p>마지막 검사 : 2022.09.26</p>
+                    </div>
+                    <i class="uil uil-angle-down"></i>
+                </div>
+                <div class="result__chart">
+                    <canvas id="bar"></canvas>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
 
-    <!-- =========== JAVASCRIPT ========== -->
-    <script src="../javascript/common/base.js"></script>
-    <script src="../javascript/test/my_result.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const data = {
-            datasets: [{
-                label : '멘탈 상태',
-                data: [300,50,100],
-                backgroundColor: [
-                    '#1DBA84',
-                    '#EFB93A',
-                    '#FC5230'
-                ],
-                hoverOffset: 4
-            }]
-        };
+<!-- =========== JAVASCRIPT ========== -->
+<script src="../../static/javascript/common/base.js"></script>
+<script src="../../static/javascript/test/my_result.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const data = {
+        datasets: [{
+            label : '멘탈 상태',
+            data: [300,50,100],
+            backgroundColor: [
+                '#1DBA84',
+                '#EFB93A',
+                '#FC5230'
+            ],
+            hoverOffset: 4
+        }]
+    };
 
-        const config = {
-            type: 'doughnut',
-            data: data,
-            options: {
-                responsive: false
-            }
-        };
+    const config = {
+        type: 'doughnut',
+        data: data,
+        options: {
+            responsive: false
+        }
+    };
 
-        const doughnut = new Chart(
-            document.getElementById('doughnut'),
-            config
-        );
-    </script>
-    <script>
-        const labels = ['부모님','동료','선배','지도자','이성'];
+    const doughnut = new Chart(
+        document.getElementById('doughnut'),
+        config
+    );
+</script>
+<script>
+    const labels = ['부모님','동료','선배','지도자','이성'];
 
-        const data_bar = {
-            labels: labels,
-            datasets: [{
-                label: '스트레스 강도',
-                data: [1,2,3,5,4],
-                backgroundColor : [
-                    'rgba(105,81,255,0.6)'
-                ]
-            }]
-        };
+    const data_bar = {
+        labels: labels,
+        datasets: [{
+            label: '스트레스 강도',
+            data: [1,2,3,5,4],
+            backgroundColor : [
+                'rgba(105,81,255,0.6)'
+            ]
+        }]
+    };
 
-        const config_bar = {
-            type: 'bar',
-            data: data_bar,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+    const config_bar = {
+        type: 'bar',
+        data: data_bar,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
         }
+    }
 
-        const bar = new Chart(
-            document.getElementById('bar'),
-            config_bar
-        )
-    </script>
+    const bar = new Chart(
+        document.getElementById('bar'),
+        config_bar
+    )
+</script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,51 +15,51 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <!-- STYLE SHEET -->
-    <link rel="stylesheet" href="../css/common/style.css">
-    <link rel="stylesheet" href="../css/user/profile.css">
+    <link rel="stylesheet" href="../../static/css/common/style.css">
+    <link rel="stylesheet" href="../../static/css/user/profile.css">
 </head>
 <body>
 
-    <!-- =========== NAVBAR ========== -->
-    <nav id="nav">
-    </nav>
+<!-- =========== NAVBAR ========== -->
+<nav id="nav">
+</nav>
 
-    <!-- =========== MAIN ========== -->
-    <section id="profile">
-        <div class="container profile__container">
-            <div class="profile__card">
-                <div class="card__head">
-                    <h2>프로필</h2>
-                    <div class="dday">
-                        <p>다음 경기까지</p>
-                        <h3>D-12</h3>
+<!-- =========== MAIN ========== -->
+<section id="profile">
+    <div class="container profile__container">
+        <div class="profile__card">
+            <div class="card__head">
+                <h2>프로필</h2>
+                <div class="dday">
+                    <p>다음 경기까지</p>
+                    <h3>D-12</h3>
+                </div>
+            </div>
+            <div class="card__content">
+                <div class="card__info">
+                    <div class="info__text">
+                        <p>이름</p>
+                        <h3>손흥민</h3>
+                        <p>소속팀</p>
+                        <h3>토트넘 핫스퍼</h3>
+                        <p>포지션</p>
+                        <h3>FW</h3>
+                    </div>
+                    <div class="info__img">
+                        <div class="img__con">
+                            <img src="../images/son.png" alt="">
+                        </div>
                     </div>
                 </div>
-                <div class="card__content">
-                    <div class="card__info">
-                        <div class="info__text">
-                            <p>이름</p>
-                            <h3>손흥민</h3>
-                            <p>소속팀</p>
-                            <h3>토트넘 핫스퍼</h3>
-                            <p>포지션</p>
-                            <h3>FW</h3>
-                        </div>
-                        <div class="info__img">
-                            <div class="img__con">
-                                <img src="../images/son.png" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card__button">
-                        <button class="btn btn-varient" th:onclick="|location.href='/test'|">검사하기</button>
-                    </div>
+                <div class="card__button">
+                    <button class="btn btn-varient" th:onclick="|location.href='/test'|">검사하기</button>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- =========== JAVASCRIPT ========== -->
-    <script src="../javascript/common/base.js"></script>
+<!-- =========== JAVASCRIPT ========== -->
+<script src="../../static/javascript/common/base.js"></script>
 </body>
 </html>

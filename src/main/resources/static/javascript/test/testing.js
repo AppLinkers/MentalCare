@@ -1,3 +1,4 @@
+/*
 const detailBoxs = document.querySelectorAll('.detail__box');
 const detailInside = document.querySelector('.detail__inside');
 
@@ -7,4 +8,22 @@ detailBoxs.forEach(detailBox => {
         detailBox.classList.toggle('active');
         detailInside.classList.toggle('active');
     })
-})
+})*/
+
+const inputId = ["worst", "high", "soso", "low", "none"];
+
+const groups = document.querySelectorAll(".form-group");
+
+for (var i = 0; i < groups.length; i++) {
+    const group = groups[i];
+    const checks = group.querySelectorAll(".check");
+    for (var j = 0; j < 5; j++) {
+        const check = checks[j];
+        const input = check.querySelector("input");
+        const label = check.querySelector("label");
+
+        input.name = "check" + i;
+        input.id = inputId[j] + i;
+        label.htmlFor = inputId[j] + i;
+    }
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,92 +15,94 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <!-- STYLE SHEET -->
-    <link rel="stylesheet" href="../css/common/style.css">
-    <link rel="stylesheet" href="../css/test/testing.css">
+    <link rel="stylesheet" href="../../static/css/common/style.css">
+    <link rel="stylesheet" href="../../static/css/test/testing.css">
 </head>
 <body>
-    <!-- =========== TESTING ========== -->
-    <section id="testing">
-        <div class="container testing__container">
-            <div class="header">
-                <div class="icon">
-                    <img src="../images/macos-calendar (1).png">
-                </div>
-                <h3>생활 스트레스</h3>
+<!-- =========== TESTING ========== -->
+<section id="testing">
+    <div class="container testing__container">
+        <div class="header">
+            <div class="icon">
+                <img src="../images/macos-calendar (1).png">
             </div>
-            <form th:method="post"th:action= "@{/addTest}" th:object="${answerReq}" enctype="multipart/form-data">
-                <div class="form-group" th:each="diagnose : ${diagnose}">
-                    <div class="question">
-                        <h2 th:text="${diagnose.diagnoseTitle}">스트레스 강도는 어떤가요?</h2>
-                    </div>
-                    <div class="check__group" th:each="question: ${diagnose.questionList}">
-                        <h4 th:text="${question.questionContext}">test</h4>
-                        <div class="check__con">
-                            <div class="check">
-                                <input type="radio" name="check" value="worst" id="worst"/>
-                                <label class="check__radio" for="worst"></label>
-                            </div>
-                            <div class="check">
-                                <input type="radio" name="check" value="high" id="high"/>
-                                <label class="check__radio" for="high"></label>
-                            </div>
-                            <div class="check">
-                                <input type="radio" name="check" value="soso" id="soso"/>
-                                <label class="check__radio" for="soso"></label>
-                            </div>
-                            <div class="check">
-                                <input type="radio" name="check" value="low" id="low"/>
-                                <label class="check__radio" for="low"></label>
-                            </div>
-                            <div class="check">
-                                <input type="radio" name="check" value="none" id="none"/>
-                                <label class="check__radio" for="none"></label>
-                            </div>
-                        </div>
-                        <div class="check__text">
-                            <p>최상</p>
-                            <p>높음</p>
-                            <p>보통</p>
-                            <p>조금</p>
-                            <p>없음</p>
-                        </div>
-                </div>
-                
-                </div>
-<!--                <div class="question">-->
-<!--                    <h3>스트레스 요인으로는 어떤것이 있나요?</h3>-->
-<!--                </div>-->
-<!--                <ul class="detail__group">-->
-<!--                    <li>-->
-<!--                        <div class="detail__box">-->
-<!--                            <h3>기술</h3>-->
-<!--                            <i class="uil uil-angle-down"></i>-->
-<!--                        </div>-->
-<!--                        <div class="detail__inside">-->
-<!--                            <div class="type">-->
-<!--                                <h4>패스</h4>-->
-<!--                            </div>-->
-<!--                            <div class="type">-->
-<!--                                <h4>슛</h4>-->
-<!--                            </div>-->
-<!--                            <div class="type">-->
-<!--                                <h4>키핑</h4>-->
-<!--                            </div>-->
-<!--                            <div class="type">-->
-<!--                                <h4>트래핑</h4>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </li>-->
-<!--                </ul>-->
-
-                <div class="card__button">
-                   <button class="btn" type="submit">검사완료 ( 1 / 11 )</button>
-                </div>
-            </form>
+            <h3>생활 스트레스</h3>
         </div>
-    </section>
 
-    <!-- =========== JAVASCRIPT ========== -->
-    <script src="../javascript/test/testing.js"></script>
+        <form th:method="post"th:action= "@{/addTest}" th:object="${answerReq}" enctype="multipart/form-data">
+
+            <div class="form-group" th:each="diagnose : ${diagnose}">
+                <div class="question">
+                    <h2 th:text="${diagnose.diagnoseTitle}">스트레스 강도는 어떤가요?</h2>
+                </div>
+                <div class="check__group" th:each="question: ${diagnose.questionList}">
+                    <h4 th:text="${question.questionContext}">test</h4>
+                    <div class="check__con">
+                        <div class="check">
+                            <input type="radio" name="check" value="worst" id="worst"/>
+                            <label class="check__radio" for="worst"></label>
+                        </div>
+                        <div class="check">
+                            <input type="radio" name="check" value="high" id="high"/>
+                            <label class="check__radio" for="high"></label>
+                        </div>
+                        <div class="check">
+                            <input type="radio" name="check" value="soso" id="soso"/>
+                            <label class="check__radio" for="soso"></label>
+                        </div>
+                        <div class="check">
+                            <input type="radio" name="check" value="low" id="low"/>
+                            <label class="check__radio" for="low"></label>
+                        </div>
+                        <div class="check">
+                            <input type="radio" name="check" value="none" id="none"/>
+                            <label class="check__radio" for="none"></label>
+                        </div>
+                    </div>
+                    <div class="check__text">
+                        <p>최상</p>
+                        <p>높음</p>
+                        <p>보통</p>
+                        <p>조금</p>
+                        <p>없음</p>
+                    </div>
+                </div>
+            </div>
+
+            <!--                <div class="question">-->
+            <!--                    <h3>스트레스 요인으로는 어떤것이 있나요?</h3>-->
+            <!--                </div>-->
+            <!--                <ul class="detail__group">-->
+            <!--                    <li>-->
+            <!--                        <div class="detail__box">-->
+            <!--                            <h3>기술</h3>-->
+            <!--                            <i class="uil uil-angle-down"></i>-->
+            <!--                        </div>-->
+            <!--                        <div class="detail__inside">-->
+            <!--                            <div class="type">-->
+            <!--                                <h4>패스</h4>-->
+            <!--                            </div>-->
+            <!--                            <div class="type">-->
+            <!--                                <h4>슛</h4>-->
+            <!--                            </div>-->
+            <!--                            <div class="type">-->
+            <!--                                <h4>키핑</h4>-->
+            <!--                            </div>-->
+            <!--                            <div class="type">-->
+            <!--                                <h4>트래핑</h4>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </li>-->
+            <!--                </ul>-->
+
+            <div class="card__button">
+                <button class="btn" type="submit">검사완료 ( 1 / 11 )</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- =========== JAVASCRIPT ========== -->
+<script src="../../static/javascript/test/testing.js"></script>
 </body>
 </html>
