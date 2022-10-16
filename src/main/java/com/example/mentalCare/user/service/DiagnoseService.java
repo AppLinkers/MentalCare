@@ -52,7 +52,7 @@ public class DiagnoseService {
     }
 
 
-    public void writeTest(WriteTestReq req, AnswerQuestion answerReq, BuildDiagnoseReq buildDiagnoseReq){
+    public void writeTest(WriteTestReq req, BuildDiagnoseReq buildDiagnoseReq){
         Test testForm = testRepository.findByTestId(0L);
 
         Test test = Test.builder()
@@ -72,15 +72,16 @@ public class DiagnoseService {
 
             for(int j=0; j<testForm.getDiagnoseList().get(i).getQuestionList().size(); j++){
                 String questionContext = testForm.getDiagnoseList().get(i).getQuestionList().get(j).getQuestionContext();
-
-                if(answerReq.getQuestionContext().equals(questionContext)){
-                    Question question = new Question();
-                    question.setQuestionContext(testForm.getDiagnoseList().get(i).getQuestionList().get(j).getQuestionContext());
-                    question.setWeight(1);
-                    question.setDiagnose(diagnose);
-                    questionRepository.save(question);
+                List<AnswerQuestion> answerList = buildDiagnoseReq.getAnswerQuestions();
+                for(int a=0; a<answerList.size(); a++){
+                    if(answerList.get(a).getQuestionContext().equals(questionContext)){
+                        Question question = new Question();
+                        question.setQuestionContext(testForm.getDiagnoseList().get(i).getQuestionList().get(j).getQuestionContext());
+                        question.setWeight(answerList.get(a).getWeight());
+                        question.setDiagnose(diagnose);
+                        questionRepository.save(question);
+                    }
                 }
-
             }
         }
 

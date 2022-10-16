@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,80 +15,80 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <!-- STYLE SHEET -->
-    <link rel="stylesheet" href="../css/common/style.css">
-    <link rel="stylesheet" href="../css/test/test_result.css">
+    <link rel="stylesheet" href="../../static/css/common/style.css">
+    <link rel="stylesheet" href="../../static/css/test/test_result.css">
 </head>
 <body>
 
-    <!-- =========== NAVBAR ========== -->
-    <nav id="nav">
-    </nav>
+<!-- =========== NAVBAR ========== -->
+<nav id="nav">
+</nav>
 
-    <!-- =========== RESULT ========== -->
-    <section id="result">
-        <div class="container title">
-            <h2>검사내역</h2>
-        </div>
-        <div class="line"></div>
-        <div class="result__container" th:each="test : ${testList}">
-            <article>
-                <div class="container result__date">
-                    <h3 th:text="${test.date}">2022. 09. 08</h3>
-                    <a th:href="@{|/myResult/${test.test_id}|}"><i class="uil uil-angle-right-b"></i></a>
-                </div>
-                <div class="line inside"></div>
-<!--                <div class="container result__type">-->
-<!--                    <p>검사 항목</p>-->
-<!--                    <div class="type__container">-->
-<!--                        <div class="type">-->
-<!--                            <h4>생활</h4>-->
-<!--                        </div>-->
-<!--                        <div class="type">-->
-<!--                            <h4>경기력</h4>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-                <div class="line inside__large"></div>
-            </article>
-            <article>
-                <div class="container result__date">
-                    <h3>2022. 08. 31</h3>
-                    <i class="uil uil-angle-right-b"></i>
-                </div>
-                <div class="line inside"></div>
-                <div class="container result__type">
-                    <p>검사 항목</p>
-                    <div class="type__container">
-                        <div class="type">
-                            <h4>경기력</h4>
-                        </div>
+<!-- =========== RESULT ========== -->
+<section id="result">
+    <div class="container title">
+        <h2>검사내역</h2>
+    </div>
+    <div class="line"></div>
+    <div class="result__container" th:each="test : ${testList}">
+        <article>
+            <div class="container result__date">
+                <h3 th:text="${test.date}">2022. 09. 08</h3>
+                <a th:href="@{|/myResult/${test.test_id}|}"><i class="uil uil-angle-right-b"></i></a>
+            </div>
+            <div class="line inside"></div>
+            <!--                <div class="container result__type">-->
+            <!--                    <p>검사 항목</p>-->
+            <!--                    <div class="type__container">-->
+            <!--                        <div class="type">-->
+            <!--                            <h4>생활</h4>-->
+            <!--                        </div>-->
+            <!--                        <div class="type">-->
+            <!--                            <h4>경기력</h4>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <div class="line inside__large"></div>
+        </article>
+        <article>
+            <div class="container result__date">
+                <h3>2022. 08. 31</h3>
+                <i class="uil uil-angle-right-b"></i>
+            </div>
+            <div class="line inside"></div>
+            <div class="container result__type">
+                <p>검사 항목</p>
+                <div class="type__container">
+                    <div class="type">
+                        <h4>경기력</h4>
                     </div>
                 </div>
-                <div class="line inside__large"></div>
-            </article>
-            <article>
-                <div class="container result__date">
-                    <h3>2022. 08. 25</h3>
-                    <i class="uil uil-angle-right-b"></i>
-                </div>
-                <div class="line inside"></div>
-                <div class="container result__type">
-                    <p>검사 항목</p>
-                    <div class="type__container">
-                        <div class="type">
-                            <h4>경기력</h4>
-                        </div>
-                        <div class="type">
-                            <h4>대인관계</h4>
-                        </div>
+            </div>
+            <div class="line inside__large"></div>
+        </article>
+        <article>
+            <div class="container result__date">
+                <h3>2022. 08. 25</h3>
+                <i class="uil uil-angle-right-b"></i>
+            </div>
+            <div class="line inside"></div>
+            <div class="container result__type">
+                <p>검사 항목</p>
+                <div class="type__container">
+                    <div class="type">
+                        <h4>경기력</h4>
+                    </div>
+                    <div class="type">
+                        <h4>대인관계</h4>
                     </div>
                 </div>
-                <div class="line inside__large"></div>
-            </article>
-        </div>
-    </section>
+            </div>
+            <div class="line inside__large"></div>
+        </article>
+    </div>
+</section>
 
-    <!-- =========== JAVASCRIPT ========== -->
-    <script src="../javascript/base.js"></script>
+<!-- =========== JAVASCRIPT ========== -->
+<script src="../javascript/base.js"></script>
 </body>
 </html>

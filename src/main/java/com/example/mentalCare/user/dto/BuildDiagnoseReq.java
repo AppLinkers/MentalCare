@@ -13,9 +13,6 @@ public class BuildDiagnoseReq {
 
     List<AnswerQuestion> answerQuestions;
 
-    public BuildDiagnoseReq(){
-
-    }
 
     public void addAnswerQ(AnswerQuestion answerQuestion){
         this.answerQuestions.add(answerQuestion);

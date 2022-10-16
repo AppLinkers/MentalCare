@@ -1,5 +1,6 @@
 package com.example.mentalCare.test.controller;
 
+import com.example.mentalCare.user.domain.Diagnose.Diagnose;
 import com.example.mentalCare.user.domain.Diagnose.Question;
 import com.example.mentalCare.user.domain.Diagnose.Test;
 import com.example.mentalCare.user.dto.*;
@@ -47,15 +48,19 @@ public class testController {
     public String goToTest(GetDiagnoseRes getDiagnoseRes, Model model) throws IOException {
         BuildDiagnoseReq buildDiagnoseReq = new BuildDiagnoseReq();
         List<AnswerQuestion> answerQuestions = new ArrayList<>();
-        for(int i=0; i<3; i++){
-            AnswerQuestion answerQuestion = new AnswerQuestion();
-            answerQuestion.setQuestionContext("test");
-            answerQuestion.setWeight(0);
-            answerQuestions.add(answerQuestion);
+        List<Diagnose> diagnoseListForm = diagnoseService.getTestById(0L).getDiagnoseList();
+
+        for(int i=0; i<diagnoseListForm.size(); i++) {
+            for (int j = 0; j < diagnoseListForm.get(i).getQuestionList().size(); j++) {
+                AnswerQuestion answerQuestion = new AnswerQuestion();
+                answerQuestion.setQuestionContext(diagnoseListForm.get(i).getQuestionList().get(j).getQuestionContext());
+                answerQuestion.setWeight(0);
+                answerQuestions.add(answerQuestion);
+            }
         }
         buildDiagnoseReq.setAnswerQuestions(answerQuestions);
         model.addAttribute("form", buildDiagnoseReq);
-        model.addAttribute("diagnose", diagnoseService.getTestById(0L).getDiagnoseList());
+        model.addAttribute("diagnose", diagnoseListForm);
         return "test/testing";
     }
 
@@ -63,6 +68,7 @@ public class testController {
     public String testSubmit( WriteTestReq writeTestReq,@ModelAttribute BuildDiagnoseReq req){
         writeTestReq.setUser_id("asdf");
         writeTestReq.setDate("20.09.02");
+        diagnoseService.writeTest(writeTestReq, req);
         //System.out.println(answerQuestion.getQuestionContext()+answerQuestion.getWeight()+"sipal");
        // diagnoseService.writeTest(writeTestReq, answerReq);
         return "test/my_result";

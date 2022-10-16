@@ -15,10 +15,7 @@ import javax.persistence.ManyToOne;
 
 @Data
 public class AnswerQuestion {
-
     private String questionContext;
     private int weight;
-
-
 
 }
