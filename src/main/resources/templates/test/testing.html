@@ -28,14 +28,17 @@
                 </div>
                 <h3>생활 스트레스</h3>
             </div>
-            <form th:method="post"th:action= "@{/addTest}" th:object="${answerReq}" enctype="multipart/form-data">
+<!--            <form th:method="post"th:action= "@{/addTest}" enctype="multipart/form-data">-->
+            <form th:object = "${form}">
                 <div class="form-group" th:each="diagnose : ${diagnose}">
                     <div class="question">
                         <h2 th:text="${diagnose.diagnoseTitle}">스트레스 강도는 어떤가요?</h2>
                     </div>
-                    <div class="check__group" th:each="question: ${diagnose.questionList}">
+                    <div class="check__group" th:each="question: ${diagnose.questionList}" th:each="answer, itemStat : *{answerQuestions}">
                         <h4 th:text="${question.questionContext}">test</h4>
-                        <div class="check__con">
+<!--                        <input type="text" th:value="${question.questionContext}" th:name="*{answerQuestions[__${itemStat.index}__].questionContext}"/>-->
+<!--                        <input type="number" th:field="*{answerQuestions[__${itemStat.index}__].weight}"/>-->
+                        <div class="check__con" >
                             <div class="check">
                                 <input type="radio" name="check" value="worst" id="worst"/>
                                 <label class="check__radio" for="worst"></label>

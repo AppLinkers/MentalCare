@@ -12,6 +12,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -43,16 +44,27 @@ public class testController {
     }
 
     @GetMapping("/testing")
-    public String goToTest(GetDiagnoseRes getDiagnoseRes, Model model, AnswerQuestion answerReq) throws IOException {
+    public String goToTest(GetDiagnoseRes getDiagnoseRes, Model model) throws IOException {
+        BuildDiagnoseReq buildDiagnoseReq = new BuildDiagnoseReq();
+        List<AnswerQuestion> answerQuestions = new ArrayList<>();
+        for(int i=0; i<3; i++){
+            AnswerQuestion answerQuestion = new AnswerQuestion();
+            answerQuestion.setQuestionContext("test");
+            answerQuestion.setWeight(0);
+            answerQuestions.add(answerQuestion);
+        }
+        buildDiagnoseReq.setAnswerQuestions(answerQuestions);
+        model.addAttribute("form", buildDiagnoseReq);
         model.addAttribute("diagnose", diagnoseService.getTestById(0L).getDiagnoseList());
         return "test/testing";
     }
 
     @PostMapping("/addTest")
-    public String testSubmit(WriteTestReq writeTestReq, AnswerQuestion answerReq){
+    public String testSubmit( WriteTestReq writeTestReq,@ModelAttribute BuildDiagnoseReq req){
         writeTestReq.setUser_id("asdf");
         writeTestReq.setDate("20.09.02");
-        diagnoseService.writeTest(writeTestReq, answerReq);
+        //System.out.println(answerQuestion.getQuestionContext()+answerQuestion.getWeight()+"sipal");
+       // diagnoseService.writeTest(writeTestReq, answerReq);
         return "test/my_result";
     }
 
