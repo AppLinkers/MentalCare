@@ -7,3 +7,4 @@ async function importNav(targetDiv) {
 }
 
 importNav('nav');
+

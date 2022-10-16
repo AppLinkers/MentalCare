@@ -11,6 +11,8 @@ public class UserSignUpReq {
 
     private String login_pw;
 
+    private String team;
+
     private String name;
 
     private Integer age;

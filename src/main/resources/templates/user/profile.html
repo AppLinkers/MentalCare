@@ -27,23 +27,29 @@
 <!-- =========== MAIN ========== -->
 <section id="profile">
     <div class="container profile__container">
-        <div class="profile__card">
+        <div class="profile__card" >
             <div class="card__head">
                 <h2>프로필</h2>
                 <div class="dday">
                     <p>다음 경기까지</p>
-                    <h3>D-12</h3>
+                    <table>
+                        <tr>
+                            <td><span style="font-size: 28px; font-weight: bold">D-</span></td>
+                            <td><span style="font-size: 28px; font-weight: bold" th:text="${dday}">D-12</span></td>
+                        </tr>
+                    </table>
+
                 </div>
             </div>
             <div class="card__content">
                 <div class="card__info">
                     <div class="info__text">
                         <p>이름</p>
-                        <h3>손흥민</h3>
+                        <h3 th:text="${player.userName}">손흥민</h3>
                         <p>소속팀</p>
-                        <h3>토트넘 핫스퍼</h3>
+                        <h3 th:text="${player.team}">토트넘 핫스퍼</h3>
                         <p>포지션</p>
-                        <h3>FW</h3>
+                        <h3 th:text="${player.position}">FW</h3>
                     </div>
                     <div class="info__img">
                         <div class="img__con">
@@ -53,6 +59,7 @@
                 </div>
                 <div class="card__button">
                     <button class="btn btn-varient" th:onclick="|location.href='/test'|">검사하기</button>
+                    <button class="btn btn-varient" th:onclick="|location.href='/profile/update'|">설정하기</button>
                 </div>
             </div>
         </div>
@@ -60,6 +67,6 @@
 </section>
 
 <!-- =========== JAVASCRIPT ========== -->
-<script src="../../static/javascript/common/base.js"></script>
+<script src="../javascript/common/base.js"></script>
 </body>
 </html>

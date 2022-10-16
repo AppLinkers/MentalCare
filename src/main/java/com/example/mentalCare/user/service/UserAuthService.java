@@ -5,10 +5,7 @@ import com.example.mentalCare.user.domain.Player;
 import com.example.mentalCare.user.domain.User;
 import com.example.mentalCare.user.domain.UserDetail;
 import com.example.mentalCare.user.domain.type.Role;
-import com.example.mentalCare.user.dto.DirectorSignUpReq;
-import com.example.mentalCare.user.dto.PlayerSignUpReq;
-import com.example.mentalCare.user.dto.ReadUserInfoRes;
-import com.example.mentalCare.user.dto.UserSignUpReq;
+import com.example.mentalCare.user.dto.*;
 import com.example.mentalCare.user.repository.DirectorRepository;
 import com.example.mentalCare.user.repository.PlayerRepository;
 import com.example.mentalCare.user.repository.UserRepository;
@@ -23,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -110,6 +108,7 @@ public class UserAuthService implements UserDetailsService {
                 .login_id(request.getLogin_id())
                 .login_pw(passwordEncoder.encode(request.getLogin_pw()))
                 .name(request.getName())
+                .team(request.getTeam())
                 .age(request.getAge())
                 .role(role)
                 .build();
@@ -117,6 +116,36 @@ public class UserAuthService implements UserDetailsService {
 
     public String test() {
         return "userAuthService test";
+    }
+
+    public GetPlayerRes getUserData(String userId){
+        List<Player> players = playerRepository.findAll();
+        GetPlayerRes result = new GetPlayerRes();
+        for(Player player: players){
+            if(player.getUser().getLogin_id().equals(userId)) {
+                result = GetPlayerRes.builder()
+                            .userName(player.getUser().getName())
+                            .position(player.getPosition())
+                            .nextMatch(player.getNextMatch())
+                            .team(player.getUser().getTeam())
+                            .build();
+            }
+        }
+
+        return result;
+    }
+
+    public void updateProfile(String userId,PlayerSignUpReq playerSignUpReq){
+        List<Player> players = playerRepository.findAll();
+        for(Player player: players){
+            if(player.getUser().getLogin_id().equals(userId)) {
+                player.setPosition(playerSignUpReq.getPosition());
+                player.getUser().setTeam(playerSignUpReq.getTeam());
+                player.setNextMatch(playerSignUpReq.getNextMatch());
+                playerRepository.save(player);
+            }
+
+        }
     }
 
 

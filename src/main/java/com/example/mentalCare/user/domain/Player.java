@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -22,6 +24,9 @@ public class Player {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Nullable
+    private String nextMatch;
 
     @Enumerated(value = EnumType.STRING)
     private Position position;

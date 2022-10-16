@@ -29,6 +29,8 @@ public class User {
 
     private String name;
 
+    private String team;
+
     private Integer age;
 
     @Enumerated(EnumType.STRING)
