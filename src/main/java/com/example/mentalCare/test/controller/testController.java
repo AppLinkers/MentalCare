@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -66,12 +69,12 @@ public class testController {
 
     @PostMapping("/addTest")
     public String testSubmit( WriteTestReq writeTestReq,@ModelAttribute BuildDiagnoseReq req){
-        writeTestReq.setUser_id("asdf");
-        writeTestReq.setDate("20.09.02");
+        String login_id = SecurityContextHolder.getContext().getAuthentication().getName();
+        String todayFm = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
+        writeTestReq.setUser_id(login_id);
+        writeTestReq.setDate(todayFm);
         diagnoseService.writeTest(writeTestReq, req);
-        //System.out.println(answerQuestion.getQuestionContext()+answerQuestion.getWeight()+"sipal");
-       // diagnoseService.writeTest(writeTestReq, answerReq);
-        return "test/my_result";
+        return "redirect:/testList";
     }
 
     /**
@@ -79,7 +82,8 @@ public class testController {
      */
     @GetMapping("/testList")
     public String testResultPage(Model model) {
-        List<GetTestRes> testList = diagnoseService.getAllTestByUserId("asdf");
+        String login_id = SecurityContextHolder.getContext().getAuthentication().getName();
+        List<GetTestRes> testList = diagnoseService.getAllTestByUserId(login_id);
         model.addAttribute("testList",testList);
         return "test/test_result";
     }

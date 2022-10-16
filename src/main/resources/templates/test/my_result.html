@@ -80,57 +80,14 @@
                     <i class="uil uil-angle-down"></i>
                 </div>
                 <div class="result__chart">
-                    <canvas id="bar"></canvas>
-                </div>
-            </article>
-            <article>
-                <div class="result__box">
-                    <div class="result__name">
-                        <h3>진로</h3>
-                        <p>마지막 검사 : 2022.09.26</p>
+                    <div th:each="question : ${diagnose.questionList}">
+                        <p th:text="${question.questionContext}"></p>
+                        <p th:text="${question.weight}"></p>
                     </div>
-                    <i class="uil uil-angle-down"></i>
-                </div>
-                <div class="result__chart">
                     <canvas id="bar"></canvas>
                 </div>
             </article>
-            <article>
-                <div class="result__box">
-                    <div class="result__name">
-                        <h3>부상</h3>
-                        <p>마지막 검사 : 2022.09.26</p>
-                    </div>
-                    <i class="uil uil-angle-down"></i>
-                </div>
-                <div class="result__chart">
-                    <canvas id="bar"></canvas>
-                </div>
-            </article>
-            <article>
-                <div class="result__box">
-                    <div class="result__name">
-                        <h3>생활</h3>
-                        <p>마지막 검사 : 2022.09.26</p>
-                    </div>
-                    <i class="uil uil-angle-down"></i>
-                </div>
-                <div class="result__chart">
-                    <canvas id="bar"></canvas>
-                </div>
-            </article>
-            <article>
-                <div class="result__box">
-                    <div class="result__name">
-                        <h3>기능 불만</h3>
-                        <p>마지막 검사 : 2022.09.26</p>
-                    </div>
-                    <i class="uil uil-angle-down"></i>
-                </div>
-                <div class="result__chart">
-                    <canvas id="bar"></canvas>
-                </div>
-            </article>
+
         </div>
     </div>
 </section>
