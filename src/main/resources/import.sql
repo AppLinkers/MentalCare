@@ -1,5 +1,6 @@
 
 
+
 insert into Test(`test_id`, `user_id`, `date`) values(0, 'asdf' , '20.09.01');
 
 insert into Diagnose(`diagnose_id`, `diagnoseTitle`, `userId`, `test_id`) values(0, '경기력', 'admin',0);
@@ -37,16 +38,16 @@ insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) 
 insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(18, '실력 부족에 대한 스트레스 체크해주세요. ', 0, 1);
 
 
-insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(20, '기능 자신감 스트레스 원인 체크 해주세요', 0, 2);
-insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(21, '기술에 대한 스트레스 체크해주세요', 0, 2);
-insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(22, '체력에 대한 스트레스 체크해주세요', 0, 2);
-insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(23, '피지컬(키)에 대한 스트레스 체크해주세요', 0, 2);
-insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(24, '피지컬(체형)에 대한 스트레스 체크해주세요', 0, 2);
+insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(20, '기능 자신감 스트레스 원인 체크 해주세요', 1, 2);
+insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(21, '기술에 대한 스트레스 체크해주세요', 1, 2);
+insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(22, '체력에 대한 스트레스 체크해주세요', 1, 2);
+insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(23, '피지컬(키)에 대한 스트레스 체크해주세요', 2, 2);
+insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(24, '피지컬(체형)에 대한 스트레스 체크해주세요', 2, 2);
 
 
-insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(25, '부상 스트레스 원인 체크해주세요.', 0, 3);
-insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(26, '부상에 대한 스트레스 체크해주세요.', 0, 3);
-insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(27, '부상으로 인한 경기불참에 대한 스트레스 체크해주세요.', 0, 3);
+insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(25, '부상 스트레스 원인 체크해주세요.', 1, 3);
+insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(26, '부상에 대한 스트레스 체크해주세요.', 2, 3);
+insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(27, '부상으로 인한 경기불참에 대한 스트레스 체크해주세요.', 2, 3);
 insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(28, '부상 후 재활치료에 대한 스트레스 체크해주세요.', 0, 3);
 
 

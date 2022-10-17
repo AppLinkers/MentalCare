@@ -41,11 +41,21 @@ public class testController {
 
     @GetMapping("/myResult/{id}")
     public String myResult(Model model, @PathVariable(value="id") Long id) {
-        model.addAttribute("diagnoseList", diagnoseService.getTestById(id).getDiagnoseList());
+        List<Diagnose> diagnoseList = diagnoseService.getTestById(id).getDiagnoseList();
+        model.addAttribute("diagnoseList", diagnoseList);
         model.addAttribute("date", diagnoseService.getTestById(id).getDate());
-        System.out.println(diagnoseService.getTestById(id).getDiagnoseList().size());
+
         return "test/my_result";
     }
+
+//    @GetMapping("/questionCalc/{diagnose}")
+//    public void calcQuestion(Model model, @PathVariable(value="diagnose") Diagnose diagnose){
+//        int result=0;
+//        for(int i=0; i<diagnose.getQuestionList().size(); i++){
+//            result+=diagnose.getQuestionList().get(i).getWeight();
+//        }
+//        model.addAttribute("average",result/diagnose.getQuestionList().size());
+//    }
 
     @GetMapping("/testing")
     public String goToTest(GetDiagnoseRes getDiagnoseRes, Model model) throws IOException {

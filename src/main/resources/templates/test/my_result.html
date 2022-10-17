@@ -70,20 +70,31 @@
             </div>
         </div>
         <!-- result-list -->
+
         <div class="result__list" th:each="diagnose : ${diagnoseList}">
             <article>
                 <div class="result__box">
                     <div class="result__name">
                         <h3 th:text="${diagnose.diagnoseTitle}">관계</h3>
                         마지막 검사 : <p th:text="${date}"> 2022.09.26</p>
+                        <p id="avg"> 평균 </p>
                     </div>
                     <i class="uil uil-angle-down"></i>
                 </div>
                 <div class="result__chart">
+
                     <div th:each="question : ${diagnose.questionList}">
                         <p th:text="${question.questionContext}"></p>
                         <p th:text="${question.weight}"></p>
+                        <script th:inline="javascript">
+                            /* <![CDATA[ */
+                            var title = /*[[${question.questionContext}]]*/;
+                            var weight = /*[[${question.weight}]]*/;
+                            console.log(title+ " : "+weight);
+                            /* ]]> */
+                        </script>
                     </div>
+
                     <canvas id="bar"></canvas>
                 </div>
             </article>
