@@ -41,7 +41,7 @@ public class testController {
 
     @GetMapping("/myResult/{id}")
     public String myResult(Model model, @PathVariable(value="id") Long id) {
-        List<Diagnose> diagnoseList = diagnoseService.getTestById(id).getDiagnoseList();
+        List<GetDiagnoseRes> diagnoseList = diagnoseService.getTestById(id).getDiagnoseList();
         model.addAttribute("diagnoseList", diagnoseList);
         model.addAttribute("date", diagnoseService.getTestById(id).getDate());
 
@@ -61,7 +61,7 @@ public class testController {
     public String goToTest(GetDiagnoseRes getDiagnoseRes, Model model) throws IOException {
         BuildDiagnoseReq buildDiagnoseReq = new BuildDiagnoseReq();
         List<AnswerQuestion> answerQuestions = new ArrayList<>();
-        List<Diagnose> diagnoseListForm = diagnoseService.getTestById(0L).getDiagnoseList();
+        List<GetDiagnoseRes> diagnoseListForm = diagnoseService.getTestById(0L).getDiagnoseList();
 
         for(int i=0; i<diagnoseListForm.size(); i++) {
             for (int j = 0; j < diagnoseListForm.get(i).getQuestionList().size(); j++) {

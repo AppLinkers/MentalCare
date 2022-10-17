@@ -40,6 +40,7 @@ public class Diagnose{
     @JoinColumn(name = "test_id")
     private Test test;
 
+
     public void newQuestion(Question question) {
         this.questionList.add(question);
     }

@@ -77,7 +77,13 @@
                     <div class="result__name">
                         <h3 th:text="${diagnose.diagnoseTitle}">관계</h3>
                         마지막 검사 : <p th:text="${date}"> 2022.09.26</p>
-                        <p id="avg"> 평균 </p>
+                        <table>
+                            <tr>
+                                <td><p style="margin-left: 30px;">평균 :</p></td>
+                                <td><p style="margin-left: 3px;" th:text="${diagnose.diagnoseAvg}"> </p></td>
+                            </tr>
+                        </table>
+
                     </div>
                     <i class="uil uil-angle-down"></i>
                 </div>

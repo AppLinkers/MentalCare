@@ -26,16 +26,34 @@ public class DiagnoseService {
     private final TestRepository testRepository;
     private final QuestionRepository questionRepository;
 
+    public List<GetDiagnoseRes> getDiagnoseData(List<Diagnose> diagnoseList){
+        List<GetDiagnoseRes> result = new ArrayList<>();
+
+        for(Diagnose diagnose : diagnoseList){
+            int avg =0;
+            for(Question q : diagnose.getQuestionList()){
+                avg+=q.getWeight();
+            }
+            result.add(new GetDiagnoseRes(diagnose.getId(),
+                    diagnose.getDiagnoseTitle(),
+                    diagnose.getQuestionList(),
+                    avg/diagnose.getQuestionList().size(),
+                    diagnose.getUserId()));
+        }
+        return result;
+    }
 
 
     public Page<GetDiagnoseRes> getAllDiagnose(Pageable pageable){
         Page<Diagnose> findDiagnoseList = diagnoseRepository.findAll(pageable);
+
 
         return findDiagnoseList.map(diagnose ->
                 new GetDiagnoseRes(
                         diagnose.getId(),
                         diagnose.getDiagnoseTitle(),
                         diagnose.getQuestionList(),
+                        0,
                         diagnose.getUserId()
                 ));
     }
@@ -43,15 +61,21 @@ public class DiagnoseService {
 
     public GetTestRes getTestById(Long id){
         Test test = testRepository.findByTestId(id);
+
         return GetTestRes.builder()
                 .test_id(test.getTest_id())
                 .date(test.getDate())
                 .user_id(test.getUser_id())
-                .diagnoseList(test.getDiagnoseList())
+                .diagnoseList(getDiagnoseData(test.getDiagnoseList()))
                 .build();
     }
 
-
+    public void calcQuestion(Diagnose diagnose){
+        int result=0;
+        for(int i=0; i<diagnose.getQuestionList().size(); i++){
+            result+=diagnose.getQuestionList().get(i).getWeight();
+        }
+    }
 
 
     public void writeTest(WriteTestReq req, BuildDiagnoseReq buildDiagnoseReq){
@@ -101,7 +125,7 @@ public class DiagnoseService {
                                         .test_id(test.getTest_id())
                                         .user_id(test.getUser_id())
                                         .date(test.getDate())
-                                        .diagnoseList(test.getDiagnoseList())
+                                        .diagnoseList(getDiagnoseData(test.getDiagnoseList()))
                                         .build()
                         );
                     }

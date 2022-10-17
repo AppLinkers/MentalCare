@@ -17,5 +17,6 @@ public class GetDiagnoseRes {
     private Long id;
     private String diagnoseTitle;
     private List<Question> questionList;
+    private int diagnoseAvg;
     private String userId;
 }

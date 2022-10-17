@@ -19,5 +19,5 @@ public class GetTestRes {
     private Long test_id;
     private String user_id;
     private String date;
-    private List<Diagnose> diagnoseList;
+    private List<GetDiagnoseRes> diagnoseList;
 }
