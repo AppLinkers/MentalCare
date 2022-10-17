@@ -39,8 +39,13 @@
                     </div>
                 </div>
                 <h4>FW, 30살</h4>
-                최근 업데이트 : <p th:text="${date}">2022.09.26</p>
-                총 평균 : <p th:object="${totalAvg}"></p>
+                최근 업데이트 :<p th:text="${date}">2022.09.26</p>
+                <table>
+                    <tr>
+                        <td>총 평균 : </td>
+                        <td><p style="margin-left: 5px"  th:text="${totalAvg}"></p></td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="member__chart">
