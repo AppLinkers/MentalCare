@@ -42,9 +42,18 @@ public class testController {
     @GetMapping("/myResult/{id}")
     public String myResult(Model model, @PathVariable(value="id") Long id) {
         List<GetDiagnoseRes> diagnoseList = diagnoseService.getTestById(id).getDiagnoseList();
+
+        int cnt =0;
+        int sum=0;
+        for(GetDiagnoseRes diagnoseRes : diagnoseList){
+            for(Question q : diagnoseRes.getQuestionList()){
+                cnt+=1;
+                sum+=q.getWeight();
+            }
+        }
         model.addAttribute("diagnoseList", diagnoseList);
         model.addAttribute("date", diagnoseService.getTestById(id).getDate());
-
+        model.addAttribute("totalAvg", sum/cnt);
         return "test/my_result";
     }
 
