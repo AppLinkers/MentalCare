@@ -1,6 +1,4 @@
 
-
-
 insert into Test(`test_id`, `user_id`, `date`) values(0, 'asdf' , '20.09.01');
 
 insert into Diagnose(`diagnose_id`, `diagnoseTitle`, `userId`, `test_id`) values(0, '경기력', 'admin',0);
