@@ -1,14 +1,13 @@
 package com.example.mentalCare.user.domain.Diagnose;
 
-import com.example.mentalCare.test.domain.Answer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,7 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString(callSuper = true)
 public class Diagnose{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
