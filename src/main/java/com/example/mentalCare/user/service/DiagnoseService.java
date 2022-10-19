@@ -30,14 +30,14 @@ public class DiagnoseService {
         List<GetDiagnoseRes> result = new ArrayList<>();
 
         for(Diagnose diagnose : diagnoseList){
-            int avg =0;
+            int sum =0;
             for(Question q : diagnose.getQuestionList()){
-                avg+=q.getWeight();
+                sum+=q.getWeight();
             }
             result.add(new GetDiagnoseRes(diagnose.getId(),
                     diagnose.getDiagnoseTitle(),
                     diagnose.getQuestionList(),
-                    avg/diagnose.getQuestionList().size(),
+                    sum/diagnose.getQuestionList().size(),
                     diagnose.getUserId()));
         }
         return result;
