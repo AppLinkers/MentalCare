@@ -1,4 +1,8 @@
 
+insert into _USER(`id`,`login_id`, `login_pw`, `name`, `team`, `role`,`age`) values(1,'asdf','{bcrypt}$2a$10$d3QK7jlUd8NI6EdHmILzfejSoF.XSlmT/eRdb9zaXuM8YuWmTdzSO','test','서울FC','PLAYER',25);
+insert into Player(`position`,`user_id`) values('FW',1);
+
+
 insert into Test(`test_id`, `user_id`, `date`) values(0, 'asdf' , '20.09.01');
 
 insert into Diagnose(`diagnose_id`, `diagnoseTitle`, `userId`, `test_id`) values(0, '경기력', 'admin',0);
