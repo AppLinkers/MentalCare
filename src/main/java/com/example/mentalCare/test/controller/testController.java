@@ -101,4 +101,12 @@ public class testController {
         model.addAttribute("testList",testList);
         return "test/test_result";
     }
+
+    /**
+     * Teest Type Page
+     */
+    @GetMapping("/type")
+    public  String testTypePage(Model model){
+        return "test/test_type";
+    }
 }
