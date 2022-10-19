@@ -19,8 +19,8 @@ insert into Diagnose(`diagnose_id`, `diagnoseTitle`, `userId`, `test_id`) values
 
 
 
-insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(0, '경기 전 스트레스 원인 체크 해주세요', 0, 1);
-insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(1, '경기 전 불안감에 대해 체크해주세요', 1, 1);
+insert into Question(`question_id`, `questionContext`, `weight`,`keyword` ,`diagnose_id`) values(0, '경기 전 스트레스 원인 체크 해주세요', 0, '경기전-스트레스' ,1);
+insert into Question(`question_id`, `questionContext`, `weight`,`keyword` ,`diagnose_id`) values(1, '경기 전 불안감에 대해 체크해주세요', 1,'경기전-불안감' ,1);
 insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(2, '어웨이 경기장 환경에 대해 스트레스 체크해주세요', 4, 1);
 insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(3, '경기 전 훈련 집중도에 대해 체크해주세요', 2, 1);
 insert into Question(`question_id`, `questionContext`, `weight`, `diagnose_id`) values(4, '경기 전 자신감에 대한 스트레스 체크해주세요', 3, 1);

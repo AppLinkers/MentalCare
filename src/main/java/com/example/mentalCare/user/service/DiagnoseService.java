@@ -102,6 +102,7 @@ public class DiagnoseService {
                 for(int a=0; a<answerList.size(); a++){
                     if(answerList.get(a).getQuestionContext().equals(questionContext)){
                         Question question = new Question();
+                        question.setKeyWord(testForm.getDiagnoseList().get(i).getQuestionList().get(j).getKeyWord());
                         question.setQuestionContext(testForm.getDiagnoseList().get(i).getQuestionList().get(j).getQuestionContext());
                         question.setWeight(answerList.get(a).getWeight());
                         question.setDiagnose(diagnose);

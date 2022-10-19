@@ -28,6 +28,7 @@ public class Question {
     private Long question_id;
 
     private String questionContext;
+    private String keyWord;
     private int weight;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Diagnose.class)
