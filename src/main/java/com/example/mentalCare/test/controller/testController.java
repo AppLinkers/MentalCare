@@ -44,9 +44,11 @@ public class testController {
                 sum+=q.getWeight();
             }
         }
+        double avg = sum/cnt;
+        String avgStr = String.format("%.2f", avg);
         model.addAttribute("diagnoseList", diagnoseList);
         model.addAttribute("date", diagnoseService.getTestById(id).getDate());
-        model.addAttribute("totalAvg", sum/cnt);
+        model.addAttribute("totalAvg", avgStr);
         return "test/my_result";
     }
 

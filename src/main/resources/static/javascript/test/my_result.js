@@ -30,7 +30,7 @@ articles.forEach(article => {
 function colorByAvg(avg,box) {
     if(avg >= 4){
         box.style.background = '#FC5230'
-    } else if(avg >= 1) {
+    } else if(avg >= 3) {
         box.style.background = '#EFB93A'
     } else {
         box.style.background = '#1DBA84'
