@@ -32,7 +32,7 @@
         <h3>생활 스트레스</h3>
     </div>
 
-    <form th:method="post"th:action= "@{/test}" th:object="${form}" enctype="multipart/form-data">
+    <form th:method="post"th:action= "@{/test/submit}" th:object="${form}" enctype="multipart/form-data">
 
         <div class="form-group" th:each="answerQuestion, itemStat : *{answerQuestions}">
             <div class="question">

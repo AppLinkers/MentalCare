@@ -79,14 +79,14 @@ public class testController {
         return "test/testing";
     }
 
-    @PostMapping("/")
+    @PostMapping("/submit")
     public String testSubmit( WriteTestReq writeTestReq,@ModelAttribute BuildDiagnoseReq req){
         String login_id = SecurityContextHolder.getContext().getAuthentication().getName();
         String todayFm = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
         writeTestReq.setUser_id(login_id);
         writeTestReq.setDate(todayFm);
         diagnoseService.writeTest(writeTestReq, req);
-        return "redirect:/testList";
+        return "redirect:/test/list";
     }
 
     /**
