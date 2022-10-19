@@ -37,11 +37,11 @@
         <div class="form-group" th:each="answerQuestion, itemStat : *{answerQuestions}">
             <div class="question">
                 <!--                <h2 th:text="${diagnose.diagnoseTitle}">스트레스 강도는 어떤가요?</h2>-->
-                <input th:field="*{answerQuestions[__${itemStat.index}__].questionContext}"></input>
+                <input th:field="*{answerQuestions[__${itemStat.index}__].questionContext}" />
             </div>
             <!--            <div class="check__group" th:each="question: ${diagnose.questionList}">-->
             <div class="check__con">
-                <input type="number" th:name="answerQuestions[__${itemStat.index}__].weight" th:value="4"/>
+                <input type="number" th:name="answerQuestions[__${itemStat.index}__].weight" th:value="4" hidden/>
                 <div class="check">
                     <input type="radio" th:name="answerQuestions[__${itemStat.index}__].weight" th:value="5"  id="worst"/>
                     <label class="check__radio" for="worst"></label>

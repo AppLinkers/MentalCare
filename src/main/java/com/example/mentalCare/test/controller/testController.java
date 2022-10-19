@@ -32,7 +32,7 @@ public class testController {
         return "test/test";
     }
 
-    @GetMapping("/result/{id}")
+    @GetMapping("result/{id}")
     public String myResult(Model model, @PathVariable(value="id") Long id) {
         List<GetDiagnoseRes> diagnoseList = diagnoseService.getTestById(id).getDiagnoseList();
 

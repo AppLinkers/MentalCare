@@ -15,8 +15,11 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <!-- STYLE SHEET -->
-    <link rel="stylesheet" href="../css/common/style.css">
-    <link rel="stylesheet" href="../css/test/my_result.css">
+    <link rel="stylesheet" href="../../css/common/style.css">
+    <link rel="stylesheet" href="../../css/test/my_result.css">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -29,7 +32,7 @@
     <div class="container member__con">
         <div class="member__info">
             <div class="member__img">
-                <img src="../images/son.png">
+                <img src="../../images/son.png">
             </div>
             <div class="member__text">
                 <div class="member__name">
@@ -77,7 +80,14 @@
         </div>
         <!-- result-list -->
 
+
         <div class="result__list" th:each="diagnose : ${diagnoseList}">
+            <script>
+            var titleSet = new Array();
+            var weightSet = new Array();
+            var data_bar = new Array();
+            var config_bar = new Array();
+            </script>
             <article>
                 <div class="result__box">
                     <div class="result__name">
@@ -93,21 +103,58 @@
                     </div>
                     <i class="uil uil-angle-down"></i>
                 </div>
-                <div class="result__chart">
+                <div class="result__chart" th:id="${diagnose.diagnoseTitle}">
 
                     <div th:each="question : ${diagnose.questionList}">
-                        <p th:text="${question.questionContext}"></p>
-                        <p th:text="${question.weight}"></p>
+<!--                        <p th:text="${question.questionContext}"></p>-->
+<!--                        <p th:text="${question.weight}"></p>-->
                         <script th:inline="javascript">
                             /* <![CDATA[ */
                             var title = /*[[${question.questionContext}]]*/;
                             var weight = /*[[${question.weight}]]*/;
-                            console.log(title+ " : "+weight);
+                            titleSet.push(title);
+                            weightSet.push(weight);
                             /* ]]> */
                         </script>
                     </div>
+                    <script th:inline="javascript">
+                        /* <![CDATA[ */
+                        var id = /*[[${diagnose.diagnoseTitle}]]*/;
+                        var barCanvas = document.createElement("CANVAS");
+                        var resultDiv = document.getElementById(id);
+                        console.log(id);
+                        resultDiv.appendChild(barCanvas);
+                        data_bar = {
+                            labels: titleSet,
+                            datasets: [{
+                                label: '스트레스 강도',
+                                data: weightSet,
+                                backgroundColor : [
+                                    'rgba(105,81,255,0.6)'
+                                ]
+                            }]
+                        };
 
-                    <canvas id="bar"></canvas>
+                        config_bar = {
+                            type: 'bar',
+                            data: data_bar,
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        }
+
+                       var barChart = new Chart(
+                            barCanvas,
+                            config_bar
+                        )
+                        /* ]]> */
+                    </script>
+
+
                 </div>
             </article>
 
@@ -116,9 +163,9 @@
 </section>
 
 <!-- =========== JAVASCRIPT ========== -->
-<script src="../javascript/common/base.js"></script>
-<script src="../javascript/test/my_result.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!--<script src="../../javascript/common/base.js"></script>-->
+<script src="../../javascript/test/my_result.js"></script>
+
 <script>
     const data = {
         datasets: [{
@@ -146,36 +193,38 @@
         config
     );
 </script>
-<script>
-    const labels = ['부모님','동료','선배','지도자','이성'];
+<!--<script th:inline="javascript">-->
 
-    const data_bar = {
-        labels: labels,
-        datasets: [{
-            label: '스트레스 강도',
-            data: [1,2,3,5,4],
-            backgroundColor : [
-                'rgba(105,81,255,0.6)'
-            ]
-        }]
-    };
+<!--    const labels = ['경기전 불안감','어웨이 불안감','훈련 집중도','자신감','스트레스'];-->
 
-    const config_bar = {
-        type: 'bar',
-        data: data_bar,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    }
+<!--    const data_bar = {-->
+<!--        labels: labels,-->
+<!--        datasets: [{-->
+<!--            label: '스트레스 강도',-->
+<!--            data: [1,2,3,5,4],-->
+<!--            backgroundColor : [-->
+<!--                'rgba(105,81,255,0.6)'-->
+<!--            ]-->
+<!--        }]-->
+<!--    };-->
 
-    const bar = new Chart(
-        document.getElementById('bar'),
-        config_bar
-    )
-</script>
+<!--    const config_bar = {-->
+<!--        type: 'bar',-->
+<!--        data: data_bar,-->
+<!--        options: {-->
+<!--            scales: {-->
+<!--                y: {-->
+<!--                    beginAtZero: true-->
+<!--                }-->
+<!--            }-->
+<!--        }-->
+<!--    }-->
+
+<!--    const bar = new Chart(-->
+<!--        document.getElementById('bar'),-->
+<!--        config_bar-->
+<!--    )-->
+<!--</script>-->
+
 </body>
 </html>
