@@ -36,6 +36,7 @@
                 <div class="question">
                     <!--                <h2 th:text="${diagnose.diagnoseTitle}">스트레스 강도는 어떤가요?</h2>-->
                     <h3 th:text="*{answerQuestions[__${itemStat.index}__].questionContext}"></h3>
+                    <input th:field="*{answerQuestions[__${itemStat.index}__].questionContext}" hidden/>
     <!--                <input th:field="*{answerQuestions[__${itemStat.index}__].questionContext}" />-->
                 </div>
     <!--            <div class="check__group" th:each="question: ${diagnose.questionList}">-->
@@ -64,7 +65,7 @@
                         </div>
                     </div>
 
-                    <input type="number" th:name="answerQuestions[__${itemStat.index}__].weight" th:value="4" hidden/>
+
                     <div class="check__text">
                         <p>최상</p>
                         <p>높음</p>
@@ -74,7 +75,7 @@
                     </div>
                     <!--결과 처리용-->
                     <div class="check__result">
-                        <input type="number" value="0">
+                        <input type="number" th:name="answerQuestions[__${itemStat.index}__].weight" th:value="4" />
                     </div>
 
                 </div>
