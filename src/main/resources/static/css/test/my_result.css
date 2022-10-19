@@ -156,6 +156,7 @@
     display: none;
     padding: 1rem;
     border: 1px solid var(--color-green);
+    border-top: none;
 }
 
 /* active */
@@ -172,6 +173,7 @@
 }
 
 /* color-example 지워야됨 */
+/*
 .result__list article:nth-child(2) .result__box,
 .result__list article:nth-child(5) .result__box {
     background: var(--color-yellow);
@@ -188,4 +190,4 @@
 
 .result__list article:nth-child(3) .result__chart {
     border-color: var(--color-red);
-}
+}*/

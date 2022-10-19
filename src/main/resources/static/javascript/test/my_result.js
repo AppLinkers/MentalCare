@@ -14,10 +14,11 @@ const articles = document.querySelectorAll(".result__list article");
 articles.forEach(article => {
 
     const box = article.querySelector(".result__box");
+    const chart_box = article.querySelector(".result__chart");
     const avg_box = box.querySelector(".avg");
 
     var avg = parseFloat(avg_box.innerText);
-    colorByAvg(avg,box);
+    colorByAvg(avg,box,chart_box);
 
     article.addEventListener('click', ()=> {
         const chart = article.querySelector('.result__chart');
@@ -27,12 +28,15 @@ articles.forEach(article => {
     })
 })
 
-function colorByAvg(avg,box) {
+function colorByAvg(avg,box,chart_box) {
     if(avg >= 4){
-        box.style.background = '#FC5230'
-    } else if(avg >= 3) {
-        box.style.background = '#EFB93A'
+        box.style.background = '#FC5230';
+        chart_box.style.borderColor = '#FC5230';
+    } else if(avg >= 1) {
+        box.style.background = '#EFB93A';
+        chart_box.style.borderColor = '#EFB93A';
     } else {
-        box.style.background = '#1DBA84'
+        box.style.background = '#1DBA84';
+        chart_box.style.borderColor = '#1DBA84';
     }
 }
