@@ -15,12 +15,10 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <!-- STYLE SHEET -->
-    <link rel="stylesheet" href="../css/common/style.css">
-    <link rel="stylesheet" href="../css/test/my_result.css">
+    <link rel="stylesheet" href="../../css/common/style.css">
+    <link rel="stylesheet" href="../../css/test/my_result.css">
 
-    <!-- =========== JAVASCRIPT ========== -->
-    <script src="../javascript/common/base.js"></script>
-    <script src="../javascript/test/my_result.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -34,7 +32,7 @@
     <div class="container member__con">
         <div class="member__info">
             <div class="member__img">
-                <img src="../images/son.png">
+                <img src="../../images/son.png">
             </div>
             <div class="member__text">
                 <div class="member__name">
@@ -105,7 +103,7 @@
                     </div>
                     <i class="uil uil-angle-down"></i>
                 </div>
-                <div class="result__chart">
+                <div class="result__chart" th:id="${diagnose.diagnoseTitle}">
 
                     <div th:each="question : ${diagnose.questionList}">
 <!--                        <p th:text="${question.questionContext}"></p>-->
@@ -119,9 +117,13 @@
                             /* ]]> */
                         </script>
                     </div>
-                    <canvas id="bar"></canvas>
                     <script th:inline="javascript">
-
+                        /* <![CDATA[ */
+                        var id = /*[[${diagnose.diagnoseTitle}]]*/;
+                        var barCanvas = document.createElement("CANVAS");
+                        var resultDiv = document.getElementById(id);
+                        console.log(id);
+                        resultDiv.appendChild(barCanvas);
                         data_bar = {
                             labels: titleSet,
                             datasets: [{
@@ -145,10 +147,11 @@
                             }
                         }
 
-                        const bar = new Chart(
-                            document.getElementById('bar'),
+                       var barChart = new Chart(
+                            barCanvas,
                             config_bar
                         )
+                        /* ]]> */
                     </script>
 
 
@@ -159,6 +162,9 @@
     </div>
 </section>
 
+<!-- =========== JAVASCRIPT ========== -->
+<!--<script src="../../javascript/common/base.js"></script>-->
+<script src="../../javascript/test/my_result.js"></script>
 
 <script>
     const data = {

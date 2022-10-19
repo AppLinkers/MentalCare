@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.header.writers.frameoptions.WhiteListedAllowFromStrategy;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import java.util.Arrays;
 
@@ -41,7 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("h2-console/**").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/", "/nav", "/login", "/sign_up/**").permitAll()
+                .antMatchers("/test/**", "/logout", "/profile/**", "/testAdmin").hasAnyAuthority("DIRECTOR", "PLAYER")
+                .antMatchers("/director/**").hasAnyAuthority("DIRECTOR")
                 .anyRequest().permitAll()
                 .and()
                 .csrf()

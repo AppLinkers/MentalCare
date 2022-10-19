@@ -34,7 +34,7 @@
         <article>
             <div class="container result__date">
                 <h3 th:text="${test.date}">2022. 09. 08</h3>
-                <a th:href="@{|/myResult/${test.test_id}|}"><i class="uil uil-angle-right-b"></i></a>
+                <a th:href="@{|/test/result/${test.test_id}|}"><i class="uil uil-angle-right-b"></i></a>
             </div>
             <div class="line inside"></div>
             <!--                <div class="container result__type">-->
@@ -55,6 +55,6 @@
 </section>
 
 <!-- =========== JAVASCRIPT ========== -->
-<script src="../javascript/base.js"></script>
+<script src="../javascript/common/base.js"></script>
 </body>
 </html>

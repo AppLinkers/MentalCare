@@ -1,22 +1,13 @@
 package com.example.mentalCare.test.controller;
 
-import com.example.mentalCare.user.domain.Diagnose.Diagnose;
 import com.example.mentalCare.user.domain.Diagnose.Question;
-import com.example.mentalCare.user.domain.Diagnose.Test;
 import com.example.mentalCare.user.dto.*;
 import com.example.mentalCare.user.service.DiagnoseService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -25,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
+@RequestMapping("test")
 @RequiredArgsConstructor
 public class testController {
 
@@ -34,12 +26,13 @@ public class testController {
     /**
      * Test Page
      */
-    @GetMapping("/test")
+    @GetMapping("")
     public String testPage() {
+
         return "test/test";
     }
 
-    @GetMapping("/myResult/{id}")
+    @GetMapping("result/{id}")
     public String myResult(Model model, @PathVariable(value="id") Long id) {
         List<GetDiagnoseRes> diagnoseList = diagnoseService.getTestById(id).getDiagnoseList();
 
@@ -66,7 +59,7 @@ public class testController {
 //        model.addAttribute("average",result/diagnose.getQuestionList().size());
 //    }
 
-    @GetMapping("/testing")
+    @GetMapping("/progress")
     public String goToTest(GetDiagnoseRes getDiagnoseRes, Model model) throws IOException {
         BuildDiagnoseReq buildDiagnoseReq = new BuildDiagnoseReq();
         List<AnswerQuestion> answerQuestions = new ArrayList<>();
@@ -86,7 +79,7 @@ public class testController {
         return "test/testing";
     }
 
-    @PostMapping("/addTest")
+    @PostMapping("/")
     public String testSubmit( WriteTestReq writeTestReq,@ModelAttribute BuildDiagnoseReq req){
         String login_id = SecurityContextHolder.getContext().getAuthentication().getName();
         String todayFm = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
@@ -99,7 +92,7 @@ public class testController {
     /**
      * Test Result Page
      */
-    @GetMapping("/testList")
+    @GetMapping("/list")
     public String testResultPage(Model model) {
         String login_id = SecurityContextHolder.getContext().getAuthentication().getName();
         List<GetTestRes> testList = diagnoseService.getAllTestByUserId(login_id);
