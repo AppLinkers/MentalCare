@@ -1,0 +1,28 @@
+.type__container {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 1rem;
+    padding: 1rem 0;
+}
+.type__box {
+    border: 1px solid var(--color-lightgray);
+    height: 15rem;
+    padding: 1rem;
+    cursor: pointer;
+}
+.type__icon {
+    height: 25%;
+    width: 25%;
+}
+.type__name {
+    margin-top: 1rem;
+}
+.type__name h3 {
+    font-weight: 600;
+    line-height: 1.2;
+}
+.type__go {
+    display: flex;
+    justify-content: right;
+    margin-top: 3rem;
+}
