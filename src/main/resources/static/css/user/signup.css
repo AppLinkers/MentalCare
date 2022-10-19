@@ -1,12 +1,21 @@
-
+body {
+    background: var(--color-light);
+}
+h2 {
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
 .signup__content {
     display: flex;
     flex-direction: column;
-    margin-top: 7rem;
     padding-bottom: 3rem;
 }
-.signup__content form{
-    margin-top: 4rem;
+.signup__content form {
+    display: none;
+}
+label {
+    font-weight: 600;
 }
 .signup__content .form-group {
     margin-top: 1.2rem;
@@ -22,6 +31,7 @@
     padding: 0.5rem 1rem;
     border-radius: 0.2rem;
     position: relative;
+    background: var(--color-white);
 }
 .select-btn {
     display: flex;
@@ -68,7 +78,16 @@
 }
 
 .signup__content button{
-    margin-top: 1.5rem;
+    margin-top: 2.5rem;
     width: 100%;
     cursor: pointer;
+}
+
+/*========== FORM ACTIVE ============*/
+#form-pro.active {
+    display: block;
+}
+
+#form-dir.active {
+    display: block;
 }

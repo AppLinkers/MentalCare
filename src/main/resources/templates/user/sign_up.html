@@ -35,9 +35,10 @@
                 <li class="option" id="dir"><span class="option-text">지도자</span></li>
             </ul>
         </div>
+
         <div class="signup__content">
-            <h2>회원가입</h2>
-            <form th:method="post" th:action="@{/sign_up/player}" th:object="${playerSignUpReq}">
+
+            <form th:method="post" th:action="@{/sign_up/player}" th:object="${playerSignUpReq}" id="form-pro">
                 <div class="form-group">
                     <label for="name">이름</label>
                     <input id="name" type="text" th:field="*{name}" class="btn btn-input" placeholder="이름을 입력하세요">
@@ -69,7 +70,7 @@
                 <button class="btn">가입하기</button>
             </form>
 
-            <form th:method="post" th:action="@{/sign_up/director}" th:object="${directorSignUpReq}">
+            <form th:method="post" th:action="@{/sign_up/director}" th:object="${directorSignUpReq}" id="form-dir">
                 <div class="form-group">
                     <label for="name">이름</label>
                     <input id="name" type="text" th:field="*{name}" class="btn btn-input" placeholder="이름을 입력하세요">
@@ -96,6 +97,7 @@
                 </div>
                 <button class="btn">가입하기</button>
             </form>
+
         </div>
     </div>
 </section>

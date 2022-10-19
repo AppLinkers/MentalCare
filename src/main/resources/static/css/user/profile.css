@@ -1,6 +1,5 @@
 section#profile {
     height: calc(100vh - 5rem);
-    margin-top: 5rem;
 }
 .profile__container {
     display: flex;
