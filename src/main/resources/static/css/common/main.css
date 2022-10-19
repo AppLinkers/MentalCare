@@ -1,20 +1,25 @@
-nav button i {
+/* ============ NAVBAR ============ */
+#nav {
+    position: fixed;
+    place-items: fixed;
+}
+#nav button i {
     color: var(--color-white);
 }
 
-nav h3{
+#nav h3{
     font-weight: 700;
     color: var(--color-white);
 }
 
 /* ============ Content ============ */
 section#init {
-    height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(/images/football.jpg);
+    height: calc(100vh);
+    background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(../../images/football.jpg);
     background-size: cover;
 }
 
-.init__container {    
+.init__container {
     padding: 3rem 1rem;
     display: flex;
     flex-direction: column;

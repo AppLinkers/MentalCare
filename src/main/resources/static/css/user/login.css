@@ -36,8 +36,9 @@
 
 .option {
     margin-top: 1rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 1.5rem;
 }
 .option span {
