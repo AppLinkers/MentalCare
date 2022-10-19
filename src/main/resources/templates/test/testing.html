@@ -22,87 +22,94 @@
 <!-- =========== TESTING ========== -->
 <section id="testing">
     <div class="container testing__container">
+
         <div class="header">
             <div class="icon">
                 <img src="../images/macos-calendar (1).png">
             </div>
-            <h3>생활 스트레스</h3>
+            <h3>통합 검사</h3>
         </div>
 
-        <h3>생활 스트레스</h3>
-    </div>
+        <form th:method="post"th:action= "@{/test/submit}" th:object="${form}" enctype="multipart/form-data">
 
-    <form th:method="post"th:action= "@{/test/submit}" th:object="${form}" enctype="multipart/form-data">
+            <div class="form-group" th:each="answerQuestion, itemStat : *{answerQuestions}">
+                <div class="question">
+                    <!--                <h2 th:text="${diagnose.diagnoseTitle}">스트레스 강도는 어떤가요?</h2>-->
+                    <h3 th:text="*{answerQuestions[__${itemStat.index}__].questionContext}"></h3>
+    <!--                <input th:field="*{answerQuestions[__${itemStat.index}__].questionContext}" />-->
+                </div>
+    <!--            <div class="check__group" th:each="question: ${diagnose.questionList}">-->
+                <div class="check__group">
 
-        <div class="form-group" th:each="answerQuestion, itemStat : *{answerQuestions}">
-            <div class="question">
-                <!--                <h2 th:text="${diagnose.diagnoseTitle}">스트레스 강도는 어떤가요?</h2>-->
-                <input th:field="*{answerQuestions[__${itemStat.index}__].questionContext}" />
+                    <div class="check__con">
+                        <div class="check">
+                            <input type="radio" th:name="answerQuestions[__${itemStat.index}__].weight" th:value="5"  id="worst"/>
+                            <label class="check__radio" for="worst"></label>
+                        </div>
+                        <div class="check">
+                            <input type="radio" th:name="answerQuestions[__${itemStat.index}__].weight" th:value="4" id="high"/>
+                            <label class="check__radio" for="high"></label>
+                        </div>
+                        <div class="check">
+                            <input type="radio" th:name="answerQuestions[__${itemStat.index}__].weight" th:value="3"  id="soso"/>
+                            <label class="check__radio" for="soso"></label>
+                        </div>
+                        <div class="check">
+                            <input type="radio" th:name="answerQuestions[__${itemStat.index}__].weight" th:value="2" id="low"/>
+                            <label class="check__radio" for="low"></label>
+                        </div>
+                        <div class="check">
+                            <input type="radio" th:name="answerQuestions[__${itemStat.index}__].weight" th:value="1"  id="none"/>
+                            <label class="check__radio" for="none"></label>
+                        </div>
+                    </div>
+
+                    <input type="number" th:name="answerQuestions[__${itemStat.index}__].weight" th:value="4" hidden/>
+                    <div class="check__text">
+                        <p>최상</p>
+                        <p>높음</p>
+                        <p>보통</p>
+                        <p>조금</p>
+                        <p>없음</p>
+                    </div>
+                    <!--결과 처리용-->
+                    <div class="check__result">
+                        <input type="number" value="0">
+                    </div>
+
+                </div>
             </div>
-            <!--            <div class="check__group" th:each="question: ${diagnose.questionList}">-->
-            <div class="check__con">
-                <input type="number" th:name="answerQuestions[__${itemStat.index}__].weight" th:value="4" hidden/>
-                <div class="check">
-                    <input type="radio" th:name="answerQuestions[__${itemStat.index}__].weight" th:value="5"  id="worst"/>
-                    <label class="check__radio" for="worst"></label>
-                </div>
-                <div class="check">
-                    <input type="radio" th:name="answerQuestions[__${itemStat.index}__].weight" th:value="4" id="high"/>
-                    <label class="check__radio" for="high"></label>
-                </div>
-                <div class="check">
-                    <input type="radio" th:name="answerQuestions[__${itemStat.index}__].weight" th:value="3"  id="soso"/>
-                    <label class="check__radio" for="soso"></label>
-                </div>
-                <div class="check">
-                    <input type="radio" th:name="answerQuestions[__${itemStat.index}__].weight" th:value="2" id="low"/>
-                    <label class="check__radio" for="low"></label>
-                </div>
-                <div class="check">
-                    <input type="radio" th:name="answerQuestions[__${itemStat.index}__].weight" th:value="1"  id="none"/>
-                    <label class="check__radio" for="none"></label>
-                </div>
-            </div>
-            <div class="check__text">
-                <p>최상</p>
-                <p>높음</p>
-                <p>보통</p>
-                <p>조금</p>
-                <p>없음</p>
-            </div>
-        </div>
-        </div>
 
-        <!--                <div class="question">-->
-        <!--                    <h3>스트레스 요인으로는 어떤것이 있나요?</h3>-->
-        <!--                </div>-->
-        <!--                <ul class="detail__group">-->
-        <!--                    <li>-->
-        <!--                        <div class="detail__box">-->
-        <!--                            <h3>기술</h3>-->
-        <!--                            <i class="uil uil-angle-down"></i>-->
-        <!--                        </div>-->
-        <!--                        <div class="detail__inside">-->
-        <!--                            <div class="type">-->
-        <!--                                <h4>패스</h4>-->
-        <!--                            </div>-->
-        <!--                            <div class="type">-->
-        <!--                                <h4>슛</h4>-->
-        <!--                            </div>-->
-        <!--                            <div class="type">-->
-        <!--                                <h4>키핑</h4>-->
-        <!--                            </div>-->
-        <!--                            <div class="type">-->
-        <!--                                <h4>트래핑</h4>-->
-        <!--                            </div>-->
-        <!--                        </div>-->
-        <!--                    </li>-->
-        <!--                </ul>-->
+    <!--        <div class="question">
+                <h3>스트레스 요인으로는 어떤것이 있나요?</h3>
+            </div>
+            <ul class="detail__group">
+                <li>
+                    <div class="detail__box">
+                        <h3>기술</h3>
+                        <i class="uil uil-angle-down"></i>
+                    </div>
+                    <div class="detail__inside">
+                        <div class="type">
+                            <h4>패스</h4>
+                        </div>
+                        <div class="type">
+                            <h4>슛</h4>
+                        </div>
+                        <div class="type">
+                            <h4>키핑</h4>
+                        </div>
+                        <div class="type">
+                            <h4>트래핑</h4>
+                        </div>
+                    </div>
+                </li>
+            </ul>-->
 
-        <div class="card__button">
-            <button class="btn" type="submit">검사완료</button>
-        </div>
-    </form>
+            <div class="card__button">
+                <button class="btn" type="submit">검사완료</button>
+            </div>
+        </form>
     </div>
 </section>
 

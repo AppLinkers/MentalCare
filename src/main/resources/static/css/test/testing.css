@@ -3,20 +3,30 @@
 }
 
 /* ===== HEADER ====== */
-.header{
+.header {
     display: flex;
     align-items: center;
 }
+
 .icon {
     width: 3rem;
     height: 3rem;
     margin-right: 1rem;
 }
+
 .header h3 {
     font-weight: 500;
 }
 
 /* ===== QUESTION ====== */
+.form-group {
+    margin-top: 3rem;
+}
+
+.form-group:first-child {
+    margin-top: 0;
+}
+
 .question {
     display: flex;
     align-items: center;
@@ -24,11 +34,16 @@
     padding: 4rem 0;
     text-align: center;
 }
+
 .question h3 {
-    max-width: 70%;
+    max-width: 75%;
 }
 
 /* ===== CHECK ====== */
+.check__group {
+    margin-top: 1rem;
+}
+
 .check__con {
     display: flex;
     align-items: center;
@@ -36,6 +51,7 @@
     content: "";
     clear: both;
 }
+
 .check {
     width: 18%;
     height: 5rem;
@@ -45,12 +61,15 @@
     align-items: center;
     justify-content: center;
 }
+
 .check:last-child {
     margin-right: 0;
 }
+
 .check input[type=radio] {
     display: none;
 }
+
 .check__radio {
     width: 100%;
     height: 100%;
@@ -59,33 +78,54 @@
     border-radius: 50%;
     cursor: pointer;
 }
+
+/*확인용*/
+.check__result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--color-gray);
+    margin-top: 2rem;
+}
+/**/
+
 /* button size */
-.check:nth-child(2) .check__radio, .check:nth-child(4) .check__radio{
+.check:nth-child(2) .check__radio,
+.check:nth-child(4) .check__radio {
     width: 80%;
     height: 80%;
 }
+
 .check:nth-child(3) .check__radio {
     width: 50%;
     height: 50%;
 }
+
 /* button color */
-.check:nth-child(1) .check__radio, .check:nth-child(2) .check__radio{
+.check:nth-child(1) .check__radio,
+.check:nth-child(2) .check__radio {
     border: 2px solid var(--color-red);
 }
-.check:nth-child(4) .check__radio, .check:nth-child(5) .check__radio{
+
+.check:nth-child(4) .check__radio,
+.check:nth-child(5) .check__radio {
     border: 2px solid var(--color-green);
 }
-.check input[type=radio]:checked + .check__radio {
+
+.check input[type=radio]:checked+.check__radio {
     background: var(--color-gray);
 }
-.check:nth-child(1) input[type=radio]:checked + .check__radio,
-.check:nth-child(2) input[type=radio]:checked + .check__radio {
+
+.check:nth-child(1) input[type=radio]:checked+.check__radio,
+.check:nth-child(2) input[type=radio]:checked+.check__radio {
     background: var(--color-red);
 }
-.check:nth-child(4) input[type=radio]:checked + .check__radio,
-.check:nth-child(5) input[type=radio]:checked + .check__radio {
+
+.check:nth-child(4) input[type=radio]:checked+.check__radio,
+.check:nth-child(5) input[type=radio]:checked+.check__radio {
     background: var(--color-green);
 }
+
 .check__text {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -95,7 +135,7 @@
 
 
 /* ===== DETAIL ====== */
-.detail__box {
+/* .detail__box {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -113,7 +153,7 @@
     display: none;
     grid-template-columns: repeat(4,1fr);
     gap: 1rem;
-    padding: 2rem 1rem; 
+    padding: 2rem 1rem;
     border: 1px solid var(--color-primary);
     border-top: 0;
 }
@@ -125,16 +165,17 @@
     cursor: pointer;
 }
 /* active */
-.detail__box.active {
+/* .detail__box.active {
     background: var(--color-primary);
     color: var(--color-white);
     border: 1px solid var(--color-primary);
 }
+
 .detail__inside.active {
     display: grid;
-}
+} */
 
 .card__button button {
     width: 100%;
-    margin-top: 3rem;
+    margin-top: 6rem;
 }
