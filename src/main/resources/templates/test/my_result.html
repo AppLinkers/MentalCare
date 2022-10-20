@@ -62,7 +62,24 @@
 <section id="chart">
     <div class="container chart__container">
         <div class="radar__chart">
+            <script>
+                var diagnosetitleSet = new Array();
+                var avgSet = new Array();
+                var data_bar = new Array();
+                var config_bar = new Array();
+            </script>
             <canvas id="radar"></canvas>
+            <div th:each="diagnose : ${diagnoseList}">
+                <script th:inline="javascript">
+                    /* <![CDATA[ */
+                    var title = /*[[${diagnose.diagnoseTitle}]]*/;
+                    var avg = /*[[${diagnose.diagnoseAvg}]]*/;
+                    diagnosetitleSet.push(title);
+                    avgSet.push(avg);
+                    /* ]]> */
+                </script>
+            </div>
+
         </div>
         <div class="line inside__large"></div>
     </div>
@@ -120,7 +137,7 @@
 <!--                        <p th:text="${question.weight}"></p>-->
                         <script th:inline="javascript">
                             /* <![CDATA[ */
-                            var title = /*[[${question.questionContext}]]*/;
+                            var title = /*[[${question.keyWord}]]*/;
                             var weight = /*[[${question.weight}]]*/;
                             titleSet.push(title);
                             weightSet.push(weight);
@@ -206,22 +223,10 @@
 
 <script>
     const data_radar = {
-        labels: [
-            '경기력',
-            '기능자신감',
-            '부상',
-            '슬럼프',
-            '진로미래',
-            '관계',
-            '훈련',
-            '학업',
-            '주전경쟁',
-            '부담감',
-            '사생활규제'
-        ],
+        labels: diagnosetitleSet,
         datasets: [{
             label: '스트레스 강도',
-            data: [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1],
+            data: avgSet,
             fill: true,
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgb(255, 99, 132)',
@@ -256,41 +261,6 @@
     )
 </script>
 
-
-
-
-<!--<script th:inline="javascript">-->
-
-<!--    const labels = ['경기전 불안감','어웨이 불안감','훈련 집중도','자신감','스트레스'];-->
-
-<!--    const data_bar = {-->
-<!--        labels: labels,-->
-<!--        datasets: [{-->
-<!--            label: '스트레스 강도',-->
-<!--            data: [1,2,3,5,4],-->
-<!--            backgroundColor : [-->
-<!--                'rgba(105,81,255,0.6)'-->
-<!--            ]-->
-<!--        }]-->
-<!--    };-->
-
-<!--    const config_bar = {-->
-<!--        type: 'bar',-->
-<!--        data: data_bar,-->
-<!--        options: {-->
-<!--            scales: {-->
-<!--                y: {-->
-<!--                    beginAtZero: true-->
-<!--                }-->
-<!--            }-->
-<!--        }-->
-<!--    }-->
-
-<!--    const bar = new Chart(-->
-<!--        document.getElementById('bar'),-->
-<!--        config_bar-->
-<!--    )-->
-<!--</script>-->
 
 </body>
 </html>
