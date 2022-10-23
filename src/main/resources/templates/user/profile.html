@@ -34,8 +34,11 @@
                     <p>다음 경기까지</p>
                     <table>
                         <tr>
-                            <td><span style="font-size: 28px; font-weight: bold">D-</span></td>
-                            <td><span style="font-size: 28px; font-weight: bold" th:text="${dday}">D-12</span></td>
+                            <td><span style="font-size: 28px; font-weight: bold">D</span></td>
+                            <td>
+                                <span style="font-size: 28px; font-weight: bold" th:if="${playerProfile.nextMatchDDay >= 0}" th:text="'+' + ${playerProfile.nextMatchDDay}">12</span>
+                                <span style="font-size: 28px; font-weight: bold" th:if="${playerProfile.nextMatchDDay < 0}" th:text="${playerProfile.nextMatchDDay}">12</span>
+                            </td>
                         </tr>
                     </table>
 
@@ -45,11 +48,11 @@
                 <div class="card__info">
                     <div class="info__text">
                         <p>이름</p>
-                        <h3 th:text="${player.userName}">손흥민</h3>
+                        <h3 th:text="${playerProfile.userName}">손흥민</h3>
                         <p>소속팀</p>
-                        <h3 th:text="${player.team}">토트넘 핫스퍼</h3>
+                        <h3 th:text="${playerProfile.team}">토트넘 핫스퍼</h3>
                         <p>포지션</p>
-                        <h3 th:text="${player.position}">FW</h3>
+                        <h3 th:text="${playerProfile.position}">FW</h3>
                     </div>
                     <div class="info__img">
                         <div class="img__con">
@@ -59,7 +62,7 @@
                 </div>
                 <div class="card__button">
                     <button class="btn btn-varient" th:onclick="|location.href='/test'|">검사하기</button>
-                    <button class="btn btn-varient" th:onclick="|location.href='/profile/update'|">설정하기</button>
+                    <button class="btn btn-varient" th:onclick="|location.href='/profile/setting'|">설정하기</button>
                 </div>
             </div>
         </div>

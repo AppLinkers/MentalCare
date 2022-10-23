@@ -19,9 +19,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 
 @Service
@@ -49,10 +52,11 @@ public class UserAuthService implements UserDetailsService {
     }
 
     @Transactional
-    public ReadUserInfoRes signUp(PlayerSignUpReq request) {
+    public GetUserInfoRes signUp(PlayerSignUpReq request) {
         validateDuplicated(request.getLogin_id());
 
-        User user = userSignUpReqToUser(request, Role.PLAYER);
+        User user = request.userSignUpReqToUser(request, Role.PLAYER);
+        user.setLogin_pw(passwordEncoder.encode(user.getLogin_pw()));
 
         User savedUser = userRepository.save(user);
 
@@ -61,10 +65,14 @@ public class UserAuthService implements UserDetailsService {
                 .position(request.getPosition())
                 .build();
 
+        if (request.getNextMatch() != null) {
+            player.setNextMatch(request.getNextMatch());
+        }
+
         playerRepository.save(player);
 
 
-        return ReadUserInfoRes.builder()
+        return GetUserInfoRes.builder()
                 .id(savedUser.getId())
                 .login_id(savedUser.getLogin_id())
                 .build();
@@ -72,10 +80,11 @@ public class UserAuthService implements UserDetailsService {
     }
 
     @Transactional
-    public ReadUserInfoRes signUp(DirectorSignUpReq request) {
+    public GetUserInfoRes signUp(DirectorSignUpReq request) {
         validateDuplicated(request.getLogin_id());
 
-        User user = userSignUpReqToUser(request, Role.DIRECTOR);
+        User user = request.userSignUpReqToUser(request, Role.DIRECTOR);
+        user.setLogin_pw(passwordEncoder.encode(user.getLogin_pw()));
 
         User savedUser = userRepository.save(user);
 
@@ -86,14 +95,12 @@ public class UserAuthService implements UserDetailsService {
         directorRepository.save(director);
 
 
-        return ReadUserInfoRes.builder()
+        return GetUserInfoRes.builder()
                 .id(savedUser.getId())
                 .login_id(savedUser.getLogin_id())
                 .build();
 
     }
-
-
 
     public void validateDuplicated(String login_id) {
         userRepository.findUserByLogin_id(login_id).ifPresent(
@@ -103,50 +110,32 @@ public class UserAuthService implements UserDetailsService {
         );
     }
 
-    public User userSignUpReqToUser(UserSignUpReq request, Role role) {
-        return User.builder()
-                .login_id(request.getLogin_id())
-                .login_pw(passwordEncoder.encode(request.getLogin_pw()))
-                .name(request.getName())
-                .team(request.getTeam())
-                .age(request.getAge())
-                .role(role)
+    public GetPlayerProfileRes getPlayerProfile(String userLoginId){
+        Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
+
+        int nextMatchDDay = 0;
+
+        if (player.getNextMatch() != null) {
+            nextMatchDDay = (int)DAYS.between(player.getNextMatch(), LocalDate.now());
+        }
+
+        return GetPlayerProfileRes.builder()
+                .userName(player.getUser().getName())
+                .position(player.getPosition())
+                .nextMatchDate(player.getNextMatch())
+                .nextMatchDDay(nextMatchDDay)
+                .team(player.getUser().getTeam())
                 .build();
     }
 
-    public String test() {
-        return "userAuthService test";
+    @Transactional
+    public void updateProfile(String userLoginId,UpdatePlayerProfileReq updatePlayerProfileReq){
+        Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
+        player.setPosition(updatePlayerProfileReq.getPosition());
+        player.getUser().setTeam(updatePlayerProfileReq.getTeam());
+        player.setNextMatch(updatePlayerProfileReq.getNextMatchDate());
     }
 
-    public GetPlayerRes getUserData(String userId){
-        List<Player> players = playerRepository.findAll();
-        GetPlayerRes result = new GetPlayerRes();
-        for(Player player: players){
-            if(player.getUser().getLogin_id().equals(userId)) {
-                result = GetPlayerRes.builder()
-                            .userName(player.getUser().getName())
-                            .position(player.getPosition())
-                            .nextMatch(player.getNextMatch())
-                            .team(player.getUser().getTeam())
-                            .build();
-            }
-        }
-
-        return result;
-    }
-
-    public void updateProfile(String userId,PlayerSignUpReq playerSignUpReq){
-        List<Player> players = playerRepository.findAll();
-        for(Player player: players){
-            if(player.getUser().getLogin_id().equals(userId)) {
-                player.setPosition(playerSignUpReq.getPosition());
-                player.getUser().setTeam(playerSignUpReq.getTeam());
-                player.setNextMatch(playerSignUpReq.getNextMatch());
-                playerRepository.save(player);
-            }
-
-        }
-    }
 
 
 }

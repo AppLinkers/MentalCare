@@ -6,8 +6,8 @@ import com.example.mentalCare.advice.FormAuthenticationSuccessHandler;
 import com.example.mentalCare.user.controller.UserAuthController;
 import com.example.mentalCare.user.domain.type.Position;
 import com.example.mentalCare.user.dto.DirectorSignUpReq;
+import com.example.mentalCare.user.dto.GetUserInfoRes;
 import com.example.mentalCare.user.dto.PlayerSignUpReq;
-import com.example.mentalCare.user.dto.ReadUserInfoRes;
 import com.example.mentalCare.user.service.UserAuthService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +81,7 @@ public class UserAuthControllerUnitTest {
         request.setPosition(Position.FW);
 
         // stub
-        when(userAuthService.signUp(request)).thenReturn(ReadUserInfoRes.builder()
+        when(userAuthService.signUp(request)).thenReturn(GetUserInfoRes.builder()
                 .id(1L)
                 .login_id("test_login_id")
                 .build());
@@ -112,7 +112,7 @@ public class UserAuthControllerUnitTest {
         request.setAge(10);
 
         // stub
-        when(userAuthService.signUp(request)).thenReturn(ReadUserInfoRes.builder()
+        when(userAuthService.signUp(request)).thenReturn(GetUserInfoRes.builder()
                 .id(1L)
                 .login_id("test_login_id")
                 .build());

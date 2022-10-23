@@ -30,11 +30,11 @@
         <h2>검사내역</h2>
     </div>
     <div class="line"></div>
-    <div class="result__container" th:each="test : ${testList}">
+    <div class="result__container" th:each="answerInfo : ${answerInfoList}">
         <article>
             <div class="container result__date">
-                <h3 th:text="${test.date}">2022. 09. 08</h3>
-                <a th:href="@{|/test/result/${test.test_id}|}"><i class="uil uil-angle-right-b"></i></a>
+                <h3 th:text="${#temporals.format(answerInfo.answerDate, 'yyyy. MM. dd')}">2022. 09. 08</h3>
+                <a th:href="@{|/test/result/${answerInfo.answerId}|}"><i class="uil uil-angle-right-b"></i></a>
             </div>
             <div class="line inside"></div>
             <!--                <div class="container result__type">-->

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -26,7 +26,7 @@ public class Player {
     private User user;
 
     @Nullable
-    private String nextMatch;
+    private LocalDate nextMatch;
 
     @Enumerated(value = EnumType.STRING)
     private Position position;
