@@ -1,6 +1,6 @@
 package com.example.mentalCare.user.domain;
 
-import com.example.mentalCare.test.domain.Answer;
+import com.example.mentalCare.diagnose.domain.Answer;
 import com.example.mentalCare.user.domain.type.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,11 +36,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<Answer> answerList = new ArrayList<>();
 
-    public void newAnswer(Answer answer) {
+    public void addAnswer(Answer answer) {
         this.answerList.add(answer);
     }
 }

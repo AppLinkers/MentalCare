@@ -4,8 +4,8 @@ import com.example.mentalCare.user.domain.Player;
 import com.example.mentalCare.user.domain.User;
 import com.example.mentalCare.user.domain.type.Position;
 import com.example.mentalCare.user.domain.type.Role;
+import com.example.mentalCare.user.dto.GetUserInfoRes;
 import com.example.mentalCare.user.dto.PlayerSignUpReq;
-import com.example.mentalCare.user.dto.ReadUserInfoRes;
 import com.example.mentalCare.user.repository.DirectorRepository;
 import com.example.mentalCare.user.repository.PlayerRepository;
 import com.example.mentalCare.user.repository.UserRepository;
@@ -18,7 +18,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -68,7 +67,7 @@ public class UserAuthServiceUnitTest {
         request.setAge(10);
         request.setPosition(Position.FW);
 
-        ReadUserInfoRes userSignUpRes = userAuthService.signUp(request);
+        GetUserInfoRes userSignUpRes = userAuthService.signUp(request);
 
         // then
         assertEquals("test_login_id", userSignUpRes.getLogin_id());

@@ -3,18 +3,20 @@ package com.example.mentalCare.user.dto;
 import com.example.mentalCare.user.domain.type.Position;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @Setter
-public class PlayerSignUpReq extends UserSignUpReq{
+public class UpdatePlayerProfileReq {
+
+    private String team;
 
     private Position position;
 
     @Nullable
-    private LocalDate nextMatch;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate nextMatchDate;
 }

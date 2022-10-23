@@ -36,17 +36,17 @@
             </div>
             <div class="member__text">
                 <div class="member__name">
-                    <h3>손흥민</h3>
+                    <h3 th:text="${answer.playerName}">손흥민</h3>
                     <div class="type">
                         <h4>선수</h4>
                     </div>
                 </div>
-                <h4>FW, 30살</h4>
-                최근 업데이트 :<p th:text="${date}">2022.09.26</p>
+                <h4 th:text="${answer.playerPosition} + ', ' +  ${answer.playerAge}">FW, 30살</h4>
+                최근 업데이트 :<p th:text="${#temporals.format(answer.answerDate, 'yyyy. MM. dd')}">2022.09.26</p>
                 <table>
                     <tr>
                         <td>총 평균 : </td>
-                        <td><p style="margin-left: 5px"  th:text="${totalAvg}"></p></td>
+                        <td><p style="margin-left: 5px"  th:text="${#numbers.formatDecimal(answer.totalAverage, 1, 2)}"></p></td>
                     </tr>
                 </table>
             </div>
@@ -69,14 +69,12 @@
                 var config_bar = new Array();
             </script>
             <canvas id="radar"></canvas>
-            <div th:each="diagnose : ${diagnoseList}">
+            <div th:each="diagnose : ${answer.diagnoseResList}">
                 <script th:inline="javascript">
-                    /* <![CDATA[ */
-                    var title = /*[[${diagnose.diagnoseTitle}]]*/;
-                    var avg = /*[[${diagnose.diagnoseAvg}]]*/;
+                    var title = [[${diagnose.diagnoseTitle}]];
+                    var avg = [[${diagnose.diagnoseAverage}]];
                     diagnosetitleSet.push(title);
                     avgSet.push(avg);
-                    /* ]]> */
                 </script>
             </div>
 
@@ -108,7 +106,7 @@
         <!-- result-list -->
 
 
-        <div class="result__list" th:each="diagnose : ${diagnoseList}">
+        <div class="result__list" th:each="diagnose : ${answer.diagnoseResList}">
             <script>
             var titleSet = new Array();
             var weightSet = new Array();
@@ -119,11 +117,11 @@
                 <div class="result__box">
                     <div class="result__name">
                         <h3 th:text="${diagnose.diagnoseTitle}">관계</h3>
-                        마지막 검사 : <p th:text="${date}"> 2022.09.26</p>
+                        마지막 검사 : <p th:text="${#temporals.format(answer.answerDate, 'yyyy. MM. dd')}"> 2022.09.26</p>
                         <table>
                             <tr>
                                 <td><p style="margin-left: 30px;">평균 :</p></td>
-                                <td><p class="avg" style="margin-left: 3px;" th:text="${diagnose.diagnoseAvg}"> </p></td>
+                                <td><p class="avg" style="margin-left: 3px;" th:text="${#numbers.formatDecimal(diagnose.diagnoseAverage, 1, 2)}"> </p></td>
                             </tr>
                         </table>
 
@@ -132,16 +130,14 @@
                 </div>
                 <div class="result__chart" th:id="${diagnose.diagnoseTitle}">
 
-                    <div th:each="question : ${diagnose.questionList}">
+                    <div th:each="answerDetail : ${diagnose.answerDetailResList}">
 <!--                        <p th:text="${question.questionContext}"></p>-->
 <!--                        <p th:text="${question.weight}"></p>-->
                         <script th:inline="javascript">
-                            /* <![CDATA[ */
-                            var title = /*[[${question.keyWord}]]*/;
-                            var weight = /*[[${question.weight}]]*/;
+                            var title = [[${answerDetail.questionKeyword}]];
+                            var weight = [[${answerDetail.answer}]];
                             titleSet.push(title);
                             weightSet.push(weight);
-                            /* ]]> */
                         </script>
                     </div>
                     <script th:inline="javascript">

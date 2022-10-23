@@ -28,14 +28,14 @@
 <section id="profile">
     <div class="container profile__container">
         <div class="profile__card" >
-            <form th:method="post" th:action="@{/profile/updateProfile}" th:object="${playerSignUpReq}">
+            <form th:method="post" th:action="@{/profile/setting}" th:object="${updatePlayerProfileReq}">
                 <div class="card__head">
                     <h2>프로필</h2>
                     <div class="dday">
                         <p>다음 경기날짜</p>
                         <div id="dateDiv">
-                            <input type="date" id="start" th:name="nextMatch"
-                                   th:value="${player.nextMatch}">
+                            <input type="date" id="start" th:name="nextMatchDate"
+                                   th:value="${playerProfile?.nextMatchDate}">
                         </div>
                     </div>
                 </div>
@@ -43,11 +43,11 @@
                     <div class="card__info">
                         <div class="info__text">
                             <p>이름</p>
-                            <h3 th:text="${player.userName}">손흥민</h3>
+                            <h3 th:text="${playerProfile.userName}">손흥민</h3>
                             <p>소속팀</p>
-                            <input th:name="team" th:value="${player.team}" />
+                            <input th:name="team" th:value="${playerProfile.team}" />
                             <p>포지션</p>
-                            <input th:name="position" th:value="${player.position}" />
+                            <input th:name="position" th:value="${playerProfile.position}" />
                         </div>
                         <div class="info__img">
                             <div class="img__con">
