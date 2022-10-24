@@ -5,10 +5,10 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class GetQuestionRes {
+public class GetDiagnoseInfoRes {
 
-    private Long questionId;
+    private Long diagnoseId;
 
-    private String questionContext;
+    private String diagnoseTitle;
 
 }

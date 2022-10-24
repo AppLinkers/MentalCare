@@ -11,7 +11,5 @@ public class GetDiagnoseRes {
 
     private Long diagnoseId;
 
-    private String title;
-
     private List<GetQuestionRes> questionResList;
 }

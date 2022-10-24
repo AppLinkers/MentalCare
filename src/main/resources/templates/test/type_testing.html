@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <!-- STYLE SHEET -->
-    <link rel="stylesheet" href="../../css/common/style.css">
-    <link rel="stylesheet" href="../../css/test/testing.css">
+    <link rel="stylesheet" href="/css/common/style.css">
+    <link rel="stylesheet" href="/css/test/testing.css">
 </head>
 <body>
 <!-- =========== TESTING ========== -->
@@ -25,12 +25,12 @@
 
         <div class="header">
             <div class="icon">
-                <img src="../../images/macos-calendar (1).png">
+                <img src="/images/macos-calendar (1).png">
             </div>
-            <h3 th:text="${diagnose.title}">통합 검사</h3>
+            <h3 th:text="${diagnose.diagnoseTitle} + ' 검사'"> 검사</h3>
         </div>
 
-        <form th:method="post" th:action= "@{/test/submit}" th:object="${writeAnswerReq}">
+        <form th:method="post" th:action= "@{/test/type/submit}" th:object="${writeAnswerReq}">
             <input type="hidden" th:field="*{userLoginId}" />
 
             <input type="hidden" th:name="writeAnswerDiagnoseReqList[0].diagnoseId" th:value="${diagnose.diagnoseId}"/>
@@ -86,6 +86,6 @@
 </section>
 
 <!-- =========== JAVASCRIPT ========== -->
-<script src="../../javascript/test/testing.js"></script>
+<script src="/javascript/test/testing.js"></script>
 </body>
 </html>

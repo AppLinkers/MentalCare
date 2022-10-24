@@ -59,12 +59,6 @@ public class UserAuthIntegrationTest {
     @Test
     public void 선수_회원가입_테스트() throws Exception {
         // given
-        PlayerSignUpReq request = new PlayerSignUpReq();
-        request.setLogin_id("test_login_id");
-        request.setLogin_pw("test_login_pw");
-        request.setName("test_name");
-        request.setAge(10);
-        request.setPosition(Position.FW);
 
         // when
         ResultActions resultActions = mockMvc.perform(
@@ -74,6 +68,7 @@ public class UserAuthIntegrationTest {
                         .param("name", "test_name")
                         .param("age", "10")
                         .param("position", "FW")
+                        .param("teamCode", "S")
         );
 
         // then
@@ -86,11 +81,6 @@ public class UserAuthIntegrationTest {
     @Test
     public void 감독_회원가입_테스트() throws Exception {
         // given
-        DirectorSignUpReq request = new DirectorSignUpReq();
-        request.setLogin_id("test_login_id");
-        request.setLogin_pw("test_login_pw");
-        request.setName("test_name");
-        request.setAge(10);
 
         // when
         ResultActions resultActions = mockMvc.perform(
@@ -99,6 +89,7 @@ public class UserAuthIntegrationTest {
                         .param("login_pw", "test_login_pw")
                         .param("name", "test_name")
                         .param("age", "10")
+                        .param("teamCode", "S")
         );
 
         // then

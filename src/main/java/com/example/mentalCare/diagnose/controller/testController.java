@@ -1,6 +1,5 @@
 package com.example.mentalCare.diagnose.controller;
 
-import com.example.mentalCare.diagnose.domain.Diagnose;
 import com.example.mentalCare.diagnose.dto.*;
 import com.example.mentalCare.diagnose.service.DiagnoseService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("test")
@@ -34,10 +32,10 @@ public class testController {
     }
 
     @GetMapping("/progress")
-    public String goToTest(Model model) {
+    public String testProgressPage(Model model) {
         String login_id = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        List<GetDiagnoseRes> diagnoseList = diagnoseService.getDiagnoseResList();
+        List<GetDiagnoseRes> diagnoseList = diagnoseService.getAllQuestionOfIntegrationTest();
 
         model.addAttribute("diagnoseList", diagnoseList);
 
@@ -71,9 +69,49 @@ public class testController {
         return "redirect:/test/list";
     }
 
-    @PostMapping("/typeSubmit")
-    public String typeSubmit(WriteAnswerReq writeAnswerReq){
-        ;
+    /**
+     * Teest Type Page
+     */
+    @GetMapping("/type")
+    public  String testTypePage(Model model){
+        List<GetDiagnoseInfoRes> diagnoseInfoResList = diagnoseService.getAllDiagnose();
+        model.addAttribute("diagnoseInfoList",diagnoseInfoResList);
+        return "test/test_type";
+    }
+
+    @GetMapping("/type/progress/{id}")
+    public String typeProgressPage(Model model, @PathVariable(value="id") Long id){
+        String login_id = SecurityContextHolder.getContext().getAuthentication().getName();
+        WriteAnswerReq writeAnswerReq = new WriteAnswerReq();
+        writeAnswerReq.setUserLoginId(login_id);
+
+        List<WriteAnswerDiagnoseReq> writeAnswerDiagnoseReqList = new ArrayList<>();
+
+        GetDiagnoseRes diagnoseRes = diagnoseService.getAllQuestionOfTypeTestByDiagnoseId(id);
+        model.addAttribute("diagnose", diagnoseRes);
+
+        List<WriteAnswerDetailReq> writeAnswerDetailReqList = new ArrayList<>();
+
+        for (GetQuestionRes questionRes : diagnoseRes.getQuestionResList()) {
+            writeAnswerDetailReqList.add(new WriteAnswerDetailReq(questionRes.getQuestionId()));
+        }
+
+        WriteAnswerDiagnoseReq writeAnswerDiagnoseReq = WriteAnswerDiagnoseReq.builder()
+                .diagnoseId(diagnoseRes.getDiagnoseId())
+                .writeAnswerDetailReqList(writeAnswerDetailReqList)
+                .build();
+
+        writeAnswerDiagnoseReqList.add(writeAnswerDiagnoseReq);
+
+        writeAnswerReq.setWriteAnswerDiagnoseReqList(writeAnswerDiagnoseReqList);
+        model.addAttribute("writeAnswerReq", writeAnswerReq);
+
+        return "test/type_testing";
+    }
+
+    @PostMapping("/type/submit")
+    public String typeTestSubmit(WriteAnswerReq writeAnswerReq){
+
         System.out.println(writeAnswerReq.getWriteAnswerDiagnoseReqList().get(0).getDiagnoseId());
         return "redirect:/test/list";
     }
@@ -102,56 +140,5 @@ public class testController {
         return "test/my_result";
     }
 
-//    @GetMapping("/questionCalc/{diagnose}")
-//    public void calcQuestion(Model model, @PathVariable(value="diagnose") Diagnose diagnose){
-//        int result=0;
-//        for(int i=0; i<diagnose.getQuestionList().size(); i++){
-//            result+=diagnose.getQuestionList().get(i).getWeight();
-//        }
-//        model.addAttribute("average",result/diagnose.getQuestionList().size());
-//    }
 
-
-    /**
-     * Teest Type Page
-     */
-    @GetMapping("/type")
-    public  String testTypePage(Model model){
-        List<GetDiagnoseRes> diagnoseList = diagnoseService.getDiagnoseResList();
-        model.addAttribute("diagnoseList",diagnoseList);
-        return "test/test_type";
-    }
-
-    @GetMapping("/typetest/{id}")
-    public String typeTestingPage(Model model, @PathVariable(value="id") Long id){
-        String login_id = SecurityContextHolder.getContext().getAuthentication().getName();
-        WriteAnswerReq writeAnswerReq = new WriteAnswerReq();
-        writeAnswerReq.setUserLoginId(login_id);
-
-        List<WriteAnswerDiagnoseReq> writeAnswerDiagnoseReqList = new ArrayList<>();
-
-
-        GetDiagnoseRes diagnoseRes = diagnoseService.diagnosebyId(id);
-        model.addAttribute("diagnose", diagnoseRes);
-
-        List<WriteAnswerDetailReq> writeAnswerDetailReqList = new ArrayList<>();
-
-        for (GetQuestionRes questionRes : diagnoseRes.getQuestionResList()) {
-            writeAnswerDetailReqList.add(new WriteAnswerDetailReq(questionRes.getQuestionId()));
-        }
-
-
-        WriteAnswerDiagnoseReq writeAnswerDiagnoseReq = WriteAnswerDiagnoseReq.builder()
-                .diagnoseId(diagnoseRes.getDiagnoseId())
-                .writeAnswerDetailReqList(writeAnswerDetailReqList)
-                .build();
-
-        writeAnswerDiagnoseReqList.add(writeAnswerDiagnoseReq);
-
-
-        writeAnswerReq.setWriteAnswerDiagnoseReqList(writeAnswerDiagnoseReqList);
-        model.addAttribute("writeAnswerReq", writeAnswerReq);
-
-        return "test/type_testing";
-    }
 }

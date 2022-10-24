@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Setter
 public class UpdatePlayerProfileReq {
 
-    private String team;
+    private String teamCode;
 
     private Position position;
 
