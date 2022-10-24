@@ -36,10 +36,4 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "user")
-    private List<Answer> answerList = new ArrayList<>();
-
-    public void addAnswer(Answer answer) {
-        this.answerList.add(answer);
-    }
 }

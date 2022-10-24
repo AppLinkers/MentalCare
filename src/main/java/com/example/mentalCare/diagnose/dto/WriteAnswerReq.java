@@ -15,11 +15,4 @@ public class WriteAnswerReq {
 
     private List<WriteAnswerDiagnoseReq> writeAnswerDiagnoseReqList;
 
-    @Override
-    public String toString() {
-        return "WriteAnswerReq{" +
-                "userLoginId='" + userLoginId + '\'' +
-                ", writeAnswerDiagnoseReqList=" + writeAnswerDiagnoseReqList +
-                '}';
-    }
 }

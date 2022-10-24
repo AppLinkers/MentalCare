@@ -29,7 +29,7 @@ public class UserRepositoryUnitTest {
     public void init() {
         // 테이블 autoincrement 초기화
         // H2
-        entityManager.createNativeQuery("ALTER TABLE _user ALTER COLUMN id RESTART WITH 1").executeUpdate();
+        entityManager.createNativeQuery("ALTER TABLE _user ALTER COLUMN id RESTART WITH 2").executeUpdate();
         // MySQL - entityManager.createNativeQuery("ALTER TABLE user AUTO_INCREMENT =1").executeUpdate();
     }
 
@@ -62,14 +62,14 @@ public class UserRepositoryUnitTest {
 
         userRepository.save(user);
 
-        String login_id = "test_login_id";
+        String loginId = "test_login_id";
 
         // when
-        Optional<User> userEntity = userRepository.findUserByLogin_id(login_id);
+        Optional<User> userEntity = userRepository.findUserByLoginId(loginId);
 
         // then
         assertTrue(userEntity.isPresent());
-        assertEquals(1L, userEntity.get().getId());
+        assertEquals(2L, userEntity.get().getId());
         assertEquals("test_login_id", userEntity.get().getLogin_id());
     }
 }

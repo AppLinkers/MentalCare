@@ -40,7 +40,7 @@ public class UserAuthService implements UserDetailsService {
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findUserByLogin_id(username).orElseThrow(() -> new UsernameNotFoundException("아이디가 존재하지 않습니다."));
+        User user = userRepository.findUserByLoginId(username).orElseThrow(() -> new UsernameNotFoundException("아이디가 존재하지 않습니다."));
         List<GrantedAuthority> roles = new ArrayList<>();
         roles.add(new SimpleGrantedAuthority(user.getRole().toString()));
 
@@ -102,8 +102,8 @@ public class UserAuthService implements UserDetailsService {
 
     }
 
-    public void validateDuplicated(String login_id) {
-        userRepository.findUserByLogin_id(login_id).ifPresent(
+    public void validateDuplicated(String loginId) {
+        userRepository.findUserByLoginId(loginId).ifPresent(
                 (user) -> {
                     throw new RuntimeException("이미 존재하는 아이디 입니다.");
                 }
