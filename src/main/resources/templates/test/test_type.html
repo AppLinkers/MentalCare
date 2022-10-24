@@ -29,150 +29,152 @@
 
 <!-- =========== TYPE ========== -->
 <section id="types">
-    <div class="container type__container">
+    <div class="container type__container" th:each="diagnose : ${diagnoseList}">
         <div class="type__box">
             <div class="type__icon">
                 <img src="../../images/beach-ball (1).png">
             </div>
             <div class="type__name">
-                <h3>경기력</h3>
+                <h3 th:text="${diagnose.title}">경기력</h3>
                 <h3>스트레스</h3>
             </div>
             <div class="type__go">
-                <p>시작하기</p>
-                <i class="uil uil-angle-right-b"></i>
+                <a th:href ="@{|/test/typetest/${diagnose.diagnoseId}|}">
+                    <p>시작하기</p>
+                    <i class="uil uil-angle-right-b"></i>
+                </a>
             </div>
         </div>
-        <div class="type__box">
-            <div class="type__icon">
-                <img src="../../images/thumbs-up-hand-gesture.png">
-            </div>
-            <div class="type__name">
-                <h3>기능 자신감</h3>
-                <h3>스트레스</h3>
-            </div>
-            <div class="type__go">
-                <p>시작하기</p>
-                <i class="uil uil-angle-right-b"></i>
-            </div>
-        </div>
-        <div class="type__box">
-            <div class="type__icon">
-                <img src="../../images/medical-chat.png">
-            </div>
-            <div class="type__name">
-                <h3>부상</h3>
-                <h3>스트레스</h3>
-            </div>
-            <div class="type__go">
-                <p>시작하기</p>
-                <i class="uil uil-angle-right-b"></i>
-            </div>
-        </div>
-        <div class="type__box">
-            <div class="type__icon">
-                <img src="../../images/employee-tired-and-battery-down.png">
-            </div>
-            <div class="type__name">
-                <h3>슬럼프</h3>
-                <h3>스트레스</h3>
-            </div>
-            <div class="type__go">
-                <p>시작하기</p>
-                <i class="uil uil-angle-right-b"></i>
-            </div>
-        </div>
-        <div class="type__box">
-            <div class="type__icon">
-                <img src="../../images/target.png">
-            </div>
-            <div class="type__name">
-                <h3>진로/미래</h3>
-                <h3>스트레스</h3>
-            </div>
-            <div class="type__go">
-                <p>시작하기</p>
-                <i class="uil uil-angle-right-b"></i>
-            </div>
-        </div>
-        <div class="type__box">
-            <div class="type__icon">
-                <img src="../../images/hifi.png">
-            </div>
-            <div class="type__name">
-                <h3>관계</h3>
-                <h3>스트레스</h3>
-            </div>
-            <div class="type__go">
-                <p>시작하기</p>
-                <i class="uil uil-angle-right-b"></i>
-            </div>
-        </div>
-        <div class="type__box">
-            <div class="type__icon">
-                <img src="../../images/dumbbells.png">
-            </div>
-            <div class="type__name">
-                <h3>훈련</h3>
-                <h3>스트레스</h3>
-            </div>
-            <div class="type__go">
-                <p>시작하기</p>
-                <i class="uil uil-angle-right-b"></i>
-            </div>
-        </div>
-        <div class="type__box">
-            <div class="type__icon">
-                <img src="../../images/graduation-hat.png">
-            </div>
-            <div class="type__name">
-                <h3>학업</h3>
-                <h3>스트레스</h3>
-            </div>
-            <div class="type__go">
-                <p>시작하기</p>
-                <i class="uil uil-angle-right-b"></i>
-            </div>
-        </div>
-        <div class="type__box">
-            <div class="type__icon">
-                <img src="../../images/hand-holding-indonesian-flag.png">
-            </div>
-            <div class="type__name">
-                <h3>주전 경쟁</h3>
-                <h3>스트레스</h3>
-            </div>
-            <div class="type__go">
-                <p>시작하기</p>
-                <i class="uil uil-angle-right-b"></i>
-            </div>
-        </div>
-        <div class="type__box">
-            <div class="type__icon">
-                <img src="../../images/heart.png">
-            </div>
-            <div class="type__name">
-                <h3>부담감</h3>
-                <h3>스트레스</h3>
-            </div>
-            <div class="type__go">
-                <p>시작하기</p>
-                <i class="uil uil-angle-right-b"></i>
-            </div>
-        </div>
-        <div class="type__box">
-            <div class="type__icon">
-                <img src="../../images/padlock.png">
-            </div>
-            <div class="type__name">
-                <h3>사생활 규제</h3>
-                <h3>스트레스</h3>
-            </div>
-            <div class="type__go">
-                <p>시작하기</p>
-                <i class="uil uil-angle-right-b"></i>
-            </div>
-        </div>
+<!--        <div class="type__box">-->
+<!--            <div class="type__icon">-->
+<!--                <img src="../../images/thumbs-up-hand-gesture.png">-->
+<!--            </div>-->
+<!--            <div class="type__name">-->
+<!--                <h3>기능 자신감</h3>-->
+<!--                <h3>스트레스</h3>-->
+<!--            </div>-->
+<!--            <div class="type__go">-->
+<!--                <p>시작하기</p>-->
+<!--                <i class="uil uil-angle-right-b"></i>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="type__box">-->
+<!--            <div class="type__icon">-->
+<!--                <img src="../../images/medical-chat.png">-->
+<!--            </div>-->
+<!--            <div class="type__name">-->
+<!--                <h3>부상</h3>-->
+<!--                <h3>스트레스</h3>-->
+<!--            </div>-->
+<!--            <div class="type__go">-->
+<!--                <p>시작하기</p>-->
+<!--                <i class="uil uil-angle-right-b"></i>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="type__box">-->
+<!--            <div class="type__icon">-->
+<!--                <img src="../../images/employee-tired-and-battery-down.png">-->
+<!--            </div>-->
+<!--            <div class="type__name">-->
+<!--                <h3>슬럼프</h3>-->
+<!--                <h3>스트레스</h3>-->
+<!--            </div>-->
+<!--            <div class="type__go">-->
+<!--                <p>시작하기</p>-->
+<!--                <i class="uil uil-angle-right-b"></i>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="type__box">-->
+<!--            <div class="type__icon">-->
+<!--                <img src="../../images/target.png">-->
+<!--            </div>-->
+<!--            <div class="type__name">-->
+<!--                <h3>진로/미래</h3>-->
+<!--                <h3>스트레스</h3>-->
+<!--            </div>-->
+<!--            <div class="type__go">-->
+<!--                <p>시작하기</p>-->
+<!--                <i class="uil uil-angle-right-b"></i>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="type__box">-->
+<!--            <div class="type__icon">-->
+<!--                <img src="../../images/hifi.png">-->
+<!--            </div>-->
+<!--            <div class="type__name">-->
+<!--                <h3>관계</h3>-->
+<!--                <h3>스트레스</h3>-->
+<!--            </div>-->
+<!--            <div class="type__go">-->
+<!--                <p>시작하기</p>-->
+<!--                <i class="uil uil-angle-right-b"></i>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="type__box">-->
+<!--            <div class="type__icon">-->
+<!--                <img src="../../images/dumbbells.png">-->
+<!--            </div>-->
+<!--            <div class="type__name">-->
+<!--                <h3>훈련</h3>-->
+<!--                <h3>스트레스</h3>-->
+<!--            </div>-->
+<!--            <div class="type__go">-->
+<!--                <p>시작하기</p>-->
+<!--                <i class="uil uil-angle-right-b"></i>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="type__box">-->
+<!--            <div class="type__icon">-->
+<!--                <img src="../../images/graduation-hat.png">-->
+<!--            </div>-->
+<!--            <div class="type__name">-->
+<!--                <h3>학업</h3>-->
+<!--                <h3>스트레스</h3>-->
+<!--            </div>-->
+<!--            <div class="type__go">-->
+<!--                <p>시작하기</p>-->
+<!--                <i class="uil uil-angle-right-b"></i>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="type__box">-->
+<!--            <div class="type__icon">-->
+<!--                <img src="../../images/hand-holding-indonesian-flag.png">-->
+<!--            </div>-->
+<!--            <div class="type__name">-->
+<!--                <h3>주전 경쟁</h3>-->
+<!--                <h3>스트레스</h3>-->
+<!--            </div>-->
+<!--            <div class="type__go">-->
+<!--                <p>시작하기</p>-->
+<!--                <i class="uil uil-angle-right-b"></i>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="type__box">-->
+<!--            <div class="type__icon">-->
+<!--                <img src="../../images/heart.png">-->
+<!--            </div>-->
+<!--            <div class="type__name">-->
+<!--                <h3>부담감</h3>-->
+<!--                <h3>스트레스</h3>-->
+<!--            </div>-->
+<!--            <div class="type__go">-->
+<!--                <p>시작하기</p>-->
+<!--                <i class="uil uil-angle-right-b"></i>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="type__box">-->
+<!--            <div class="type__icon">-->
+<!--                <img src="../../images/padlock.png">-->
+<!--            </div>-->
+<!--            <div class="type__name">-->
+<!--                <h3>사생활 규제</h3>-->
+<!--                <h3>스트레스</h3>-->
+<!--            </div>-->
+<!--            <div class="type__go">-->
+<!--                <p>시작하기</p>-->
+<!--                <i class="uil uil-angle-right-b"></i>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 </section>
 

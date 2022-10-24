@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -79,7 +80,6 @@ public class DiagnoseService {
                         .build();
 
                 getAnswerDetailResList.add(getAnswerDetailRes);
-
                 diagnoseAverage += answerDetail.getAnswer();
             }
             diagnoseAverage /= getAnswerDetailResList.size();
@@ -107,6 +107,22 @@ public class DiagnoseService {
 
         return result;
 
+    }
+
+    public GetDiagnoseRes diagnosebyId(Long id){
+       // Optional<Diagnose> diagnose = diagnoseRepository.findById(id);
+        Diagnose diagnose = diagnoseRepository.findByDeletedIsFalseAndId(id);
+        List<Question> questionList = questionRepository.findAllByDiagnoseIdAndDeletedFalse(id);
+        List<GetQuestionRes> questionResList = new ArrayList<>();
+        for(Question question : questionList){
+            GetQuestionRes getQuestionRes = new GetQuestionRes(question.getId(),question.getContext());
+            questionResList.add(getQuestionRes);
+        }
+        return GetDiagnoseRes.builder()
+                .diagnoseId(diagnose.getId())
+                .questionResList(questionResList)
+                .title(diagnose.getTitle())
+                .build();
     }
     /*
     public GetTestRes getTestById(Long id){
@@ -174,6 +190,52 @@ public class DiagnoseService {
             );
         }
     }
+
+
+
+    @Transactional
+    public void submitTypeTest(WriteAnswerReq req) {
+        Player player = playerRepository.findPlayerByUserLoginId(req.getUserLoginId());
+        Answer answer = Answer.builder()
+                .player(player)
+                .build();
+
+        Answer savedAnswer = answerRepository.save(answer);
+
+
+        player.addAnswer(savedAnswer);
+
+        for (WriteAnswerDiagnoseReq writeAnswerDiagnoseReq : req.getWriteAnswerDiagnoseReqList()) {
+            AnswerDiagnose answerDiagnose = AnswerDiagnose.builder()
+                    .answer(savedAnswer)
+                    .diagnose(diagnoseRepository.findById(writeAnswerDiagnoseReq.getDiagnoseId()).get()).build();
+
+            AnswerDiagnose savedAnswerDiagnose = answerDiagnoseRepository.save(answerDiagnose);
+            savedAnswer.addAnswerDiagnose(savedAnswerDiagnose);
+
+
+            List<AnswerDetail> answerDetailList = new ArrayList<>();
+
+            for (WriteAnswerDetailReq writeAnswerDetailReq : writeAnswerDiagnoseReq.getWriteAnswerDetailReqList()) {
+                AnswerDetail answerDetail = AnswerDetail.builder()
+                        .question(questionRepository.findById(writeAnswerDetailReq.getQuestionId()).get())
+                        .answerDiagnose(savedAnswerDiagnose)
+                        .answer(writeAnswerDetailReq.getAnswer()).build();
+
+                answerDetailList.add(answerDetail);
+            }
+
+            List<AnswerDetail> savedAnswerDetailList = answerDetailRepository.saveAll(answerDetailList);
+            savedAnswerDetailList.forEach(
+                    savedAnswerDetail -> {
+                        savedAnswerDiagnose.addAnswerDetail(savedAnswerDetail);
+                    }
+            );
+        }
+    }
+
+
+
     /*
     public void writeTest(WriteTestReq req, BuildDiagnoseReq buildDiagnoseReq){
         Test testForm = testRepository.findByTestId(0L);
@@ -277,6 +339,7 @@ public class DiagnoseService {
 
             GetDiagnoseRes getDiagnoseRes = GetDiagnoseRes.builder()
                     .diagnoseId(diagnose.getId())
+                    .title(diagnose.getTitle())
                     .questionResList(questionResList)
                     .build();
             result.add(getDiagnoseRes);

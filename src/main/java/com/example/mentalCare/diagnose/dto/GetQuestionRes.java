@@ -11,4 +11,9 @@ public class GetQuestionRes {
 
     private String questionContext;
 
+    public GetQuestionRes(Long questionId, String questionContext){
+        this.questionId = questionId;
+        this.questionContext = questionContext;
+    }
+
 }

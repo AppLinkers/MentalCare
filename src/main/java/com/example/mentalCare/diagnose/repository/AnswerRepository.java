@@ -11,4 +11,5 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
     @Query("select a from Answer a where a.player.user.login_id = :userLoginId")
     List<Answer> findAnswersByPlayerUserLoginId(String userLoginId);
 
+
 }

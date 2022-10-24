@@ -1,5 +1,6 @@
 package com.example.mentalCare.diagnose.controller;
 
+import com.example.mentalCare.diagnose.domain.Diagnose;
 import com.example.mentalCare.diagnose.dto.*;
 import com.example.mentalCare.diagnose.service.DiagnoseService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("test")
@@ -69,6 +71,13 @@ public class testController {
         return "redirect:/test/list";
     }
 
+    @PostMapping("/typeSubmit")
+    public String typeSubmit(WriteAnswerReq writeAnswerReq){
+        ;
+        System.out.println(writeAnswerReq.getWriteAnswerDiagnoseReqList().get(0).getDiagnoseId());
+        return "redirect:/test/list";
+    }
+
     /**
      * Test Result Page
      */
@@ -107,7 +116,42 @@ public class testController {
      * Teest Type Page
      */
     @GetMapping("/type")
-    public  String testTypePage(){
+    public  String testTypePage(Model model){
+        List<GetDiagnoseRes> diagnoseList = diagnoseService.getDiagnoseResList();
+        model.addAttribute("diagnoseList",diagnoseList);
         return "test/test_type";
+    }
+
+    @GetMapping("/typetest/{id}")
+    public String typeTestingPage(Model model, @PathVariable(value="id") Long id){
+        String login_id = SecurityContextHolder.getContext().getAuthentication().getName();
+        WriteAnswerReq writeAnswerReq = new WriteAnswerReq();
+        writeAnswerReq.setUserLoginId(login_id);
+
+        List<WriteAnswerDiagnoseReq> writeAnswerDiagnoseReqList = new ArrayList<>();
+
+
+        GetDiagnoseRes diagnoseRes = diagnoseService.diagnosebyId(id);
+        model.addAttribute("diagnose", diagnoseRes);
+
+        List<WriteAnswerDetailReq> writeAnswerDetailReqList = new ArrayList<>();
+
+        for (GetQuestionRes questionRes : diagnoseRes.getQuestionResList()) {
+            writeAnswerDetailReqList.add(new WriteAnswerDetailReq(questionRes.getQuestionId()));
+        }
+
+
+        WriteAnswerDiagnoseReq writeAnswerDiagnoseReq = WriteAnswerDiagnoseReq.builder()
+                .diagnoseId(diagnoseRes.getDiagnoseId())
+                .writeAnswerDetailReqList(writeAnswerDetailReqList)
+                .build();
+
+        writeAnswerDiagnoseReqList.add(writeAnswerDiagnoseReq);
+
+
+        writeAnswerReq.setWriteAnswerDiagnoseReqList(writeAnswerDiagnoseReqList);
+        model.addAttribute("writeAnswerReq", writeAnswerReq);
+
+        return "test/type_testing";
     }
 }
