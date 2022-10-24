@@ -8,6 +8,7 @@ import com.example.mentalCare.user.domain.type.Position;
 import com.example.mentalCare.user.dto.DirectorSignUpReq;
 import com.example.mentalCare.user.dto.GetUserInfoRes;
 import com.example.mentalCare.user.dto.PlayerSignUpReq;
+import com.example.mentalCare.user.service.TeamService;
 import com.example.mentalCare.user.service.UserAuthService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class UserAuthControllerUnitTest {
 
     @MockBean
     private UserAuthService userAuthService;
+
+    @MockBean
+    private TeamService teamService;
 
     @MockBean
     private FormAuthenticationSuccessHandler formAuthenticationSuccessHandler;
@@ -77,6 +81,7 @@ public class UserAuthControllerUnitTest {
         request.setLogin_id("test_login_id");
         request.setLogin_pw("test_login_pw");
         request.setName("test_name");
+        request.setTeamCode("S");
         request.setAge(10);
         request.setPosition(Position.FW);
 
@@ -91,6 +96,7 @@ public class UserAuthControllerUnitTest {
                 post("/sign_up/player")
                         .param("login_id", "test_login_id")
                         .param("login_pw", "test_login_pw")
+                        .param("teamCode", "S")
                         .param("name", "test_name")
                         .param("age", "10")
                         .param("position", "FW")
@@ -108,6 +114,7 @@ public class UserAuthControllerUnitTest {
         DirectorSignUpReq request = new DirectorSignUpReq();
         request.setLogin_id("test_login_id");
         request.setLogin_pw("test_login_pw");
+        request.setTeamCode("S");
         request.setName("test_name");
         request.setAge(10);
 
@@ -122,6 +129,7 @@ public class UserAuthControllerUnitTest {
                 post("/sign_up/director")
                         .param("login_id", "test_login_id")
                         .param("login_pw", "test_login_pw")
+                        .param("teamCode", "S")
                         .param("name", "test_name")
                         .param("age", "10")
         );

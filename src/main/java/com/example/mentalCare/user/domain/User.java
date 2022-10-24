@@ -29,11 +29,12 @@ public class User {
 
     private String name;
 
-    private String team;
-
     private Integer age;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
 }

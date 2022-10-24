@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <!-- STYLE SHEET -->
-    <link rel="stylesheet" href="../../css/common/style.css">
-    <link rel="stylesheet" href="../../css/common/nav.css">
+    <link rel="stylesheet" href="/css/common/style.css">
+    <link rel="stylesheet" href="/css/common/nav.css">
 </head>
 <body>
 
@@ -42,9 +42,9 @@
             <a th:href="@{/test/list}"><h1>검사내역</h1></a>
             <a id="admin" class="admin-btn"><h1>관리자 <i id="admin-ic" class="uil uil-angle-down"></i></h1></a>
             <div class="menu-admin" id="adminList">
-                <a th:href="@{/member}"><h2>멤버 관리</h2></a>
+                <a th:href="@{manage/player}"><h2>멤버 관리</h2></a>
                 <a href="#"><h2>컨설팅 목록</h2></a>
-                <a th:href="@{/testAdmin}"><h2>검사 목록</h2></a>
+                <a th:href="@{manage/test}"><h2>검사 목록</h2></a>
             </div>
         </div>
     </div>
