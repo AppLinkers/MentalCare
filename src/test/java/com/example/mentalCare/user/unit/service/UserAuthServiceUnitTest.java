@@ -56,7 +56,7 @@ public class UserAuthServiceUnitTest {
         player.setPosition(Position.FW);
 
         // stub
-        when(userRepository.findUserByLogin_id("test_login_id")).thenReturn(Optional.empty());
+        when(userRepository.findUserByLoginId("test_login_id")).thenReturn(Optional.empty());
         when(userRepository.save(user)).thenReturn(user);
 
         // when

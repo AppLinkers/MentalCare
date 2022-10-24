@@ -2,6 +2,7 @@ package com.example.mentalCare.diagnose.domain;
 
 import javax.persistence.*;
 
+import com.example.mentalCare.user.domain.Player;
 import com.example.mentalCare.user.domain.User;
 import lombok.Builder;
 import lombok.Data;
@@ -26,8 +27,8 @@ public class Answer {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "player_id")
+    private Player player;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -40,7 +41,7 @@ public class Answer {
     }
 
     @Builder
-    public Answer(User user) {
-        this.user = user;
+    public Answer(Player player) {
+        this.player = player;
     }
 }

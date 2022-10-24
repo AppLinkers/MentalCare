@@ -29,7 +29,7 @@ public class PlayerRepositoryUnitTest {
     public void init() {
         // 테이블 autoincrement 초기화
         // H2
-        entityManager.createNativeQuery("ALTER TABLE player ALTER COLUMN id RESTART WITH 1").executeUpdate();
+        entityManager.createNativeQuery("ALTER TABLE player ALTER COLUMN id RESTART WITH 2").executeUpdate();
         // MySQL - entityManager.createNativeQuery("ALTER TABLE player AUTO_INCREMENT =1").executeUpdate();
     }
 

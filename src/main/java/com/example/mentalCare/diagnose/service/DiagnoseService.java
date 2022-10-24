@@ -4,9 +4,9 @@ package com.example.mentalCare.diagnose.service;
 import com.example.mentalCare.diagnose.domain.*;
 import com.example.mentalCare.diagnose.dto.*;
 import com.example.mentalCare.diagnose.repository.*;
+import com.example.mentalCare.user.domain.Player;
 import com.example.mentalCare.user.domain.User;
 import com.example.mentalCare.user.repository.PlayerRepository;
-import com.example.mentalCare.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +19,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DiagnoseService {
 
-    private final UserRepository userRepository;
     private final AnswerRepository answerRepository;
     private final AnswerDetailRepository answerDetailRepository;
     private final AnswerDiagnoseRepository answerDiagnoseRepository;
@@ -53,7 +52,8 @@ public class DiagnoseService {
 
         Answer answer = answerRepository.findById(answerId).get();
 
-        User user = answer.getUser();
+        Player player = answer.getPlayer();
+        User user = player.getUser();
 
         String playerName = user.getName();
         Integer playerAge = user.getAge();
@@ -137,14 +137,14 @@ public class DiagnoseService {
      */
     @Transactional
     public void submitAnswer(WriteAnswerReq req) {
-        User user = userRepository.findUserByLogin_id(req.getUserLoginId()).get();
+        Player player = playerRepository.findPlayerByUserLoginId(req.getUserLoginId());
         Answer answer = Answer.builder()
-                .user(user)
+                .player(player)
                 .build();
 
         Answer savedAnswer = answerRepository.save(answer);
 
-        user.addAnswer(savedAnswer);
+        player.addAnswer(savedAnswer);
 
         for (WriteAnswerDiagnoseReq writeAnswerDiagnoseReq : req.getWriteAnswerDiagnoseReqList()) {
             AnswerDiagnose answerDiagnose = AnswerDiagnose.builder()
@@ -216,7 +216,7 @@ public class DiagnoseService {
      */
     @Transactional(readOnly = true)
     public List<GetAnswerInfoRes> getAllAnswerByUserLoginId(String userLoginId) {
-        List<Answer> answerList = answerRepository.findAnswersByUserLoginId(userLoginId);
+        List<Answer> answerList = answerRepository.findAnswersByPlayerUserLoginId(userLoginId);
 
         List<GetAnswerInfoRes> answerResList = new ArrayList<>();
         answerList.forEach(
