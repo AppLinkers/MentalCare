@@ -27,4 +27,8 @@ public class AnswerDetail {
     @ManyToOne
     @JoinColumn(name = "question_id")
     private Question question;
+
+    public void setAnswer(Integer answer) {
+        this.answer = answer;
+    }
 }

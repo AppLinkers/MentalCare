@@ -1,16 +1,15 @@
 package com.example.mentalCare.diagnose.domain;
 
-import javax.persistence.*;
-
 import com.example.mentalCare.user.domain.Player;
-import com.example.mentalCare.user.domain.User;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +30,27 @@ public class Answer {
     private Player player;
 
     @CreatedDate
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "answer")
     private List<AnswerDiagnose> answerDiagnoseList = new ArrayList<>();
 
     public void addAnswerDiagnose(AnswerDiagnose answerDiagnose) {
         this.answerDiagnoseList.add(answerDiagnose);
+    }
+
+    public AnswerDiagnose findAnswerDiagnoseByDiagnoseId(Long diagnoseId) {
+        AnswerDiagnose result = new AnswerDiagnose();
+        for (AnswerDiagnose answerDiagnose : this.answerDiagnoseList) {
+            if (answerDiagnose.getDiagnose().getId().equals(diagnoseId)) {
+                result = answerDiagnose;
+            }
+        }
+        return result;
     }
 
     @Builder
