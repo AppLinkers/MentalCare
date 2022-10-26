@@ -1,6 +1,5 @@
 package com.example.mentalCare.user.domain;
 
-import com.example.mentalCare.diagnose.domain.Answer;
 import com.example.mentalCare.user.domain.type.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,8 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data

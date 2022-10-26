@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -77,6 +78,18 @@ public class DiagnoseService {
     }
 
     /**
+     * 특정 type 정보 추출
+     */
+    public GetDiagnoseInfoRes getDiagnoseInfoByDiagnoseId(Long diagnoseId) {
+        Diagnose diagnose = diagnoseRepository.findById(diagnoseId).get();
+
+        return GetDiagnoseInfoRes.builder()
+                .diagnoseId(diagnose.getId())
+                .diagnoseTitle(diagnose.getTitle())
+                .build();
+    }
+
+    /**
      * type 검사 질문 리스트 추출
      */
     public GetDiagnoseRes getAllQuestionOfTypeTestByDiagnoseId(Long diagnoseId){
@@ -99,10 +112,10 @@ public class DiagnoseService {
 
 
     /**
-     * 진단 작성
+     * 통합 진단 작성
      */
     @Transactional
-    public void submitAnswer(WriteAnswerReq req) {
+    public void submitIntegrationAnswer(WriteAnswerReq req) {
         Player player = playerRepository.findPlayerByUserLoginId(req.getUserLoginId());
         Answer answer = Answer.builder()
                 .player(player)
@@ -142,11 +155,44 @@ public class DiagnoseService {
     }
 
     /**
+     * 유형 진단 작성
+     */
+    @Transactional
+    public void submitTypeAnswer(WriteAnswerReq req) {
+        List<Answer> answerList = answerRepository.findAnswersByPlayerUserLoginIdOOrderByUpdatedAt(req.getUserLoginId());
+
+        if (answerList.isEmpty()) {
+            submitIntegrationAnswer(req);
+        } else {
+            Answer answer = answerList.get(0);
+            answer.setUpdatedAt(LocalDateTime.now());
+            WriteAnswerDiagnoseReq writeAnswerDiagnoseReq = req.getWriteAnswerDiagnoseReqList().get(0);
+
+            AnswerDiagnose answerDiagnose = answer.findAnswerDiagnoseByDiagnoseId(writeAnswerDiagnoseReq.getDiagnoseId());
+            answerDiagnose.setUpdatedAt(LocalDateTime.now());
+
+            List<WriteAnswerDetailReq> writeAnswerDetailReqList = writeAnswerDiagnoseReq.getWriteAnswerDetailReqList();
+            List<AnswerDetail> answerDetailList = answerDiagnose.getAnswerDetailList();
+
+            for (AnswerDetail answerDetail : answerDetailList) {
+                for (WriteAnswerDetailReq writeAnswerDetailReq : writeAnswerDetailReqList) {
+                    if (answerDetail.getQuestion().getId().equals(writeAnswerDetailReq.getQuestionId())) {
+                        answerDetail.setAnswer(writeAnswerDetailReq.getAnswer());
+                    }
+                }
+            }
+
+
+        }
+
+    }
+
+    /**
      * 해당 사용자의 모든 진단 결과 불러오기
      */
     @Transactional(readOnly = true)
     public List<GetAnswerInfoRes> getAllAnswerByUserLoginId(String userLoginId) {
-        List<Answer> answerList = answerRepository.findAnswersByPlayerUserLoginId(userLoginId);
+        List<Answer> answerList = answerRepository.findAnswersByPlayerUserLoginIdOOrderByUpdatedAt(userLoginId);
 
         List<GetAnswerInfoRes> answerResList = new ArrayList<>();
         answerList.forEach(
@@ -154,7 +200,7 @@ public class DiagnoseService {
                     answerResList.add(
                             GetAnswerInfoRes.builder()
                                     .answerId(answer.getId())
-                                    .answerDate(answer.getCreatedAt())
+                                    .answerDate(answer.getUpdatedAt())
                                     .build()
                     );
                 }
@@ -190,6 +236,8 @@ public class DiagnoseService {
 
             String diagnoseTitle = diagnose.getTitle();
 
+            LocalDateTime diagnoseAnswerDate = answerDiagnose.getUpdatedAt();
+
             Double diagnoseAverage = 0.0;
 
             List<GetAnswerDetailRes> getAnswerDetailResList = new ArrayList<>();
@@ -206,6 +254,7 @@ public class DiagnoseService {
 
             GetAnswerDiagnoseRes getAnswerDiagnoseRes = GetAnswerDiagnoseRes.builder()
                     .diagnoseTitle(diagnoseTitle)
+                    .diagnoseAnswerDate(diagnoseAnswerDate)
                     .diagnoseAverage(diagnoseAverage)
                     .answerDetailResList(getAnswerDetailResList)
                     .build();

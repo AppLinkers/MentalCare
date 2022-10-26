@@ -117,7 +117,7 @@
                 <div class="result__box">
                     <div class="result__name">
                         <h3 th:text="${diagnose.diagnoseTitle}">관계</h3>
-                        마지막 검사 : <p th:text="${#temporals.format(answer.answerDate, 'yyyy. MM. dd')}"> 2022.09.26</p>
+                        마지막 검사 : <p th:text="${#temporals.format(diagnose.diagnoseAnswerDate, 'yyyy. MM. dd')}"> 2022.09.26</p>
                         <table>
                             <tr>
                                 <td><p style="margin-left: 30px;">평균 :</p></td>
