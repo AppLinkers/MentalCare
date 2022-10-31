@@ -1,6 +1,7 @@
 package com.example.mentalCare.user.controller;
 
 import com.example.mentalCare.user.dto.*;
+import com.example.mentalCare.user.service.TeamService;
 import com.example.mentalCare.user.service.UserAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -13,15 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Controller
 @RequiredArgsConstructor
 public class UserAuthController {
 
     private final UserAuthService userAuthService;
+    private final TeamService teamService;
 
     /**
      * Login Page
@@ -54,6 +53,7 @@ public class UserAuthController {
     public String signUpPage(Model model) {
         model.addAttribute("playerSignUpReq", new PlayerSignUpReq());
         model.addAttribute("directorSignUpReq", new DirectorSignUpReq());
+
         return "user/sign_up";
     }
     /**
@@ -87,10 +87,11 @@ public class UserAuthController {
     }
 
     @GetMapping("/profile/setting")
-    public String profileSettingPage(Model model, UpdatePlayerProfileReq updatePlayerProfileReq){
+    public String profileSettingPage(Model model){
+        model.addAttribute("updatePlayerProfileReq", new UpdatePlayerProfileReq());
+
         String login_id = SecurityContextHolder.getContext().getAuthentication().getName();
-        GetPlayerProfileRes getPlayerProfileRes = userAuthService.getPlayerProfile(login_id);
-        model.addAttribute("playerProfile",getPlayerProfileRes);
+        model.addAttribute("playerProfile", userAuthService.getPlayerProfile(login_id));
         return "user/setting";
     }
 

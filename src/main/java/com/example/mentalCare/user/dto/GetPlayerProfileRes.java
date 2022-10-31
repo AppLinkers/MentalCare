@@ -1,6 +1,7 @@
 package com.example.mentalCare.user.dto;
 
 import com.example.mentalCare.user.domain.type.Position;
+import com.example.mentalCare.user.domain.type.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +18,9 @@ public class GetPlayerProfileRes {
 
     private String userName;
 
-    private String team;
+    private Role role;
+
+    private String teamName;
 
     @Nullable
     private LocalDate nextMatchDate;

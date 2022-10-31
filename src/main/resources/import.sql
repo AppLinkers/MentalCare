@@ -1,5 +1,13 @@
+insert into TEAM(`name`, `code`) values('서울 FC', 'S');
+insert into TEAM(`name`, `code`) values('강원 FC', 'G');
+insert into TEAM(`name`, `code`) values('충북 FC', 'CB');
+insert into TEAM(`name`, `code`) values('충남 FC', 'CN');
+insert into TEAM(`name`, `code`) values('경남 FC', 'GN');
+insert into TEAM(`name`, `code`) values('경북 FC', 'GB');
+insert into TEAM(`name`, `code`) values('전북 FC', 'JB');
+insert into TEAM(`name`, `code`) values('전남 FC', 'JN');
 
-insert into _USER(`login_id`, `login_pw`, `name`, `team`, `role`,`age`) values('asdf','{bcrypt}$2a$10$d3QK7jlUd8NI6EdHmILzfejSoF.XSlmT/eRdb9zaXuM8YuWmTdzSO','test','서울FC','PLAYER',25);
+insert into _USER(`login_id`, `login_pw`, `name`, `team_id`, `role`,`age`) values('asdf','{bcrypt}$2a$10$d3QK7jlUd8NI6EdHmILzfejSoF.XSlmT/eRdb9zaXuM8YuWmTdzSO','test',1,'PLAYER',25);
 insert into Player(`position`,`user_id`) values('FW',1);
 
 insert into Diagnose(`title`, `deleted`) values('경기력', 'N');

@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/", "/nav", "/login", "/sign_up/**").permitAll()
                 .antMatchers("/test/**", "/logout", "/profile/**", "/testAdmin").hasAnyAuthority("DIRECTOR", "PLAYER")
-                .antMatchers("/director/**").hasAnyAuthority("DIRECTOR")
+                .antMatchers("/manage/**").hasAnyAuthority("DIRECTOR")
                 .anyRequest().permitAll()
                 .and()
                 .csrf()

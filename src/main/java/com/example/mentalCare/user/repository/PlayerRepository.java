@@ -5,11 +5,16 @@ import com.example.mentalCare.user.domain.type.Position;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface PlayerRepository extends JpaRepository<Player, Long> {
 
-    @Query("select p.position from Player p where p.user.id = :user_id")
-    Position findPlayerPositionByUserId(Long user_id);
+    @Query("select p.position from Player p where p.user.id = :userId")
+    Position findPlayerPositionByUserId(Long userId);
 
-    @Query("select p from Player p where p.user.login_id = :login_id")
-    Player findPlayerByUserLoginId(String login_id);
+    @Query("select p from Player p where p.user.login_id = :loginId")
+    Player findPlayerByUserLoginId(String loginId);
+
+    @Query("select p from Player p where p.user.team.id = :teamId")
+    List<Player> findPlayersByUserTeamId(Long teamId);
 }

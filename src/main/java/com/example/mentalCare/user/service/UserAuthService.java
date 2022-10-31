@@ -1,13 +1,11 @@
 package com.example.mentalCare.user.service;
 
-import com.example.mentalCare.user.domain.Director;
-import com.example.mentalCare.user.domain.Player;
-import com.example.mentalCare.user.domain.User;
-import com.example.mentalCare.user.domain.UserDetail;
+import com.example.mentalCare.user.domain.*;
 import com.example.mentalCare.user.domain.type.Role;
 import com.example.mentalCare.user.dto.*;
 import com.example.mentalCare.user.repository.DirectorRepository;
 import com.example.mentalCare.user.repository.PlayerRepository;
+import com.example.mentalCare.user.repository.TeamRepository;
 import com.example.mentalCare.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -34,6 +31,7 @@ public class UserAuthService implements UserDetailsService {
     private final UserRepository userRepository;
     private final DirectorRepository directorRepository;
     private final PlayerRepository playerRepository;
+    private final TeamRepository teamRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -55,7 +53,7 @@ public class UserAuthService implements UserDetailsService {
     public GetUserInfoRes signUp(PlayerSignUpReq request) {
         validateDuplicated(request.getLogin_id());
 
-        User user = request.userSignUpReqToUser(request, Role.PLAYER);
+        User user = userSignUpReqToUser(request, Role.PENDING);
         user.setLogin_pw(passwordEncoder.encode(user.getLogin_pw()));
 
         User savedUser = userRepository.save(user);
@@ -83,7 +81,7 @@ public class UserAuthService implements UserDetailsService {
     public GetUserInfoRes signUp(DirectorSignUpReq request) {
         validateDuplicated(request.getLogin_id());
 
-        User user = request.userSignUpReqToUser(request, Role.DIRECTOR);
+        User user = userSignUpReqToUser(request, Role.DIRECTOR);
         user.setLogin_pw(passwordEncoder.encode(user.getLogin_pw()));
 
         User savedUser = userRepository.save(user);
@@ -121,21 +119,40 @@ public class UserAuthService implements UserDetailsService {
 
         return GetPlayerProfileRes.builder()
                 .userName(player.getUser().getName())
+                .role(player.getUser().getRole())
                 .position(player.getPosition())
                 .nextMatchDate(player.getNextMatch())
                 .nextMatchDDay(nextMatchDDay)
-                .team(player.getUser().getTeam())
+                .teamName(player.getUser().getTeam().getName())
                 .build();
     }
 
     @Transactional
     public void updateProfile(String userLoginId,UpdatePlayerProfileReq updatePlayerProfileReq){
+        Team team = teamRepository.findTeamByCode(updatePlayerProfileReq.getTeamCode()).get();
+
         Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
+
         player.setPosition(updatePlayerProfileReq.getPosition());
-        player.getUser().setTeam(updatePlayerProfileReq.getTeam());
+        player.getUser().setTeam(team);
         player.setNextMatch(updatePlayerProfileReq.getNextMatchDate());
     }
 
+    public Team getTeamByUserLoginId(String userLoginId) {
+        User user = userRepository.findUserByLoginId(userLoginId).get();
+        return user.getTeam();
+    }
 
 
+    public User userSignUpReqToUser(UserSignUpReq request, Role role) {
+        Team team = teamRepository.findTeamByCode(request.getTeamCode()).get();
+        return User.builder()
+                .login_id(request.getLogin_id())
+                .login_pw(request.getLogin_pw())
+                .name(request.getName())
+                .team(team)
+                .age(request.getAge())
+                .role(role)
+                .build();
+    }
 }
