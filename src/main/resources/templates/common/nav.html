@@ -37,7 +37,7 @@
             <h3>Mental Care</h3>
         </div>
         <div th:if="${userRole == 'PLAYER'}" class="menu-content">
-
+            <a th:href="@{/profile}"><h1>프로필</h1></a>
             <a th:href="@{/test}"><h1>검사하기</h1></a>
             <a th:href="@{/test/list}"><h1>검사내역</h1></a>
 
