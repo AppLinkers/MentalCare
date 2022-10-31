@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @RequiredArgsConstructor
 public class PageController {
-    UserAuthService userAuthService;
+    private final UserAuthService userAuthService;
 
     @GetMapping("/")
     public String index(){
@@ -20,7 +20,11 @@ public class PageController {
     }
 
     @GetMapping("/nav")
-    public String callNav(){
+    public String callNav(Model model){
+        String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userAuthService.findUserByUserId(userLoginId);
+        String role = user.getRole()+"";
+        model.addAttribute("userRole",role);
         return "common/nav";}
 
 
