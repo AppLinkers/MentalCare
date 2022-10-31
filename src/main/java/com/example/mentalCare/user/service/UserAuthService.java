@@ -49,6 +49,11 @@ public class UserAuthService implements UserDetailsService {
                 .build();
     }
 
+    public User findUserByUserId(String userId) {
+        User user = userRepository.findUserByLoginId(userId).orElseThrow(() -> new UsernameNotFoundException("아이디가 존재하지 않습니다."));
+        return user;
+    }
+
     @Transactional
     public GetUserInfoRes signUp(PlayerSignUpReq request) {
         validateDuplicated(request.getLogin_id());
@@ -155,4 +160,5 @@ public class UserAuthService implements UserDetailsService {
                 .role(role)
                 .build();
     }
+
 }

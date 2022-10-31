@@ -65,7 +65,7 @@ public class testController {
     @PostMapping("/submit")
     public String testSubmit(WriteAnswerReq writeAnswerReq){
 
-        diagnoseService.submitAnswer(writeAnswerReq);
+        diagnoseService.submitIntegrationAnswer(writeAnswerReq);
         return "redirect:/test/list";
     }
 
@@ -80,14 +80,18 @@ public class testController {
     }
 
     @GetMapping("/type/progress/{id}")
-    public String typeProgressPage(Model model, @PathVariable(value="id") Long id){
+    public String typeProgressPage(Model model, @PathVariable(value="id") Long diagnoseId){
+        GetDiagnoseInfoRes getDiagnoseInfoRes = diagnoseService.getDiagnoseInfoByDiagnoseId(diagnoseId);
+        model.addAttribute("diagnoseInfo", getDiagnoseInfoRes);
+
         String login_id = SecurityContextHolder.getContext().getAuthentication().getName();
+
         WriteAnswerReq writeAnswerReq = new WriteAnswerReq();
         writeAnswerReq.setUserLoginId(login_id);
 
         List<WriteAnswerDiagnoseReq> writeAnswerDiagnoseReqList = new ArrayList<>();
 
-        GetDiagnoseRes diagnoseRes = diagnoseService.getAllQuestionOfTypeTestByDiagnoseId(id);
+        GetDiagnoseRes diagnoseRes = diagnoseService.getAllQuestionOfTypeTestByDiagnoseId(diagnoseId);
         model.addAttribute("diagnose", diagnoseRes);
 
         List<WriteAnswerDetailReq> writeAnswerDetailReqList = new ArrayList<>();
@@ -112,7 +116,7 @@ public class testController {
     @PostMapping("/type/submit")
     public String typeTestSubmit(WriteAnswerReq writeAnswerReq){
 
-        System.out.println(writeAnswerReq.getWriteAnswerDiagnoseReqList().get(0).getDiagnoseId());
+        diagnoseService.submitTypeAnswer(writeAnswerReq);
         return "redirect:/test/list";
     }
 

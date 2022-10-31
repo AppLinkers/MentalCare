@@ -25,7 +25,45 @@
 </nav>
 
 <!-- =========== MAIN ========== -->
-<section id="profile">
+<section th:if="${userRole == 'PENDING'}">
+    <h3>아직 팀 소속 Review 중에 있습니다. </h3>
+</section>
+
+<section th:if="${userRole == 'DIRECTOR'}"  id="profile">
+    <div class="container profile__container">
+        <div class="profile__card" >
+            <div class="card__head">
+                <h2>프로필</h2>
+            </div>
+            <div class="card__content">
+                <div class="card__info">
+                    <div class="info__text">
+                        <p>이름</p>
+                        <h3 th:text="${directorProfile.name}">손흥민</h3>
+                        <p>소속팀 이름</p>
+                        <h3 th:text="${directorProfile.team.name}">토트넘 핫스퍼</h3>
+                        <p>소속팀 코드</p>
+                        <h3 th:text="${directorProfile.team.code}">토트넘 핫스퍼</h3>
+                        <p>직책</p>
+                        <h3>감독</h3>
+                    </div>
+                    <div class="info__img">
+                        <div class="img__con">
+                            <img src="/images/son.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="card__button">
+                    <button class="btn btn-varient" th:onclick="|location.href='/manage/member'|">팀 관리하기</button>
+                    <button class="btn btn-varient" th:onclick="|location.href='/profile/setting'|">설정하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section th:if="${userRole == 'PLAYER'}" id="profile">
     <div class="container profile__container">
         <div class="profile__card" >
             <div class="card__head">

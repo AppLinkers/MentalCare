@@ -27,7 +27,7 @@
             <div class="icon">
                 <img src="/images/macos-calendar (1).png">
             </div>
-            <h3 th:text="${diagnose.diagnoseTitle} + ' 검사'"> 검사</h3>
+            <h3 th:text="${diagnoseInfo.diagnoseTitle} + ' 검사'"> 검사</h3>
         </div>
 
         <form th:method="post" th:action= "@{/test/type/submit}" th:object="${writeAnswerReq}">

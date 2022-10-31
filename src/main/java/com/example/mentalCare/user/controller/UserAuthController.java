@@ -1,5 +1,10 @@
 package com.example.mentalCare.user.controller;
 
+import com.example.mentalCare.diagnose.dto.GetDiagnoseInfoRes;
+import com.example.mentalCare.user.domain.Player;
+import com.example.mentalCare.user.domain.User;
+import com.example.mentalCare.user.domain.UserDetail;
+import com.example.mentalCare.user.domain.type.Role;
 import com.example.mentalCare.user.dto.*;
 import com.example.mentalCare.user.service.TeamService;
 import com.example.mentalCare.user.service.UserAuthService;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -80,8 +86,18 @@ public class UserAuthController {
     @GetMapping("/profile")
     public String profilePage(Model model) {
         String login_id = SecurityContextHolder.getContext().getAuthentication().getName();
-        GetPlayerProfileRes getPlayerProfileRes = userAuthService.getPlayerProfile(login_id);
+        User user = userAuthService.findUserByUserId(login_id);
+        GetPlayerProfileRes getPlayerProfileRes = null;
 
+        if(user.getRole() == Role.PLAYER){
+            getPlayerProfileRes = userAuthService.getPlayerProfile(login_id);
+        }else if(user.getRole() == Role.DIRECTOR){
+            model.addAttribute("directorProfile", user);
+        }else{
+
+        }
+        String userRole = user.getRole()+"";
+        model.addAttribute("userRole", userRole);
         model.addAttribute("playerProfile",getPlayerProfileRes);
         return "user/profile";
     }
@@ -103,4 +119,5 @@ public class UserAuthController {
         userAuthService.updateProfile(login_id, updatePlayerProfileReq);
         return "redirect:/profile";
     }
+
 }
