@@ -69,6 +69,24 @@
     height: 5px;
 }
 
+/* ===== BODY ====== */
+.body {
+    display: grid;
+    grid-template-columns: 3fr 4fr;
+    gap: 3rem;
+}
+
+.chart__container,
+.result__container {
+    margin: 0 auto;
+    width: 95%;
+}
+
+.chart__container .line {
+    display: none;
+}
+
+
 /* ===== RADAR ====== */
 .radar__chart {
     padding: 2rem 0;
@@ -170,6 +188,38 @@
     -ms-transform: rotate(-180deg);
     -o-transform: rotate(-180deg);
     transform: rotate(-180deg);
+}
+
+
+/* =================MEDIA QEURIES
+(TABLETS)================ */
+@media screen and (max-width: 1024px) {
+    .body {
+        grid-template-columns: 1fr;
+        gap: 0rem;
+    }
+
+    .chart__container,
+    .result__container {
+        width: var(--container-width-tablet);
+        margin: 0 auto;
+    }
+
+    .chart__container .line {
+        display: block;
+        width: 100%;
+    }
+}
+
+/* =================MEDIA QEURIES
+(PHONES)================ */
+@media screen and (max-width: 600px) {
+
+    .chart__container,
+    .result__container {
+        width: var(--container-width-phone);
+        margin: 0 auto;
+    }
 }
 
 /* color-example 지워야됨 */
