@@ -55,7 +55,7 @@ public class DirectorController {
                 }
         );
         model.addAttribute("updatePlayerRoleReqList", updatePlayerRoleReqList);
-        return "manage/member";
+        return "manage/director_member";
     }
 
     /**

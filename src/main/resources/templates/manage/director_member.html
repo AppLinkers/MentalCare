@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mental Care</title>
+
+  <!-- GOOGLE FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+  <!-- ICON SCOUT -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+  <!-- STYLE SHEET -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/director_member.css">
+</head>
+
+<body>
+
+<!-- =========== NAVBAR ========== -->
+<nav id="nav">
+</nav>
+
+<!-- =========== MEMBER ========== -->
+<section id="member">
+  <div class="container title">
+    <h2>멤버 관리</h2>
+  </div>
+
+  <div class="container list__container">
+    <div class="list label">
+      <p>이름/아이디</p>
+      <p>권한 허가</p>
+
+    </div>
+    <div class="line"></div>
+
+    <article class="member-list" th:each="player : ${playerList}">
+      <div class="list content">
+        <div class="info">
+          <h4 th:text=" *{player.getUserName()}">손흥민</h4>
+          <h5>sonLove</h5>
+        </div>
+        <div class="wrapper">
+          <input type="checkbox" class="switch">
+          <label class="switch_label">
+            <span class="onf_btn"></span>
+          </label>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- =========== JAVASCRIPT ========== -->
+<script src="../javascript/base.js"></script>
+<script src="../javascript/director_member.js"></script>
+</body>
+
+</html>
