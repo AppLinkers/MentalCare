@@ -58,9 +58,10 @@
     <div class="line inside__large"></div>
 </section>
 
-<!-- =========== RADAR ========== -->
-<section id="chart">
-    <div class="container chart__container">
+<div class="body container">
+
+    <!-- =========== RADAR ========== -->
+    <div class="chart__container">
         <div class="radar__chart">
             <script>
                 var diagnosetitleSet = new Array();
@@ -81,11 +82,10 @@
         </div>
         <div class="line inside__large"></div>
     </div>
-</section>
 
-<!-- =========== RESULT ========== -->
-<section id="result">
-    <div class="container result__container">
+
+    <!-- =========== RESULT ========== -->
+    <div class="result__container">
         <!-- result-header -->
         <div class="result__header">
             <div class="result__label">
@@ -103,9 +103,8 @@
                 </div>
             </div>
         </div>
+
         <!-- result-list -->
-
-
         <div class="result__list" th:each="diagnose : ${answer.diagnoseResList}">
             <script>
             var titleSet = new Array();
@@ -183,7 +182,9 @@
 
         </div>
     </div>
-</section>
+
+</div>
+
 
 <!-- =========== JAVASCRIPT ========== -->
 <!--<script src="../../javascript/common/base.js"></script>-->
