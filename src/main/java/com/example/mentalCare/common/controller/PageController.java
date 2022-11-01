@@ -1,9 +1,9 @@
 package com.example.mentalCare.common.controller;
 
-import com.example.mentalCare.user.controller.UserAuthController;
 import com.example.mentalCare.user.domain.User;
 import com.example.mentalCare.user.service.UserAuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,10 +21,12 @@ public class PageController {
 
     @GetMapping("/nav")
     public String callNav(Model model){
-        String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userAuthService.findUserByUserId(userLoginId);
-        String role = user.getRole()+"";
-        model.addAttribute("userRole",role);
+        String authority = "";
+        for (GrantedAuthority grantedAuthority : SecurityContextHolder.getContext().getAuthentication().getAuthorities() ) {
+            authority = grantedAuthority.getAuthority();
+        }
+
+        model.addAttribute("userRole", authority);
         return "common/nav";}
 
 
