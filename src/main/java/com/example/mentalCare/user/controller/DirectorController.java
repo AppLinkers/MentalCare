@@ -1,6 +1,7 @@
 package com.example.mentalCare.user.controller;
 
 import com.example.mentalCare.user.domain.Team;
+import com.example.mentalCare.user.domain.type.Position;
 import com.example.mentalCare.user.dto.GetPlayerProfileRes;
 import com.example.mentalCare.user.dto.UpdatePlayerRoleReq;
 import com.example.mentalCare.user.service.TeamService;
@@ -43,6 +44,7 @@ public class DirectorController {
         Team team = userAuthService.getTeamByUserLoginId(userLoginId);
 
         List<GetPlayerProfileRes> getPlayerProfileResList = teamService.getPlayerProfileResListByTeamId(team.getId());
+
         model.addAttribute("playerList", getPlayerProfileResList);
 
         getPlayerProfileResList.forEach(
