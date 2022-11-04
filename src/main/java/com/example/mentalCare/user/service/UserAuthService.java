@@ -49,11 +49,6 @@ public class UserAuthService implements UserDetailsService {
                 .build();
     }
 
-    public User findUserByUserId(String userId) {
-        User user = userRepository.findUserByLoginId(userId).orElseThrow(() -> new UsernameNotFoundException("아이디가 존재하지 않습니다."));
-        return user;
-    }
-
     @Transactional
     public GetUserInfoRes signUp(PlayerSignUpReq request) {
         validateDuplicated(request.getLogin_id());
@@ -126,6 +121,7 @@ public class UserAuthService implements UserDetailsService {
             return GetProfileRes.playerBuilder()
                     .id(player.getUser().getId())
                     .userName(player.getUser().getName())
+                    .imgUrl(player.getUser().getImgUrl())
                     .role(Role.PLAYER)
                     .teamName(player.getUser().getTeam().getName())
                     .teamCode(player.getUser().getTeam().getCode())
@@ -137,6 +133,7 @@ public class UserAuthService implements UserDetailsService {
             User user = userRepository.findUserByLoginId(userLoginId).get();
             return GetProfileRes.directorBuilder()
                     .userName(user.getName())
+                    .imgUrl(user.getImgUrl())
                     .role(Role.DIRECTOR)
                     .teamName(user.getTeam().getName())
                     .teamCode(user.getTeam().getCode())
@@ -168,6 +165,7 @@ public class UserAuthService implements UserDetailsService {
                 .login_id(request.getLogin_id())
                 .login_pw(request.getLogin_pw())
                 .name(request.getName())
+                .imgUrl("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png")
                 .team(team)
                 .age(request.getAge())
                 .role(role)

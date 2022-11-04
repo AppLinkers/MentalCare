@@ -26,6 +26,8 @@ public class User {
 
     private String name;
 
+    private String imgUrl;
+
     private Integer age;
 
     @Enumerated(EnumType.STRING)

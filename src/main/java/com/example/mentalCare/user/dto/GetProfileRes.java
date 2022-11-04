@@ -17,6 +17,8 @@ public class GetProfileRes {
 
     private String userName;
 
+    private String imgUrl;
+
     private Role role;
 
     private String teamName;
@@ -33,18 +35,20 @@ public class GetProfileRes {
     private Position position;
 
     @Builder(builderClassName = "directorBuilder", builderMethodName = "directorBuilder")
-    public GetProfileRes (Long id, String userName, Role role, String teamName, String teamCode) {
+    public GetProfileRes (Long id, String userName, String imgUrl, Role role, String teamName, String teamCode) {
         this.id = id;
         this.userName = userName;
+        this.imgUrl = imgUrl;
         this.role = role;
         this.teamName = teamName;
         this.teamCode = teamCode;
     }
 
     @Builder(builderClassName = "playerBuilder", builderMethodName = "playerBuilder")
-    public GetProfileRes(Long id, String userName, Role role, String teamName, String teamCode, LocalDate nextMatchDate, Integer nextMatchDDay, Position position) {
+    public GetProfileRes(Long id, String userName, String imgUrl, Role role, String teamName, String teamCode, LocalDate nextMatchDate, Integer nextMatchDDay, Position position) {
         this.id = id;
         this.userName = userName;
+        this.imgUrl = imgUrl;
         this.role = role;
         this.teamName = teamName;
         this.teamCode = teamCode;
