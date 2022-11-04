@@ -1,8 +1,7 @@
 package com.example.mentalCare.user.controller;
 
 import com.example.mentalCare.user.domain.Team;
-import com.example.mentalCare.user.domain.type.Position;
-import com.example.mentalCare.user.dto.GetPlayerProfileRes;
+import com.example.mentalCare.user.dto.GetProfileRes;
 import com.example.mentalCare.user.dto.UpdatePlayerRoleReq;
 import com.example.mentalCare.user.service.TeamService;
 import com.example.mentalCare.user.service.UserAuthService;
@@ -43,7 +42,7 @@ public class DirectorController {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
         Team team = userAuthService.getTeamByUserLoginId(userLoginId);
 
-        List<GetPlayerProfileRes> getPlayerProfileResList = teamService.getPlayerProfileResListByTeamId(team.getId());
+        List<GetProfileRes> getPlayerProfileResList = teamService.getPlayerProfileResListByTeamId(team.getId());
 
         model.addAttribute("playerList", getPlayerProfileResList);
 

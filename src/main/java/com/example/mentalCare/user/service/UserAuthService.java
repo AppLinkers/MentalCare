@@ -113,27 +113,40 @@ public class UserAuthService implements UserDetailsService {
         );
     }
 
-    public GetPlayerProfileRes getPlayerProfile(String userLoginId){
-        Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
+    public GetProfileRes getProfile(String userLoginId, String authority) {
+        if (authority.equals(Role.PLAYER.toString())) {
+            Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
 
-        int nextMatchDDay = 0;
+            int nextMatchDDay = 0;
 
-        if (player.getNextMatch() != null) {
-            nextMatchDDay = (int)DAYS.between(player.getNextMatch(), LocalDate.now());
+            if (player.getNextMatch() != null) {
+                nextMatchDDay = (int)DAYS.between(player.getNextMatch(), LocalDate.now());
+            }
+
+            return GetProfileRes.playerBuilder()
+                    .id(player.getUser().getId())
+                    .userName(player.getUser().getName())
+                    .role(Role.PLAYER)
+                    .teamName(player.getUser().getTeam().getName())
+                    .teamCode(player.getUser().getTeam().getCode())
+                    .nextMatchDate(player.getNextMatch())
+                    .nextMatchDDay(nextMatchDDay)
+                    .position(player.getPosition())
+                    .build();
+        } else {
+            User user = userRepository.findUserByLoginId(userLoginId).get();
+            return GetProfileRes.directorBuilder()
+                    .userName(user.getName())
+                    .role(Role.DIRECTOR)
+                    .teamName(user.getTeam().getName())
+                    .teamCode(user.getTeam().getCode())
+                    .build();
         }
 
-        return GetPlayerProfileRes.builder()
-                .userName(player.getUser().getName())
-                .role(player.getUser().getRole())
-                .position(player.getPosition())
-                .nextMatchDate(player.getNextMatch())
-                .nextMatchDDay(nextMatchDDay)
-                .teamName(player.getUser().getTeam().getName())
-                .build();
     }
 
     @Transactional
-    public void updateProfile(String userLoginId,UpdatePlayerProfileReq updatePlayerProfileReq){
+    public void updatePlayerProfile(String userLoginId,UpdatePlayerProfileReq updatePlayerProfileReq){
         Team team = teamRepository.findTeamByCode(updatePlayerProfileReq.getTeamCode()).get();
 
         Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
