@@ -15,6 +15,4 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
     @Query("select p from Player p where p.user.login_id = :loginId")
     Player findPlayerByUserLoginId(String loginId);
 
-    @Query("select p from Player p where p.user.team.id = :teamId")
-    List<Player> findPlayersByUserTeamId(Long teamId);
 }

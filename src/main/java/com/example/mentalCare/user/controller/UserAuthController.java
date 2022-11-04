@@ -7,6 +7,7 @@ import com.example.mentalCare.user.service.TeamService;
 import com.example.mentalCare.user.service.UserAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -82,18 +83,13 @@ public class UserAuthController {
     @GetMapping("/profile")
     public String profilePage(Model model) {
         String login_id = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userAuthService.findUserByUserId(login_id);
-        GetPlayerProfileRes getPlayerProfileRes = null;
-
-        if(user.getRole().equals(Role.PLAYER)){
-            getPlayerProfileRes = userAuthService.getPlayerProfile(login_id);
-        }else if(user.getRole().equals(Role.DIRECTOR)){
-            model.addAttribute("directorProfile", user);
+        String authority = "";
+        for (GrantedAuthority grantedAuthority : SecurityContextHolder.getContext().getAuthentication().getAuthorities() ) {
+            authority = grantedAuthority.getAuthority();
         }
 
-        String userRole = user.getRole().toString();
-        model.addAttribute("userRole", userRole);
-        model.addAttribute("playerProfile",getPlayerProfileRes);
+        model.addAttribute("profile", userAuthService.getProfile(login_id, authority));
+
         return "user/profile";
     }
 
@@ -102,7 +98,7 @@ public class UserAuthController {
         model.addAttribute("updatePlayerProfileReq", new UpdatePlayerProfileReq());
 
         String login_id = SecurityContextHolder.getContext().getAuthentication().getName();
-        model.addAttribute("playerProfile", userAuthService.getPlayerProfile(login_id));
+        model.addAttribute("playerProfile", userAuthService.getProfile(login_id, Role.PLAYER.toString()));
         return "user/setting";
     }
 
@@ -111,7 +107,7 @@ public class UserAuthController {
     @PostMapping("/profile/setting")
     public String profileSetting(UpdatePlayerProfileReq updatePlayerProfileReq){
         String login_id = SecurityContextHolder.getContext().getAuthentication().getName();
-        userAuthService.updateProfile(login_id, updatePlayerProfileReq);
+        userAuthService.updatePlayerProfile(login_id, updatePlayerProfileReq);
         return "redirect:/profile";
     }
 

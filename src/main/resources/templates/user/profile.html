@@ -25,11 +25,11 @@
 </nav>
 
 <!-- =========== MAIN ========== -->
-<section th:if="${userRole == 'PENDING'}">
+<section th:if="${#strings.equals(profile.role,'PENDING')}">
     <h3>아직 팀 소속 Review 중에 있습니다. </h3>
 </section>
 
-<section th:if="${userRole == 'DIRECTOR'}"  id="profile">
+<section th:if="${#strings.equals(profile.role,'DIRECTOR')}"  id="profile">
     <div class="container profile__container">
         <div class="profile__card" >
             <div class="card__head">
@@ -39,11 +39,11 @@
                 <div class="card__info">
                     <div class="info__text">
                         <p>이름</p>
-                        <h3 th:text="${directorProfile.name}">손흥민</h3>
+                        <h3 th:text="${profile.userName}">손흥민</h3>
                         <p>소속팀 이름</p>
-                        <h3 th:text="${directorProfile.team.name}">토트넘 핫스퍼</h3>
+                        <h3 th:text="${profile.teamName}">토트넘 핫스퍼</h3>
                         <p>소속팀 코드</p>
-                        <h3 th:text="${directorProfile.team.code}">토트넘 핫스퍼</h3>
+                        <h3 th:text="${profile.teamCode}">토트넘 핫스퍼</h3>
                         <p>직책</p>
                         <h3>감독</h3>
                     </div>
@@ -63,7 +63,7 @@
 </section>
 
 
-<section th:if="${userRole == 'PLAYER'}" id="profile">
+<section th:if="${#strings.equals(profile.role,'PLAYER')}" id="profile">
     <div class="container profile__container">
         <div class="profile__card" >
             <div class="card__head">
@@ -74,8 +74,8 @@
                         <tr>
                             <td><span style="font-size: 28px; font-weight: bold">D</span></td>
                             <td>
-                                <span style="font-size: 28px; font-weight: bold" th:if="${playerProfile.nextMatchDDay >= 0}" th:text="'+' + ${playerProfile.nextMatchDDay}">12</span>
-                                <span style="font-size: 28px; font-weight: bold" th:if="${playerProfile.nextMatchDDay < 0}" th:text="${playerProfile.nextMatchDDay}">12</span>
+                                <span style="font-size: 28px; font-weight: bold" th:if="${profile.nextMatchDDay >= 0}" th:text="'+' + ${profile.nextMatchDDay}">12</span>
+                                <span style="font-size: 28px; font-weight: bold" th:if="${profile.nextMatchDDay < 0}" th:text="${profile.nextMatchDDay}">12</span>
                             </td>
                         </tr>
                     </table>
@@ -86,11 +86,11 @@
                 <div class="card__info">
                     <div class="info__text">
                         <p>이름</p>
-                        <h3 th:text="${playerProfile.userName}">손흥민</h3>
+                        <h3 th:text="${profile.userName}">손흥민</h3>
                         <p>소속팀</p>
-                        <h3 th:text="${playerProfile.teamName}">토트넘 핫스퍼</h3>
+                        <h3 th:text="${profile.teamName}">토트넘 핫스퍼</h3>
                         <p>포지션</p>
-                        <h3 th:text="${playerProfile.position}">FW</h3>
+                        <h3 th:text="${profile.position}">FW</h3>
                     </div>
                     <div class="info__img">
                         <div class="img__con">
