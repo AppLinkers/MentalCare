@@ -35,6 +35,11 @@ public class PageController {
         return "manage/test_admin";
     }
 
+    @GetMapping("/consultant/privateList")
+    public String privateConsultantPage(){
+        return "consultant/private_consult_list";
+    }
+
 
 
 
