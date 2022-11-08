@@ -102,3 +102,18 @@
     opacity: 1;
     box-shadow: 1px 2px 3px #00000020;
 }
+
+.member-btn {
+    width: 6rem;
+    height: 3rem;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid var(--color-gray);
+}
+
+.member-btn.active {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border: 1px solid var(--color-primary);
+}
