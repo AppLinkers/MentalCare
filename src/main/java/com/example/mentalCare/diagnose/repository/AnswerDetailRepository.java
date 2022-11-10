@@ -8,6 +8,4 @@ import java.util.List;
 
 public interface AnswerDetailRepository extends JpaRepository<AnswerDetail, Long> {
 
-    @Query("select a from AnswerDetail a where a.answerDiagnose.answer.id = :answerId")
-    List<AnswerDetail> findAllByAnswerEntityId(Long answerId);
 }

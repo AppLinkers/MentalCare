@@ -10,13 +10,11 @@ import java.util.Optional;
 
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
 
-
-
-    @Query("select a from Answer a where a.player.user.login_id = :userLoginId")
-    List<Answer> findAnswersByPlayerUserLoginId(String userLoginId);
-
     @Query("select a from Answer a where a.player.user.login_id = :userLoginId order by a.updatedAt desc")
-    List<Answer> findAnswersByPlayerUserLoginIdOOrderByUpdatedAt(String userLoginId);
+    List<Answer> findAnswersByPlayerUserLoginIdOrderByUpdatedAt(String userLoginId);
+
+    @Query("select a.id from Answer a where a.player.user.login_id = :userLoginId order by a.updatedAt desc")
+    List<Long> findAnswersIdByPlayerUserLoginIdOrderByUpdatedAt(String userLoginId);
 
 
 }

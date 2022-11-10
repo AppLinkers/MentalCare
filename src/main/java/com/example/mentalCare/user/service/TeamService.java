@@ -1,10 +1,14 @@
 package com.example.mentalCare.user.service;
 
+import com.example.mentalCare.user.domain.Director;
+import com.example.mentalCare.user.domain.TeamNotification;
 import com.example.mentalCare.user.domain.User;
-import com.example.mentalCare.user.domain.type.Role;
-import com.example.mentalCare.user.dto.GetProfileRes;
-import com.example.mentalCare.user.dto.UpdatePlayerRoleReq;
-import com.example.mentalCare.user.repository.PlayerRepository;
+import com.example.mentalCare.user.dto.GetTeamNotificationDetailRes;
+import com.example.mentalCare.user.dto.GetTeamNotificationInfoRes;
+import com.example.mentalCare.user.dto.GetUserInfoRes;
+import com.example.mentalCare.user.dto.WriteTeamNotificationReq;
+import com.example.mentalCare.user.repository.DirectorRepository;
+import com.example.mentalCare.user.repository.TeamNotificationRepository;
 import com.example.mentalCare.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,38 +21,82 @@ import java.util.List;
 public class TeamService {
 
     private final UserAuthService userAuthService;
-    private final PlayerRepository playerRepository;
     private final UserRepository userRepository;
+    private final DirectorRepository directorRepository;
+    private final TeamNotificationRepository teamNotificationRepository;
 
-    public List<GetProfileRes> getPlayerProfileResListByTeamId(Long teamId) {
-        List<String> userLoginIdList = userRepository.findUserLoginIdByTeamId(teamId);
 
-        List<GetProfileRes> result = new ArrayList<>();
-        userLoginIdList.forEach(
-                userLoginId -> {
-                    result.add(userAuthService.getProfile(userLoginId, Role.PLAYER.toString()));
+    public List<GetUserInfoRes> getPlayerOrPendingListByTeamId(Long teamId) {
+        List<User> userPlayerList = userRepository.findPlayerOrPendingUserByTeamId(teamId);
+
+        List<GetUserInfoRes> result = new ArrayList<>();
+        userPlayerList.forEach(
+                userPlayer -> {
+                    result.add(userAuthService.userToGetUserInfoRes(userPlayer));
                 }
         );
 
         return result;
     }
 
+    public List<String> getPlayerUserLoginIdListByTeamId(Long teamId) {
+        return userRepository.findPlayerUserLoginIdByTeamId(teamId);
+    }
 
-    public void updatePlayerRole(List<UpdatePlayerRoleReq> updatePlayerRoleReqList) {
+    /**
+     * 공지사항 정보 전체 조회
+     */
+    public List<GetTeamNotificationInfoRes> getTeamNotificationInfoResListByTeamId(Long teamId) {
+        List<GetTeamNotificationInfoRes> result = new ArrayList<>();
 
-        List<User> userList = new ArrayList<>();
-
-        updatePlayerRoleReqList.forEach(
-            updatePlayerRoleReq -> {
-                User user = playerRepository.findById(updatePlayerRoleReq.getPlayerId()).get().getUser();
-
-                if (!user.getRole().equals(updatePlayerRoleReq.getRole())) {
-                    user.setRole(updatePlayerRoleReq.getRole());
-                    userList.add(user);
+        teamNotificationRepository.findTeamNotificationsByTeamId(teamId).forEach(
+                teamNotification -> {
+                    result.add(
+                            GetTeamNotificationInfoRes.builder()
+                                    .id(teamNotification.getId())
+                                    .title(teamNotification.getTitle())
+                                    .directorName(teamNotification.getDirector().getUser().getName())
+                                    .viewCnt(teamNotification.getView_cnt())
+                                    .createdAt(teamNotification.getCreatedAt())
+                                    .build()
+                    );
                 }
-            }
         );
 
-        userRepository.saveAll(userList);
+        return result;
     }
+
+    /**
+     * 공지사항 단건 조회
+     */
+    public GetTeamNotificationDetailRes getTeamNotificationDetailResByTeamNotificationId(Long teamNotificationId) {
+        TeamNotification teamNotification = teamNotificationRepository.findById(teamNotificationId).get();
+
+        return GetTeamNotificationDetailRes.builder()
+                .id(teamNotification.getId())
+                .title(teamNotification.getTitle())
+                .content(teamNotification.getContent())
+                .directorName(teamNotification.getDirector().getUser().getName())
+                .viewCnt(teamNotification.getView_cnt())
+                .createdAt(teamNotification.getCreatedAt())
+                .build();
+    }
+
+    /**
+     * 공지사항 작성
+     */
+    public void writeTeamNotification(WriteTeamNotificationReq writeTeamNotificationReq) {
+        Director director = directorRepository.findDirectorByUserLogin_id(writeTeamNotificationReq.getUserLoginId());
+
+        TeamNotification teamNotification = TeamNotification.builder()
+                .title(writeTeamNotificationReq.getTitle())
+                .content(writeTeamNotificationReq.getContent())
+                .director(director)
+                .team(director.getUser().getTeam())
+                .build();
+
+        teamNotificationRepository.save(teamNotification);
+    }
+
+
 }
