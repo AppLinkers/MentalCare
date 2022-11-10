@@ -43,7 +43,7 @@ public class DirectorController {
      * Player List Page
      * 멤버 리스트 보기
      */
-    @GetMapping("/player")
+    @GetMapping("/player/list")
     public String playerListPage(Model model) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
         Team team = userAuthService.getTeamByUserLoginId(userLoginId);
