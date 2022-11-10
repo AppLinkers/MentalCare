@@ -5,6 +5,7 @@ import com.example.mentalCare.advice.FormAuthenticationProvider;
 import com.example.mentalCare.advice.FormAuthenticationSuccessHandler;
 import com.example.mentalCare.user.controller.UserAuthController;
 import com.example.mentalCare.user.domain.type.Position;
+import com.example.mentalCare.user.domain.type.Role;
 import com.example.mentalCare.user.dto.DirectorSignUpReq;
 import com.example.mentalCare.user.dto.GetUserInfoRes;
 import com.example.mentalCare.user.dto.PlayerSignUpReq;
@@ -89,6 +90,8 @@ public class UserAuthControllerUnitTest {
         when(userAuthService.signUp(request)).thenReturn(GetUserInfoRes.builder()
                 .id(1L)
                 .login_id("test_login_id")
+                .name("test_name")
+                .role(Role.PENDING)
                 .build());
 
         // when
@@ -122,6 +125,8 @@ public class UserAuthControllerUnitTest {
         when(userAuthService.signUp(request)).thenReturn(GetUserInfoRes.builder()
                 .id(1L)
                 .login_id("test_login_id")
+                .name("test_name")
+                .role(Role.DIRECTOR)
                 .build());
 
         // when

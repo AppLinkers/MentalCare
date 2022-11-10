@@ -46,8 +46,8 @@
       <article class="member-list" th:each="player : ${playerList}">
         <div class="list content">
           <div class="info">
-            <h4 th:text="${player.userName}">손흥민</h4>
-            <h5 th:text="${player.teamName}">sonLove</h5>
+            <h4 th:text="${player.name}">손흥민</h4>
+            <h5 th:text="${teamName}">sonLove</h5>
           </div>
 
           <button type="submit" class="member-btn">권한 없음</button>

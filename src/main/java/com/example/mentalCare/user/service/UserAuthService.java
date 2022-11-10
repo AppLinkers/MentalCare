@@ -70,10 +70,7 @@ public class UserAuthService implements UserDetailsService {
         playerRepository.save(player);
 
 
-        return GetUserInfoRes.builder()
-                .id(savedUser.getId())
-                .login_id(savedUser.getLogin_id())
-                .build();
+        return userToGetUserInfoRes(savedUser);
 
     }
 
@@ -93,10 +90,7 @@ public class UserAuthService implements UserDetailsService {
         directorRepository.save(director);
 
 
-        return GetUserInfoRes.builder()
-                .id(savedUser.getId())
-                .login_id(savedUser.getLogin_id())
-                .build();
+        return userToGetUserInfoRes(savedUser);
 
     }
 
@@ -134,7 +128,7 @@ public class UserAuthService implements UserDetailsService {
             return GetProfileRes.directorBuilder()
                     .userName(user.getName())
                     .imgUrl(user.getImgUrl())
-                    .role(Role.DIRECTOR)
+                    .role(Role.valueOf(authority))
                     .teamName(user.getTeam().getName())
                     .teamCode(user.getTeam().getCode())
                     .build();
@@ -153,6 +147,16 @@ public class UserAuthService implements UserDetailsService {
         player.setNextMatch(updatePlayerProfileReq.getNextMatchDate());
     }
 
+    @Transactional
+    public void updatePlayerRole(UpdatePlayerRoleReq updatePlayerRoleReq) {
+
+        User user = playerRepository.findById(updatePlayerRoleReq.getPlayerId()).get().getUser();
+
+        if (!user.getRole().equals(updatePlayerRoleReq.getRole())) {
+            user.setRole(updatePlayerRoleReq.getRole());
+        }
+    }
+
     public Team getTeamByUserLoginId(String userLoginId) {
         User user = userRepository.findUserByLoginId(userLoginId).get();
         return user.getTeam();
@@ -169,6 +173,15 @@ public class UserAuthService implements UserDetailsService {
                 .team(team)
                 .age(request.getAge())
                 .role(role)
+                .build();
+    }
+
+    public GetUserInfoRes userToGetUserInfoRes(User user) {
+        return GetUserInfoRes.builder()
+                .id(user.getId())
+                .login_id(user.getLogin_id())
+                .name(user.getName())
+                .role(user.getRole())
                 .build();
     }
 

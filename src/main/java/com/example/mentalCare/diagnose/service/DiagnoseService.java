@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -91,12 +92,12 @@ public class DiagnoseService {
     /**
      * type 검사 질문 리스트 추출
      */
-    public GetDiagnoseRes getAllQuestionOfTypeTestByDiagnoseId(Long diagnoseId){
+    public GetDiagnoseRes getAllQuestionOfTypeTestByDiagnoseId(Long diagnoseId) {
         Diagnose diagnose = diagnoseRepository.findByIdAndAndDeletedFalse(diagnoseId);
         List<Question> questionList = questionRepository.findAllByDiagnoseIdAndDeletedFalse(diagnoseId);
 
         List<GetQuestionRes> questionResList = new ArrayList<>();
-        for(Question question : questionList){
+        for (Question question : questionList) {
             GetQuestionRes getQuestionRes = GetQuestionRes.builder()
                     .questionId(question.getId())
                     .questionContext(question.getContext())
@@ -158,7 +159,7 @@ public class DiagnoseService {
      */
     @Transactional
     public void submitTypeAnswer(WriteAnswerReq req) {
-        List<Answer> answerList = answerRepository.findAnswersByPlayerUserLoginIdOOrderByUpdatedAt(req.getUserLoginId());
+        List<Answer> answerList = answerRepository.findAnswersByPlayerUserLoginIdOrderByUpdatedAt(req.getUserLoginId());
 
         if (answerList.isEmpty()) {
             submitIntegrationAnswer(req);
@@ -191,7 +192,7 @@ public class DiagnoseService {
      */
     @Transactional(readOnly = true)
     public List<GetAnswerInfoRes> getAllAnswerByUserLoginId(String userLoginId) {
-        List<Answer> answerList = answerRepository.findAnswersByPlayerUserLoginIdOOrderByUpdatedAt(userLoginId);
+        List<Answer> answerList = answerRepository.findAnswersByPlayerUserLoginIdOrderByUpdatedAt(userLoginId);
 
         List<GetAnswerInfoRes> answerResList = new ArrayList<>();
         answerList.forEach(
@@ -210,6 +211,7 @@ public class DiagnoseService {
 
     /**
      * 답변 결과 반환
+     *
      * @param answerId
      * @return answerId에 해당하는 답변 결과
      */
@@ -277,5 +279,17 @@ public class DiagnoseService {
 
     }
 
+    /**
+     * 사용자의 최근 결과 반환
+     */
+    @Transactional(readOnly = true)
+    public Optional<GetAnswerRes> getAnswerResByUserLoginId(String userLoginId) {
+        List<Long> answerIdList = answerRepository.findAnswersIdByPlayerUserLoginIdOrderByUpdatedAt(userLoginId);
 
+        if (answerIdList.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(getAnswerByAnswerId(answerIdList.get(0)));
+        }
+    }
 }

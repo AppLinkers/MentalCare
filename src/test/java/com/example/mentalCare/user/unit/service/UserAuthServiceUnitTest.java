@@ -61,6 +61,7 @@ public class UserAuthServiceUnitTest {
         user.setAge(10);
         user.setRole(Role.PENDING);
         user.setTeam(team);
+        user.setImgUrl("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png");
 
         Player player = new Player();
         player.setUser(user);

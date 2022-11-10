@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/", "/nav", "/login", "/sign_up/**").permitAll()
-                .antMatchers("/test/**", "/logout", "/profile/**", "/testAdmin").hasAnyAuthority("DIRECTOR", "PLAYER")
+                .antMatchers("/test/**", "/logout", "/profile/**", "/testAdmin", "/team/**").hasAnyAuthority("DIRECTOR", "PLAYER")
                 .antMatchers("/manage/**").hasAnyAuthority("DIRECTOR")
                 .anyRequest().permitAll()
                 .and()
