@@ -81,7 +81,7 @@ public class DirectorController {
     public String updatePlayer(UpdatePlayerRoleReq updatePlayerRoleReq) {
         userAuthService.updatePlayerRole(updatePlayerRoleReq);
 
-        return "redirect:/manage/player";
+        return "redirect:/manage/member";
     }
 
 

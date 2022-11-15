@@ -1,23 +1,12 @@
-const articles = document.querySelectorAll(".member-list");
+const authBtn = document.querySelector(".control-box button");
 
-/*
-for (var i = 0; i < articles.length; i++) {
-    const article = articles[i];
-    const input = article.querySelector("input");
-    const label = article.querySelector("label");
+authBtn.addEventListener("click", () => {
 
-    input.id = "switch" + i;
-    label.htmlFor = "switch" + i;
-}*/
-articles.forEach(article => {
-    const permission = article.querySelector("button");
-    permission.addEventListener("click", () => {
-        permission.classList.toggle("active");
-        if (!permission.classList.contains("active")) {
-            permission.innerText = "권한 없음";
-        }
-        else {
-            permission.innerText = "허가됨";
-        }
-    })
+    if (authBtn.classList.contains("active")) {
+        authBtn.innerText = "권한 없음";
+    } else {
+        authBtn.innerText = "허가됨";
+    }
+    authBtn.classList.toggle("active");
 })
+

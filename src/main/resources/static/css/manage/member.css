@@ -54,12 +54,17 @@
     padding: 0.15rem 0.8rem;
     border-radius: 0.4rem;
     background: var(--color-yellow);
+    margin-right: 0.5rem;
 }
 
 .type h4 {
     font-weight: 500;
     font-size: 0.9rem;
     color: var(--color-white);
+}
+
+.auth {
+    background: var(--color-primary);
 }
 
 .go__icon i {
@@ -70,4 +75,20 @@
     height: 5px;
     width: var(--container-width);
     margin: 0 auto;
+}
+
+/* =================MEDIA QEURIES
+(TABLETS)================ */
+@media screen and (max-width: 1024px) {
+    .inside__large {
+        width: var(--container-width-tablet);
+    }
+}
+
+/* =================MEDIA QEURIES
+(PHONES)================ */
+@media screen and (max-width: 600px) {
+    .inside__large {
+        width: var(--container-width-phone);
+    }
 }

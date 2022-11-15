@@ -18,50 +18,80 @@
 
   <!-- STYLE SHEET -->
   <link rel="stylesheet" href="/css/common/style.css">
-  <link rel="stylesheet" href="../css/manage/director_member.css">
+  <link rel="stylesheet" href="/css/manage/director_member.css">
 </head>
 
 <body>
 
-<!-- =========== NAVBAR ========== -->
-<nav id="nav">
-</nav>
+  <!-- =========== NAVBAR ========== -->
+  <nav id="nav">
+  </nav>
 
-<!-- =========== MEMBER ========== -->
-<section id="member">
-  <div class="container title">
-    <h2>멤버 관리</h2>
-  </div>
-
-  <div class="container list__container">
-
-    <div class="list label">
-      <p>이름/아이디</p>
-      <p>권한 허가</p>
-    </div>
-
-    <div class="line"></div>
-
-    <form th:method="post" th:action="@{/manage/player}" th:object="${updatePlayerRoleReqList}">
-      <article class="member-list" th:each="player : ${playerList}">
-        <div class="list content">
-          <div class="info">
-            <h4 th:text="${player.name}">손흥민</h4>
-            <h5 th:text="${teamName}">sonLove</h5>
-          </div>
-
-          <button type="submit" class="member-btn">권한 없음</button>
-
+  <!-- =========== MEMBER ========== -->
+  <section id="member">
+    <div class="container member__con">
+      <div class="member__info">
+        <div class="member__img">
+          <img src="../../static/images/son.png">
         </div>
-      </article>
-    </form>
+        <div class="member__text">
+          <div class="member__name">
+            <h3>손흥민</h3>
+            <div class="type">
+              <h4>선수</h4>
+            </div>
+          </div>
+          <h4>FW, 30살</h4>
+          <p>최근 업데이트 : 2022.09.26</p>
+        </div>
+      </div>
+      <div class="member__chart">
+        <canvas id="doughnut" width="120" height="120"></canvas>
+      </div>
+    </div>
+    <div class="line inside__large"></div>
+  </section>
 
-  </div>
-</section>
+  <!-- =========== CONTROL ========== -->
+  <section id="control">
+    <div class="control-box container">
+      <h3>권한 설정</h3>
+      <button>권한 없음</button>
+    </div>
+    <div class="line"></div>
+  </section>
 
-<!-- =========== JAVASCRIPT ========== -->
-<script src="../javascript/common/base.js"></script>
-<script src="../javascript/manage/director_member.js"></script>
+  <!-- =========== JAVASCRIPT ========== -->
+  <script src="/javascript/common/base.js"></script>
+  <script src="/javascript/manage/director_member.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const data = {
+      datasets: [{
+        label: '멘탈 상태',
+        data: [300, 50, 100],
+        backgroundColor: [
+          '#1DBA84',
+          '#EFB93A',
+          '#FC5230'
+        ],
+        hoverOffset: 4
+      }]
+    };
+
+    const config = {
+      type: 'doughnut',
+      data: data,
+      options: {
+        responsive: false
+      }
+    };
+
+    const doughnut = new Chart(
+            document.getElementById('doughnut'),
+            config
+    );
+  </script>
 </body>
 
 </html>
