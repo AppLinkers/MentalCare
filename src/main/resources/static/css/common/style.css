@@ -3,7 +3,7 @@
     --color-primary: #6951FF;
     --color-white: #fff;
     --color-light: #f4f4f4;
-    --color-black: #000f37;
+    --color-black: #000000;
     --color-dark: #575757;
     --color-gray: #9e9e9e;
     --color-lightgray: #c2c2c2;
@@ -42,11 +42,15 @@ body {
     color: var(--color-black);
     line-height: 1.7;
     background: var(--color-white);
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
+
 body::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
+    display: none;
+    /* Chrome, Safari, Opera*/
 }
 
 .container {
@@ -55,7 +59,7 @@ body::-webkit-scrollbar {
 }
 
 h1 {
-    font-size: 5.6rem;
+    font-size: 5rem;
     line-height: 1;
     font-weight: 500;
     color: var(--color-black);
@@ -70,6 +74,15 @@ h2 {
 h3 {
     font-size: 2rem;
     font-weight: 300;
+}
+
+h4 {
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+h5 {
+    font-size: 1.3rem;
 }
 
 a {
@@ -101,7 +114,7 @@ img {
     background: var(--color-darkblue);
     color: var(--color-white);
     transition: all 300ms ease;
-    padding: 1.5rem 3rem;
+    padding: 1.8rem 3rem;
     font-size: 1.1rem;
 }
 
@@ -129,7 +142,8 @@ img {
     color: var(--color-dark);
     border: solid 1px var(--color-gray);
 }
-.btn-input:focus{
+
+.btn-input:focus {
     border: solid 1px var(--color-black);
 }
 
@@ -147,7 +161,7 @@ section {
 /* =================MEDIA QEURIES
 (TABLETS)================ */
 @media screen and (max-width: 1024px) {
-    .container{
+    .container {
         width: var(--container-width-tablet);
     }
 
@@ -162,6 +176,14 @@ section {
     h3 {
         font-size: 1.9rem;
     }
+
+    h4 {
+        font-size: 1.25rem;
+    }
+
+    h5 {
+        font-size: 1.1rem;
+    }
 }
 
 /* =================MEDIA QEURIES
@@ -171,7 +193,7 @@ section {
         font-size: 14px;
     }
 
-    .container{
+    .container {
         width: var(--container-width-phone);
     }
 
@@ -185,6 +207,14 @@ section {
 
     h3 {
         font-size: 1.4rem;
+    }
+
+    h4 {
+        font-size: 1.1rem;
+    }
+
+    h5 {
+        font-size: 1rem;
     }
 
 }
