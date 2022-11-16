@@ -3,10 +3,7 @@ package com.example.mentalCare.user.service;
 import com.example.mentalCare.user.domain.Director;
 import com.example.mentalCare.user.domain.TeamNotification;
 import com.example.mentalCare.user.domain.User;
-import com.example.mentalCare.user.dto.GetTeamNotificationDetailRes;
-import com.example.mentalCare.user.dto.GetTeamNotificationInfoRes;
-import com.example.mentalCare.user.dto.GetUserInfoRes;
-import com.example.mentalCare.user.dto.WriteTeamNotificationReq;
+import com.example.mentalCare.user.dto.*;
 import com.example.mentalCare.user.repository.DirectorRepository;
 import com.example.mentalCare.user.repository.TeamNotificationRepository;
 import com.example.mentalCare.user.repository.UserRepository;
@@ -21,18 +18,19 @@ import java.util.List;
 public class TeamService {
 
     private final UserAuthService userAuthService;
+    private final PlayerService playerService;
     private final UserRepository userRepository;
     private final DirectorRepository directorRepository;
     private final TeamNotificationRepository teamNotificationRepository;
 
 
-    public List<GetUserInfoRes> getPlayerOrPendingListByTeamId(Long teamId) {
+    public List<GetPlayerInfoRes> getPlayerOrPendingListByTeamId(Long teamId) {
         List<User> userPlayerList = userRepository.findPlayerOrPendingUserByTeamId(teamId);
 
-        List<GetUserInfoRes> result = new ArrayList<>();
+        List<GetPlayerInfoRes> result = new ArrayList<>();
         userPlayerList.forEach(
                 userPlayer -> {
-                    result.add(userAuthService.userToGetUserInfoRes(userPlayer));
+                    result.add(playerService.userToGetPlayerInfoRes(userPlayer));
                 }
         );
 
