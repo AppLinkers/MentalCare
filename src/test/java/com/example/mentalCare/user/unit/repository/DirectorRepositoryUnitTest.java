@@ -28,7 +28,7 @@ public class DirectorRepositoryUnitTest {
     public void init() {
         // 테이블 autoincrement 초기화
         // H2
-        entityManager.createNativeQuery("ALTER TABLE director ALTER COLUMN id RESTART WITH 1").executeUpdate();
+        entityManager.createNativeQuery("ALTER TABLE director ALTER COLUMN id RESTART WITH 2").executeUpdate();
         // MySQL - entityManager.createNativeQuery("ALTER TABLE director AUTO_INCREMENT =1").executeUpdate();
     }
 

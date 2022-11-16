@@ -32,7 +32,7 @@ public class TeamController {
 
         model.addAttribute("teamNotificationInfoResList", teamNotificationInfoResList);
 
-        return "teamNotificationInfoListPage";
+        return "notification/notification";
     }
 
     @GetMapping("/notification/{id}")
@@ -41,6 +41,6 @@ public class TeamController {
 
         model.addAttribute("getTeamNotificationDetailRes", getTeamNotificationDetailRes);
 
-        return "teamNotificationDetailPage";
+        return "notification/notification";
     }
 }

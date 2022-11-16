@@ -5,7 +5,6 @@ import com.example.mentalCare.user.dto.DirectorSignUpReq;
 import com.example.mentalCare.user.dto.PlayerSignUpReq;
 import com.example.mentalCare.user.dto.UpdatePlayerProfileReq;
 import com.example.mentalCare.user.dto.UserLoginReq;
-import com.example.mentalCare.user.service.TeamService;
 import com.example.mentalCare.user.service.UserAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -111,15 +110,5 @@ public class UserAuthController {
         userAuthService.updatePlayerProfile(login_id, updatePlayerProfileReq);
         return "redirect:/profile";
     }
-
-
-    /**
-     * 팀 전체 공지사항 정보 전체 조회
-     */
-
-
-    /**
-     * 팀 전체공지사항 단건 조회
-     */
 
 }
