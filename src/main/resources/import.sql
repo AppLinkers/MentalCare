@@ -7,8 +7,11 @@ insert into TEAM(`name`, `code`) values('경북 FC', 'GB');
 insert into TEAM(`name`, `code`) values('전북 FC', 'JB');
 insert into TEAM(`name`, `code`) values('전남 FC', 'JN');
 
-insert into _USER(`login_id`, `login_pw`, `name`, `imgUrl`, `team_id`, `role`,`age`) values('asdf','{bcrypt}$2a$10$d3QK7jlUd8NI6EdHmILzfejSoF.XSlmT/eRdb9zaXuM8YuWmTdzSO','test', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png', 1,'PLAYER',25);
+insert into _USER(`login_id`, `login_pw`, `name`, `imgUrl`, `team_id`, `role`,`age`) values('player','{bcrypt}$2a$10$d3QK7jlUd8NI6EdHmILzfejSoF.XSlmT/eRdb9zaXuM8YuWmTdzSO','test', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png', 1,'PLAYER',25);
 insert into Player(`position`,`user_id`) values('FW',1);
+
+insert into _USER(`login_id`, `login_pw`, `name`, `imgUrl`, `team_id`, `role`,`age`) values('director','{bcrypt}$2a$10$d3QK7jlUd8NI6EdHmILzfejSoF.XSlmT/eRdb9zaXuM8YuWmTdzSO','test', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png', 1,'DIRECTOR',25);
+insert into Director(`user_id`) values(2);
 
 insert into Diagnose(`title`, `deleted`) values('경기력', 'N');
 insert into Diagnose(`title`, `deleted`) values('기능자신감', 'N');

@@ -3,10 +3,7 @@ package com.example.mentalCare.user.controller;
 import com.example.mentalCare.diagnose.dto.GetAnswerRes;
 import com.example.mentalCare.diagnose.service.DiagnoseService;
 import com.example.mentalCare.user.domain.Team;
-import com.example.mentalCare.user.dto.GetProfileRes;
-import com.example.mentalCare.user.dto.GetUserInfoRes;
-import com.example.mentalCare.user.dto.UpdatePlayerRoleReq;
-import com.example.mentalCare.user.dto.WriteTeamNotificationReq;
+import com.example.mentalCare.user.dto.*;
 import com.example.mentalCare.user.service.TeamService;
 import com.example.mentalCare.user.service.UserAuthService;
 import lombok.RequiredArgsConstructor;
@@ -48,13 +45,11 @@ public class DirectorController {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
         Team team = userAuthService.getTeamByUserLoginId(userLoginId);
 
-        model.addAttribute("teamName", team.getName());
+        List<GetPlayerInfoRes> getPlayerInfoResList = teamService.getPlayerOrPendingListByTeamId(team.getId());
 
-        List<GetUserInfoRes> getUserInfoResList = teamService.getPlayerOrPendingListByTeamId(team.getId());
+        model.addAttribute("playerList", getPlayerInfoResList);
 
-        model.addAttribute("playerList", getUserInfoResList);
-
-        return "manage/director_member";
+        return "manage/member";
     }
 
     /**
@@ -71,7 +66,7 @@ public class DirectorController {
                 .role(playerProfile.getRole())
                 .build();
         model.addAttribute("updatePlayerRoleReq", updatePlayerRoleReq);
-        return "manage/member";
+        return "manage/director_member";
     }
 
     /**
@@ -81,7 +76,7 @@ public class DirectorController {
     public String updatePlayer(UpdatePlayerRoleReq updatePlayerRoleReq) {
         userAuthService.updatePlayerRole(updatePlayerRoleReq);
 
-        return "redirect:/manage/member";
+        return "redirect:/manage/director_member";
     }
 
 
@@ -128,7 +123,7 @@ public class DirectorController {
 
         model.addAttribute("writeTeamNotificationReq", writeTeamNotificationReq);
 
-        return "notificationPage";
+        return "notification/noti_add";
     }
 
     /**
