@@ -110,7 +110,7 @@ public class testController {
         writeAnswerReq.setWriteAnswerDiagnoseReqList(writeAnswerDiagnoseReqList);
         model.addAttribute("writeAnswerReq", writeAnswerReq);
 
-        return "test/type_testing";
+        return "type_test";
     }
 
     @PostMapping("/type/submit")

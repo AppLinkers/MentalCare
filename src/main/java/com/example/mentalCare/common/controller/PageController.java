@@ -1,6 +1,5 @@
 package com.example.mentalCare.common.controller;
 
-import com.example.mentalCare.user.domain.User;
 import com.example.mentalCare.user.service.UserAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

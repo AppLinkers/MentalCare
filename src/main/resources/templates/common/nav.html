@@ -26,7 +26,8 @@
     <div class="container nav__container">
         <button class="menu-btn" id="menu-btn" onclick="document.getElementById('menu').classList.add('active')"><i class="uil uil-bars"></i></button>
         <a th:href="@{/profile}"><h3>Mental Care</h3></a>
-        <a th:if="${userRole == 'ROLE_ANONYMOUS'}" th:href="@{/login}"><button class="login-btn" ><i class="uil uil-sign-in-alt"></i></button></a>
+        <a th:href="@{/login}"><button class="login-btn" ><i class="uil uil-sign-in-alt"></i></button></a>
+<!--        <a th:if="${userRole == 'ROLE_ANONYMOUS'}" th:href="@{/login}"><button class="login-btn" ><i class="uil uil-sign-in-alt"></i></button></a>-->
     </div>
 </nav>
 <!-- =========== MENU ========== -->
