@@ -42,22 +42,14 @@
                         <div class="member__text">
                             <div class="member__name">
                                 <h3 th:text="${player.name}">손흥민</h3>
-                                <div th:if="${player.role == 'PLAYER'}">
-                                    <div class="type">
-                                        <h4>선수</h4>
-                                    </div>
-                                    <div class="type auth">
-                                        <h4>허가됨</h4>
-                                    </div>
+                                <div class="type">
+                                    <h4>선수</h4>
                                 </div>
-
-                                <div th:if="${player.role == 'PENDING'}">
-                                    <div class="type">
-                                        <h4>선수</h4>
-                                    </div>
-                                    <div class="type auth">
-                                        <h4>허가 대기 중</h4>
-                                    </div>
+                                <div th:if="${player.role == 'PLAYER'}" class="type auth">
+                                    <h4>허가됨</h4>
+                                </div>
+                                <div th:if="${player.role == 'PENDING'}" class="type auth">
+                                    <h4>권한 없음</h4>
                                 </div>
 
                             </div>
