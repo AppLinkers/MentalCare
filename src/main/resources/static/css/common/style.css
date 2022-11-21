@@ -118,6 +118,12 @@ img {
     font-size: 1.1rem;
 }
 
+.btn-light {
+    background: var(--color-light);
+    color: var(--color-black);
+    font-weight: 600;
+}
+
 .btn-white {
     padding: 1.2rem 4rem;
     background: var(--color-white);
