@@ -30,7 +30,7 @@ public class AuthController {
     public String loginPage(Model model) {
 
         model.addAttribute("userLoginReq", new UserLoginReq());
-        return "user/login";
+        return "common/login";
     }
 
     /**
@@ -55,7 +55,7 @@ public class AuthController {
         model.addAttribute("signUpPlayerReq", new SignUpPlayerReq());
         model.addAttribute("signUpDirectorReq", new SignUpDirectorReq());
 
-        return "user/sign_up";
+        return "common/sign_up";
     }
     /**
      * Player SignUp Service

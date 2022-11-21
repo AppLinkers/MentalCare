@@ -1,5 +1,7 @@
 package com.example.mentalCare.player.test.controller;
 
+import com.example.mentalCare.diagnose.dto.WriteAnswerReq;
+import com.example.mentalCare.player.test.dto.AnswerWriteReq;
 import com.example.mentalCare.player.test.dto.DiagnoseReadRes;
 import com.example.mentalCare.player.test.dto.DiagnoseWriteReq;
 import com.example.mentalCare.player.test.dto.TypeDiagnoseReadRes;
@@ -41,14 +43,14 @@ public class TestController {
 
         model.addAttribute("diagnoseList", diagnoseList);
 
-        List<DiagnoseWriteReq> answerWriteReq = new ArrayList<>();
-
+        AnswerWriteReq answerWriteReq = new AnswerWriteReq();
+        List<DiagnoseWriteReq> diagnoseWriteReqList = new ArrayList<>();
         for (DiagnoseReadRes diagnoseReadRes : diagnoseList) {
             DiagnoseWriteReq diagnoseWriteReq = diagnoseReadRes.diagnoseReadResToDiagnoseWriteReq();
-            answerWriteReq.add(diagnoseWriteReq);
+            diagnoseWriteReqList.add(diagnoseWriteReq);
         }
-
-        model.addAttribute("answerWriteReq", answerWriteReq);
+        answerWriteReq.setAnswerWriteReq(diagnoseWriteReqList);
+        model.addAttribute("answerWriteReq",answerWriteReq);
 
         return "player/test_all";
     }
@@ -57,10 +59,12 @@ public class TestController {
      * Test All Submit Service
      */
     @PostMapping("/all")
-    public void testAllSubmit(List<DiagnoseWriteReq> answerWriteReq) {
+    public String testAllSubmit(AnswerWriteReq answerWriteReq) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        playerTestService.submitTestAll(userLoginId, answerWriteReq);
+        playerTestService.submitTestAll(userLoginId, answerWriteReq.getAnswerWriteReq());
+
+        return "redirect:/player/test/result";
     }
 
     /**
@@ -92,10 +96,12 @@ public class TestController {
      * Test Type Submit Service
      */
     @PostMapping("/type")
-    public void testTypeSubmit(DiagnoseWriteReq diagnoseWriteReq) {
+    public String testTypeSubmit(DiagnoseWriteReq diagnoseWriteReq) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
-
+        System.out.println(diagnoseWriteReq.getId()+"::test ::" +diagnoseWriteReq.getQuestionWriteReqList().get(0).getId()+":: test");
         playerTestService.submitTestType(userLoginId, diagnoseWriteReq);
+
+        return "redirect:/player/test/result";
     }
 
     /**

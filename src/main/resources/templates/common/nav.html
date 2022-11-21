@@ -25,7 +25,7 @@
 <nav>
     <div class="container nav__container">
         <button class="menu-btn" id="menu-btn" onclick="document.getElementById('menu').classList.add('active')"><i class="uil uil-bars"></i></button>
-        <a th:href="@{/profile}"><h3>Mental Care</h3></a>
+        <a th:href="@{profile}"><h3>Mental Care</h3></a>
         <a th:href="@{/login}"><button class="login-btn" ><i class="uil uil-sign-in-alt"></i></button></a>
 <!--        <a th:if="${userRole == 'ROLE_ANONYMOUS'}" th:href="@{/login}"><button class="login-btn" ><i class="uil uil-sign-in-alt"></i></button></a>-->
     </div>
@@ -38,9 +38,9 @@
             <h3>Mental Care</h3>
         </div>
         <div th:if="${userRole == 'PLAYER'}" class="menu-content">
-            <a th:href="@{/profile}"><h1>프로필</h1></a>
-            <a th:href="@{/test}"><h1>검사하기</h1></a>
-            <a th:href="@{/test/list}"><h1>검사내역</h1></a>
+            <a th:href="@{/player/profile}"><h1>프로필</h1></a>
+            <a th:href="@{/player/test}"><h1>검사하기</h1></a>
+            <a th:href="@{/player/test/result}"><h1>검사내역</h1></a>
             <a><h1>공지사항</h1></a>
             <a id="admin" class="admin-btn" onclick="document.getElementById('consultantMenu').classList.toggle('active'); document.getElementById('admin').classList.toggle('active');">
                 <h1>컨설턴트 <i id="admin-ic" class="uil uil-angle-down"></i></h1>
@@ -52,15 +52,15 @@
 
         </div>
         <div th:if="${userRole == 'DIRECTOR'}" class="menu-content">
-            <a th:href="@{/profile}"><h1>프로필</h1></a>
+            <a th:href="@{/director/profile}"><h1>프로필</h1></a>
             <a><h1>공지사항</h1></a>
             <a id="admin" class="admin-btn" onclick="document.getElementById('adminList').classList.toggle('active'); document.getElementById('admin').classList.toggle('active');">
                 <h1>관리자 <i id="admin-ic" class="uil uil-angle-down"></i></h1>
             </a>
             <div class="menu-admin" id="adminList">
-                <a th:href="@{/manage/player/list}"><h2>팀 관리</h2></a>
+                <a th:href="@{/director/teamt}"><h2>팀 관리</h2></a>
                 <a href="#"><h2>컨설팅 목록</h2></a>
-                <a th:href="@{/manage/test}"><h2>검사 목록</h2></a>
+                <a th:href="@{/director/test}"><h2>검사 목록</h2></a>
             </div>
         </div>
 

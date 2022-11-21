@@ -36,17 +36,17 @@
             </div>
             <div class="member__text">
                 <div class="member__name">
-                    <h3 th:text="${answer.playerName}">손흥민</h3>
+                    <h3 th:text="${player.name}">손흥민</h3>
                     <div class="type">
                         <h4>선수</h4>
                     </div>
                 </div>
-                <h4 th:text="${answer.playerPosition} + ', ' +  ${answer.playerAge}">FW, 30살</h4>
-                최근 업데이트 :<p th:text="${#temporals.format(answer.answerDate, 'yyyy. MM. dd')}">2022.09.26</p>
+                <h4 th:text="${player.position} + ', ' +  ${player.age}">FW, 30살</h4>
+                최근 업데이트 :<p th:text="${#temporals.format(testResult.date, 'yyyy. MM. dd')}">2022.09.26</p>
                 <table>
                     <tr>
                         <td>총 평균 : </td>
-                        <td><p style="margin-left: 5px"  th:text="${#numbers.formatDecimal(answer.totalAverage, 1, 2)}"></p></td>
+                        <td><p style="margin-left: 5px"  th:text="${#numbers.formatDecimal(testResult.avg, 1, 2)}"></p></td>
                     </tr>
                 </table>
             </div>
@@ -70,10 +70,10 @@
                 var config_bar = new Array();
             </script>
             <canvas id="radar"></canvas>
-            <div th:each="diagnose : ${answer.diagnoseResList}">
+            <div th:each="diagnose : ${testResult.diagnoseResultList}">
                 <script th:inline="javascript">
-                    var title = [[${diagnose.diagnoseTitle}]];
-                    var avg = [[${diagnose.diagnoseAverage}]];
+                    var title = [[${diagnose.title}]];
+                    var avg = [[${diagnose.avg}]];
                     diagnosetitleSet.push(title);
                     avgSet.push(avg);
                 </script>
@@ -105,7 +105,7 @@
         </div>
 
         <!-- result-list -->
-        <div class="result__list" th:each="diagnose : ${answer.diagnoseResList}">
+        <div class="result__list" th:each="diagnose : ${testResult.diagnoseResultList}">
             <script>
             var titleSet = new Array();
             var weightSet = new Array();
@@ -115,25 +115,25 @@
             <article>
                 <div class="result__box">
                     <div class="result__name">
-                        <h3 th:text="${diagnose.diagnoseTitle}">관계</h3>
-                        마지막 검사 : <p th:text="${#temporals.format(diagnose.diagnoseAnswerDate, 'yyyy. MM. dd')}"> 2022.09.26</p>
+                        <h3 th:text="${diagnose.title}">관계</h3>
+                        마지막 검사 : <p th:text="${#temporals.format(diagnose.date, 'yyyy. MM. dd')}"> 2022.09.26</p>
                         <table>
                             <tr>
                                 <td><p style="margin-left: 30px;">평균 :</p></td>
-                                <td><p class="avg" style="margin-left: 3px;" th:text="${#numbers.formatDecimal(diagnose.diagnoseAverage, 1, 2)}"> </p></td>
+                                <td><p class="avg" style="margin-left: 3px;" th:text="${#numbers.formatDecimal(diagnose.avg, 1, 2)}"> </p></td>
                             </tr>
                         </table>
 
                     </div>
                     <i class="uil uil-angle-down"></i>
                 </div>
-                <div class="result__chart" th:id="${diagnose.diagnoseTitle}">
+                <div class="result__chart" th:id="${diagnose.title}">
 
-                    <div th:each="answerDetail : ${diagnose.answerDetailResList}">
+                    <div th:each="answerDetail : ${diagnose.questionResultList}">
 <!--                        <p th:text="${question.questionContext}"></p>-->
 <!--                        <p th:text="${question.weight}"></p>-->
                         <script th:inline="javascript">
-                            var title = [[${answerDetail.questionKeyword}]];
+                            var title = [[${answerDetail.keyword}]];
                             var weight = [[${answerDetail.answer}]];
                             titleSet.push(title);
                             weightSet.push(weight);
@@ -141,7 +141,7 @@
                     </div>
                     <script th:inline="javascript">
                         /* <![CDATA[ */
-                        var id = /*[[${diagnose.diagnoseTitle}]]*/;
+                        var id = /*[[${diagnose.title}]]*/;
                         var barCanvas = document.createElement("CANVAS");
                         var resultDiv = document.getElementById(id);
                         console.log(id);

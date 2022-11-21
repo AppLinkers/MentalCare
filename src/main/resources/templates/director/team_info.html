@@ -30,9 +30,9 @@
         <h2>멤버 관리</h2>
     </div>
     <div class="line"></div>
-    <div class="member__list" th:each="player : ${playerList}" >
+    <div class="member__list" th:each="player : ${teamPlayerInfoList}" >
 
-        <a th:href="@{/manage/player(login_id=${player.login_id}, role=${player.role})}">
+        <a th:href="@{/director/player(login_id=${player.login_id}, role=${player.role})}">
             <article >
                 <div class="container member__con">
                     <div class="member__info">

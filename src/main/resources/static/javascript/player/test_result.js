@@ -3,7 +3,7 @@ async function fetchAsText(url){
 }
 
 async function importNav(targetDiv) {
-    document.querySelector('#' + targetDiv).innerHTML = await fetchAsText("../../nav");
+    document.querySelector('#' + targetDiv).innerHTML = await fetchAsText("../../../nav");
 }
 
 importNav('nav');

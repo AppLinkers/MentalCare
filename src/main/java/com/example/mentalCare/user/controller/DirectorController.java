@@ -87,31 +87,31 @@ public class DirectorController {
      * Player Recent Diagnose List
      * 팀전체 스트레스 상황 그래프로 보기
      */
-    @GetMapping("/test")
-    public String testAdminPage(Model model) {
-        String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
-        Team team = userAuthService.getTeamByUserLoginId(userLoginId);
-
-        // 1. team 내 player user Login_id 찾기
-        List<String> playerUserLoginIdList = directorService.getPlayerUserLoginIdListByTeamId(team.getId());
-
-        // 2. 해당 player id 의 최근 answer 찾기
-        List<GetAnswerRes> getAnswerResList = new ArrayList<>();
-
-        playerUserLoginIdList.forEach(
-                playerUserLoginId -> {
-                    Optional<GetAnswerRes> getAnswerResOptional = diagnoseService.getAnswerResByUserLoginId(playerUserLoginId);
-                    getAnswerResOptional.ifPresent(
-                            getAnswerRes -> {
-                                getAnswerResList.add(getAnswerRes);
-                            }
-                    );
-                }
-        );
-
-        model.addAttribute("answerList", getAnswerResList);
-        return "manage/test_admin";
-    }
+//    @GetMapping("/test")
+//    public String testAdminPage(Model model) {
+//        String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
+//        Team team = userAuthService.getTeamByUserLoginId(userLoginId);
+//
+//        // 1. team 내 player user Login_id 찾기
+//        List<String> playerUserLoginIdList = directorService.getPlayerUserLoginIdListByTeamId(team.getId());
+//
+//        // 2. 해당 player id 의 최근 answer 찾기
+//        List<GetAnswerRes> getAnswerResList = new ArrayList<>();
+//
+//        playerUserLoginIdList.forEach(
+//                playerUserLoginId -> {
+//                    Optional<GetAnswerRes> getAnswerResOptional = diagnoseService.getAnswerResByUserLoginId(playerUserLoginId);
+//                    getAnswerResOptional.ifPresent(
+//                            getAnswerRes -> {
+//                                getAnswerResList.add(getAnswerRes);
+//                            }
+//                    );
+//                }
+//        );
+//
+//        model.addAttribute("answerList", getAnswerResList);
+//        return "manage/test_admin";
+//    }
 
 
     /**
