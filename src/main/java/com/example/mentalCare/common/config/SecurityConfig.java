@@ -1,8 +1,9 @@
 package com.example.mentalCare.common.config;
 
-import com.example.mentalCare.advice.FormAuthenticationFailureHandler;
-import com.example.mentalCare.advice.FormAuthenticationProvider;
-import com.example.mentalCare.advice.FormAuthenticationSuccessHandler;
+import com.example.mentalCare.common.advice.FormAuthenticationFailureHandler;
+import com.example.mentalCare.common.advice.FormAuthenticationProvider;
+import com.example.mentalCare.common.advice.FormAuthenticationSuccessHandler;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.header.writers.frameoptions.WhiteListedAllowFromStrategy;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import java.util.Arrays;
 

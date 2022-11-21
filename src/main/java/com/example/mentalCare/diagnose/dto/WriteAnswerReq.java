@@ -11,8 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 public class WriteAnswerReq {
 
-    private String userLoginId;
-
     private List<WriteAnswerDiagnoseReq> writeAnswerDiagnoseReqList;
 
 }

@@ -1,6 +1,5 @@
 package com.example.mentalCare.user.dto;
 
-import com.example.mentalCare.user.domain.type.Position;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,7 +13,7 @@ public class UpdatePlayerProfileReq {
 
     private String teamCode;
 
-    private Position position;
+    private String position;
 
     @Nullable
     @DateTimeFormat(pattern = "yyyy-MM-dd")

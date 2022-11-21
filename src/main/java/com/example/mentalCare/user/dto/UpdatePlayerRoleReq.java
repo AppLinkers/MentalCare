@@ -1,6 +1,6 @@
 package com.example.mentalCare.user.dto;
 
-import com.example.mentalCare.user.domain.type.Role;
+import com.example.mentalCare.common.domain.type.Role;
 import lombok.Builder;
 import lombok.Getter;
 

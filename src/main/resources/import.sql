@@ -13,17 +13,17 @@ insert into Player(`position`,`user_id`) values('FW',1);
 insert into _USER(`login_id`, `login_pw`, `name`, `imgUrl`, `team_id`, `role`,`age`) values('director','{bcrypt}$2a$10$d3QK7jlUd8NI6EdHmILzfejSoF.XSlmT/eRdb9zaXuM8YuWmTdzSO','test', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png', 1,'DIRECTOR',25);
 insert into Director(`user_id`) values(2);
 
-insert into Diagnose(`title`, `deleted`) values('경기력', 'N');
-insert into Diagnose(`title`, `deleted`) values('기능자신감', 'N');
-insert into Diagnose(`title`, `deleted`) values('부상',  'N');
-insert into Diagnose(`title`, `deleted`) values('슬럼프', 'N');
-insert into Diagnose(`title`, `deleted`) values('진로미래', 'N');
-insert into Diagnose(`title`, `deleted`) values('관계',  'N');
-insert into Diagnose(`title`, `deleted`) values('학업',  'N');
-insert into Diagnose(`title`, `deleted`) values('주전경쟁', 'N');
-insert into Diagnose(`title`, `deleted`) values('훈련',  'N');
-insert into Diagnose(`title`, `deleted`) values('부담감', 'N');
-insert into Diagnose(`title`, `deleted`) values('사생활규제', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('경기력', '', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('기능자신감', '', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('부상', '', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('슬럼프', '', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('진로미래', '', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('관계', '', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('학업', '', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('주전경쟁','', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('훈련', '', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('부담감', '', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('사생활규제', '', 'N');
 
 insert into Question(`context`, `weight`, `keyword` , `deleted`, `diagnose_id`) values('경기 전 스트레스 원인 체크 해주세요', 0, '경기전-스트레스', 'N', 1);
 insert into Question(`context`, `weight`, `keyword` , `deleted`, `diagnose_id`) values('경기 전 불안감에 대해 체크해주세요', 1,'경기전-불안감', 'N', 1);

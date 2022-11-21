@@ -1,106 +1,31 @@
 package com.example.mentalCare.user.service;
 
-import com.example.mentalCare.user.domain.*;
-import com.example.mentalCare.user.domain.type.Role;
-import com.example.mentalCare.user.dto.*;
-import com.example.mentalCare.user.repository.DirectorRepository;
-import com.example.mentalCare.user.repository.PlayerRepository;
-import com.example.mentalCare.user.repository.TeamRepository;
-import com.example.mentalCare.user.repository.UserRepository;
+import com.example.mentalCare.player.profile.domain.Player;
+import com.example.mentalCare.team.domain.Team;
+import com.example.mentalCare.common.domain.User;
+import com.example.mentalCare.common.domain.type.Role;
+import com.example.mentalCare.user.dto.GetProfileRes;
+import com.example.mentalCare.user.dto.UpdatePlayerProfileReq;
+import com.example.mentalCare.user.dto.UpdatePlayerRoleReq;
+import com.example.mentalCare.player.profile.repository.PlayerRepository;
+import com.example.mentalCare.team.repository.TeamRepository;
+import com.example.mentalCare.common.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
 
 @Service
 @RequiredArgsConstructor
-public class UserAuthService implements UserDetailsService {
+public class UserAuthService {
 
     private final UserRepository userRepository;
-    private final DirectorRepository directorRepository;
     private final PlayerRepository playerRepository;
     private final TeamRepository teamRepository;
-
-    private final PasswordEncoder passwordEncoder;
-
-    @Transactional(readOnly = true)
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findUserByLoginId(username).orElseThrow(() -> new UsernameNotFoundException("아이디가 존재하지 않습니다."));
-        List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority(user.getRole().toString()));
-
-        return UserDetail.builder()
-                .username(user.getLogin_id())
-                .password(user.getLogin_pw())
-                .authorityList(roles)
-                .build();
-    }
-
-    @Transactional
-    public GetUserInfoRes signUp(PlayerSignUpReq request) {
-        validateDuplicated(request.getLogin_id());
-
-        User user = userSignUpReqToUser(request, Role.PENDING);
-        user.setLogin_pw(passwordEncoder.encode(user.getLogin_pw()));
-
-        User savedUser = userRepository.save(user);
-
-        Player player = Player.builder()
-                .user(savedUser)
-                .position(request.getPosition())
-                .build();
-
-        if (request.getNextMatch() != null) {
-            player.setNextMatch(request.getNextMatch());
-        }
-
-        playerRepository.save(player);
-
-
-        return userToGetUserInfoRes(savedUser);
-
-    }
-
-    @Transactional
-    public GetUserInfoRes signUp(DirectorSignUpReq request) {
-        validateDuplicated(request.getLogin_id());
-
-        User user = userSignUpReqToUser(request, Role.DIRECTOR);
-        user.setLogin_pw(passwordEncoder.encode(user.getLogin_pw()));
-
-        User savedUser = userRepository.save(user);
-
-        Director director = Director.builder()
-                .user(savedUser)
-                .build();
-
-        directorRepository.save(director);
-
-
-        return userToGetUserInfoRes(savedUser);
-
-    }
-
-    public void validateDuplicated(String loginId) {
-        userRepository.findUserByLoginId(loginId).ifPresent(
-                (user) -> {
-                    throw new RuntimeException("이미 존재하는 아이디 입니다.");
-                }
-        );
-    }
 
     public GetProfileRes getProfile(String userLoginId, String authority) {
         if (authority.equals(Role.PLAYER.toString())) {
@@ -163,26 +88,5 @@ public class UserAuthService implements UserDetailsService {
     }
 
 
-    public User userSignUpReqToUser(UserSignUpReq request, Role role) {
-        Team team = teamRepository.findTeamByCode(request.getTeamCode()).get();
-        return User.builder()
-                .login_id(request.getLogin_id())
-                .login_pw(request.getLogin_pw())
-                .name(request.getName())
-                .imgUrl("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png")
-                .team(team)
-                .age(request.getAge())
-                .role(role)
-                .build();
-    }
-
-    public GetUserInfoRes userToGetUserInfoRes(User user) {
-        return GetUserInfoRes.builder()
-                .id(user.getId())
-                .login_id(user.getLogin_id())
-                .name(user.getName())
-                .role(user.getRole())
-                .build();
-    }
 
 }
