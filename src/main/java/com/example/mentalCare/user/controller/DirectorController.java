@@ -2,9 +2,12 @@ package com.example.mentalCare.user.controller;
 
 import com.example.mentalCare.diagnose.dto.GetAnswerRes;
 import com.example.mentalCare.diagnose.service.DiagnoseService;
-import com.example.mentalCare.user.domain.Team;
-import com.example.mentalCare.user.dto.*;
-import com.example.mentalCare.user.service.TeamService;
+import com.example.mentalCare.team.domain.Team;
+import com.example.mentalCare.user.dto.GetPlayerInfoRes;
+import com.example.mentalCare.user.dto.GetProfileRes;
+import com.example.mentalCare.user.dto.UpdatePlayerRoleReq;
+import com.example.mentalCare.user.dto.WriteTeamNotificationReq;
+import com.example.mentalCare.user.service.DirectorService;
 import com.example.mentalCare.user.service.UserAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,7 +28,7 @@ import java.util.Optional;
 public class DirectorController {
 
     private final UserAuthService userAuthService;
-    private final TeamService teamService;
+    private final DirectorService directorService;
     private final DiagnoseService diagnoseService;
 
     /**
@@ -45,7 +48,7 @@ public class DirectorController {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
         Team team = userAuthService.getTeamByUserLoginId(userLoginId);
 
-        List<GetPlayerInfoRes> getPlayerInfoResList = teamService.getPlayerOrPendingListByTeamId(team.getId());
+        List<GetPlayerInfoRes> getPlayerInfoResList = directorService.getPlayerOrPendingListByTeamId(team.getId());
 
         model.addAttribute("playerList", getPlayerInfoResList);
 
@@ -90,7 +93,7 @@ public class DirectorController {
         Team team = userAuthService.getTeamByUserLoginId(userLoginId);
 
         // 1. team 내 player user Login_id 찾기
-        List<String> playerUserLoginIdList = teamService.getPlayerUserLoginIdListByTeamId(team.getId());
+        List<String> playerUserLoginIdList = directorService.getPlayerUserLoginIdListByTeamId(team.getId());
 
         // 2. 해당 player id 의 최근 answer 찾기
         List<GetAnswerRes> getAnswerResList = new ArrayList<>();
@@ -130,8 +133,8 @@ public class DirectorController {
      * 팀 전체 공지사항 작성 서비스
      */
     @PostMapping("/notification")
-    public String writeTeamNotificationService(WriteTeamNotificationReq writeTeamNotificationReq) {
-        teamService.writeTeamNotification(writeTeamNotificationReq);
+    public String writeTeamdirectorService(WriteTeamNotificationReq writeTeamNotificationReq) {
+        directorService.writeTeamNotification(writeTeamNotificationReq);
 
         return "redirect:/team/notification";
     }

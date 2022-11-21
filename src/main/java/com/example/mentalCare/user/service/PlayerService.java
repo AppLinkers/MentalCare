@@ -1,11 +1,9 @@
 package com.example.mentalCare.user.service;
 
-import com.example.mentalCare.user.domain.Player;
-import com.example.mentalCare.user.domain.User;
+import com.example.mentalCare.player.profile.domain.Player;
+import com.example.mentalCare.common.domain.User;
 import com.example.mentalCare.user.dto.GetPlayerInfoRes;
-import com.example.mentalCare.user.dto.GetUserInfoRes;
-import com.example.mentalCare.user.repository.PlayerRepository;
-import com.example.mentalCare.user.repository.UserRepository;
+import com.example.mentalCare.player.profile.repository.PlayerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

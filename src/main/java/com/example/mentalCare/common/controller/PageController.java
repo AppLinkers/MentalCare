@@ -1,6 +1,5 @@
 package com.example.mentalCare.common.controller;
 
-import com.example.mentalCare.user.service.UserAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @RequiredArgsConstructor
 public class PageController {
-    private final UserAuthService userAuthService;
 
     @GetMapping("/")
     public String index(){
@@ -26,20 +24,8 @@ public class PageController {
         }
 
         model.addAttribute("userRole", authority);
-        return "common/nav";}
-
-
-    @GetMapping("/testAdmin")
-    public String testAdmin(){
-        return "manage/test_admin";
+        return "common/nav";
     }
-
-    @GetMapping("/consultant/privateList")
-    public String privateConsultantPage(){
-        return "consultant/private_consult_list";
-    }
-
-
 
 
 }

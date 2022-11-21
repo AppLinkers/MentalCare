@@ -1,10 +1,7 @@
 package com.example.mentalCare.user.dto;
 
-import com.example.mentalCare.user.domain.type.Position;
-import com.example.mentalCare.user.domain.type.Role;
-import lombok.AllArgsConstructor;
+import com.example.mentalCare.common.domain.type.Role;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import org.springframework.lang.Nullable;
 
@@ -32,7 +29,7 @@ public class GetProfileRes {
     private Integer nextMatchDDay;
 
     @Nullable
-    private Position position;
+    private String position;
 
     @Builder(builderClassName = "directorBuilder", builderMethodName = "directorBuilder")
     public GetProfileRes (Long id, String userName, String imgUrl, Role role, String teamName, String teamCode) {
@@ -45,7 +42,7 @@ public class GetProfileRes {
     }
 
     @Builder(builderClassName = "playerBuilder", builderMethodName = "playerBuilder")
-    public GetProfileRes(Long id, String userName, String imgUrl, Role role, String teamName, String teamCode, LocalDate nextMatchDate, Integer nextMatchDDay, Position position) {
+    public GetProfileRes(Long id, String userName, String imgUrl, Role role, String teamName, String teamCode, LocalDate nextMatchDate, Integer nextMatchDDay, String position) {
         this.id = id;
         this.userName = userName;
         this.imgUrl = imgUrl;
