@@ -15,56 +15,69 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <!-- STYLE SHEET -->
-    <link rel="stylesheet" href="../../css/common/style.css">
-    <link rel="stylesheet" href="../../css/player/profile.css">
+    <link rel="stylesheet" href="/css/common/style.css">
+    <link rel="stylesheet" href="/css/player/profile_setting.css">
 </head>
 <body>
 
-<!-- =========== NAVBAR ========== -->
-<nav id="nav">
-</nav>
+    <!-- =========== NAVBAR ========== -->
+    <nav id="nav">
+    </nav>
 
-<!-- =========== MAIN ========== -->
-<section id="profile">
-    <div class="container profile__container">
-        <div class="profile__card" >
+    <!-- =========== SETTING ========== -->
+    <section id="setting">
+        <div class="container setting__container">
+
             <form th:method="post" th:action="@{/player/profile/setting}" th:object="${playerProfileUpdateReq}">
-                <div class="card__head">
-                    <h2>프로필</h2>
-                    <div class="dday">
-                        <p>다음 경기날짜</p>
-                        <div id="dateDiv">
-                            <input type="date" id="start" th:name="nextMatchDate"
-                                   th:value="${profile.nextMatchDate}">
-                        </div>
+                <!-- header -->
+                <div class="setting-header">
+
+                    <div class="header-img">
+                        <img th:src="${profile.imgUrl}">
                     </div>
+
+                    <div class="profile-name">
+                        <h3 th:text="${profile.name} 선수">손흥민 선수</h3>
+                    </div>
+
+                    <input id="selectImg" type="file" hidden>
+                    <div class="profile-edit" onclick="defaultBtnActive()">
+                        <p>프로필 사진 편집</p>
+                    </div>
+
                 </div>
-            <div class="card__content">
-                    <div class="card__info">
-                        <div class="info__text">
-                            <p>이름</p>
-                            <h3 th:text="${profile.name}">손흥민</h3>
-                            <p>소속팀</p>
-                            <input th:name="teamCode" th:value="${profile.teamCode}" />
-                            <p>포지션</p>
-                            <input th:name="position" th:value="${profile.position}" />
-                        </div>
-                        <div class="info__img">
-                            <div class="img__con">
-                                <img th:src="${profile.imgUrl}" alt="">
-                            </div>
-                        </div>
+                <!-- body -->
+                <div class="setting-body">
+
+                    <div class="date-box">
+                        <label for="dday">다음 경기 날짜</label>
+                        <input id="dday" type="date" th:name="nextMatchDate"
+                               th:value="${profile.nextMatchDate}">
                     </div>
-                    <div class="card__button">
-                        <button class="btn btn-varient">설정하기</button>
+                    <div class="edit-box">
+                        <label for="team">소속팀</label>
+                        <input id="team" class="btn btn-input" type="text" placeholder="팀 코드를 입력해주세요"
+                               th:name="teamCode" th:value="${profile.teamCode}">
                     </div>
+                    <div class="edit-box">
+                        <label for="position">포지션</label>
+                        <input id="position" class="btn btn-input" type="text" placeholder="포지션을 입력해주세요"
+                               th:name="position" th:value="${profile.position}">
+                    </div>
+
                 </div>
+
+                <!-- button -->
+                <div class="setting-btn">
+                    <button class="btn" type="submit">저장하기</button>
+                </div>
+
             </form>
         </div>
-    </div>
-</section>
+    </section>
 
 <!-- =========== JAVASCRIPT ========== -->
 <script src="/javascript/common/base_detail.js"></script>
+<script src="/javascript/player/profile_setting.js"></script>
 </body>
 </html>
