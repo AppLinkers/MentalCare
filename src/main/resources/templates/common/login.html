@@ -29,7 +29,7 @@
             <form th:action="@{/login_proc}" th:method="post" th:object="${userLoginReq}">
                 <input type="text" class="btn btn-input" th:name = "username" placeholder="아이디">
                 <input type="password" class="btn btn-input" th:name="password"  placeholder="비밀번호">
-                <button class="btn">로그인</button>
+                <button class="btn" type="submit">로그인</button>
             </form>
             <div class="line"></div>
             <div class="option">

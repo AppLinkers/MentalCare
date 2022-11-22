@@ -29,22 +29,23 @@
 
 <!-- =========== TYPE ========== -->
 <section id="types">
-    <div class="container type__container" th:each="diagnose : ${diagnoseInfoList}">
-        <div class="type__box">
-            <div class="type__icon">
-                <img th:src="${diagnose.iconUrl}">
+    <div class="container type__container" >
+        <a th:each="diagnose : ${diagnoseInfoList}" th:href ="@{|/player/test/type/${diagnose.id}|}">
+            <div class="type__box">
+                <div class="type__icon">
+                    <img th:src="${diagnose.iconUrl}">
+                </div>
+                <div class="type__name">
+                    <h3 th:text="${diagnose.title}">경기력</h3>
+                    <h3>스트레스</h3>
+                </div>
+
+                    <div class="type__go">
+                            <p>시작하기</p>
+                            <i class="uil uil-angle-right-b"></i>
+                    </div>
             </div>
-            <div class="type__name">
-                <h3 th:text="${diagnose.title}">경기력</h3>
-                <h3>스트레스</h3>
-            </div>
-            <div class="type__go">
-                <a th:href ="@{|/player/test/type/${diagnose.id}|}">
-                    <p>시작하기</p>
-                    <i class="uil uil-angle-right-b"></i>
-                </a>
-            </div>
-        </div>
+        </a>
     </div>
 </section>
 
