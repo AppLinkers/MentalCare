@@ -44,8 +44,4 @@ public class NotificationController {
         return "team/noti_detail";
     }
 
-    @GetMapping("/add")
-    public String GetTeamNotificationAddPage(Model model){
-        return "team/noti_add";
-    }
 }
