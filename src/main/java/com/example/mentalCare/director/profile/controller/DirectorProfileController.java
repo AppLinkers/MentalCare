@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -40,16 +41,18 @@ public class DirectorProfileController {
 
         model.addAttribute("directorProfileUpdateReq", new DirectorProfileUpdateReq());
 
-        return "player/profile_setting";
+        return "director/profile_setting";
     }
 
     /**
      * Profile Setting Service
      */
-    @PutMapping("/setting")
-    public void profileSettingService(DirectorProfileUpdateReq directorProfileUpdateReq) {
+    @PostMapping("/setting")
+    public String profileSettingService(DirectorProfileUpdateReq directorProfileUpdateReq) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
 
         directorProfileService.UpdateProfile(userLoginId, directorProfileUpdateReq);
+
+        return "redirect:/director/profile";
     }
 }
