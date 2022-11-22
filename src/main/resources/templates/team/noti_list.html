@@ -37,7 +37,7 @@
     </div>
     <div class="under_title">
       <h4>서울 FC</h4>
-      <a href="notifi_add.html">
+      <a th:href="@{/noti/add}">
         <div class="new_button">
           <i class="uil uil-pen"></i>
           <p>작성하기</p>
@@ -47,29 +47,31 @@
     <div class="line"></div>
 
     <!-- list -->
-    <article class="noti-list" onclick="location.href='noti_detail.html';">
-      <div class="list-header">
-        <div class="writer__img">
-          <img src="/images/example/consultant.jpg">
+    <article class="noti-list" th:each="teamNoti : ${teamNotificationList}" >
+      <a th:href="@{/noti/${teamNoti.id}}">
+        <div class="list-header">
+          <div class="writer__img">
+            <img th:src="${teamNoti.directorImgUrl}">
+          </div>
+          <p th:text="${teamNoti.directorName}">작성자 이름</p>
         </div>
-        <p>작성자 이름</p>
-      </div>
-      <div class="list-body">
-        <h3>공지사항 제목</h3>
-        <h4>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci tenetur in assumenda
-          recusandae asperiores saepe. Ad obcaecati voluptate libero repellat, rem neque pariatur quod.
-          Voluptate numquam ipsa esse quibusdam tenetur.</h4>
-      </div>
-      <div class="list-footer">
-        <div class="foot-content">
-          <p>Nov 15,2022</p>
+        <div class="list-body">
+          <h3 th:text="${teamNoti.title}">공지사항 제목</h3>
+  <!--        <h4>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci tenetur in assumenda-->
+  <!--          recusandae asperiores saepe. Ad obcaecati voluptate libero repellat, rem neque pariatur quod.-->
+  <!--          Voluptate numquam ipsa esse quibusdam tenetur.</h4>-->
         </div>
-        <p>·</p>
-        <div class="foot-content">
-          <p>15 read</p>
+        <div class="list-footer">
+          <div class="foot-content">
+            <p th:text="${teamNoti.createdAt}">Nov 15,2022</p>
+          </div>
+          <p>·</p>
+          <div class="foot-content">
+            조회수 : <span th:text="${teamNoti.viewCnt}">15</span>
+          </div>
         </div>
-      </div>
-      <div class="line"></div>
+        <div class="line"></div>
+      </a>
     </article>
   </div>
 </section>
