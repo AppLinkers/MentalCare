@@ -1,9 +1,8 @@
 package com.example.mentalCare.director.team.controller;
 
 import com.example.mentalCare.common.repository.UserRepository;
-import com.example.mentalCare.director.team.dto.DirectorRoleUpdateReq;
-import com.example.mentalCare.director.team.dto.TeamNotificationWriteReq;
-import com.example.mentalCare.user.dto.UpdatePlayerRoleReq;
+import com.example.mentalCare.director.team.dto.*;
+import com.example.mentalCare.director.team.service.DirectorTeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -18,6 +17,7 @@ import java.util.List;
 public class DirectorTeamController {
 
     private final UserRepository userRepository;
+    private final DirectorTeamService directorTeamService;
 
     /**
      * Team Info And Member Page
@@ -27,11 +27,12 @@ public class DirectorTeamController {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
         Long teamId = userRepository.findUserByLoginId(userLoginId).get().getTeam().getId();
 
-        model.addAttribute("teamDiagnoseResultList", "");
-        model.addAttribute("teamDirectorInfoList", "");
-        model.addAttribute("teamPlayerInfoList", "");
+        model.addAttribute("teamDiagnoseResultList", directorTeamService.getTeamDiagnoseResultList(teamId));
+        List<TeamDirectorInfoReadRes> teamDirectorInfoList = directorTeamService.getTeamDirectorInfoList(teamId);
+        model.addAttribute("teamDirectorInfoList", teamDirectorInfoList);
+        model.addAttribute("teamPlayerInfoList", directorTeamService.getTeamPlayerInfoList(teamId));
 
-        model.addAttribute("directorRoleUpdateReqList", "");
+        model.addAttribute("directorRoleUpdateReqList", directorTeamService.teamDirectorInfoListToDirectorRoleUpdateReqList(teamDirectorInfoList));
 
         return "director/team_info";
     }
@@ -41,7 +42,7 @@ public class DirectorTeamController {
      */
     @PutMapping("/director_role")
     public void changeDirectorRoleList(List<DirectorRoleUpdateReq> directorRoleUpdateReqList) {
-
+        directorTeamService.changeDirectorRoleList(directorRoleUpdateReqList);
     }
 
     /**
@@ -50,9 +51,10 @@ public class DirectorTeamController {
     @GetMapping("/player/{id}")
     public String teamPlayerPage(Model model, @PathVariable Long id) {
 
-        model.addAttribute("teamPlayerDetail", "");
+        TeamPlayerDetailReadRes teamPlayerDetail = directorTeamService.getTeamPlayerDetail(id);
+        model.addAttribute("teamPlayerDetail", teamPlayerDetail);
 
-        model.addAttribute("playerRoleUpdateReq", "");
+        model.addAttribute("playerRoleUpdateReq", directorTeamService.teamPlayerDetailReadResToPlayerInfoUpdateReq(teamPlayerDetail));
 
         return "director/player_info";
     }
@@ -61,9 +63,8 @@ public class DirectorTeamController {
      * Change Player Role Service
      */
     @PutMapping("/player")
-    public void changePlayerRole(UpdatePlayerRoleReq updatePlayerRoleReq) {
-
-
+    public void changePlayerInfo(PlayerInfoUpdateReq playerInfoUpdateReq) {
+        directorTeamService.changePlayerInfo(playerInfoUpdateReq);
     }
 
     /**
@@ -72,7 +73,7 @@ public class DirectorTeamController {
     @GetMapping("/noti")
     public String notificationWritePage(Model model) {
 
-        model.addAttribute("teamNotificationWriteReq", "");
+        model.addAttribute("teamNotificationWriteReq", new TeamNotificationWriteReq());
 
         return "director/noti_add";
     }
@@ -82,7 +83,8 @@ public class DirectorTeamController {
      */
     @PostMapping("/noti")
     public void notificationWrite(TeamNotificationWriteReq teamNotificationWriteReq) {
+        String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
 
-
+        directorTeamService.notificationWrite(userLoginId, teamNotificationWriteReq);
     }
 }

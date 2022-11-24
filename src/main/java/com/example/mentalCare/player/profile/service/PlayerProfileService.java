@@ -7,7 +7,6 @@ import com.example.mentalCare.player.profile.dto.PlayerProfileUpdateRes;
 import com.example.mentalCare.player.profile.repository.PlayerRepository;
 import com.example.mentalCare.team.domain.Team;
 import com.example.mentalCare.team.repository.TeamRepository;
-import com.example.mentalCare.user.dto.UpdatePlayerProfileReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
