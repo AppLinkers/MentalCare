@@ -1,10 +1,5 @@
 package com.example.mentalCare.player.test.service;
 
-import com.example.mentalCare.common.domain.User;
-import com.example.mentalCare.diagnose.dto.GetAnswerDetailRes;
-import com.example.mentalCare.diagnose.dto.GetAnswerDiagnoseRes;
-import com.example.mentalCare.diagnose.dto.GetAnswerInfoRes;
-import com.example.mentalCare.diagnose.dto.GetAnswerRes;
 import com.example.mentalCare.player.profile.domain.Player;
 import com.example.mentalCare.player.profile.repository.PlayerRepository;
 import com.example.mentalCare.player.test.domain.*;

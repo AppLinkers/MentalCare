@@ -1,6 +1,5 @@
 package com.example.mentalCare.player.test.controller;
 
-import com.example.mentalCare.diagnose.dto.WriteAnswerReq;
 import com.example.mentalCare.player.test.dto.AnswerWriteReq;
 import com.example.mentalCare.player.test.dto.DiagnoseReadRes;
 import com.example.mentalCare.player.test.dto.DiagnoseWriteReq;
