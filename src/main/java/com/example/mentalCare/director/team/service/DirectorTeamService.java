@@ -11,6 +11,7 @@ import com.example.mentalCare.player.test.repository.AnswerRepository;
 import com.example.mentalCare.player.test.repository.DiagnoseRepository;
 import com.example.mentalCare.team.domain.Team;
 import com.example.mentalCare.team.domain.TeamNotification;
+import com.example.mentalCare.team.repository.TeamNotificationRepository;
 import com.example.mentalCare.team.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,7 @@ public class DirectorTeamService {
     private final DirectorRepository directorRepository;
     private final AnswerRepository answerRepository;
     private final DiagnoseRepository diagnoseRepository;
+    private final TeamNotificationRepository teamNotificationRepository;
 
     /**
      * 팀 진단 유형 정보 조회
@@ -216,12 +218,13 @@ public class DirectorTeamService {
     @Transactional
     public void notificationWrite(String userLoginId, TeamNotificationWriteReq teamNotificationWriteReq) {
         Director director = directorRepository.findDirectorByUserLogin_id(userLoginId);
-
         TeamNotification teamNotification = TeamNotification.builder()
                 .team(director.getUser().getTeam())
                 .director(director)
                 .title(teamNotificationWriteReq.getTitle())
                 .content(teamNotificationWriteReq.getContent())
                 .build();
+
+        teamNotificationRepository.save(teamNotification);
     }
 }

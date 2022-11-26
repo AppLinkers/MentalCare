@@ -18,7 +18,7 @@
 
   <!-- STYLE SHEET -->
   <link rel="stylesheet" href="/css/common/style.css">
-  <link rel="stylesheet" href="/css/notification/noti_detail.css.css">
+  <link rel="stylesheet" href="/css/team/noti_detail.css">
 </head>
 
 <body>
@@ -33,28 +33,28 @@
 
     <div class="detail-header">
       <h3>공지사항</h3>
-      <p>서울 FC</p>
+<!--      <p>서울 FC</p>-->
     </div>
 
     <div class="article-info">
       <div class="writer-img">
-        <img src="/images/example/consultant.jpg">
+        <img th:src="${teamNotification.directorImgUrl}">
       </div>
       <div class="info-right">
-        <h5>작성자 이름</h5>
+        <h5 th:text="${teamNotification.directorName}">작성자 이름</h5>
         <div class="info-etc">
-          <p>Nov 15,2022</p>
+          <p th:text="${teamNotification.createdAt}">Nov 15,2022</p>
           <p>·</p>
-          <p>15 read</p>
+          <span th:text="${teamNotification.viewCnt}">15</span><span> read</span>
         </div>
       </div>
     </div>
 
     <div class="article-title">
-      <h2>공지사항 제목</h2>
+      <h2 th:text="${teamNotification.title}">공지사항 제목</h2>
     </div>
     <div class="article-content">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae quis, eos, quasi maxime saepe quisquam
+      <p th:text="${teamNotification.content}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae quis, eos, quasi maxime saepe quisquam
         necessitatibus tenetur officia dolore molestias placeat sequi eius esse doloremque quibusdam
         aspernatur. Nobis, quia omnis.</p>
     </div>

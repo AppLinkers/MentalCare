@@ -48,7 +48,7 @@
 
     <!-- list -->
     <article class="noti-list" th:each="teamNoti : ${teamNotificationList}" >
-      <a th:href="@{/noti/${teamNoti.id}}">
+      <a th:href="@{|/noti/${teamNoti.id}|}">
         <div class="list-header">
           <div class="writer__img">
             <img th:src="${teamNoti.directorImgUrl}">

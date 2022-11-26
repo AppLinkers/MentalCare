@@ -31,7 +31,7 @@ public class DirectorTeamController {
         List<TeamDirectorInfoReadRes> teamDirectorInfoList = directorTeamService.getTeamDirectorInfoList(teamId);
         model.addAttribute("teamDirectorInfoList", teamDirectorInfoList);
         model.addAttribute("teamPlayerInfoList", directorTeamService.getTeamPlayerInfoList(teamId));
-
+        System.out.println(teamDirectorInfoList.get(0).getRole() + ":: test");
         model.addAttribute("directorRoleUpdateReqList", directorTeamService.teamDirectorInfoListToDirectorRoleUpdateReqList(teamDirectorInfoList));
 
         return "director/team_info";
@@ -71,9 +71,8 @@ public class DirectorTeamController {
      * Notification Write Page
      */
     @GetMapping("/noti")
-    public String notificationWritePage(Model model) {
+    public String notificationWritePage(Model model, TeamNotificationWriteReq teamNotificationWriteReq) {
 
-        model.addAttribute("teamNotificationWriteReq", new TeamNotificationWriteReq());
 
         return "director/noti_add";
     }
@@ -82,9 +81,10 @@ public class DirectorTeamController {
      * Notification Write Service
      */
     @PostMapping("/noti")
-    public void notificationWrite(TeamNotificationWriteReq teamNotificationWriteReq) {
+    public String notificationWrite(TeamNotificationWriteReq teamNotificationWriteReq) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
-
         directorTeamService.notificationWrite(userLoginId, teamNotificationWriteReq);
+
+        return "redirect:/noti/list";
     }
 }
