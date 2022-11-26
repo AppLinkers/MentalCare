@@ -32,7 +32,7 @@
     <div class="container member__con">
       <div class="member__info">
         <div class="member__img">
-          <img src="../../static/images/example/son.png">
+          <img th:src="${teamPlayerDetail.imgUrl}">
         </div>
         <div class="member__text">
           <div class="member__name">
@@ -41,8 +41,9 @@
               <h4>선수</h4>
             </div>
           </div>
-          <h4>FW, 30살</h4>
-          <p>최근 업데이트 : 2022.09.26</p>
+          <h4 th:text="${teamPlayerDetail.position}">FW</h4>
+          <h4 th:text="${teamPlayerDetail.age}"></h4>
+          <span>최근 업데이트 :</span> <span th:text="${teamPlayerDetail.answerDate}"></span>
         </div>
       </div>
       <div class="member__chart">
@@ -56,13 +57,23 @@
   <section id="control">
     <div class="control-box container">
       <h3>권한 설정</h3>
-      <button>권한 없음</button>
+      <button th:if="${teamPlayerDetail.role.toString().equals('PLAYER')}" onclick="return true;">허가됨</button>
+      <button th:unless="${teamPlayerDetail.role.toString().equals('PLAYER')}" onclick="return false;">권한 없음</button>
     </div>
     <div class="line"></div>
   </section>
 
+  <form th:method="post" th:action="@{/director/player}" th:object="${playerInfoUpdateReq}">
+    <input type="hidden" id="playerAuth" name="role" th:value="${teamPlayerDetail.role}"/>
+    <input type="hidden" name="id" th:value="${teamPlayerDetail.id}"/>
+    <input type="hidden" name="position" th:value="${teamPlayerDetail.position}"/>
+    <div class="container submit__con">
+      <button class="btn">저장하기</button>
+    </div>
+  </form>
+
   <!-- =========== JAVASCRIPT ========== -->
-  <script src="/javascript/common/base.js"></script>
+  <script src="/javascript/common/base_detail.js"></script>
   <script src="/javascript/director/player_info.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>

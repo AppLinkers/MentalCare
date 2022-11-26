@@ -104,6 +104,7 @@
         <div class="member__list">
 
             <article th:each="player: ${teamPlayerInfoList}">
+                <a th:href="@{|/director/player/${player.id}|}">
                 <div class="container member__con">
                     <div class="member__info">
                         <div class="member__img">
@@ -128,6 +129,7 @@
                     </div>
                 </div>
                 <div class="line inside__large"></div>
+                </a>
             </article>
 
             <article>

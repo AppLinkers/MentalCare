@@ -49,7 +49,7 @@ public class DirectorTeamController {
      * Team Player Info Page
      */
     @GetMapping("/player/{id}")
-    public String teamPlayerPage(Model model, @PathVariable Long id) {
+    public String teamPlayerPage(Model model, @PathVariable Long id, PlayerInfoUpdateReq playerInfoUpdateReq) {
 
         TeamPlayerDetailReadRes teamPlayerDetail = directorTeamService.getTeamPlayerDetail(id);
         model.addAttribute("teamPlayerDetail", teamPlayerDetail);
@@ -62,9 +62,10 @@ public class DirectorTeamController {
     /**
      * Change Player Role Service
      */
-    @PutMapping("/player")
-    public void changePlayerInfo(PlayerInfoUpdateReq playerInfoUpdateReq) {
+    @PostMapping("/player")
+    public String changePlayerInfo(PlayerInfoUpdateReq playerInfoUpdateReq) {
         directorTeamService.changePlayerInfo(playerInfoUpdateReq);
+        return "redirect:team";
     }
 
     /**
