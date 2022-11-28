@@ -25,7 +25,9 @@
             <i class="uil uil-angle-left-b"></i>
         </div>
         <div class="login__content">
+
             <a th:href="@{/static}"><h2>Mental Care</h2></a>
+
             <form th:action="@{/login_proc}" th:method="post" th:object="${userLoginReq}">
                 <input type="text" class="btn btn-input" th:name = "username" placeholder="아이디">
                 <input type="password" class="btn btn-input" th:name="password"  placeholder="비밀번호">
