@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
@@ -41,4 +40,16 @@ public class TeamNotification {
     private LocalDateTime createdAt;
 
     private Integer view_cnt = 0;
+
+    @Builder
+    public TeamNotification(Team team, Director director, String title, String content) {
+        this.team = team;
+        this.director = director;
+        this.title = title;
+        this.content = content;
+    }
+
+    public void increaseViewCnt() {
+        this.view_cnt += 1;
+    }
 }

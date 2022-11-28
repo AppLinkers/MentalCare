@@ -1,5 +1,6 @@
 package com.example.mentalCare.player.profile.service;
 
+import com.example.mentalCare.common.service.S3Service;
 import com.example.mentalCare.player.profile.domain.Player;
 import com.example.mentalCare.player.profile.dto.PlayerProfileReadRes;
 import com.example.mentalCare.player.profile.dto.PlayerProfileUpdateReq;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -22,6 +24,8 @@ public class PlayerProfileService {
     private final PlayerRepository playerRepository;
     private final TeamRepository teamRepository;
 
+    private final S3Service s3Service;
+
     /**
      * 선수 프로필 조회 페이지
      */
@@ -29,10 +33,18 @@ public class PlayerProfileService {
     public PlayerProfileReadRes getProfileRead(String userLoginId) {
         Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
 
-        int nextMatchDDay = 0;
+        StringBuilder nextMatchDDay = new StringBuilder();
 
         if (player.getNextMatch() != null) {
-            nextMatchDDay = (int) DAYS.between(player.getNextMatch(), LocalDate.now());
+            Integer nextMatchDDayNum = (int) DAYS.between(player.getNextMatch(), LocalDate.now());
+
+            if (nextMatchDDayNum >= 0) {
+                nextMatchDDay.append("+ ");
+            } else {
+                nextMatchDDay.append("- ");
+                nextMatchDDayNum *= -1;
+            }
+            nextMatchDDay.append(nextMatchDDayNum);
         }
 
         return PlayerProfileReadRes.builder()
@@ -41,7 +53,7 @@ public class PlayerProfileService {
                 .imgUrl(player.getUser().getImgUrl())
                 .role(player.getUser().getRole())
                 .teamName(player.getUser().getTeam().getName())
-                .nextMatchDDay(nextMatchDDay)
+                .nextMatchDDay(nextMatchDDay.toString())
                 .position(player.getPosition())
                 .build();
     }
@@ -69,7 +81,7 @@ public class PlayerProfileService {
      * 선수 프로필 설정 서비스
      */
     @Transactional
-    public void UpdateProfile(String userLoginId, PlayerProfileUpdateReq request) {
+    public void UpdateProfile(String userLoginId, PlayerProfileUpdateReq request) throws IOException {
 
         Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
 
@@ -78,6 +90,10 @@ public class PlayerProfileService {
         player.getUser().setTeam(team);
         player.setPosition(request.getPosition());
         player.setNextMatch(request.getNextMatchDate());
-        // 이미지 설정 필요
+        // 이미지 설정
+        if (request.getImgFile() != null) {
+            String imgUrl = s3Service.upload(request.getImgFile(), "mental_care/player/profile");
+            player.getUser().setImgUrl(imgUrl);
+        }
     }
 }

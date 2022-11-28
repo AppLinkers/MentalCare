@@ -31,7 +31,7 @@ public class DirectorTeamController {
         List<TeamDirectorInfoReadRes> teamDirectorInfoList = directorTeamService.getTeamDirectorInfoList(teamId);
         model.addAttribute("teamDirectorInfoList", teamDirectorInfoList);
         model.addAttribute("teamPlayerInfoList", directorTeamService.getTeamPlayerInfoList(teamId));
-        System.out.println(teamDirectorInfoList.get(0).getRole() + ":: test");
+
         model.addAttribute("directorRoleUpdateReqList", directorTeamService.teamDirectorInfoListToDirectorRoleUpdateReqList(teamDirectorInfoList));
 
         return "director/team_info";
@@ -41,20 +41,24 @@ public class DirectorTeamController {
      * Change Director Role List Service
      */
     @PutMapping("/director_role")
-    public void changeDirectorRoleList(List<DirectorRoleUpdateReq> directorRoleUpdateReqList) {
+    public String changeDirectorRoleList(DirectorRoleUpdateListReq directorRoleUpdateReqList) {
         directorTeamService.changeDirectorRoleList(directorRoleUpdateReqList);
+
+        return "redirect:/director/team";
     }
 
     /**
      * Team Player Info Page
      */
     @GetMapping("/player/{id}")
-    public String teamPlayerPage(Model model, @PathVariable Long id, PlayerInfoUpdateReq playerInfoUpdateReq) {
+    public String teamPlayerPage(Model model, @PathVariable Long id) {
 
         TeamPlayerDetailReadRes teamPlayerDetail = directorTeamService.getTeamPlayerDetail(id);
         model.addAttribute("teamPlayerDetail", teamPlayerDetail);
 
         model.addAttribute("playerRoleUpdateReq", directorTeamService.teamPlayerDetailReadResToPlayerInfoUpdateReq(teamPlayerDetail));
+
+        model.addAttribute("playerInfoUpdateReq", new PlayerInfoUpdateReq());
 
         return "director/player_info";
     }
@@ -62,18 +66,19 @@ public class DirectorTeamController {
     /**
      * Change Player Role Service
      */
-    @PostMapping("/player")
+    @PutMapping("/player")
     public String changePlayerInfo(PlayerInfoUpdateReq playerInfoUpdateReq) {
         directorTeamService.changePlayerInfo(playerInfoUpdateReq);
-        return "redirect:team";
+        return "redirect:/director/team";
     }
 
     /**
      * Notification Write Page
      */
     @GetMapping("/noti")
-    public String notificationWritePage(Model model, TeamNotificationWriteReq teamNotificationWriteReq) {
+    public String notificationWritePage(Model model) {
 
+        model.addAttribute("teamNotificationWriteReq", new TeamNotificationWriteReq());
 
         return "director/noti_add";
     }

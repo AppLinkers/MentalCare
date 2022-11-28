@@ -25,17 +25,17 @@
 
         <div class="header">
             <div class="icon">
-                <img src="/images/macos-calendar%20(1).png">
+                <img src="https://mblockimg.s3.ap-northeast-2.amazonaws.com/mental_care/test/test_all_img.png">
             </div>
             <h3>통합 검사</h3>
         </div>
 
-        <form th:method="post" th:action= "@{/player/test/all}" th:object="${answerWriteReq}">
+        <form th:method="post" th:action="@{/player/test/all}" th:object="${answerWriteReq}">
 
-            <div th:each="getDiagnoseRes, diagnoseStat : ${diagnoseList}">
+            <div th:each="diagnoseReadRes, diagnoseStat : ${diagnoseList}">
                 <input type="hidden" th:field="*{answerWriteReq[__${diagnoseStat.index}__].id}"/>
-                <div class="form-group" th:each="questionReadRes, detailStat : ${getDiagnoseRes.questionReadResList}">
-                    <input type="hidden" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${detailStat.index}__].id}"/>
+                <div class="form-group" th:each="questionReadRes, questionStat : ${diagnoseReadRes.questionReadResList}">
+                    <input type="hidden" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].id}"/>
                     <div class="question">
                         <h3 th:text="${questionReadRes.context}"></h3>
                     </div>
@@ -43,23 +43,23 @@
 
                         <div class="check__con">
                             <div class="check">
-                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${detailStat.index}__].answer}" th:value=5  id="worst" required/>
+                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=5  id="worst" required/>
                                 <label class="check__radio" for="worst"></label>
                             </div>
                             <div class="check">
-                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${detailStat.index}__].answer}" th:value=4 id="high"/>
+                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=4 id="high"/>
                                 <label class="check__radio" for="high"></label>
                             </div>
                             <div class="check">
-                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${detailStat.index}__].answer}" th:value=3  id="soso"/>
+                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=3  id="soso"/>
                                 <label class="check__radio" for="soso"></label>
                             </div>
                             <div class="check">
-                                <input type="radio"  th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${detailStat.index}__].answer}" th:value=2 id="low"/>
+                                <input type="radio"  th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=2 id="low"/>
                                 <label class="check__radio" for="low"></label>
                             </div>
                             <div class="check">
-                                <input type="radio"  th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${detailStat.index}__].answer}" th:value=1  id="none"/>
+                                <input type="radio"  th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=1  id="none"/>
                                 <label class="check__radio" for="none"></label>
                             </div>
                         </div>
