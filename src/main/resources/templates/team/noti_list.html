@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -37,12 +37,15 @@
     </div>
     <div class="under_title">
       <h4>서울 FC</h4>
+
+      <!--지도자 권한이 없을때 display: "none" 필요-->
       <a th:href="@{/director/noti}">
         <div class="new_button">
           <i class="uil uil-pen"></i>
           <p>작성하기</p>
         </div>
       </a>
+
     </div>
     <div class="line"></div>
 
@@ -67,7 +70,9 @@
           </div>
           <p>·</p>
           <div class="foot-content">
-            조회수 : <span th:text="${teamNoti.viewCnt}">15</span>
+<!--            조회수 :-->
+            <p th:if="${teamNoti.viewCnt == null}" th:text="'0 read'"></p>
+            <p th:unless="${teamNoti.viewCnt == null}" th:text="${teamNoti.viewCnt} + ' read'"></p>
           </div>
         </div>
         <div class="line"></div>

@@ -45,7 +45,8 @@
         <div class="info-etc">
           <p th:text="${teamNotification.createdAt}">Nov 15,2022</p>
           <p>·</p>
-          <span th:text="${teamNotification.viewCnt}">15</span><span> read</span>
+          <p th:if="${teamNotification.viewCnt == null}" th:text="'0 read'"></p>
+          <p th:unless="${teamNotification.viewCnt == null}" th:text="${teamNotification.viewCnt} + ' read'">
         </div>
       </div>
     </div>
