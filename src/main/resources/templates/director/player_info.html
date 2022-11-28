@@ -30,10 +30,13 @@
   <!-- =========== MEMBER ========== -->
   <section id="member">
     <div class="container member__con">
+
       <div class="member__info">
+
         <div class="member__img">
           <img th:src="${teamPlayerDetail.imgUrl}">
         </div>
+
         <div class="member__text">
           <div class="member__name">
             <h3>손흥민</h3>
@@ -41,14 +44,22 @@
               <h4>선수</h4>
             </div>
           </div>
-          <h4 th:text="${teamPlayerDetail.position}">FW</h4>
-          <h4 th:text="${teamPlayerDetail.age}"></h4>
-          <span>최근 업데이트 :</span> <span th:text="${teamPlayerDetail.answerDate}"></span>
+          <div class="member__detail">
+            <h4 th:text="${teamPlayerDetail.position}">FW</h4>
+            <h4> , </h4>
+            <h4 th:text="${teamPlayerDetail.age}"></h4>
+          </div>
+          <div class="member__update">
+            <p>최근 업데이트 :</p> <p th:text="${teamPlayerDetail.answerDate}"></p>
+          </div>
         </div>
+
       </div>
+
       <div class="member__chart">
         <canvas id="doughnut" width="120" height="120"></canvas>
       </div>
+
     </div>
     <div class="line inside__large"></div>
   </section>
@@ -57,7 +68,7 @@
   <section id="control">
     <div class="control-box container">
       <h3>권한 설정</h3>
-      <button th:if="${teamPlayerDetail.role.toString().equals('PLAYER')}" onclick="return true;">허가됨</button>
+      <button class="active" th:if="${teamPlayerDetail.role.toString().equals('PLAYER')}" onclick="return true;">허가됨</button>
       <button th:unless="${teamPlayerDetail.role.toString().equals('PLAYER')}" onclick="return false;">권한 없음</button>
     </div>
     <div class="line"></div>
@@ -68,7 +79,7 @@
     <input type="hidden" name="id" th:value="${teamPlayerDetail.id}"/>
     <input type="hidden" name="position" th:value="${teamPlayerDetail.position}"/>
     <div class="container submit__con">
-      <button class="btn">저장하기</button>
+      <button class="btn" type="submit">저장하기</button>
     </div>
   </form>
 

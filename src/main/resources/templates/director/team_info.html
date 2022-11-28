@@ -78,7 +78,7 @@
                         </div>
                         <!-- 'active'로 css가 바뀜, 만약 허가돼있으면 밑 button의 classList에 active를 추가해주면 됩니다 -->
                         <!-- 상태에 따라서 권한 없음 or 허가됨으로 button 텍스트도 바꿔줘야합니다-->
-                        <button th:if="${director.role.toString().equals('DIRECTOR')}" onclick="return false;">허가됨</button>
+                        <button class="active" th:if="${director.role.toString().equals('DIRECTOR')}" onclick="return false;">허가됨</button>
                         <button th:unless="${director.role.toString().equals('DIRECTOR')}" onclick="return false;">권한 없음</button>
                     </div>
                     <div class="line inside__large"></div>
@@ -132,28 +132,28 @@
                 </a>
             </article>
 
-            <article>
-                <div class="container member__con">
-                    <div class="member__info">
-                        <div class="member__img">
-                            <img src="/image/hwang.png">
-                        </div>
-                        <div class="member__text">
-                            <div class="member__name">
-                                <h3>황희찬</h3>
-                                <div class="type">
-                                    <h4>선수</h4>
-                                </div>
-                            </div>
-                            <h4>FW, 26살</h4>
-                        </div>
-                    </div>
-                    <div class="go__icon">
-                        <i class="uil uil-angle-right-b"></i>
-                    </div>
-                </div>
-                <div class="line inside__large"></div>
-            </article>
+<!--            <article>-->
+<!--                <div class="container member__con">-->
+<!--                    <div class="member__info">-->
+<!--                        <div class="member__img">-->
+<!--                            <img src="/image/hwang.png">-->
+<!--                        </div>-->
+<!--                        <div class="member__text">-->
+<!--                            <div class="member__name">-->
+<!--                                <h3>황희찬</h3>-->
+<!--                                <div class="type">-->
+<!--                                    <h4>선수</h4>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <h4>FW, 26살</h4>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="go__icon">-->
+<!--                        <i class="uil uil-angle-right-b"></i>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="line inside__large"></div>-->
+<!--            </article>-->
 
         </div>
 
