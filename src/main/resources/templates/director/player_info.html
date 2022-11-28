@@ -74,7 +74,7 @@
     <div class="line"></div>
   </section>
 
-  <form th:method="post" th:action="@{/director/player}" th:object="${playerInfoUpdateReq}">
+  <form th:method="put" th:action="@{/director/player}" th:object="${playerInfoUpdateReq}">
     <input type="hidden" id="playerAuth" name="role" th:value="${teamPlayerDetail.role}"/>
     <input type="hidden" name="id" th:value="${teamPlayerDetail.id}"/>
     <input type="hidden" name="position" th:value="${teamPlayerDetail.position}"/>

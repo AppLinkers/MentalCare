@@ -18,7 +18,7 @@ public class PlayerProfileReadRes {
 
     private String teamName;
 
-    private Integer nextMatchDDay;
+    private String nextMatchDDay;
 
     private String position;
 }

@@ -60,17 +60,17 @@
             <div class="line"></div>
         </div>
 
-        <form>
+        <form th:method="put" th:action="@{/director/director_role}" th:object="${directorRoleUpdateReqList}">
             <div class="lead__list">
-
-                <article th:each="director: ${teamDirectorInfoList}">
+                <article th:each="teamDirectorInfoReadRes, directorStat: ${teamDirectorInfoList}">
+                    <input type="hidden" th:field="*{directorRoleUpdateReqList[__${directorStat.index}__].id}"/>
                     <div class="container lead__con">
                         <div class="lead-info">
                             <div class="lead__img">
-                                <img th:src="${director.imgUrl}">
+                                <img th:src="${teamDirectorInfoReadRes.imgUrl}">
                             </div>
                             <div class="lead__text">
-                                <h3 th:text="${director.name}">기성용</h3>
+                                <h3 th:text="${teamDirectorInfoReadRes.name}">기성용</h3>
                                 <div class="type type-lead">
                                     <h4>지도자</h4>
                                 </div>
@@ -78,16 +78,22 @@
                         </div>
                         <!-- 'active'로 css가 바뀜, 만약 허가돼있으면 밑 button의 classList에 active를 추가해주면 됩니다 -->
                         <!-- 상태에 따라서 권한 없음 or 허가됨으로 button 텍스트도 바꿔줘야합니다-->
-                        <button class="active" th:if="${director.role.toString().equals('DIRECTOR')}" onclick="return false;">허가됨</button>
-                        <button th:unless="${director.role.toString().equals('DIRECTOR')}" onclick="return false;">권한 없음</button>
+                        <input type="hidden" th:field="*{directorRoleUpdateReqList[__${directorStat.index}__].role}"/>
+                        <!-- 수정 필요 -->
+                        <button class="active" th:if="${teamDirectorInfoReadRes.role.toString().equals('DIRECTOR')}" onclick="return false;">
+                            허가됨
+                        </button>
+                        <button th:unless="${teamDirectorInfoReadRes.role.toString().equals('DIRECTOR')}" onclick="return false;">
+                            권한 없음
+                        </button>
                     </div>
                     <div class="line inside__large"></div>
                 </article>
 
-                <div class="container submit__con">
-                    <button class="btn">저장하기</button>
-                </div>
 
+                <div class="container submit__con">
+                    <button class="btn" type="submit">저장하기</button>
+                </div>
             </div>
         </form>
 
@@ -160,9 +166,9 @@
     </section>
 
 <!-- =========== JAVASCRIPT ========== -->
-<script src="/javascript/common/base.js"></script>
-<script src="/javascript/director/team_info.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/javascript/common/base.js"></script>
+    <script src="/javascript/director/team_info.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const data_radar = {
             labels: diagnosetitleSet,
@@ -202,57 +208,57 @@
             config_radar
         )
     </script>
-<!--<script>-->
-<!--    const data_radar = {-->
-<!--        labels: [-->
-<!--            '경기력',-->
-<!--            '기능자신감',-->
-<!--            '부상',-->
-<!--            '슬럼프',-->
-<!--            '진로미래',-->
-<!--            '관계',-->
-<!--            '훈련',-->
-<!--            '학업',-->
-<!--            '주전경쟁',-->
-<!--            '부담감',-->
-<!--            '사생활규제'-->
-<!--        ],-->
-<!--        datasets: [{-->
-<!--            label: '스트레스 강도',-->
-<!--            data: [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1],-->
-<!--            fill: true,-->
-<!--            backgroundColor: 'rgba(255, 99, 132, 0.2)',-->
-<!--            borderColor: 'rgb(255, 99, 132)',-->
-<!--            pointBackgroundColor: 'rgb(255, 99, 132)',-->
-<!--            pointBorderColor: '#fff',-->
-<!--            pointHoverBackgroundColor: '#fff',-->
-<!--            pointHoverBorderColor: 'rgb(255, 99, 132)'-->
-<!--        }]-->
-<!--    }-->
+    <!--<script>-->
+    <!--    const data_radar = {-->
+    <!--        labels: [-->
+    <!--            '경기력',-->
+    <!--            '기능자신감',-->
+    <!--            '부상',-->
+    <!--            '슬럼프',-->
+    <!--            '진로미래',-->
+    <!--            '관계',-->
+    <!--            '훈련',-->
+    <!--            '학업',-->
+    <!--            '주전경쟁',-->
+    <!--            '부담감',-->
+    <!--            '사생활규제'-->
+    <!--        ],-->
+    <!--        datasets: [{-->
+    <!--            label: '스트레스 강도',-->
+    <!--            data: [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1],-->
+    <!--            fill: true,-->
+    <!--            backgroundColor: 'rgba(255, 99, 132, 0.2)',-->
+    <!--            borderColor: 'rgb(255, 99, 132)',-->
+    <!--            pointBackgroundColor: 'rgb(255, 99, 132)',-->
+    <!--            pointBorderColor: '#fff',-->
+    <!--            pointHoverBackgroundColor: '#fff',-->
+    <!--            pointHoverBorderColor: 'rgb(255, 99, 132)'-->
+    <!--        }]-->
+    <!--    }-->
 
-<!--    const config_radar = {-->
-<!--        type: 'radar',-->
-<!--        data: data_radar,-->
-<!--        options: {-->
-<!--            element: {-->
-<!--                line: {-->
-<!--                    borderWidth: 3-->
-<!--                }-->
-<!--            },-->
-<!--            scales: {-->
-<!--                r: {-->
-<!--                    suggestedMin: 0,-->
-<!--                    suggestedMax: 5-->
-<!--                }-->
-<!--            }-->
-<!--        }-->
-<!--    }-->
+    <!--    const config_radar = {-->
+    <!--        type: 'radar',-->
+    <!--        data: data_radar,-->
+    <!--        options: {-->
+    <!--            element: {-->
+    <!--                line: {-->
+    <!--                    borderWidth: 3-->
+    <!--                }-->
+    <!--            },-->
+    <!--            scales: {-->
+    <!--                r: {-->
+    <!--                    suggestedMin: 0,-->
+    <!--                    suggestedMax: 5-->
+    <!--                }-->
+    <!--            }-->
+    <!--        }-->
+    <!--    }-->
 
-<!--    const radar = new Chart(-->
-<!--        document.getElementById('radar'),-->
-<!--        config_radar-->
-<!--    )-->
-<!--</script>-->
+    <!--    const radar = new Chart(-->
+    <!--        document.getElementById('radar'),-->
+    <!--        config_radar-->
+    <!--    )-->
+    <!--</script>-->
 
 
 

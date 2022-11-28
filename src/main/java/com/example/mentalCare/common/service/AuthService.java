@@ -43,7 +43,7 @@ public class AuthService implements UserDetailsService {
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findUserByLoginId(username).orElseThrow(() -> new UsernameNotFoundException("아이디가 존재하지 않습니다."));
+        User user = userRepository.findUserByLoginId(username).orElseThrow(() -> new UsernameNotFoundException("invalid ID"));
         List<GrantedAuthority> roles = new ArrayList<>();
         roles.add(new SimpleGrantedAuthority(user.getRole().toString()));
 

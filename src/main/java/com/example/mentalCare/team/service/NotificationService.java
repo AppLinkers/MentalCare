@@ -6,6 +6,7 @@ import com.example.mentalCare.team.dto.TeamNotificationInfoRes;
 import com.example.mentalCare.team.repository.TeamNotificationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ public class NotificationService {
     /**
      * 공지사항 정보 전체 조회
      */
+    @Transactional(readOnly = true)
     public List<TeamNotificationInfoRes> getTeamNotificationInfoResListByTeamId(Long teamId) {
         List<TeamNotificationInfoRes> result = new ArrayList<>();
 
@@ -43,8 +45,10 @@ public class NotificationService {
     /**
      * 공지사항 단건 조회
      */
+    @Transactional
     public TeamNotificationDetailRes getTeamNotificationDetailResByTeamNotificationId(Long teamNotificationId) {
         TeamNotification teamNotification = teamNotificationRepository.findById(teamNotificationId).get();
+        teamNotification.increaseViewCnt();
 
         return TeamNotificationDetailRes.builder()
                 .id(teamNotification.getId())

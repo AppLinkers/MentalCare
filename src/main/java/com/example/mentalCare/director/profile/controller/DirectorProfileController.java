@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.IOException;
+
 @Controller
 @RequestMapping("/director/profile")
 @RequiredArgsConstructor
@@ -47,8 +49,8 @@ public class DirectorProfileController {
     /**
      * Profile Setting Service
      */
-    @PostMapping("/setting")
-    public String profileSettingService(DirectorProfileUpdateReq directorProfileUpdateReq) {
+    @PutMapping("/setting")
+    public String profileSettingService(DirectorProfileUpdateReq directorProfileUpdateReq) throws IOException {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
 
         directorProfileService.UpdateProfile(userLoginId, directorProfileUpdateReq);

@@ -16,4 +16,24 @@ spring:
       ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    show-sql: true
+    show-sql: false
+  # thymeleaf PUT, DELETE Method use
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+#S3
+cloud:
+  aws:
+    credentials:
+      instanceProfile: true
+      accessKey: AKIA23B2HXAERDMRBXSF
+      secretKey: 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
+    s3:
+      bucket: mblockimg
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
