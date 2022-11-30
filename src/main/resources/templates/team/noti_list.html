@@ -36,10 +36,8 @@
       <h2>공지사항</h2>
     </div>
     <div class="under_title">
-      <h4>서울 FC</h4>
-
-      <!--지도자 권한이 없을때 display: "none" 필요-->
-      <a th:href="@{/director/noti}">
+      <h4 th:text="${userTeam}">팀 이름</h4>
+      <a th:if="${userRole.equals('DIRECTOR')}" th:href="@{/director/noti}">
         <div class="new_button">
           <i class="uil uil-pen"></i>
           <p>작성하기</p>
