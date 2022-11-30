@@ -78,7 +78,7 @@
                         </div>
                         <!-- 'active'로 css가 바뀜, 만약 허가돼있으면 밑 button의 classList에 active를 추가해주면 됩니다 -->
                         <!-- 상태에 따라서 권한 없음 or 허가됨으로 button 텍스트도 바꿔줘야합니다-->
-                        <input type="hidden" th:field="*{directorRoleUpdateReqList[__${directorStat.index}__].role}"/>
+                        <input class="lead__role" type="hidden" th:field="*{directorRoleUpdateReqList[__${directorStat.index}__].role}"/>
                         <!-- 수정 필요 -->
                         <button class="active" th:if="${teamDirectorInfoReadRes.role.toString().equals('DIRECTOR')}" onclick="return false;">
                             허가됨
