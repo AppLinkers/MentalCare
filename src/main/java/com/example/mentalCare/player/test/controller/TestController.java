@@ -121,7 +121,6 @@ public class TestController {
     public String testResultPage(Model model, @PathVariable Long id) {
         model.addAttribute("player", playerTestService.getPlayerInfoOfTestResult(id));
         model.addAttribute("testResult", playerTestService.getTestResult(id));
-
         return "player/test_result";
     }
 }

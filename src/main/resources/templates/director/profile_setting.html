@@ -28,7 +28,7 @@
 <section id="setting">
     <div class="container setting__container">
 
-        <form th:method="post" th:action="@{/director/profile/setting}" th:object="${directorProfileUpdateReq}">
+        <form th:method="put" th:action="@{/director/profile/setting}" th:object="${directorProfileUpdateReq}" enctype="multipart/form-data">
             <!-- header -->
             <div class="setting-header">
 
@@ -40,7 +40,7 @@
                     <h3 th:text="${profile.name}">손흥민 선수</h3>
                 </div>
 
-                <input id="selectImg" type="file" hidden>
+                <input id="selectImg" type="file" th:name="imgFile" hidden>
                 <div class="profile-edit" onclick="defaultBtnActive()">
                     <p>프로필 사진 편집</p>
                 </div>

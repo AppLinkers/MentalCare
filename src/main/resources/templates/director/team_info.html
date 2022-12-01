@@ -60,16 +60,17 @@
             <div class="line"></div>
         </div>
 
+        <form th:method="put" th:action="@{/director/director_role}" th:object="${directorRoleUpdateReqList}">
             <div class="lead__list">
-
-                <article th:each="director: ${teamDirectorInfoList}">
+                <article th:each="teamDirectorInfoReadRes, directorStat: ${teamDirectorInfoList}">
+                    <input type="hidden" th:field="*{directorRoleUpdateReqList[__${directorStat.index}__].id}"/>
                     <div class="container lead__con">
                         <div class="lead-info">
                             <div class="lead__img">
-                                <img th:src="${director.imgUrl}">
+                                <img th:src="${teamDirectorInfoReadRes.imgUrl}">
                             </div>
                             <div class="lead__text">
-                                <h3 th:text="${director.name}">기성용</h3>
+                                <h3 th:text="${teamDirectorInfoReadRes.name}">기성용</h3>
                                 <div class="type type-lead">
                                     <h4>지도자</h4>
                                 </div>
@@ -78,23 +79,23 @@
                         <!-- 'active'로 css가 바뀜, 만약 허가돼있으면 밑 button의 classList에 active를 추가해주면 됩니다 -->
                         <!-- 상태에 따라서 권한 없음 or 허가됨으로 button 텍스트도 바꿔줘야합니다-->
                         </script>
-                        <button th:if="${director.role.toString().equals('DIRECTOR')}" onclick="return true;">허가됨</button>
-                        <button th:unless="${director.role.toString().equals('DIRECTOR')}" th:onclick="alert(${director.id})">권한 없음</button>
+                        <input class="lead__role" type="hidden" th:field="*{directorRoleUpdateReqList[__${directorStat.index}__].role}"/>
+                        <!-- 수정 필요 -->
+                        <button class="active" th:if="${teamDirectorInfoReadRes.role.toString().equals('DIRECTOR')}" onclick="return false;">
+                            허가됨
+                        </button>
+                        <button th:unless="${teamDirectorInfoReadRes.role.toString().equals('DIRECTOR')}" onclick="return false;">
+                            권한 없음
+                        </button>
                     </div>
                     <div class="line inside__large"></div>
                 </article>
-                <form th:method="post" th:action="@{/director/director_role}" th:object="${directorRoleUpdateReqList}">
-                    <div th:each="getTeamDirectorInfoRes, teamDirectorInfoStat : ${teamDirectorInfoList}">
-                        <input type="text" th:field="*{directorRoleUpdateReqList[__${teamDirectorInfoStat.index}__].id}"/>
-                        <input type="text" id="2" th:field="*{directorRoleUpdateReqList[__${teamDirectorInfoStat.index}__].role}"/>
-                    </div>
 
                     <div class="container submit__con">
                         <button class="btn">저장하기</button>
                     </div>
-                </form>
             </div>
-
+        </form>
     </section>
 
     <!-- =========== MEMBER ========== -->
@@ -136,37 +137,39 @@
                 </a>
             </article>
 
-            <article>
-                <div class="container member__con">
-                    <div class="member__info">
-                        <div class="member__img">
-                            <img src="/image/hwang.png">
-                        </div>
-                        <div class="member__text">
-                            <div class="member__name">
-                                <h3>황희찬</h3>
-                                <div class="type">
-                                    <h4>선수</h4>
-                                </div>
-                            </div>
-                            <h4>FW, 26살</h4>
-                        </div>
-                    </div>
-                    <div class="go__icon">
-                        <i class="uil uil-angle-right-b"></i>
-                    </div>
-                </div>
-                <div class="line inside__large"></div>
-            </article>
+<!--            <article>-->
+<!--                <div class="container member__con">-->
+<!--                    <div class="member__info">-->
+<!--                        <div class="member__img">-->
+<!--                            <img src="/image/hwang.png">-->
+<!--                        </div>-->
+<!--                        <div class="member__text">-->
+<!--                            <div class="member__name">-->
+<!--                                <h3>황희찬</h3>-->
+<!--                                <div class="type">-->
+<!--                                    <h4>선수</h4>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <h4>FW, 26살</h4>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="go__icon">-->
+<!--                        <i class="uil uil-angle-right-b"></i>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="line inside__large"></div>-->
+<!--            </article>-->
 
         </div>
 
     </section>
 
 <!-- =========== JAVASCRIPT ========== -->
-<script src="/javascript/common/base.js"></script>
 <!--<script src="/javascript/director/team_info.js"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/javascript/common/base.js"></script>
+    <script src="/javascript/director/team_info.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const data_radar = {
             labels: diagnosetitleSet,
@@ -206,58 +209,6 @@
             config_radar
         )
     </script>
-<!--<script>-->
-<!--    const data_radar = {-->
-<!--        labels: [-->
-<!--            '경기력',-->
-<!--            '기능자신감',-->
-<!--            '부상',-->
-<!--            '슬럼프',-->
-<!--            '진로미래',-->
-<!--            '관계',-->
-<!--            '훈련',-->
-<!--            '학업',-->
-<!--            '주전경쟁',-->
-<!--            '부담감',-->
-<!--            '사생활규제'-->
-<!--        ],-->
-<!--        datasets: [{-->
-<!--            label: '스트레스 강도',-->
-<!--            data: [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1],-->
-<!--            fill: true,-->
-<!--            backgroundColor: 'rgba(255, 99, 132, 0.2)',-->
-<!--            borderColor: 'rgb(255, 99, 132)',-->
-<!--            pointBackgroundColor: 'rgb(255, 99, 132)',-->
-<!--            pointBorderColor: '#fff',-->
-<!--            pointHoverBackgroundColor: '#fff',-->
-<!--            pointHoverBorderColor: 'rgb(255, 99, 132)'-->
-<!--        }]-->
-<!--    }-->
-
-<!--    const config_radar = {-->
-<!--        type: 'radar',-->
-<!--        data: data_radar,-->
-<!--        options: {-->
-<!--            element: {-->
-<!--                line: {-->
-<!--                    borderWidth: 3-->
-<!--                }-->
-<!--            },-->
-<!--            scales: {-->
-<!--                r: {-->
-<!--                    suggestedMin: 0,-->
-<!--                    suggestedMax: 5-->
-<!--                }-->
-<!--            }-->
-<!--        }-->
-<!--    }-->
-
-<!--    const radar = new Chart(-->
-<!--        document.getElementById('radar'),-->
-<!--        config_radar-->
-<!--    )-->
-<!--</script>-->
-
 
 
 </body>

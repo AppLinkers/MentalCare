@@ -7,9 +7,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/player/profile")
@@ -47,8 +48,8 @@ public class PlayerProfileController {
     /**
      * Profile Setting Service
      */
-    @PostMapping("/setting")
-    public String profileSettingService(PlayerProfileUpdateReq playerProfileUpdateReq) {
+    @PutMapping("/setting")
+    public String profileSettingService(PlayerProfileUpdateReq playerProfileUpdateReq) throws IOException {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
 
         playerProfileService.UpdateProfile(userLoginId, playerProfileUpdateReq);
@@ -56,5 +57,6 @@ public class PlayerProfileController {
         return "redirect:/player/profile";
     }
 
+    
 
 }

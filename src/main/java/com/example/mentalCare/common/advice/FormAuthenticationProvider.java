@@ -24,7 +24,7 @@ public class FormAuthenticationProvider implements AuthenticationProvider {
         String password = (String) authentication.getCredentials();
         UserDetail userDetail = (UserDetail) authService.loadUserByUsername(username);
         if (!passwordEncoder.matches(password, userDetail.getPassword())) {
-            throw new BadCredentialsException("invalid");
+            throw new BadCredentialsException("invalid PW");
         }
 
         return new UsernamePasswordAuthenticationToken(username, password, userDetail.getAuthorities());

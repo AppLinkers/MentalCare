@@ -32,11 +32,24 @@
     font-weight: 500;
 }
 
-.member__text h4 {
-    font-weight: 300;
+.member__detail {
+    display: flex;
+    align-items: center;
 }
 
-.member__text p {
+.member__detail h4 {
+    font-weight: 300;
+}
+.member__detail h4:nth-child(2) {
+    margin: 0 0.2rem;
+}
+
+.member__update {
+    display: flex;
+    align-items: center;
+}
+
+.member__update p {
     color: var(--color-gray);
 }
 
@@ -94,4 +107,15 @@
     border: 1px solid var(--color-primary);
     background: var(--color-primary);
     color: var(--color-white);
+}
+
+.submit__con {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 22rem 0 3rem 0;
+}
+
+.submit__con button {
+    width: 100%;
 }

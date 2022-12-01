@@ -139,8 +139,8 @@ public class DirectorTeamService {
     /**
      * 감독 정보 목록 -> 감독 권한 수정 정보 request
      */
-    public List<DirectorRoleUpdateReq> teamDirectorInfoListToDirectorRoleUpdateReqList(List<TeamDirectorInfoReadRes> teamDirectorInfoList) {
-        List<DirectorRoleUpdateReq> result = new ArrayList<>();
+    public DirectorRoleUpdateListReq teamDirectorInfoListToDirectorRoleUpdateReqList(List<TeamDirectorInfoReadRes> teamDirectorInfoList) {
+        DirectorRoleUpdateListReq result = new DirectorRoleUpdateListReq();
         for (TeamDirectorInfoReadRes teamDirectorInfoReadRes : teamDirectorInfoList) {
             result.add(
                     DirectorRoleUpdateReq.builder()
@@ -157,8 +157,8 @@ public class DirectorTeamService {
      * 감독 권한 변경
      */
     @Transactional
-    public void changeDirectorRoleList(List<DirectorRoleUpdateReq> directorRoleUpdateReqList) {
-        for (DirectorRoleUpdateReq directorRoleUpdateReq : directorRoleUpdateReqList) {
+    public void changeDirectorRoleList(DirectorRoleUpdateListReq directorRoleUpdateListReq) {
+        for (DirectorRoleUpdateReq directorRoleUpdateReq : directorRoleUpdateListReq.getDirectorRoleUpdateReqList()) {
             Director director = directorRepository.findById(directorRoleUpdateReq.getId()).get();
 
             director.getUser().setRole(directorRoleUpdateReq.getRole());
@@ -172,10 +172,13 @@ public class DirectorTeamService {
     public TeamPlayerDetailReadRes getTeamPlayerDetail(Long playerId) {
         Player player = playerRepository.findById(playerId).get();
         List<Answer> answerList = answerRepository.findAnswersByPlayerUserLoginIdOrderByUpdatedAt(player.getUser().getLogin_id());
-
+        List<Double> avgList = new ArrayList<>();
         LocalDate answerDate = null;
         if (!answerList.isEmpty()) {
             answerDate = answerList.get(0).getUpdatedAt().toLocalDate();
+            for(AnswerDiagnose diagnose : answerList.get(0).getAnswerDiagnoseList()){
+                avgList.add(diagnose.getAvg());
+            }
         }
 
 
@@ -186,6 +189,7 @@ public class DirectorTeamService {
                 .role(player.getUser().getRole())
                 .position(player.getPosition())
                 .age(player.getUser().getAge())
+                .avgList(avgList)
                 .answerDate(answerDate)
                 .build();
     }

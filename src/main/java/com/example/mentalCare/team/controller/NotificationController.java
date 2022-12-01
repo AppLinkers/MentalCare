@@ -7,6 +7,7 @@ import com.example.mentalCare.team.dto.TeamNotificationDetailRes;
 import com.example.mentalCare.team.dto.TeamNotificationInfoRes;
 import com.example.mentalCare.team.service.NotificationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +35,10 @@ public class NotificationController {
         List<TeamNotificationInfoRes> teamNotificationInfoResList = notificationService.getTeamNotificationInfoResListByTeamId(team.getId());
 
         model.addAttribute("teamNotificationList", teamNotificationInfoResList);
+
+        model.addAttribute("userTeam", user.getTeam().getName());
+
+        model.addAttribute("userRole", user.getRole().toString());
 
         return "team/noti_list";
     }

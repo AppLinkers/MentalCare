@@ -6,6 +6,7 @@ import lombok.Getter;
 import org.springframework.lang.Nullable;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Builder
@@ -22,6 +23,8 @@ public class TeamPlayerDetailReadRes {
     private String position;
 
     private Integer age;
+
+    private List<Double> avgList;
 
     @Nullable
     private LocalDate answerDate;

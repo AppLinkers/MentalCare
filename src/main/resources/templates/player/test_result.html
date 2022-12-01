@@ -68,12 +68,22 @@
                 var avgSet = new Array();
                 var data_bar = new Array();
                 var config_bar = new Array();
+                var doughnut_red = 0;
+                var doughnut_yellow = 0;
+                var doughnut_green = 0;
             </script>
             <canvas id="radar"></canvas>
             <div th:each="diagnose : ${testResult.diagnoseResultList}">
                 <script th:inline="javascript">
                     var title = [[${diagnose.title}]];
                     var avg = [[${diagnose.avg}]];
+                    if(avg>=4){
+                        doughnut_red+=10;
+                    }else if(avg>=3){
+                        doughnut_yellow+=10;
+                    }else{
+                        doughnut_green+=10;
+                    }
                     diagnosetitleSet.push(title);
                     avgSet.push(avg);
                 </script>
@@ -194,7 +204,7 @@
     const data = {
         datasets: [{
             label : '멘탈 상태',
-            data: [300,50,100],
+            data: [doughnut_green,doughnut_yellow,doughnut_red],
             backgroundColor: [
                 '#1DBA84',
                 '#EFB93A',
