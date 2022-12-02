@@ -30,8 +30,11 @@
         <div class="container profile-header">
             <div class="header-info">
                 <!-- 디데이-->
-<!--                <p>다음 경기까지<span> D</span><span th:text="${profile.nextMatchDDay}"></span></p>-->
-                <p>다음 경기까지<span th:text="'D ' + ${profile.nextMatchDDay}"></span></p>
+                <p>
+                    다음 경기까지
+                    <span th:if="${profile.nextMatchDDay.equals('')}" th:text="'일정을 설정해주세요'"></span>
+                    <span th:unless="${profile.nextMatchDDay.equals('')}" th:text="'D ' + ${profile.nextMatchDDay}"></span>
+                </p>
                 <!-- 이름과 역할 같이-->
                 <h3 th:text="${profile.name + ' 선수님 반갑습니다'}"></h3>
             </div>
