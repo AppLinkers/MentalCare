@@ -22,11 +22,11 @@
 <section id="login">
     <div class="container login__container">
         <div class="back">
-            <i class="uil uil-angle-left-b"></i>
+            <a href="javascript:history.back();"><i class="uil uil-angle-left-b"></i></a>
         </div>
         <div class="login__content">
 
-            <a th:href="@{/}"><h2>Mental Care</h2></a>
+            <a th:href="@{/}"><h2>MIND UP</h2></a>
 
             <form th:action="@{/login_proc}" th:method="post" th:object="${userLoginReq}">
                 <input type="text" class="btn btn-input" th:name = "username" placeholder="아이디">
@@ -35,8 +35,8 @@
             </form>
             <div class="line"></div>
             <div class="option">
-                <a><span>아이디 찾기</span></a>
-                <a><span>비밀번호 찾기</span></a>
+<!--                <a><span>아이디 찾기</span></a>-->
+<!--                <a><span>비밀번호 찾기</span></a>-->
                 <a th:href="@{/sign_up}"><span>회원가입</span></a>
             </div>
         </div>

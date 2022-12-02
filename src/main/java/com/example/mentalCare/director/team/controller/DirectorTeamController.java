@@ -36,17 +36,6 @@ public class DirectorTeamController {
         model.addAttribute("teamPlayerInfoList", directorTeamService.getTeamPlayerInfoList(teamId));
         model.addAttribute("directorRoleUpdateReqList", directorTeamService.teamDirectorInfoListToDirectorRoleUpdateReqList(teamDirectorInfoList));
 
-        DirectorRoleUpdateReqList directorRoleUpdateReqList = new DirectorRoleUpdateReqList();
-        List<DirectorRoleUpdateReq> list = new ArrayList<>();
-        for(TeamDirectorInfoReadRes teamDirector : teamDirectorInfoList){
-            DirectorRoleUpdateReq directorRoleUpdateReq = new DirectorRoleUpdateReq();
-            directorRoleUpdateReq.setRole(teamDirector.getRole());
-            directorRoleUpdateReq.setId(teamDirector.getId());
-            list.add(directorRoleUpdateReq);
-        }
-        directorRoleUpdateReqList.setDirectorRoleUpdateReqList(list);
-        model.addAttribute("directorRoleUpdateReqList", directorRoleUpdateReqList);
-
 
         return "director/team_info";
     }

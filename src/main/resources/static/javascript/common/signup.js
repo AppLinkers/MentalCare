@@ -29,3 +29,24 @@ dir.addEventListener("click", () => {
     form_pro.classList.remove("active");
     form_dir.classList.add("active");
 })
+
+const password = document.getElementById('password');
+const re_password = document.getElementById('re-password');
+const dir_password = document.getElementById('password-dir');
+const dir_re_password = document.getElementById('re-password-dir');
+
+function passwordCheck(){
+    if(password.value == re_password.value){
+        re_password.setCustomValidity('');
+    }else{
+        re_password.setCustomValidity("비밀번호를 확인해주세요.");
+    }
+}
+
+function passwordDirCheck(){
+    if(dir_password.value == dir_re_password.value){
+        dir_re_password.setCustomValidity('');
+    }else{
+        dir_re_password.setCustomValidity("비밀번호를 확인해주세요.");
+    }
+}

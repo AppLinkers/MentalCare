@@ -77,13 +77,6 @@
                 <script th:inline="javascript">
                     var title = [[${diagnose.title}]];
                     var avg = [[${diagnose.avg}]];
-                    if(avg>=4){
-                        doughnut_red+=10;
-                    }else if(avg>=3){
-                        doughnut_yellow+=10;
-                    }else{
-                        doughnut_green+=10;
-                    }
                     diagnosetitleSet.push(title);
                     avgSet.push(avg);
                 </script>
