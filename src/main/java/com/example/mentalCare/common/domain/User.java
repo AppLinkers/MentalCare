@@ -31,6 +31,8 @@ public class User {
 
     private Integer age;
 
+    private Boolean privacyPolicy;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 

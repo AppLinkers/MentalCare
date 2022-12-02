@@ -115,6 +115,7 @@ public class AuthService implements UserDetailsService {
                 .imgUrl("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png")
                 .team(team)
                 .age(request.getAge())
+                .privacyPolicy(request.getPrivacyPolicy())
                 .role(role)
                 .build();
     }

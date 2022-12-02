@@ -17,4 +17,6 @@ public class SignUpUserReq {
 
     private Integer age;
 
+    private Boolean privacyPolicy;
+
 }
