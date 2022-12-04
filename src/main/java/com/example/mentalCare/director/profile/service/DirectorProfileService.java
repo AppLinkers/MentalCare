@@ -68,8 +68,7 @@ public class DirectorProfileService {
 
         director.getUser().setTeam(team);
         // 이미지 설정
-        if (request.getImgFile() != null) {
-            System.out.println(request.getImgFile());
+        if (!request.getImgFile().isEmpty()) {
             String imgUrl = s3Service.upload(request.getImgFile(), "mental_care/director/profile");
             director.getUser().setImgUrl(imgUrl);
         }
