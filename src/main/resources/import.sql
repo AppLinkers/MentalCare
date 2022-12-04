@@ -7,16 +7,16 @@ insert into TEAM(`name`, `code`) values('경북 FC', 'GB');
 insert into TEAM(`name`, `code`) values('전북 FC', 'JB');
 insert into TEAM(`name`, `code`) values('전남 FC', 'JN');
 
-insert into _USER(`login_id`, `login_pw`, `name`, `imgUrl`, `team_id`, `role`,`age`) values('player','{bcrypt}$2a$10$d3QK7jlUd8NI6EdHmILzfejSoF.XSlmT/eRdb9zaXuM8YuWmTdzSO','test_player', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png', 1,'PLAYER',25);
+insert into USERS(`login_id`, `login_pw`, `name`, `imgUrl`, `team_id`, `role`,`age`) values('player','{bcrypt}$2a$10$d3QK7jlUd8NI6EdHmILzfejSoF.XSlmT/eRdb9zaXuM8YuWmTdzSO','test_player', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png', 1,'PLAYER',25);
 insert into Player(`position`,`user_id`) values('FW',1);
 
-insert into _USER(`login_id`, `login_pw`, `name`, `imgUrl`, `team_id`, `role`,`age`) values('director','{bcrypt}$2a$10$d3QK7jlUd8NI6EdHmILzfejSoF.XSlmT/eRdb9zaXuM8YuWmTdzSO','test_director', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png', 1,'DIRECTOR',25);
+insert into USERS(`login_id`, `login_pw`, `name`, `imgUrl`, `team_id`, `role`,`age`) values('director','{bcrypt}$2a$10$d3QK7jlUd8NI6EdHmILzfejSoF.XSlmT/eRdb9zaXuM8YuWmTdzSO','test_director', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png', 1,'DIRECTOR',25);
 insert into Director(`user_id`) values(2);
 
-insert into _USER(`login_id`, `login_pw`, `name`, `imgUrl`, `team_id`, `role`,`age`) values('player_pending','{bcrypt}$2a$10$d3QK7jlUd8NI6EdHmILzfejSoF.XSlmT/eRdb9zaXuM8YuWmTdzSO','test_player_pending', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png', 1,'PENDING',25);
+insert into USERS(`login_id`, `login_pw`, `name`, `imgUrl`, `team_id`, `role`,`age`) values('player_pending','{bcrypt}$2a$10$d3QK7jlUd8NI6EdHmILzfejSoF.XSlmT/eRdb9zaXuM8YuWmTdzSO','test_player_pending', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png', 1,'PENDING',25);
 insert into Player(`position`,`user_id`) values('FW',3);
 
-insert into _USER(`login_id`, `login_pw`, `name`, `imgUrl`, `team_id`, `role`,`age`) values('director_pending','{bcrypt}$2a$10$d3QK7jlUd8NI6EdHmILzfejSoF.XSlmT/eRdb9zaXuM8YuWmTdzSO','test_director_pending', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png', 1,'PENDING',25);
+insert into USERS(`login_id`, `login_pw`, `name`, `imgUrl`, `team_id`, `role`,`age`) values('director_pending','{bcrypt}$2a$10$d3QK7jlUd8NI6EdHmILzfejSoF.XSlmT/eRdb9zaXuM8YuWmTdzSO','test_director_pending', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png', 1,'PENDING',25);
 insert into Director(`user_id`) values(4);
 
 insert into Diagnose(`title`, `iconUrl`, `deleted`) values('경기력', 'https://mblockimg.s3.ap-northeast-2.amazonaws.com/mental_care/test/type/type_1.png', 'N');

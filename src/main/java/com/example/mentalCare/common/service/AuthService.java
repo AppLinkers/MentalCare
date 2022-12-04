@@ -61,7 +61,7 @@ public class AuthService implements UserDetailsService {
     public void signUp(SignUpPlayerReq request) {
         validateDuplicated(request.getLogin_id());
 
-        User user = userSignUpReqToUser(request, Role.PENDING);
+        User user = userSignUpReqToUser(request);
         user.setLogin_pw(passwordEncoder.encode(user.getLogin_pw()));
 
         User savedUser = userRepository.save(user);
@@ -82,7 +82,7 @@ public class AuthService implements UserDetailsService {
     public void signUp(SignUpDirectorReq request) {
         validateDuplicated(request.getLogin_id());
 
-        User user = userSignUpReqToUser(request, Role.PENDING);
+        User user = userSignUpReqToUser(request);
         user.setLogin_pw(passwordEncoder.encode(user.getLogin_pw()));
 
         User savedUser = userRepository.save(user);
@@ -106,7 +106,7 @@ public class AuthService implements UserDetailsService {
         );
     }
 
-    public User userSignUpReqToUser(SignUpUserReq request, Role role) {
+    public User userSignUpReqToUser(SignUpUserReq request) {
         Team team = teamRepository.findTeamByCode(request.getTeamCode()).get();
         return User.builder()
                 .login_id(request.getLogin_id())
@@ -116,7 +116,7 @@ public class AuthService implements UserDetailsService {
                 .team(team)
                 .age(request.getAge())
                 .privacyPolicy(request.getPrivacyPolicy())
-                .role(role)
+                .role(Role.PENDING)
                 .build();
     }
 
