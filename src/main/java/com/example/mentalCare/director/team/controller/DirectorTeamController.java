@@ -3,15 +3,12 @@ package com.example.mentalCare.director.team.controller;
 import com.example.mentalCare.common.repository.UserRepository;
 import com.example.mentalCare.director.team.dto.*;
 import com.example.mentalCare.director.team.service.DirectorTeamService;
-import com.example.mentalCare.player.test.dto.DiagnoseReadRes;
-import com.example.mentalCare.player.test.dto.DiagnoseWriteReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -35,7 +32,6 @@ public class DirectorTeamController {
         model.addAttribute("teamDirectorInfoList", teamDirectorInfoList);
         model.addAttribute("teamPlayerInfoList", directorTeamService.getTeamPlayerInfoList(teamId));
         model.addAttribute("directorRoleUpdateReqList", directorTeamService.teamDirectorInfoListToDirectorRoleUpdateReqList(teamDirectorInfoList));
-
 
         return "director/team_info";
     }

@@ -20,6 +20,5 @@ public class PlayerProfileUpdateReq {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate nextMatchDate;
 
-    @Nullable
     private MultipartFile imgFile;
 }
