@@ -1,9 +1,6 @@
 package com.example.mentalCare.player.test.controller;
 
-import com.example.mentalCare.player.test.dto.AnswerWriteReq;
-import com.example.mentalCare.player.test.dto.DiagnoseReadRes;
-import com.example.mentalCare.player.test.dto.DiagnoseWriteReq;
-import com.example.mentalCare.player.test.dto.TypeDiagnoseReadRes;
+import com.example.mentalCare.player.test.dto.*;
 import com.example.mentalCare.player.test.service.PlayerTestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,7 +25,9 @@ public class TestController {
      * Test Page
      */
     @GetMapping("")
-    public String testPage() {
+    public String testPage(Model model) {
+        String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("isLastExist",playerTestService.isLastAnswerExist(userLoginId));
         return "player/test";
     }
 
@@ -97,7 +96,6 @@ public class TestController {
     @PostMapping("/type")
     public String testTypeSubmit(DiagnoseWriteReq diagnoseWriteReq) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
-        System.out.println(diagnoseWriteReq.getId()+"::test ::" +diagnoseWriteReq.getQuestionWriteReqList().get(0).getId()+":: test");
         playerTestService.submitTestType(userLoginId, diagnoseWriteReq);
 
         return "redirect:/player/test/result";

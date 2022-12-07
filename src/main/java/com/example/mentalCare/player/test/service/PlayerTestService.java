@@ -145,6 +145,15 @@ public class PlayerTestService {
 
     }
 
+    public Boolean isLastAnswerExist(String userLoginId){
+        List<Answer> answerList = answerRepository.findAnswersByPlayerUserLoginIdOrderByUpdatedAt(userLoginId);
+        if(answerList.isEmpty()){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     /**
      * 유형진단 답변 제출
      * 최근 Answer 에 덮어 씌우기
