@@ -32,11 +32,11 @@
     <div class="container member__con">
         <div class="member__info">
             <div class="member__img">
-                <img src="/images/example/son.png">
+                <img th:src="${player.imgUrl}">
             </div>
             <div class="member__text">
                 <div class="member__name">
-                    <h3 th:text="${player.name}">손흥민</h3>
+                    <h3 th:text="${player.name}">테스트이름</h3>
                     <div class="type">
                         <h4>선수</h4>
                     </div>
@@ -77,6 +77,13 @@
                 <script th:inline="javascript">
                     var title = [[${diagnose.title}]];
                     var avg = [[${diagnose.avg}]];
+                    if(avg>=4){
+                        doughnut_red+=10;
+                    }else if(avg>=3){
+                        doughnut_yellow+=10;
+                    }else{
+                        doughnut_green+=10;
+                    }
                     diagnosetitleSet.push(title);
                     avgSet.push(avg);
                 </script>
