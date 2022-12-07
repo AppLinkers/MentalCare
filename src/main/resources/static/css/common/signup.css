@@ -1,10 +1,21 @@
 body {
     background: var(--color-light);
 }
+
+.back {
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    font-size: 2rem;
+}
+
 h2 {
     text-align: center;
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
 }
 .signup__content {
     display: flex;
@@ -18,11 +29,23 @@ label {
     font-weight: 600;
 }
 .signup__content .form-group {
-    margin-top: 1.2rem;
+    margin-top: 1.5rem;
 }
 .signup__content input{
     width: 100%;
     margin-top: 0.5rem;
+}
+
+.form-privacy {
+    display: flex;
+    align-items: center;
+    margin-top: 2.5rem;
+}
+.form-privacy input {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-top: 0;
+    margin-right: 0.5rem;
 }
 /*========== ROLE SELECT ============*/
 .select-menu {

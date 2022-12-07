@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mental Care</title>
+    <title>Mind Up</title>
 
     <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,14 +31,19 @@
             <h2>검사하기</h2>
             <h3>데이터로 내 상태 체크</h3>
         </div>
+
         <div class="test__main">
+
             <div class="test__card">
                 <div class="card__text">
                     <h3>한번에 체크하기</h3>
                     <h2>통합 검사</h2>
                 </div>
-                <a th:href="@{/player/test/all}"><button class="btn btn-white">시작하기</button></a>
+                <a th:href="@{/player/test/all}">
+                    <button class="btn btn-white">시작하기</button>
+                </a>
             </div>
+
             <div class="test__card">
                 <div class="card__text">
                     <h3>항목별 체크하기</h3>
@@ -46,7 +51,9 @@
                 </div>
                 <a th:if="${isLastExist == true}" th:href="@{/player/test/type_select}"><button class="btn btn-white">시작하기</button></a>
                 <a th:unless="${isLastExist == true}"><button class="btn btn-white" onclick="alert('통합검사를 먼저 진행해주세요.')">시작하기</button></a>
+
             </div>
+
         </div>
     </div>
 </section>

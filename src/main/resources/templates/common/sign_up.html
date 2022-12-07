@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mental Care</title>
+    <title>Mind Up</title>
 
     <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,9 +70,9 @@
                     <label for="re-password">비밀번호 확인</label>
                     <input id="re-password" type="password" class="btn btn-input" onkeyup="passwordCheck()" placeholder="비밀번호를 다시 입력하세요">
                 </div>
-                <div class="form-group">
-                    <label for="privacyPolicy">개인정보수집동의</label>
+                <div class="form-privacy">
                     <input type="checkbox" id="privacyPolicy" th:field="*{privacyPolicy}" required>
+                    <label for="privacyPolicy">개인정보 수집 및 동의</label>
                 </div>
                 <button class="btn" id="signUpBtn">가입하기</button>
             </form>
@@ -102,10 +102,12 @@
                     <label for="re-password-dir">비밀번호 확인</label>
                     <input id="re-password-dir" type="password" class="btn btn-input" onkeyup="passwordDirCheck()" placeholder="비밀번호를 다시 입력하세요" >
                 </div>
-                <div class="form-group">
-                    <p>개인정보수집동의</p>
+
+                <div class="form-privacy">
                     <input type="checkbox" id="privacyPolicy" th:field="*{privacyPolicy}" required>
+                    <label for="privacyPolicy">개인정보 수집 및 동의</label>
                 </div>
+
                 <button class="btn" id="signUpBtn">가입하기</button>
             </form>
 

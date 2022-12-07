@@ -44,4 +44,5 @@
 .option span {
     cursor: pointer;
     color: var(--color-gray);
+    padding: 2rem 3rem;
 }
