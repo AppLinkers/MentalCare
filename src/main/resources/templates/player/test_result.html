@@ -35,20 +35,26 @@
                 <img th:src="${player.imgUrl}">
             </div>
             <div class="member__text">
+
                 <div class="member__name">
-                    <h3 th:text="${player.name}">테스트이름</h3>
+                    <h3 th:text="${player.name}"></h3>
                     <div class="type">
                         <h4>선수</h4>
                     </div>
                 </div>
-                <h4 th:text="${player.position} + ', ' +  ${player.age}">FW, 30살</h4>
-                최근 업데이트 :<p th:text="${#temporals.format(testResult.date, 'yyyy. MM. dd')}">2022.09.26</p>
-                <table>
-                    <tr>
-                        <td>총 평균 : </td>
-                        <td><p style="margin-left: 5px"  th:text="${#numbers.formatDecimal(testResult.avg, 1, 2)}"></p></td>
-                    </tr>
-                </table>
+
+                <h4 th:text="${player.position} + ', ' +  ${player.age}"></h4>
+
+                <div class="member__data">
+                    <h4>최근 업데이트 :</h4>
+                    <p th:text="${#temporals.format(testResult.date, 'yyyy. MM. dd')}" style="margin-left: 5px"></p>
+                </div>
+
+                <div class="member__data">
+                    <h4>총 평균 :</h4>
+                    <p th:text="${#numbers.formatDecimal(testResult.avg, 1, 2)}" style="margin-left: 5px"></p>
+                </div>
+
             </div>
         </div>
         <div class="member__chart">
@@ -250,13 +256,19 @@
         options: {
             element: {
                 line: {
-                    borderWidth: 3
+                    borderWidth: 5
                 }
             },
             scales: {
                 r: {
                     suggestedMin: 0,
-                    suggestedMax: 5
+                    suggestedMax: 5,
+                    pointLabels: {
+                        font: {
+                            size: 17,
+                            weight: 700
+                        },
+                    }
                 }
             }
         }
