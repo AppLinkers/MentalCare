@@ -11,15 +11,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class PageController {
 
+    /**
+     * 메인 페이지
+     */
     @GetMapping("/")
     public String index(){
         return "common/main";
     }
 
+    /**
+     * 네비게이션 바 페이지
+     */
     @GetMapping("/nav")
-    public String callNav(Model model){
+    public String callNav(Model model) {
         String authority = "";
-        for (GrantedAuthority grantedAuthority : SecurityContextHolder.getContext().getAuthentication().getAuthorities() ) {
+        for (GrantedAuthority grantedAuthority : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
             authority = grantedAuthority.getAuthority();
         }
 

@@ -1,7 +1,8 @@
 package com.example.mentalCare.director.profile.service;
 
+import com.example.mentalCare.common.domain.User;
+import com.example.mentalCare.common.repository.UserRepository;
 import com.example.mentalCare.common.service.S3Service;
-import com.example.mentalCare.director.profile.domain.Director;
 import com.example.mentalCare.director.profile.dto.DirectorProfileReadRes;
 import com.example.mentalCare.director.profile.dto.DirectorProfileUpdateReq;
 import com.example.mentalCare.director.profile.dto.DirectorProfileUpdateRes;
@@ -19,58 +20,57 @@ import java.io.IOException;
 public class DirectorProfileService {
 
     private final DirectorRepository directorRepository;
+    private final UserRepository userRepository;
     private final TeamRepository teamRepository;
 
     private final S3Service s3Service;
 
     /**
-     * 선수 프로필 조회 페이지
+     * 감독 프로필 조회 페이지
      */
     @Transactional(readOnly = true)
     public DirectorProfileReadRes getProfileRead(String userLoginId) {
-        Director director = directorRepository.findDirectorByUserLogin_id(userLoginId);
+        User user = userRepository.findUserByLoginId(userLoginId).get();
 
         return DirectorProfileReadRes.builder()
-                .id(director.getUser().getId())
-                .name(director.getUser().getName())
-                .imgUrl(director.getUser().getImgUrl())
-                .role(director.getUser().getRole())
-                .teamName(director.getUser().getTeam().getName())
+                .id(user.getId())
+                .name(user.getName())
+                .imgUrl(user.getImgUrl())
+                .role(user.getRole())
+                .teamName(user.getTeam().getName())
                 .build();
     }
 
     /**
-     * 선수 프로필 설정 페이지
+     * 감독 프로필 설정 페이지
      */
     @Transactional(readOnly = true)
     public DirectorProfileUpdateRes getProfileUpdate(String userLoginId) {
-
-        Director director = directorRepository.findDirectorByUserLogin_id(userLoginId);
+        User user = userRepository.findUserByLoginId(userLoginId).get();
 
         return DirectorProfileUpdateRes.builder()
-                .id(director.getUser().getId())
-                .name(director.getUser().getName())
-                .imgUrl(director.getUser().getImgUrl())
-                .role(director.getUser().getRole())
-                .teamCode(director.getUser().getTeam().getCode())
+                .id(user.getId())
+                .name(user.getName())
+                .imgUrl(user.getImgUrl())
+                .role(user.getRole())
+                .teamCode(user.getTeam().getCode())
                 .build();
     }
 
     /**
-     * 선수 프로필 설정 서비스
+     * 감독 프로필 설정 서비스
      */
     @Transactional
     public void UpdateProfile(String userLoginId, DirectorProfileUpdateReq request) throws IOException {
-
-        Director director = directorRepository.findDirectorByUserLogin_id(userLoginId);
+        User user = userRepository.findUserByLoginId(userLoginId).get();
 
         Team team = teamRepository.findTeamByCode(request.getTeamCode()).get();
 
-        director.getUser().setTeam(team);
+        user.setTeam(team);
         // 이미지 설정
         if (!request.getImgFile().isEmpty()) {
             String imgUrl = s3Service.upload(request.getImgFile(), "mental_care/director/profile");
-            director.getUser().setImgUrl(imgUrl);
+            user.setImgUrl(imgUrl);
         }
     }
 

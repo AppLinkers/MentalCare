@@ -2,17 +2,17 @@ package com.example.mentalCare.common.service;
 
 import com.example.mentalCare.common.domain.User;
 import com.example.mentalCare.common.domain.UserDetail;
+import com.example.mentalCare.common.domain.type.Role;
 import com.example.mentalCare.common.dto.SignUpDirectorReq;
 import com.example.mentalCare.common.dto.SignUpPlayerReq;
 import com.example.mentalCare.common.dto.SignUpUserReq;
-import com.example.mentalCare.director.profile.domain.Director;
-import com.example.mentalCare.player.profile.domain.Player;
-import com.example.mentalCare.team.domain.Team;
-import com.example.mentalCare.common.domain.type.Role;
-import com.example.mentalCare.director.profile.repository.DirectorRepository;
-import com.example.mentalCare.player.profile.repository.PlayerRepository;
-import com.example.mentalCare.team.repository.TeamRepository;
 import com.example.mentalCare.common.repository.UserRepository;
+import com.example.mentalCare.director.profile.domain.Director;
+import com.example.mentalCare.director.profile.repository.DirectorRepository;
+import com.example.mentalCare.player.profile.domain.Player;
+import com.example.mentalCare.player.profile.repository.PlayerRepository;
+import com.example.mentalCare.team.domain.Team;
+import com.example.mentalCare.team.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -55,7 +55,7 @@ public class AuthService implements UserDetailsService {
     }
 
     /**
-     * 선수 회원가입
+     * 선수 회원가입 서비스
      */
     @Transactional
     public void signUp(SignUpPlayerReq request) {
@@ -64,19 +64,18 @@ public class AuthService implements UserDetailsService {
         User user = userSignUpReqToUser(request);
         user.setLogin_pw(passwordEncoder.encode(user.getLogin_pw()));
 
-        User savedUser = userRepository.save(user);
-
         Player player = Player.builder()
-                .user(savedUser)
+                .user(user)
                 .position(request.getPosition())
                 .build();
 
+        userRepository.save(user);
         playerRepository.save(player);
 
     }
 
     /**
-     * 감독 회원가입
+     * 감독 회원가입 서비스
      */
     @Transactional
     public void signUp(SignUpDirectorReq request) {
@@ -85,12 +84,11 @@ public class AuthService implements UserDetailsService {
         User user = userSignUpReqToUser(request);
         user.setLogin_pw(passwordEncoder.encode(user.getLogin_pw()));
 
-        User savedUser = userRepository.save(user);
-
         Director director = Director.builder()
-                .user(savedUser)
+                .user(user)
                 .build();
 
+        userRepository.save(user);
         directorRepository.save(director);
 
     }
@@ -106,13 +104,16 @@ public class AuthService implements UserDetailsService {
         );
     }
 
+    /**
+     * UserSignUpReq -> User
+     */
     public User userSignUpReqToUser(SignUpUserReq request) {
         Team team = teamRepository.findTeamByCode(request.getTeamCode()).get();
         return User.builder()
                 .login_id(request.getLogin_id())
                 .login_pw(request.getLogin_pw())
                 .name(request.getName())
-                .imgUrl("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png")
+                .imgUrl("https://mblockimg.s3.ap-northeast-2.amazonaws.com/mental_care/profile.png")
                 .team(team)
                 .age(request.getAge())
                 .privacyPolicy(request.getPrivacyPolicy())

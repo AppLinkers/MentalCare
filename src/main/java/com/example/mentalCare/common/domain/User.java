@@ -1,5 +1,6 @@
 package com.example.mentalCare.common.domain;
 
+import com.example.mentalCare.common.converter.BooleanToYNConverter;
 import com.example.mentalCare.team.domain.Team;
 import com.example.mentalCare.common.domain.type.Role;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String login_id;
 
     private String login_pw;
@@ -31,6 +33,7 @@ public class User {
 
     private Integer age;
 
+    @Convert(converter = BooleanToYNConverter.class)
     private Boolean privacyPolicy;
 
     @Enumerated(EnumType.STRING)

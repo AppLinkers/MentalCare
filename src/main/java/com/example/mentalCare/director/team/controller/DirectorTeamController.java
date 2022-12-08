@@ -20,7 +20,7 @@ public class DirectorTeamController {
     private final DirectorTeamService directorTeamService;
 
     /**
-     * Team Info And Member Page
+     * 팀 정보 페이지
      */
     @GetMapping("/team")
     public String teamInfoPage(Model model) {
@@ -37,7 +37,7 @@ public class DirectorTeamController {
     }
 
     /**
-     * Change Director Role List Service
+     * 감독 권한 변경 서비스
      */
     @PutMapping("/director_role")
     public String changeDirectorRoleList(DirectorRoleUpdateListReq directorRoleUpdateReqList) {
@@ -47,7 +47,7 @@ public class DirectorTeamController {
     }
 
     /**
-     * Team Player Info Page
+     * 선수 상세 정보 페이지
      */
     @GetMapping("/player/{id}")
     public String teamPlayerPage(Model model, @PathVariable Long id) {
@@ -62,7 +62,7 @@ public class DirectorTeamController {
     }
 
     /**
-     * Change Player Role Service
+     * 선수 포지션 및 권한 변경 서비스
      */
     @PutMapping("/player")
     public String changePlayerInfo(PlayerInfoUpdateReq playerInfoUpdateReq) {
@@ -71,7 +71,7 @@ public class DirectorTeamController {
     }
 
     /**
-     * Notification Write Page
+     * 공지사항 작성 페이지
      */
     @GetMapping("/noti")
     public String notificationWritePage(Model model) {
@@ -82,7 +82,7 @@ public class DirectorTeamController {
     }
 
     /**
-     * Notification Write Service
+     * 공지사항 작성 서비스
      */
     @PostMapping("/noti")
     public String notificationWrite(TeamNotificationWriteReq teamNotificationWriteReq) {

@@ -22,7 +22,7 @@ public class TestController {
     private final PlayerTestService playerTestService;
 
     /**
-     * Test Page
+     * 테스트 선택 페이지
      */
     @GetMapping("")
     public String testPage(Model model) {
@@ -32,7 +32,7 @@ public class TestController {
     }
 
     /**
-     * Test All Page
+     * 통합 테스트 페이지
      */
     @GetMapping("/all")
     public String testAllPage(Model model) {
@@ -54,7 +54,7 @@ public class TestController {
     }
 
     /**
-     * Test All Submit Service
+     * 통합 테스트 답변 제출 서비스
      */
     @PostMapping("/all")
     public String testAllSubmit(AnswerWriteReq answerWriteReq) {
@@ -66,7 +66,7 @@ public class TestController {
     }
 
     /**
-     * Test Type Select Page
+     * 유형 테스트 - 유형 선택 페이지
      */
     @GetMapping("/type_select")
     public String testTypeSelectPage(Model model) {
@@ -77,7 +77,7 @@ public class TestController {
     }
 
     /**
-     * Test Type Page
+     * 유형 테스트 페이지
      */
     @GetMapping("/type/{id}")
     public String testTypePage(Model model, @PathVariable Long id) {
@@ -91,7 +91,7 @@ public class TestController {
     }
 
     /**
-     * Test Type Submit Service
+     * 유형 테스트 답변 제출 서비스
      */
     @PostMapping("/type")
     public String testTypeSubmit(DiagnoseWriteReq diagnoseWriteReq) {
@@ -102,7 +102,7 @@ public class TestController {
     }
 
     /**
-     * Test Result List Page
+     * 테스트 결과 목록 페이지
      */
     @GetMapping("/result")
     public String testResultListPage(Model model) {
@@ -113,7 +113,7 @@ public class TestController {
     }
 
     /**
-     * Test Result Page
+     * 테스트 결과 상세 페이지
      */
     @GetMapping("/result/{id}")
     public String testResultPage(Model model, @PathVariable Long id) {
