@@ -1,5 +1,6 @@
 package com.example.mentalCare.player.test.service;
 
+import com.example.mentalCare.common.repository.UserRepository;
 import com.example.mentalCare.player.profile.domain.Player;
 import com.example.mentalCare.player.profile.repository.PlayerRepository;
 import com.example.mentalCare.player.test.domain.*;
@@ -23,6 +24,7 @@ public class PlayerTestService {
     private final DiagnoseRepository diagnoseRepository;
     private final QuestionRepository questionRepository;
     private final PlayerRepository playerRepository;
+    private final UserRepository userRepository;
 
     /**
      * 통합진단 질문 리스트 추출
@@ -125,7 +127,7 @@ public class PlayerTestService {
     @Transactional(readOnly = true)
     public TypeDiagnoseReadRes getTestTypeDiagnoseRead(Long diagnoseId) {
 
-        Diagnose diagnose = diagnoseRepository.findByIdAndAndDeletedFalse(diagnoseId);
+        Diagnose diagnose = diagnoseRepository.findById(diagnoseId).get();
         List<Question> questionList = questionRepository.findAllByDiagnoseIdAndDeletedFalse(diagnoseId);
 
         List<QuestionReadRes> questionReadResList = new ArrayList<>();
@@ -146,12 +148,9 @@ public class PlayerTestService {
     }
 
     public Boolean isLastAnswerExist(String userLoginId){
-        List<Answer> answerList = answerRepository.findAnswersByPlayerUserLoginIdOrderByUpdatedAt(userLoginId);
-        if(answerList.isEmpty()){
-            return false;
-        }else{
-            return true;
-        }
+        Long userId = userRepository.findUserIdByLoginId(userLoginId);
+        return answerRepository.existsByPlayer_UserId(userId);
+
     }
 
     /**
@@ -160,31 +159,25 @@ public class PlayerTestService {
      */
     @Transactional
     public void submitTestType(String userLoginId, DiagnoseWriteReq diagnoseWriteReq) {
-        List<Answer> answerList = answerRepository.findAnswersByPlayerUserLoginIdOrderByUpdatedAt(userLoginId);
+        Long userId = userRepository.findUserIdByLoginId(userLoginId);
+        Answer answer = answerRepository.getFirstByPlayerUserIdOrderByUpdatedAtDesc(userId);
 
-        if (answerList.isEmpty()) {
-            // 이전 답변이 없다면,
-            List<DiagnoseWriteReq> diagnoseWriteReqList = List.of(diagnoseWriteReq);
-            submitTestAll(userLoginId, diagnoseWriteReqList);
-        } else {
-            // 최근 답변에 덮어씌우기
-            Answer answer = answerList.get(0);
-            answer.setUpdatedAt(LocalDateTime.now());
+        answer.setUpdatedAt(LocalDateTime.now());
 
-            AnswerDiagnose answerDiagnose = answer.findAnswerDiagnoseByDiagnoseId(diagnoseWriteReq.getId());
-            answerDiagnose.setUpdatedAt(LocalDateTime.now());
+        AnswerDiagnose answerDiagnose = answer.findAnswerDiagnoseByDiagnoseId(diagnoseWriteReq.getId());
+        answerDiagnose.setUpdatedAt(LocalDateTime.now());
 
-            List<QuestionWriteReq> questionWriteReqList = diagnoseWriteReq.getQuestionWriteReqList();
-            List<AnswerDetail> answerDetailList = answerDiagnose.getAnswerDetailList();
+        List<QuestionWriteReq> questionWriteReqList = diagnoseWriteReq.getQuestionWriteReqList();
+        List<AnswerDetail> answerDetailList = answerDiagnose.getAnswerDetailList();
 
-            for (AnswerDetail answerDetail : answerDetailList) {
-                for (QuestionWriteReq questionWriteReq : questionWriteReqList) {
-                    if (answerDetail.getQuestion().getId().equals(questionWriteReq.getId())) {
-                        answerDetail.setAnswer(questionWriteReq.getAnswer());
-                    }
+        for (AnswerDetail answerDetail : answerDetailList) {
+            for (QuestionWriteReq questionWriteReq : questionWriteReqList) {
+                if (answerDetail.getQuestion().getId().equals(questionWriteReq.getId())) {
+                    answerDetail.setAnswer(questionWriteReq.getAnswer());
                 }
             }
         }
+
 
     }
 
@@ -193,7 +186,8 @@ public class PlayerTestService {
      */
     @Transactional(readOnly = true)
     public List<TestResultInfoReadRes> getAllTestResultByUserLoginId(String userLoginId) {
-        List<Answer> answerList = answerRepository.findAnswersByPlayerUserLoginIdOrderByUpdatedAt(userLoginId);
+        Long userId = userRepository.findUserIdByLoginId(userLoginId);
+        List<Answer> answerList = answerRepository.findAnswersByPlayerUserIdOrderByUpdatedAt(userId);
 
         List<TestResultInfoReadRes> result = new ArrayList<>();
         answerList.forEach(

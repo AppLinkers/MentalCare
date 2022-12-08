@@ -30,11 +30,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations())
-                .antMatchers("/resources/**", "/error");
+                .antMatchers("/resources/**");
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(formAuthenticationProvider);
     }
 

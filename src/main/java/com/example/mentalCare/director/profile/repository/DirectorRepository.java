@@ -1,6 +1,9 @@
 package com.example.mentalCare.director.profile.repository;
 
 import com.example.mentalCare.director.profile.domain.Director;
+import com.example.mentalCare.director.profile.dto.DirectorProfileReadRes;
+import com.example.mentalCare.director.profile.dto.DirectorProfileUpdateRes;
+import com.example.mentalCare.director.team.dto.DirectorRoleUpdateReq;
 import com.example.mentalCare.player.profile.domain.Player;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

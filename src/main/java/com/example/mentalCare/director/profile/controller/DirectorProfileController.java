@@ -7,7 +7,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,7 +20,7 @@ public class DirectorProfileController {
     private final DirectorProfileService directorProfileService;
 
     /**
-     * Profile Page
+     * 감독 프로필 조회 페이지
      */
     @GetMapping("")
     public String profilePage(Model model) {
@@ -33,7 +32,7 @@ public class DirectorProfileController {
     }
 
     /**
-     * Profile Setting Page
+     * 감독 프로필 설정 페이지
      */
     @GetMapping("/setting")
     public String profileSettingPage(Model model) {
@@ -47,7 +46,7 @@ public class DirectorProfileController {
     }
 
     /**
-     * Profile Setting Service
+     * 감독 프로필 설정 서비스
      */
     @PutMapping("/setting")
     public String profileSettingService(DirectorProfileUpdateReq directorProfileUpdateReq) throws IOException {

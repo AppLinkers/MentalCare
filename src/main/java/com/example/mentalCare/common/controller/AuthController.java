@@ -24,7 +24,7 @@ public class AuthController {
     private final AuthService authService;
 
     /**
-     * Login Page
+     * 로그인 페이지
      */
     @GetMapping("/login")
     public String loginPage(Model model) {
@@ -34,7 +34,7 @@ public class AuthController {
     }
 
     /**
-     * Logout Service
+     * 로그아웃 서비스
      */
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
@@ -48,7 +48,7 @@ public class AuthController {
     }
 
     /**
-     * SignUp Page
+     * 회원가입 페이지
      */
     @GetMapping("/sign_up")
     public String signUpPage(Model model) {
@@ -58,7 +58,7 @@ public class AuthController {
         return "common/sign_up";
     }
     /**
-     * Player SignUp Service
+     * 선수 회원가입 서비스
      */
     @PostMapping("/sign_up/player")
     public String playerSignUp(SignUpPlayerReq request) {
@@ -67,7 +67,7 @@ public class AuthController {
     }
 
     /**
-     * Director SignUp Service
+     * 감독 회원가입 서비스
      */
     @PostMapping("/sign_up/director")
     public String directorSignUp(SignUpDirectorReq request) {

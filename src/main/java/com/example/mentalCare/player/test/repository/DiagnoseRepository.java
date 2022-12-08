@@ -10,6 +10,4 @@ public interface DiagnoseRepository extends JpaRepository<Diagnose, Long> {
 
     List<Diagnose> findAllByDeletedFalse();
 
-    @Query("select d from Diagnose d where d.id = :diagnoseId and d.deleted = false")
-    Diagnose findByIdAndAndDeletedFalse(Long diagnoseId);
 }

@@ -12,9 +12,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select u from User u where u.login_id = :loginId")
     Optional<User> findUserByLoginId(String loginId);
 
-    @Query("select u from User u where u.team.id = :teamId and (u.role = 'PLAYER' or u.role = 'PENDING') ")
-    List<User> findPlayerOrPendingUserByTeamId(Long teamId);
-
-    @Query("select u.login_id from User u where u.team.id = :teamId and u.role = 'PLAYER'")
-    List<String> findPlayerUserLoginIdByTeamId(Long teamId);
+    @Query("select u.id from User u where u.login_id = :loginId")
+    Long findUserIdByLoginId(String loginId);
 }

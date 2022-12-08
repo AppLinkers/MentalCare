@@ -20,7 +20,7 @@ public class PlayerProfileController {
     private final PlayerProfileService playerProfileService;
 
     /**
-     * Profile Page
+     * 선수 프로필 조회 페이지
      */
     @GetMapping("")
     public String profilePage(Model model) {
@@ -32,7 +32,7 @@ public class PlayerProfileController {
     }
 
     /**
-     * Profile Setting Page
+     * 선수 프로필 설정 페이지
      */
     @GetMapping("/setting")
     public String profileSettingPage(Model model) {
@@ -46,7 +46,7 @@ public class PlayerProfileController {
     }
 
     /**
-     * Profile Setting Service
+     * 선수 프로필 설정 서비스
      */
     @PutMapping("/setting")
     public String profileSettingService(PlayerProfileUpdateReq playerProfileUpdateReq) throws IOException {

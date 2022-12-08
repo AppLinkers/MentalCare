@@ -9,10 +9,8 @@ import com.example.mentalCare.player.test.domain.Answer;
 import com.example.mentalCare.player.test.domain.AnswerDiagnose;
 import com.example.mentalCare.player.test.repository.AnswerRepository;
 import com.example.mentalCare.player.test.repository.DiagnoseRepository;
-import com.example.mentalCare.team.domain.Team;
 import com.example.mentalCare.team.domain.TeamNotification;
 import com.example.mentalCare.team.repository.TeamNotificationRepository;
-import com.example.mentalCare.team.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +25,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class DirectorTeamService {
 
-    private final TeamRepository teamRepository;
     private final PlayerRepository playerRepository;
     private final DirectorRepository directorRepository;
     private final AnswerRepository answerRepository;
@@ -36,6 +33,7 @@ public class DirectorTeamService {
 
     /**
      * 팀 진단 유형 정보 조회
+     * 쿼리문으로 작성해보기 (Group By, Join 이용)
      */
     @Transactional(readOnly = true)
     public List<TeamDiagnoseResultReadRes> getTeamDiagnoseResultList(Long teamId) {
@@ -44,11 +42,9 @@ public class DirectorTeamService {
         List<Player> playerList = playerRepository.findPlayerByUserTeamId(teamId);
 
         for (Player player : playerList) {
-            List<Answer> answerList = answerRepository.findAnswersByPlayerUserLoginIdOrderByUpdatedAt(player.getUser().getLogin_id());
-
-            if (!answerList.isEmpty()) {
-                Answer answer = answerList.get(0);
-
+            Long userId = player.getUser().getId();
+            if (answerRepository.existsByPlayer_UserId(userId)) {
+                Answer answer = answerRepository.getFirstByPlayerUserIdOrderByUpdatedAtDesc(userId);
                 for (AnswerDiagnose answerDiagnose : answer.getAnswerDiagnoseList()) {
                     Long diagnoseId = answerDiagnose.getDiagnose().getId();
                     Double diagnoseAvg = answerDiagnose.getAvg();
@@ -154,7 +150,7 @@ public class DirectorTeamService {
     }
 
     /**
-     * 감독 권한 변경
+     * 감독 권한 변경 서비스
      */
     @Transactional
     public void changeDirectorRoleList(DirectorRoleUpdateListReq directorRoleUpdateListReq) {
@@ -171,13 +167,16 @@ public class DirectorTeamService {
     @Transactional(readOnly = true)
     public TeamPlayerDetailReadRes getTeamPlayerDetail(Long playerId) {
         Player player = playerRepository.findById(playerId).get();
-        List<Answer> answerList = answerRepository.findAnswersByPlayerUserLoginIdOrderByUpdatedAt(player.getUser().getLogin_id());
+        Long userId = player.getUser().getId();
+
         List<Double> avgList = new ArrayList<>();
         LocalDate answerDate = null;
-        if (!answerList.isEmpty()) {
-            answerDate = answerList.get(0).getUpdatedAt().toLocalDate();
-            for(AnswerDiagnose diagnose : answerList.get(0).getAnswerDiagnoseList()){
-                avgList.add(diagnose.getAvg());
+
+        if (answerRepository.existsByPlayer_UserId(userId)) {
+            Answer answer = answerRepository.getFirstByPlayerUserIdOrderByUpdatedAtDesc(userId);
+            answerDate = answer.getUpdatedAt().toLocalDate();
+            for (AnswerDiagnose answerDiagnose : answer.getAnswerDiagnoseList()) {
+                avgList.add(answerDiagnose.getAvg());
             }
         }
 
@@ -206,7 +205,7 @@ public class DirectorTeamService {
     }
 
     /**
-     * 선수 포지션 및 권한 병경
+     * 선수 포지션 및 권한 변경 서비스
      */
     @Transactional
     public void changePlayerInfo(PlayerInfoUpdateReq playerInfoUpdateReq) {
@@ -217,7 +216,7 @@ public class DirectorTeamService {
     }
 
     /**
-     * 팀 공지사항 작성
+     * 팀 공지사항 작성 서비스
      */
     @Transactional
     public void notificationWrite(String userLoginId, TeamNotificationWriteReq teamNotificationWriteReq) {
