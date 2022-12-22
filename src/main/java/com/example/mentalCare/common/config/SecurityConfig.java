@@ -42,23 +42,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/", "/nav", "/login", "/sign_up/**").permitAll()
                 .antMatchers("/noti/**").hasAnyAuthority("DIRECTOR", "PLAYER")
                 .antMatchers("/director/**").hasAnyAuthority("DIRECTOR")
                 .antMatchers("/player/**").hasAnyAuthority("PLAYER")
                 .anyRequest().permitAll()
-                .and()
-                .csrf()
-                .ignoringAntMatchers("/h2-console/**")
-                .and()
-                .headers()
-                .addHeaderWriter(
-                        new XFrameOptionsHeaderWriter(
-                                new WhiteListedAllowFromStrategy(Arrays.asList("localhost"))
-                        )
-                )
-                .frameOptions().sameOrigin()
                 .and()
                 .formLogin()
                 .loginPage("/login")

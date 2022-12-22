@@ -1,19 +1,25 @@
 spring:
-  # H2-DB setting
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: true
+# RDS - MySQL
   datasource:
-    url: jdbc:h2:mem:testdb # h2-DB url
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:mysql://mentalcaretest.cywn7h0g0nth.us-east-2.rds.amazonaws.com/mentalcare
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: admin
+    password: 2db8ddasf!
+  #  # H2-DB setting
+#  h2:
+#    console:
+#      enabled: true
+#      settings:
+#        web-allow-others: true
+#  datasource:
+#    url: jdbc:h2:mem:testdb # h2-DB url
+#    driver-class-name: org.h2.Driver
+#    username: sa
+#    password:
   # JPA setting
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: false
