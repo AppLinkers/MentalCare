@@ -95,5 +95,6 @@ public class PlayerProfileService {
             String imgUrl = s3Service.upload(request.getImgFile(), "player/profile");
             player.getUser().setImgUrl(imgUrl);
         }
+
     }
 }
