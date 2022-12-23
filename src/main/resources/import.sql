@@ -19,17 +19,17 @@ insert into Player(`position`,`user_id`) values('FW',3);
 insert into User(`login_id`, `login_pw`, `name`, `imgUrl`, `team_id`, `role`,`age`) values('director_pending','{bcrypt}$2a$10$d3QK7jlUd8NI6EdHmILzfejSoF.XSlmT/eRdb9zaXuM8YuWmTdzSO','test_director_pending', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png', 1,'PENDING',25);
 insert into Director(`user_id`) values(4);
 
-insert into Diagnose(`title`, `iconUrl`, `deleted`) values('경기력', 'https://mblockimg.s3.ap-northeast-2.amazonaws.com/mental_care/test/type/type_1.png', 'N');
-insert into Diagnose(`title`, `iconUrl`, `deleted`) values('기능자신감', 'https://mblockimg.s3.ap-northeast-2.amazonaws.com/mental_care/test/type/type_2.png', 'N');
-insert into Diagnose(`title`, `iconUrl`, `deleted`) values('부상', 'https://mblockimg.s3.ap-northeast-2.amazonaws.com/mental_care/test/type/type_3.png', 'N');
-insert into Diagnose(`title`, `iconUrl`, `deleted`) values('슬럼프', 'https://mblockimg.s3.ap-northeast-2.amazonaws.com/mental_care/test/type/type_4.png', 'N');
-insert into Diagnose(`title`, `iconUrl`, `deleted`) values('진로미래', 'https://mblockimg.s3.ap-northeast-2.amazonaws.com/mental_care/test/type/type_5.png', 'N');
-insert into Diagnose(`title`, `iconUrl`, `deleted`) values('관계', 'https://mblockimg.s3.ap-northeast-2.amazonaws.com/mental_care/test/type/type_6.png', 'N');
-insert into Diagnose(`title`, `iconUrl`, `deleted`) values('학업', 'https://mblockimg.s3.ap-northeast-2.amazonaws.com/mental_care/test/type/type_7.png', 'N');
-insert into Diagnose(`title`, `iconUrl`, `deleted`) values('주전경쟁','https://mblockimg.s3.ap-northeast-2.amazonaws.com/mental_care/test/type/type_8.png', 'N');
-insert into Diagnose(`title`, `iconUrl`, `deleted`) values('훈련', 'https://mblockimg.s3.ap-northeast-2.amazonaws.com/mental_care/test/type/type_9.png', 'N');
-insert into Diagnose(`title`, `iconUrl`, `deleted`) values('부담감', 'https://mblockimg.s3.ap-northeast-2.amazonaws.com/mental_care/test/type/type_10.png', 'N');
-insert into Diagnose(`title`, `iconUrl`, `deleted`) values('사생활규제', 'https://mblockimg.s3.ap-northeast-2.amazonaws.com/mental_care/test/type/type_11.png', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('경기력', 'https://mindup.s3.ap-northeast-2.amazonaws.com/test/type/type_1.png', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('기능자신감', 'https://mindup.s3.ap-northeast-2.amazonaws.com/test/type/type_2.png', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('부상', 'https://mindup.s3.ap-northeast-2.amazonaws.com/test/type/type_3.png', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('슬럼프', 'https://mindup.s3.ap-northeast-2.amazonaws.com/test/type/type_4.png', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('진로미래', 'https://mindup.s3.ap-northeast-2.amazonaws.com/test/type/type_5.png', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('관계', 'https://mindup.s3.ap-northeast-2.amazonaws.com/test/type/type_6.png', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('학업', 'https://mindup.s3.ap-northeast-2.amazonaws.com/test/type/type_7.png', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('주전경쟁','https://mindup.s3.ap-northeast-2.amazonaws.com/test/type/type_8.png', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('훈련', 'https://mindup.s3.ap-northeast-2.amazonaws.com/test/type/type_9.png', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('부담감', 'https://mindup.s3.ap-northeast-2.amazonaws.com/test/type/type_10.png', 'N');
+insert into Diagnose(`title`, `iconUrl`, `deleted`) values('사생활규제', 'https://mindup.s3.ap-northeast-2.amazonaws.com/test/type/type_11.png', 'N');
 
 -- insert into Question(`context`, `weight`, `keyword` , `deleted`, `diagnose_id`) values('경기 전 스트레스 원인 체크 해주세요', 0, '경기전-스트레스', 'N', 1);
 -- insert into Question(`context`, `weight`, `keyword` , `deleted`, `diagnose_id`) values('경기 전 불안감에 대해 체크해주세요', 1,'경기전-불안감', 'N', 1);
