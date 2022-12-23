@@ -254,6 +254,7 @@ public class PlayerTestService {
                             .title(answerDiagnose.getDiagnose().getTitle())
                             .avg(answerDiagnoseAvg)
                             .questionResultList(questionResultList)
+                            .date(answerDiagnose.getUpdatedAt().toLocalDate())
                             .build()
             );
         }
