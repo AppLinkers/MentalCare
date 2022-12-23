@@ -92,7 +92,7 @@ public class PlayerProfileService {
         player.setNextMatch(request.getNextMatchDate());
         // 이미지 설정
         if (!request.getImgFile().isEmpty()) {
-            String imgUrl = s3Service.upload(request.getImgFile(), "mental_care/player/profile");
+            String imgUrl = s3Service.upload(request.getImgFile(), "player/profile");
             player.getUser().setImgUrl(imgUrl);
         }
     }
