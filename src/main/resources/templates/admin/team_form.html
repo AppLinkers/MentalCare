@@ -32,11 +32,11 @@
     <div class="container admin__container">
 
         <div class="label">
-            <a href="/html/admin/team_code.html">
+            <a href="/admin/team">
                 <h3 class="active" style="margin-right: 1rem;">팀 코드 관리</h3>
             </a>
-            <a href="/html/admin/member.html">
-                <h3>멤버 관리</h3>
+            <a href="/admin/user">
+                <h3>사용자 관리</h3>
             </a>
         </div>
 
@@ -45,10 +45,10 @@
             <h2>팀 코드 추가</h2>
         </div>
 
-        <form action="#">
+        <form th:action="@{/admin/team}" th:method="post" th:object="${teamAddReq}">
             <div class="code-form">
-                <input type="text" class="btn btn-input" placeholder="팀 코드">
-                <input type="text" class="btn btn-input" placeholder="팀 이름">
+                <input th:field="*{teamCode}" type="text" class="btn btn-input" placeholder="팀 코드">
+                <input th:field="*{name}" type="text" class="btn btn-input" placeholder="팀 이름">
                 <button class="btn" type="submit">추가하기</button>
             </div>
         </form>

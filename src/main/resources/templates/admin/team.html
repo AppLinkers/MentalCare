@@ -32,33 +32,35 @@
     <div class="container admin__container">
 
         <div class="label">
-            <a href="/html/admin/team_code.html">
+            <a href="/admin/team">
                 <h3 class="active" style="margin-right: 1rem;">팀 코드 관리</h3>
             </a>
-            <a href="/html/admin/member.html">
-                <h3>멤버 관리</h3>
+            <a href="/admin/user">
+                <h3>사용자 관리</h3>
             </a>
         </div>
 
 
         <div class="button__container">
             <h2>팀 코드 관리</h2>
-            <a href="/html/admin/team_code_form.html"><button class="btn">추가하기</button></a>
+            <a href="/admin/team/form"><button class="btn">추가하기</button></a>
         </div>
 
         <div class="list">
 
-            <div class="code-list" th:each="">
-                <div class="code-info">
-                    <div class="code">
-                        <h3>S</h3>
-                    </div>
-                    <a href="">
-                        <h3 class="team-name">서울 FC</h3>
-                    </a>
+
+                <div class="code-list" th:each="team : ${teamInfoResList}">
+                    <form th:action="@{|/admin/team/${team.id}|}" th:method="DELETE">
+                        <div class="code-info">
+                            <div class="code">
+                                <h3 th:text="${team.teamCode}">S</h3>
+                            </div>
+                            <h3 class="team-name" th:text="${team.name}">서울 FC</h3>
+                        </div>
+                        <button type="submit" class="btn-light" >삭제</button>
+                    </form>
                 </div>
-                <button class="btn-light">삭제</button>
-            </div>
+
 
         </div>
 

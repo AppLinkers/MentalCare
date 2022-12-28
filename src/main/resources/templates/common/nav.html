@@ -79,6 +79,12 @@
             </div>
         </div>
 
+        <div th:if="${userRole == 'ADMIN'}" class="menu-content">
+            <a th:href="@{/admin/user}"><h1>사용자 관리</h1></a>
+            <a th:href="@{/admin/team}"><h1>팀 관리</h1></a>
+            <a th:href="@{/admin/team/form}"><h1>팀 추가</h1></a>
+        </div>
+
     </div>
 </menu>
 
