@@ -1,5 +1,6 @@
 package com.example.mentalCare.director.team.service;
 
+import com.example.mentalCare.common.domain.type.Role;
 import com.example.mentalCare.director.profile.domain.Director;
 import com.example.mentalCare.director.profile.repository.DirectorRepository;
 import com.example.mentalCare.director.team.dto.*;
@@ -135,7 +136,7 @@ public class DirectorTeamService {
     /**
      * 감독 정보 목록 -> 감독 권한 수정 정보 request
      */
-    public DirectorRoleUpdateListReq teamDirectorInfoListToDirectorRoleUpdateReqList(List<TeamDirectorInfoReadRes> teamDirectorInfoList) {
+    public DirectorRoleUpdateListReq teamDirectorInfoListToDirectorRoleUpdateListReq(List<TeamDirectorInfoReadRes> teamDirectorInfoList) {
         DirectorRoleUpdateListReq result = new DirectorRoleUpdateListReq();
         for (TeamDirectorInfoReadRes teamDirectorInfoReadRes : teamDirectorInfoList) {
             result.add(
@@ -157,7 +158,11 @@ public class DirectorTeamService {
         for (DirectorRoleUpdateReq directorRoleUpdateReq : directorRoleUpdateListReq.getDirectorRoleUpdateReqList()) {
             Director director = directorRepository.findById(directorRoleUpdateReq.getId()).get();
 
-            director.getUser().setRole(directorRoleUpdateReq.getRole());
+            Role directorRole = director.getUser().getRole();
+            if (!directorRole.equals(directorRoleUpdateReq.getRole())) {
+                director.getUser().setRole(directorRoleUpdateReq.getRole());
+            }
+
         }
     }
 

@@ -1,25 +1,15 @@
 spring:
+  profiles: dev
 # RDS - MySQL
   datasource:
-    url: jdbc:mysql://mindup-rds.c9v1roxnwdza.ap-northeast-2.rds.amazonaws.com/mindup
+    url: jdbc:mysql://mindup-rds.c9v1roxnwdza.ap-northeast-2.rds.amazonaws.com/mindup_dev
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: admin
     password: 2db8ddasf!
-  #  # H2-DB setting
-#  h2:
-#    console:
-#      enabled: true
-#      settings:
-#        web-allow-others: true
-#  datasource:
-#    url: jdbc:h2:mem:testdb # h2-DB url
-#    driver-class-name: org.h2.Driver
-#    username: sa
-#    password:
   # JPA setting
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: false
@@ -37,7 +27,7 @@ cloud:
       accessKey: AKIA4TLFWIUBMEOUNEM5
       secretKey: 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
     s3:
-      bucket: mindup
+      bucket: mindup-dev
     region:
       static: ap-northeast-2
       auto: false
