@@ -54,6 +54,7 @@ public class AuthService implements UserDetailsService {
                 .build();
     }
 
+
     /**
      * 선수 회원가입 서비스
      */
