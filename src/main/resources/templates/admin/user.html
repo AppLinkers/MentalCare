@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Care</title>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet">
+
+    <!-- ICON SCOUT -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="/css/common/style.css">
+    <link rel="stylesheet" href="/css/admin/admin.css">
+</head>
+
+<body>
+
+<!-- =========== NAVBAR ========== -->
+<nav id="nav">
+</nav>
+
+<!-- =========== TEAM_CODE ========== -->
+<section id="admin">
+    <div class="container admin__container">
+
+        <div class="label">
+            <a href="/team">
+                <h3 style="margin-right: 1rem;">팀 코드 관리</h3>
+            </a>
+            <a href="/member">
+                <h3 class="active">사용자 관리</h3>
+            </a>
+        </div>
+
+
+        <form th:method="put" th:action="@{/admin/user}" th:object="${userRoleUpdateReqList}">
+            <div class="button__container" style="border: none;">
+                <h2>멤버 관리</h2>
+                <button class="btn" type="submit">저장하기</button>
+            </div>
+
+            <div class="spinner__container">
+                <div class="select-menu">
+                    <div class="select-btn">
+                        <input id="teamName" class="sBtn-text" placeholder="전체 보기" readonly>
+                        <i class="uil uil-angle-down"></i>
+                    </div>
+                    <ul class="options" >
+                        <li class="option"><span class="option-text">전체 보기</span></li>
+                        <li class="option" th:each="team : ${teamInfoResList}"><span class="option-text" th:text="${team.name}">서울 FC</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="list" th:each="user, userStat : ${userInfoResList}">
+                <input th:field="*{userRoleUpdateReqList[__${userStat.index}__].id}" type="hidden" >
+                <article>
+                    <div class="container user__con">
+                        <div class="user-info">
+                            <div class="user__img">
+                                <img th:src="${user.imgUrl}">
+                            </div>
+                            <div class="user-info">
+                                <div class="user__text">
+                                    <h3 th:text="${user.name}">기성용</h3>
+                                    <div class="type" style="background: var(--color-green);">
+                                        <h4 th:if="${user.role.toString().equals('DIRECTOR')} or ${user.role.toString().equals('DIRECTOR_PENDING')}">지도자</h4>
+                                        <h4 th:if="${user.role.toString().equals('PLAYER')} or ${user.role.toString().equals('PLAYER_PENDING')}">선수</h4>
+
+                                    </div>
+                                </div>
+                                <div class="user__team" th:text="${user.teamName}" hidden> </div>
+                                <h4 th:text="${user.teamInfo}">FC 서울 (S)</h4>
+                            </div>
+                        </div>
+                        <!-- 'active'로 css가 바뀜, 만약 허가돼있으면 밑 button의 classList에 active를 추가해주면 됩니다 -->
+                        <!-- 상태에 따라서 권한 없음 or 허가됨으로 button 텍스트도 바꿔줘야합니다-->
+                        <input class="user__role" type="hidden" th:field="*{userRoleUpdateReqList[__${userStat.index}__].role}"/>
+                        <!-- 수정 필요 -->
+                        <button class="active" th:if="${user.role.toString().equals('DIRECTOR')} or ${user.role.toString().equals('PLAYER')}" onclick="return false;">
+                            허가됨
+                        </button>
+                        <button th:if="${user.role.toString().equals('PLAYER_PENDING')} or ${user.role.toString().equals('DIRECTOR_PENDING')}" onclick="return false;">
+                            권한 없음
+                        </button>
+                    </div>
+                </article>
+
+            </div>
+
+        </form>
+    </div>
+</section>
+
+<script src="/javascript/common/base.js"></script>
+<script src="/javascript/admin/user.js"></script>
+<script src="/javascript/admin/spinner.js"></script>
+</body>
+
+</html>

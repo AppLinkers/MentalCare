@@ -4,5 +4,6 @@ public enum Role {
     ADMIN,
     PLAYER,
     DIRECTOR,
-    PENDING
+    PLAYER_PENDING,
+    DIRECTOR_PENDING
 }
