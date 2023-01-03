@@ -15,7 +15,13 @@ public class PageController {
      * 메인 페이지
      */
     @GetMapping("/")
-    public String index(){
+    public String index(Model model){
+        String authority = "";
+        for (GrantedAuthority grantedAuthority : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+            authority = grantedAuthority.getAuthority();
+        }
+
+        model.addAttribute("userRole", authority);
         return "common/main";
     }
 
