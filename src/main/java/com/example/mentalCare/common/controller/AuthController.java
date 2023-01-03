@@ -1,6 +1,7 @@
 package com.example.mentalCare.common.controller;
 
 
+import com.example.mentalCare.common.dto.ChangePwReq;
 import com.example.mentalCare.common.dto.SignUpDirectorReq;
 import com.example.mentalCare.common.dto.SignUpPlayerReq;
 import com.example.mentalCare.common.dto.UserLoginReq;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -72,6 +74,20 @@ public class AuthController {
     @PostMapping("/sign_up/director")
     public String directorSignUp(SignUpDirectorReq request) {
         authService.signUp(request);
+        return "redirect:/login";
+    }
+
+
+    @GetMapping("/pwChange")
+    public String changePasswordPage(ChangePwReq changePwReq){
+        return "common/change_password";
+    }
+
+    @PutMapping("/sign_up/changePw")
+    public String changePassword(ChangePwReq changePwReq){
+        String login_id = SecurityContextHolder.getContext().getAuthentication().getName();
+        changePwReq.setLogin_id(login_id);
+        authService.changePassword(changePwReq);
         return "redirect:/login";
     }
 }

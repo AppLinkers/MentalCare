@@ -56,6 +56,7 @@
             <a th:href="@{/player/test}"><h1>검사하기</h1></a>
             <a th:href="@{/player/test/result}"><h1>검사내역</h1></a>
             <a th:href="@{/noti/list}"><h1>공지사항</h1></a>
+            <a href="/pwChange"><h1>비밀번호 변경</h1></a>
 <!--            <a id="admin" class="admin-btn" onclick="document.getElementById('consultantMenu').classList.toggle('active'); document.getElementById('admin').classList.toggle('active');">
                 <h1>컨설턴트 <i id="admin-ic" class="uil uil-angle-down"></i></h1>
             </a>
@@ -77,12 +78,14 @@
 <!--                <a href="#"><h2>컨설팅 목록</h2></a>-->
 <!--                <a th:href="@{/director/test}"><h2>검사 목록</h2></a>-->
             </div>
+            <a href="/pwChange"><h1>비밀번호 변경</h1></a>
         </div>
 
         <div th:if="${userRole == 'ADMIN'}" class="menu-content">
             <a th:href="@{/admin/user}"><h1>사용자 관리</h1></a>
             <a th:href="@{/admin/team}"><h1>팀 관리</h1></a>
             <a th:href="@{/admin/team/form}"><h1>팀 추가</h1></a>
+            <a href="/pwChange"><h1>비밀번호 변경</h1></a>
         </div>
 
     </div>

@@ -3,6 +3,7 @@ package com.example.mentalCare.common.service;
 import com.example.mentalCare.common.domain.User;
 import com.example.mentalCare.common.domain.UserDetail;
 import com.example.mentalCare.common.domain.type.Role;
+import com.example.mentalCare.common.dto.ChangePwReq;
 import com.example.mentalCare.common.dto.SignUpDirectorReq;
 import com.example.mentalCare.common.dto.SignUpPlayerReq;
 import com.example.mentalCare.common.dto.SignUpUserReq;
@@ -25,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -123,6 +125,14 @@ public class AuthService implements UserDetailsService {
 
         team.addUser(user);
         return user;
+    }
+
+
+
+    @Transactional
+    public void changePassword(ChangePwReq changePwReq){
+        User user = userRepository.findUserByLoginId(changePwReq.getLogin_id()).get();
+        user.setLogin_pw(passwordEncoder.encode(changePwReq.getNew_pw()));
     }
 
 }
