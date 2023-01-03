@@ -32,10 +32,10 @@
     <div class="container admin__container">
 
         <div class="label">
-            <a href="/team">
+            <a href="/admin/team">
                 <h3 style="margin-right: 1rem;">팀 코드 관리</h3>
             </a>
-            <a href="/member">
+            <a href="/admin/member">
                 <h3 class="active">사용자 관리</h3>
             </a>
         </div>
@@ -64,17 +64,21 @@
                 <input th:field="*{userRoleUpdateReqList[__${userStat.index}__].id}" type="hidden" >
                 <article>
                     <div class="container user__con">
+
                         <div class="user-info">
                             <div class="user__img">
                                 <img th:src="${user.imgUrl}">
                             </div>
-                            <div class="user-info">
+                            <div>
                                 <div class="user__text">
-                                    <h3 th:text="${user.name}">기성용</h3>
-                                    <div class="type" style="background: var(--color-green);">
-                                        <h4 th:if="${user.role.toString().equals('DIRECTOR')} or ${user.role.toString().equals('DIRECTOR_PENDING')}">지도자</h4>
-                                        <h4 th:if="${user.role.toString().equals('PLAYER')} or ${user.role.toString().equals('PLAYER_PENDING')}">선수</h4>
-
+                                    <h3 th:text="${user.name}">이름 에러</h3>
+                                    <div class="type" style="background: var(--color-green);"
+                                         th:if="${user.role.toString().equals('DIRECTOR')} or ${user.role.toString().equals('DIRECTOR_PENDING')}">
+                                        <h4>지도자</h4>
+                                    </div>
+                                    <div class="type"
+                                         th:if="${user.role.toString().equals('PLAYER')} or ${user.role.toString().equals('PLAYER_PENDING')}">
+                                        <h4>선수</h4>
                                     </div>
                                 </div>
                                 <div class="user__team" th:text="${user.teamName}" hidden> </div>
