@@ -83,7 +83,7 @@ public class AuthController {
         return "common/change_password";
     }
 
-    @PutMapping("/sign_up/changePw")
+    @PutMapping("/pwChange")
     public String changePassword(ChangePwReq changePwReq){
         String login_id = SecurityContextHolder.getContext().getAuthentication().getName();
         changePwReq.setLogin_id(login_id);
