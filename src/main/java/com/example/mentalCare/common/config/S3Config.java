@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile("dev")
+@Profile("prod")
 public class S3Config {
 
     @Value("${cloud.aws.region.static}")
