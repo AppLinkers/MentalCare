@@ -28,7 +28,7 @@
     <div class="container init__container">
         <div class="init__text">
             <h1>프로를 위한 멘탈 서비스</h1>
-            <h3 th:if="${userRole.toString().equals('PLAYER')}" >다음 경기를 위해 체크해보세요</h3>
+            <h3 th:if="${userRole.toString().equals('PLAYER')}" >다음 경기를 위해 <br>체크해보세요</h3>
             <h3 th:if="${userRole.toString().equals('DIRECTOR')}" >DIRECTOR PAGE</h3>
             <h3 th:if="${userRole.toString().equals('ADMIN')}" >ADMIN PAGE</h3>
         </div>
