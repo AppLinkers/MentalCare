@@ -229,24 +229,9 @@
         width: var(--container-width-phone);
         margin: 0 auto;
     }
+
+    .result__last-date {
+        display: none;
+    }
 }
 
-/* color-example 지워야됨 */
-/*
-.result__list article:nth-child(2) .result__box,
-.result__list article:nth-child(5) .result__box {
-    background: var(--color-yellow);
-}
-
-.result__list article:nth-child(2) .result__chart,
-.result__list article:nth-child(5) .result__chart {
-    border-color: var(--color-yellow);
-}
-
-.result__list article:nth-child(3) .result__box {
-    background: var(--color-red);
-}
-
-.result__list article:nth-child(3) .result__chart {
-    border-color: var(--color-red);
-}*/
