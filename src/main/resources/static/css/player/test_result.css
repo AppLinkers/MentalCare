@@ -122,6 +122,10 @@
     margin-right: 0.7rem;
 }
 
+.label-type:last-child {
+    margin-right: 0;
+}
+
 .label-color {
     width: 1rem;
     height: 1rem;
