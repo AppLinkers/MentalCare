@@ -38,7 +38,7 @@ public class DirectorTeamService {
      */
     @Transactional(readOnly = true)
     public List<TeamDiagnoseResultReadRes> getTeamDiagnoseResultList(Long teamId) {
-        Map<Long, ArrayList<Double>> resultMap = new HashMap<>();
+        Map<Long, List<Double>> resultMap = new HashMap<>();
 
         List<Player> playerList = playerRepository.findPlayerByUserTeamId(teamId);
 
@@ -51,7 +51,7 @@ public class DirectorTeamService {
                     Double diagnoseAvg = answerDiagnose.getAvg();
 
                     if (resultMap.containsKey(diagnoseId)) {
-                        ArrayList<Double> diagnoseAvgList = resultMap.get(diagnoseId);
+                        List<Double> diagnoseAvgList = resultMap.get(diagnoseId);
                         diagnoseAvgList.add(diagnoseAvg);
                         resultMap.put(diagnoseId, diagnoseAvgList);
                     } else {
@@ -62,9 +62,9 @@ public class DirectorTeamService {
         }
 
         List<TeamDiagnoseResultReadRes> result = new ArrayList<>();
-        for (Map.Entry<Long, ArrayList<Double>> entry : resultMap.entrySet()) {
+        for (Map.Entry<Long, List<Double>> entry : resultMap.entrySet()) {
             Long diagnoseId = entry.getKey();
-            ArrayList<Double> diagnoseAvgList = entry.getValue();
+            List<Double> diagnoseAvgList = entry.getValue();
 
             Double totalDiagnoseAvg = 0.0;
             for (Double diagnoseAvg : diagnoseAvgList) {
