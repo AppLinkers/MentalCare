@@ -118,7 +118,7 @@ public class AuthService implements UserDetailsService {
                 .name(request.getName())
                 .imgUrl("https://mindup.s3.ap-northeast-2.amazonaws.com/profile.png")
                 .team(team)
-                .age(request.getAge())
+                .birthDate(request.getBirthDate())
                 .privacyPolicy(request.getPrivacyPolicy())
                 .role(role)
                 .build();
