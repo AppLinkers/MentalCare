@@ -23,8 +23,6 @@ public class Question {
 
     private String keyword;
 
-    private Integer weight;
-
     @Convert(converter = BooleanToYNConverter.class)
     private Boolean deleted = Boolean.FALSE;
 
