@@ -39,9 +39,15 @@ public class PlayerTestService {
 
             List<QuestionReadRes> questionReadResList = new ArrayList<>();
             for (Question question : questionList) {
+
+                List<QuestionDetailReadRes> questionDetailReadResList = new ArrayList<>();
+                for (QuestionDetail questionDetail : question.getQuestionDetailList()){
+                    questionDetailReadResList.add(questionDetail.toQuestionDetailReadRes());
+                }
                 QuestionReadRes questionReadRes = QuestionReadRes.builder()
                         .id(question.getId())
                         .context(question.getContext())
+                        .questionDetailReadResList(questionDetailReadResList)
                         .build();
 
                 questionReadResList.add(questionReadRes);
@@ -132,9 +138,16 @@ public class PlayerTestService {
 
         List<QuestionReadRes> questionReadResList = new ArrayList<>();
         for (Question question : questionList) {
+
+            List<QuestionDetailReadRes> questionDetailReadResList = new ArrayList<>();
+            for (QuestionDetail questionDetail : question.getQuestionDetailList()){
+                questionDetailReadResList.add(questionDetail.toQuestionDetailReadRes());
+            }
+
             QuestionReadRes questionReadRes = QuestionReadRes.builder()
                     .id(question.getId())
                     .context(question.getContext())
+                    .questionDetailReadResList(questionDetailReadResList)
                     .build();
             questionReadResList.add(questionReadRes);
         }

@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -23,13 +25,14 @@ public class Question {
 
     private String keyword;
 
-    private Integer weight;
-
     @Convert(converter = BooleanToYNConverter.class)
     private Boolean deleted = Boolean.FALSE;
 
     @ManyToOne
     @JoinColumn(name = "diagnose_id")
     private Diagnose diagnose;
+
+    @OneToMany(mappedBy = "question")
+    private List<QuestionDetail> questionDetailList = new ArrayList<>();
 
 }

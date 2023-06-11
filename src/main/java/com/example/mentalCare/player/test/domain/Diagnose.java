@@ -20,6 +20,8 @@ public class Diagnose{
 
     private String title;
 
+    private String description;
+
     private String iconUrl;
 
     @Convert(converter = BooleanToYNConverter.class)
