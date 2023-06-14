@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +60,28 @@ public class TestController {
         playerTestService.submitTestAll(userLoginId, answerWriteReq.getAnswerWriteReq());
 
         return "redirect:/player/test/result";
+    }
+
+    /**
+     * (다수 선택) 유형 테스트 페이지
+     */
+    @GetMapping("/type")
+    public String testMultiTypePate(Model model, @RequestParam(value = "ids") List<Long> ids) {
+
+        List<DiagnoseReadRes> diagnoseList = playerTestService.getMultiTestDiagnoseRead(ids);
+
+        model.addAttribute("diagnoseList", diagnoseList);
+
+        AnswerWriteReq answerWriteReq = new AnswerWriteReq();
+        List<DiagnoseWriteReq> diagnoseWriteReqList = new ArrayList<>();
+        for (DiagnoseReadRes diagnoseReadRes : diagnoseList) {
+            DiagnoseWriteReq diagnoseWriteReq = diagnoseReadRes.diagnoseReadResToDiagnoseWriteReq();
+            diagnoseWriteReqList.add(diagnoseWriteReq);
+        }
+        answerWriteReq.setAnswerWriteReq(diagnoseWriteReqList);
+        model.addAttribute("answerWriteReq",answerWriteReq);
+
+        return "test";
     }
 
     /**

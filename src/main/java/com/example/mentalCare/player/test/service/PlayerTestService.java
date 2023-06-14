@@ -106,6 +106,44 @@ public class PlayerTestService {
     }
 
     /**
+     * (다수 선택) 유형 진단 질문 리스트 추출
+     */
+    public List<DiagnoseReadRes> getMultiTestDiagnoseRead(List<Long> ids) {
+        List<Diagnose> diagnoseList = diagnoseRepository.findAllById(ids);
+
+        List<DiagnoseReadRes> result = new ArrayList<>();
+
+        for (Diagnose diagnose : diagnoseList) {
+            List<Question> questionList = questionRepository.findAllByDiagnoseIdAndDeletedFalse(diagnose.getId());
+
+            List<QuestionReadRes> questionReadResList = new ArrayList<>();
+            for (Question question : questionList) {
+
+                List<QuestionDetailReadRes> questionDetailReadResList = new ArrayList<>();
+                for (QuestionDetail questionDetail : question.getQuestionDetailList()){
+                    questionDetailReadResList.add(questionDetail.toQuestionDetailReadRes());
+                }
+                QuestionReadRes questionReadRes = QuestionReadRes.builder()
+                        .id(question.getId())
+                        .context(question.getContext())
+                        .questionDetailReadResList(questionDetailReadResList)
+                        .build();
+
+                questionReadResList.add(questionReadRes);
+            }
+
+            DiagnoseReadRes diagnoseReadRes = DiagnoseReadRes.builder()
+                    .id(diagnose.getId())
+                    .questionReadResList(questionReadResList)
+                    .build();
+
+            result.add(diagnoseReadRes);
+        }
+
+        return result;
+    }
+
+    /**
      * 유형 진단 선택 정보 조회
      */
     @Transactional(readOnly = true)
@@ -128,7 +166,7 @@ public class PlayerTestService {
     }
 
     /**
-     * 유횽 진단 질문 리스트 추출
+     * 유형 진단 질문 리스트 추출
      */
     @Transactional(readOnly = true)
     public TypeDiagnoseReadRes getTestTypeDiagnoseRead(Long diagnoseId) {
