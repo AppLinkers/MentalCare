@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Up</title>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- ICON SCOUT -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="/static/css/common/style.css">
+    <link rel="stylesheet" href="/static/css/common/result.css">
+    <link rel="stylesheet" href="/static/css/director/manage.css">
+</head>
+
+<body>
+    <!-- =========== MANAGE ========== -->
+    <section id="manage">
+
+        <nav id="navigation"></nav>
+
+        <!-- 헤더 선수 정보 -->
+        <div class="result-header__container container-fit flex-center">
+            <div class="container flex-between">
+                <div class="header-info">
+                    <div class="flex-left">
+                        <!-- 선수인 경우 -->
+                        <div class="user-type player flex-center">
+                            <p class="font10">PLAYER</p>
+                        </div>
+                        <!-- 지도자인 경우 -->
+                        <div class="user-type director flex-center">
+                            <p class="font10">DIRECTOR</p>
+                        </div>
+                        <!-- 상담가인 경우 -->
+                        <div class="user-type consultant flex-center">
+                            <p class="font10">CONSULTANT</p>
+                        </div>
+                    </div>
+                    <p class="font20">손흥민</p>
+                    <p class="font12">토트넘 훗스퍼 FC</p>
+                </div>
+                <img src="/static/images/son.jpg" class="profile">
+            </div>
+        </div>
+        <!-- 선수 상세 정보 -->
+        <div class="result-info__container container">
+            <div class="info-left">
+                <p class="font16">정보</p>
+                <div class="info-box flex-between">
+                    <p class="info-label font14">나이</p>
+                    <p class="font14">26세</p>
+                </div>
+                <div class="info-box flex-between">
+                    <p class="info-label font14">포지션</p>
+                    <p class="font14">FW</p>
+                </div>
+                <div class="info-box flex-between">
+                    <p class="info-label font14">다음 경기</p>
+                    <p class="font14">D-17</p>
+                </div>
+            </div>
+            <div class="info-right">
+                <p class="font16" style="color: var(--color-white);">.</p>
+                <div class="info-box flex-between">
+                    <p class="info-label font14">마지막 검사</p>
+                    <p class="font14">2023.06.24</p>
+                </div>
+                <div class="info-box flex-between">
+                    <p class="info-label font14">평균</p>
+                    <p class="font14">4.7</p>
+                </div>
+            </div>
+        </div>
+        <!-- DIVIDER -->
+        <div class="divider container-fit"></div>
+        <!-- 권한 설정 -->
+        <div class="auth__container container">
+            <form action="#">
+                <div class="form__container flex-between-column">
+                    <div class="auth-content flex-between">
+                        <p class="font16">권한</p>
+                        <div class="switch-box flex-right">
+                            <div class="switch"></div>
+                        </div>
+                    </div>
+                    <div class="btn-bottom__container">
+                        <button class="btn-basic" type="submit">저장</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script src="/static/javascript/common/base.js"></script>
+    <script src="/static/javascript/director/manage.js"></script>
+
+</body>
+
+</html>

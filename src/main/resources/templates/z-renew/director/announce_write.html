@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Up</title>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- ICON SCOUT -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="/static/css/common/style.css">
+    <link rel="stylesheet" href="/static/css/common/announce.css">
+</head>
+
+<body>
+
+    <!-- =========== ANNOUNCE-WRITE ========== -->
+    <section id="announce-write">
+
+        <nav id="navigation"></nav>
+
+        <div class="container">
+            <form action="#">
+                <div class="announce__container wrapper flex-between-column">
+                    <div class="input__container">
+                        <p class="font24">공지사항 작성</p>
+                        <p class="input-label">제목</p>
+                        <input type="text" placeholder="제목을 입력하세요." required>
+                        <p class="input-label">내용</p>
+                        <textarea placeholder="공지사항 내용을 입력하세요." required></textarea>
+                    </div>
+                    <div class="btn-bottom__container">
+                        <button class="btn-basic" type="submit">발행하기</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script src="/static/javascript/common/base.js"></script>
+
+</body>
+
+</html>

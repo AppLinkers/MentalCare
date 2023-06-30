@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Up</title>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- ICON SCOUT -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="/static/css/common/style.css">
+    <link rel="stylesheet" href="/static/css/common/main.css">
+</head>
+
+<body>
+
+    <!-- =========== MAIN ========== -->
+    <section id="main">
+        <div class="main__container fit-height">
+            <img src="/static/images/main-image.jpg" alt="">
+            <div class="container-upper fit-height">
+                <div class="container container-bottom">
+                    <p class="font24 eng" style="font-weight: bold;">MIND UP</p>
+                    <p class="font24 info" style="margin-top: 17px;">프로를 위한 멘탈 서비스</p>
+                    <p class="font24 info">다음 경기를 위해</p>
+                    <p class="font24 info">체크해보세요.</p>
+                    <div class="button-container">
+                        <a th:href="@{}" href="sign_up.html">
+                            <button class="btn-big btn-white">가입하기</button>
+                        </a>
+                        <span style="margin-right: 10px;"></span>
+                        <a th:href="@{}" href="login.html">
+                            <button class="btn-big btn-transparent">로그인</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>

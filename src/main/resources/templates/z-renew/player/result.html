@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Up</title>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- ICON SCOUT -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="/static/css/common/style.css">
+    <link rel="stylesheet" href="/static/css/common/result.css">
+</head>
+
+<body>
+    <!-- =========== CHECK-RESULT ========== -->
+    <section id="result">
+
+        <nav id="navigation"></nav>
+
+        <!-- 헤더 선수 정보 -->
+        <div class="result-header__container container-fit flex-center">
+            <div class="container flex-between">
+                <div class="header-info">
+                    <div class="user-type player flex-center">
+                        <p class="font10">PLAYER</p>
+                    </div>
+                    <p class="font20">손흥민</p>
+                    <p class="font12">토트넘 훗스퍼 FC</p>
+                    <div class="date flex-left">
+                        <p class="font10">마지막 검사</p>
+                        <p class="font10">2023.06.22</p>
+                    </div>
+                </div>
+                <img src="/static/images/son.jpg" class="profile">
+            </div>
+        </div>
+        <!-- 선수 상세 정보 -->
+        <div class="result-info__container container">
+            <div class="info-left">
+                <p class="font16">정보</p>
+                <div class="info-box flex-between">
+                    <p class="info-label font14">나이</p>
+                    <p class="font14">26세</p>
+                </div>
+                <div class="info-box flex-between">
+                    <p class="info-label font14">포지션</p>
+                    <p class="font14">FW</p>
+                </div>
+                <div class="info-box flex-between">
+                    <p class="info-label font14">다음 경기</p>
+                    <p class="font14">D-17</p>
+                </div>
+            </div>
+            <div class="info-right">
+                <p class="font16">나의 심리점수</p>
+                <div class="info-score-box flex-column-center">
+                    <div class="info-score flex-center">
+                        <p class="font20">4.7</p>
+                    </div>
+                    <p class="font12">5점 만점 기준입니다</p>
+                </div>
+            </div>
+        </div>
+        <!-- DIVIDER -->
+        <div class="divider container-fit"></div>
+        <!-- 선수 차트 -->
+        <div class="result-chart__container container">
+            <!-- 탭 -->
+            <div class="chart-tab flex-left">
+                <p class="font16 active">평균 보기</p>
+                <p class="font16">기간별 보기</p>
+            </div>
+            <!-- 필터 -->
+            <div class="chart-filter flex-right">
+                <div class="filter-box active">
+                    <select name="average-filter" id="average-filter" onchange="avgFilterChange()">
+                        <option value="myAvg" selected>내 평균</option>
+                        <option value="byAge">나이별 평균</option>
+                        <option value="byPosition">포지션별 평균</option>
+                    </select>
+                    <i class="uil uil-angle-down"></i>
+                </div>
+                <div class="filter-box">
+                    <select name="date-filter" id="date-filter" onchange="dateFilterChange()">
+                        <option value="byMonth" selected>월별 평균</option>
+                        <option value="byWeek">주별 평균</option>
+                    </select>
+                    <i class="uil uil-angle-down"></i>
+                </div>
+            </div>
+            <!-- 메인 차트 -->
+            <div class="canvas__container active">
+                <canvas id="chart-radar" class="main-chart"></canvas>
+            </div>
+            <div class="canvas__container">
+                <canvas id="chart-line" class="main-chart"></canvas>
+            </div>
+            <!-- 유형별 상세 데이터 - 평균 보기 -->
+            <div class="type-detail__container active">
+
+                <div class="type-detail-header flex-even">
+                    <div></div>
+                    <p class="font16">9가지 유형에 대한 나의 평균 데이터입니다</p>
+                    <i class="uil uil-angle-down font24"></i>
+                </div>
+
+                <div class="type-detail-body">
+
+                    <div class="type-detail-item flex-column-center">
+                        <canvas id="type-detail-item0"></canvas>
+                        <p class="font14">경기력</p>
+                    </div>
+                    <div class="type-detail-item flex-column-center">
+                        <canvas id="type-detail-item1"></canvas>
+                        <p class="font14">불안감</p>
+                    </div>
+                    <div class="type-detail-item flex-column-center">
+                        <canvas id="type-detail-item2"></canvas>
+                        <p class="font14">훈련</p>
+                    </div>
+                    <div class="type-detail-item flex-column-center">
+                        <canvas id="type-detail-item3"></canvas>
+                        <p class="font14">기능 자신감</p>
+                    </div>
+                    <div class="type-detail-item flex-column-center">
+                        <canvas id="type-detail-item4"></canvas>
+                        <p class="font14">부상</p>
+                    </div>
+                    <div class="type-detail-item flex-column-center">
+                        <canvas id="type-detail-item5"></canvas>
+                        <p class="font14">관계</p>
+                    </div>
+                    <div class="type-detail-item flex-column-center">
+                        <canvas id="type-detail-item6"></canvas>
+                        <p class="font14">진로</p>
+                    </div>
+                    <div class="type-detail-item flex-column-center">
+                        <canvas id="type-detail-item7"></canvas>
+                        <p class="font14">학업</p>
+                    </div>
+                    <div class="type-detail-item flex-column-center">
+                        <canvas id="type-detail-item8"></canvas>
+                        <p class="font14">생활</p>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- 유형별 필터 - 기간별 보기 -->
+            <div class="type-filter__container">
+
+                <div class="type-filter flex-center active">
+                    <p class="font14">경기력</p>
+                </div>
+                <div class="type-filter flex-center">
+                    <p class="font14">불안감</p>
+                </div>
+                <div class="type-filter flex-center">
+                    <p class="font14">훈련</p>
+                </div>
+                <div class="type-filter flex-center">
+                    <p class="font14">기능 자신감</p>
+                </div>
+                <div class="type-filter flex-center">
+                    <p class="font14">부상</p>
+                </div>
+                <div class="type-filter flex-center">
+                    <p class="font14">관계</p>
+                </div>
+                <div class="type-filter flex-center">
+                    <p class="font14">진로</p>
+                </div>
+                <div class="type-filter flex-center">
+                    <p class="font14">학업</p>
+                </div>
+                <div class="type-filter flex-center">
+                    <p class="font14">생활</p>
+                </div>
+
+            </div>
+        </div>
+        <!-- DIVIDER -->
+        <div class="divider container-fit"></div>
+        <!-- 유형별 차트 -->
+        <div class="type-chart__container container">
+            <!-- 색상 설명 -->
+            <div class="type-color flex-right">
+                <div class="status green"></div>
+                <p class="font14">양호</p>
+                <div class="status yellow"></div>
+                <p class="font14">보통</p>
+                <div class="status red"></div>
+                <p class="font14">심각</p>
+            </div>
+            <!-- 유형별 차트 리스트 -->
+            <div class="type-chart-list">
+
+                <div class="type-chart-item">
+                    <div class="item-info flex-between">
+                        <div class="flex-column">
+                            <div class="flex-left">
+                                <p class="font18">경기력</p>
+                                <div class="status"></div>
+                            </div>
+                            <div class="flex-left">
+                                <p class="font12">업데이트:</p>
+                                <p class="font12 item-update-date">2023.06.23</p>
+                            </div>
+
+                            <div class="flex-left">
+                                <div class="font12">평균:</div>
+                                <div class="font12 item-average">3.2</div>
+                            </div>
+                        </div>
+                        <i class="uil uil-angle-down"></i>
+                    </div>
+                    <div class="item-chart flex-center">
+                        <canvas id="chart-by-type0"></canvas>
+                    </div>
+                </div>
+
+                <div class="type-chart-item">
+                    <div class="item-info flex-between">
+                        <div class="flex-column">
+                            <div class="flex-left">
+                                <p class="font18">불안감</p>
+                                <div class="status"></div>
+                            </div>
+                            <div class="flex-left">
+                                <p class="font12">업데이트:</p>
+                                <p class="font12 item-update-date">2023.06.23</p>
+                            </div>
+
+                            <div class="flex-left">
+                                <div class="font12">평균:</div>
+                                <div class="font12 item-average">4.0</div>
+                            </div>
+                        </div>
+                        <i class="uil uil-angle-down"></i>
+                    </div>
+                    <div class="item-chart flex-center">
+                        <canvas id="chart-by-type1"></canvas>
+                    </div>
+                </div>
+
+                <div class="type-chart-item">
+                    <div class="item-info flex-between">
+                        <div class="flex-column">
+                            <div class="flex-left">
+                                <p class="font18">훈련</p>
+                                <div class="status"></div>
+                            </div>
+                            <div class="flex-left">
+                                <p class="font12">업데이트:</p>
+                                <p class="font12 item-update-date">2023.06.23</p>
+                            </div>
+
+                            <div class="flex-left">
+                                <div class="font12">평균:</div>
+                                <div class="font12 item-average">1.8</div>
+                            </div>
+                        </div>
+                        <i class="uil uil-angle-down"></i>
+                    </div>
+                    <div class="item-chart flex-center">
+                        <canvas id="chart-by-type2"></canvas>
+                    </div>
+                </div>
+
+                <div class="type-chart-item">
+                    <div class="item-info flex-between">
+                        <div class="flex-column">
+                            <div class="flex-left">
+                                <p class="font18">기능 자신감</p>
+                                <div class="status"></div>
+                            </div>
+                            <div class="flex-left">
+                                <p class="font12">업데이트:</p>
+                                <p class="font12 item-update-date">2023.06.23</p>
+                            </div>
+
+                            <div class="flex-left">
+                                <div class="font12">평균:</div>
+                                <div class="font12 item-average">4.5</div>
+                            </div>
+                        </div>
+                        <i class="uil uil-angle-down"></i>
+                    </div>
+                    <div class="item-chart flex-center">
+                        <canvas id="chart-by-type3"></canvas>
+                    </div>
+                </div>
+
+                <div class="type-chart-item">
+                    <div class="item-info flex-between">
+                        <div class="flex-column">
+                            <div class="flex-left">
+                                <p class="font18">부상</p>
+                                <div class="status"></div>
+                            </div>
+                            <div class="flex-left">
+                                <p class="font12">업데이트:</p>
+                                <p class="font12 item-update-date">2023.06.23</p>
+                            </div>
+
+                            <div class="flex-left">
+                                <div class="font12">평균:</div>
+                                <div class="font12 item-average">3.2</div>
+                            </div>
+                        </div>
+                        <i class="uil uil-angle-down"></i>
+                    </div>
+                    <div class="item-chart flex-center">
+                        <canvas id="chart-by-type4"></canvas>
+                    </div>
+                </div>
+
+                <div class="type-chart-item">
+                    <div class="item-info flex-between">
+                        <div class="flex-column">
+                            <div class="flex-left">
+                                <p class="font18">관계</p>
+                                <div class="status"></div>
+                            </div>
+                            <div class="flex-left">
+                                <p class="font12">업데이트:</p>
+                                <p class="font12 item-update-date">2023.06.23</p>
+                            </div>
+
+                            <div class="flex-left">
+                                <div class="font12">평균:</div>
+                                <div class="font12 item-average">3.2</div>
+                            </div>
+                        </div>
+                        <i class="uil uil-angle-down"></i>
+                    </div>
+                    <div class="item-chart flex-center">
+                        <canvas id="chart-by-type5"></canvas>
+                    </div>
+                </div>
+
+                <div class="type-chart-item">
+                    <div class="item-info flex-between">
+                        <div class="flex-column">
+                            <div class="flex-left">
+                                <p class="font18">진로</p>
+                                <div class="status"></div>
+                            </div>
+                            <div class="flex-left">
+                                <p class="font12">업데이트:</p>
+                                <p class="font12 item-update-date">2023.06.23</p>
+                            </div>
+
+                            <div class="flex-left">
+                                <div class="font12">평균:</div>
+                                <div class="font12 item-average">4.0</div>
+                            </div>
+                        </div>
+                        <i class="uil uil-angle-down"></i>
+                    </div>
+                    <div class="item-chart flex-center">
+                        <canvas id="chart-by-type6"></canvas>
+                    </div>
+                </div>
+
+                <div class="type-chart-item">
+                    <div class="item-info flex-between">
+                        <div class="flex-column">
+                            <div class="flex-left">
+                                <p class="font18">학업</p>
+                                <div class="status"></div>
+                            </div>
+                            <div class="flex-left">
+                                <p class="font12">업데이트:</p>
+                                <p class="font12 item-update-date">2023.06.23</p>
+                            </div>
+
+                            <div class="flex-left">
+                                <div class="font12">평균:</div>
+                                <div class="font12 item-average">3.2</div>
+                            </div>
+                        </div>
+                        <i class="uil uil-angle-down"></i>
+                    </div>
+                    <div class="item-chart flex-center">
+                        <canvas id="chart-by-type7"></canvas>
+                    </div>
+                </div>
+
+                <div class="type-chart-item">
+                    <div class="item-info flex-between">
+                        <div class="flex-column">
+                            <div class="flex-left">
+                                <p class="font18">생활</p>
+                                <div class="status"></div>
+                            </div>
+                            <div class="flex-left">
+                                <p class="font12">업데이트:</p>
+                                <p class="font12 item-update-date">2023.06.23</p>
+                            </div>
+
+                            <div class="flex-left">
+                                <div class="font12">평균:</div>
+                                <div class="font12 item-average">1.8</div>
+                            </div>
+                        </div>
+                        <i class="uil uil-angle-down"></i>
+                    </div>
+                    <div class="item-chart flex-center">
+                        <canvas id="chart-by-type8"></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="/static/javascript/common/base.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="/static/javascript/player/result.js"></script>
+
+</body>
+
+</html>
