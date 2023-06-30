@@ -14,11 +14,7 @@ public class TeamNotificationInfoRes {
 
     private String directorName;
 
-    private String directorImgUrl;
-
     private String title;
-
-    private Integer viewCnt;
 
     private LocalDate createdAt;
 }

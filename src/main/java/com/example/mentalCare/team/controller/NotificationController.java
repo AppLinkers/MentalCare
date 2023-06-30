@@ -2,6 +2,8 @@ package com.example.mentalCare.team.controller;
 
 import com.example.mentalCare.common.domain.User;
 import com.example.mentalCare.common.repository.UserRepository;
+import com.example.mentalCare.director.team.dto.TeamNotificationWriteReq;
+import com.example.mentalCare.director.team.service.DirectorTeamService;
 import com.example.mentalCare.team.domain.Team;
 import com.example.mentalCare.team.dto.TeamNotificationDetailRes;
 import com.example.mentalCare.team.dto.TeamNotificationInfoRes;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -36,9 +39,7 @@ public class NotificationController {
 
         model.addAttribute("teamNotificationList", teamNotificationInfoResList);
 
-        model.addAttribute("userTeam", user.getTeam().getName());
-
-        model.addAttribute("userRole", user.getRole().toString());
+        model.addAttribute("userRole", user.getRole());
 
         return "team/noti_list";
     }
@@ -50,6 +51,28 @@ public class NotificationController {
         model.addAttribute("teamNotification", getTeamNotificationDetailRes);
 
         return "team/noti_detail";
+    }
+
+    /**
+     * 공지사항 작성 페이지
+     */
+    @GetMapping("/form")
+    public String notificationWritePage(Model model) {
+
+        model.addAttribute("teamNotificationWriteReq", new TeamNotificationWriteReq());
+
+        return "director/noti_add";
+    }
+
+    /**
+     * 공지사항 작성 서비스
+     */
+    @PostMapping("/noti")
+    public String notificationWrite(TeamNotificationWriteReq teamNotificationWriteReq) {
+        String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        notificationService.notificationWrite(userLoginId, teamNotificationWriteReq);
+
+        return "redirect:/noti/list";
     }
 
 }
