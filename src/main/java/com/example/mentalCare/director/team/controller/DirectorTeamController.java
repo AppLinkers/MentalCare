@@ -70,25 +70,4 @@ public class DirectorTeamController {
         return "redirect:/director/team";
     }
 
-    /**
-     * 공지사항 작성 페이지
-     */
-    @GetMapping("/noti")
-    public String notificationWritePage(Model model) {
-
-        model.addAttribute("teamNotificationWriteReq", new TeamNotificationWriteReq());
-
-        return "director/noti_add";
-    }
-
-    /**
-     * 공지사항 작성 서비스
-     */
-    @PostMapping("/noti")
-    public String notificationWrite(TeamNotificationWriteReq teamNotificationWriteReq) {
-        String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
-        directorTeamService.notificationWrite(userLoginId, teamNotificationWriteReq);
-
-        return "redirect:/noti/list";
-    }
 }
