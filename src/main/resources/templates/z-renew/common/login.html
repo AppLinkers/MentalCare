@@ -29,8 +29,8 @@
             <a th:href="@{/}">
                 <p class="logo eng">MIND UP</p>
             </a>
-            <form action="../player/profile.html" th:action="@{/login_proc}" th:method="post"
-                th:object="${userLoginReq}">
+
+            <form th:action="@{/login_proc}" th:method="post" th:object="${userLoginReq}">
                 <div class="form__container flex-column" style="display: block;">
                     <p class="input-label">아이디</p>
                     <input type="text" placeholder="아이디" th:name="username" required>
@@ -41,6 +41,7 @@
                     </div>
                 </div>
             </form>
+
         </div>
     </section>
 </body>
