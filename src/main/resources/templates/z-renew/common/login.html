@@ -31,7 +31,7 @@
             </a>
 
             <form th:action="@{/login_proc}" th:method="post" th:object="${userLoginReq}">
-                <div class="form__container flex-column" style="display: block;">
+                <div class="form__container flex-column">
                     <p class="input-label">아이디</p>
                     <input type="text" placeholder="아이디" th:name="username" required>
                     <p class="input-label">비밀번호</p>

@@ -24,8 +24,12 @@ section#sign_up {
     right: 3%;
 }
 
-.form__container {
+.sign_up_form {
     display: none;
+}
+
+.sign_up_form.active {
+    display: block;
 }
 
 .terms {

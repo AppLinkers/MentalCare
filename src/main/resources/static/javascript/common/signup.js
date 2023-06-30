@@ -1,16 +1,22 @@
-const form = document.querySelector(".form__container");
-const team_code = document.querySelector(".team_code");
-const position = document.querySelector(".position");
+const forms = document.querySelectorAll(".sign_up_form");
+
 
 function selectChange() {
-    team_code.style.display = "block";
-    position.style.display = "block";
-    var select = document.getElementById("role").options[document.getElementById("role").selectedIndex].value;
-    if (select === "player_personal") {
-        team_code.style.display = "none";
+
+    const select = document.getElementById("role").options[document.getElementById("role").selectedIndex].value;
+
+    forms.forEach(form => {
+        form.classList.remove("active");
+    });
+
+    if (select === "player_personal" || select === "player_team") {
+        forms[0].classList.add("active");
     }
+
+    if(select === "player_personal") forms[0].querySelector(".team_code").style.display = "none";
+
     if (select === "director" || select === "consultant") {
-        position.style.display = "none";
+        forms[1].classList.add("active");
     }
-    form.style.display = "block";
+
 }
