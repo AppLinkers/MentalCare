@@ -55,7 +55,7 @@ public class DirectorTeamService {
                         diagnoseAvgList.add(diagnoseAvg);
                         resultMap.put(diagnoseId, diagnoseAvgList);
                     } else {
-                        resultMap.put(diagnoseId, List.of(diagnoseAvg));
+                        resultMap.put(diagnoseId, new ArrayList<>(List.of(diagnoseAvg)));
                     }
                 }
             }

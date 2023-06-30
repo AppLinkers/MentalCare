@@ -9,5 +9,4 @@ import java.util.List;
 public interface DiagnoseRepository extends JpaRepository<Diagnose, Long> {
 
     List<Diagnose> findAllByDeletedFalse();
-
 }

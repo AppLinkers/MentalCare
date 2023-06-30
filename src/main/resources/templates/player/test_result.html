@@ -47,12 +47,12 @@
 
                 <div class="member__data">
                     <h4>최근 업데이트 :</h4>
-                    <p th:text="${#temporals.format(testResult.date, 'yyyy. MM. dd')}" style="margin-left: 5px"></p>
+                    <p th:text="${#temporals.format(testResult.date, 'yyyy. MM. dd')}"></p>
                 </div>
 
                 <div class="member__data">
                     <h4>총 평균 :</h4>
-                    <p th:text="${#numbers.formatDecimal(testResult.avg, 1, 2)}" style="margin-left: 5px"></p>
+                    <p th:text="${#numbers.formatDecimal(testResult.avg, 1, 2)}"></p>
                 </div>
 
             </div>
@@ -129,20 +129,27 @@
             var config_bar = new Array();
             </script>
             <article>
-                <div class="result__box">
-                    <div class="result__name">
-                        <h3 th:text="${diagnose.title}">관계</h3>
-                        마지막 검사 : <p th:text="${#temporals.format(diagnose.date, 'yyyy. MM. dd')}"> 2022.09.26</p>
-                        <table>
-                            <tr>
-                                <td><p style="margin-left: 30px;">평균 :</p></td>
-                                <td><p class="avg" style="margin-left: 3px;" th:text="${#numbers.formatDecimal(diagnose.avg, 1, 2)}"> </p></td>
-                            </tr>
-                        </table>
 
+                <div class="result__box">
+
+                    <h3 th:text="${diagnose.title}">관계</h3>
+
+                    <div class="result__box-right">
+                        <div class="result__info">
+                            <div class="result__info-data">
+                                <p class="result__info-data-date">마지막 검사 : </p>
+                                <p th:text="${#temporals.format(diagnose.date, 'yyyy. MM. dd')}" style="margin-left: 3px;"></p>
+                            </div>
+                            <div class="result__info-data">
+                                <p>평균 : </p>
+                                <p class="avg" style="margin-left: 3px;" th:text="${#numbers.formatDecimal(diagnose.avg, 1, 2)}"> </p>
+                            </div>
+                        </div>
+                        <i class="uil uil-angle-down"></i>
                     </div>
-                    <i class="uil uil-angle-down"></i>
+
                 </div>
+
                 <div class="result__chart" th:id="${diagnose.title}">
 
                     <div th:each="answerDetail : ${diagnose.questionResultList}">

@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Data
@@ -30,7 +32,7 @@ public class User {
 
     private String imgUrl;
 
-    private Integer age;
+    private LocalDate birthDate;
 
     @Convert(converter = BooleanToYNConverter.class)
     private Boolean privacyPolicy;
@@ -41,4 +43,8 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
+
+    public Integer getAge() {
+        return Period.between(this.birthDate, LocalDate.now()).getYears();
+    }
 }

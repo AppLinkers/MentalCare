@@ -47,18 +47,19 @@
         </div>
 
         <div class="list">
-                <div class="code-list" th:each="team : ${teamInfoResList}">
-                    <form th:action="@{|/admin/team/${team.id}|}" th:method="DELETE">
+
+                <div th:each="team : ${teamInfoResList}">
+
+                    <form class="code-list" th:action="@{|/admin/team/${team.id}|}" th:method="DELETE">
                         <div class="code-info">
-                            <div class="code">
-                                <h3 th:text="${team.teamCode}">S</h3>
-                            </div>
-                            <h3 class="team-name" th:text="${team.name}">서울 FC</h3>
+                            <h3 class="team-code" th:text="${team.teamCode}">팀 코드 에러</h3>
+
+                            <h3 class="team-name" th:text="${team.name}">팀 이름 에러</h3>
                         </div>
                         <button type="submit" class="btn-light" >삭제</button>
                     </form>
-                </div>
 
+                </div>
 
         </div>
 

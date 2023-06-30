@@ -3,6 +3,8 @@ package com.example.mentalCare.common.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 public class SignUpUserReq {
@@ -15,7 +17,7 @@ public class SignUpUserReq {
 
     private String name;
 
-    private Integer age;
+    private LocalDate birthDate;
 
     private Boolean privacyPolicy;
 
