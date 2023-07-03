@@ -1,0 +1,15 @@
+.result-list__container {
+    padding-top: var(--margin-top);
+}
+
+.result-list {
+    margin-top: 40px;
+}
+
+.result-list-item {
+    padding: 20px 0;
+}
+
+.result-date .font12 {
+    color: var(--color-gray300);
+}

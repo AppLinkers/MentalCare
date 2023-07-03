@@ -1,0 +1,155 @@
+/* 공통 */
+.greeting {
+    margin-top: var(--margin-top);
+    margin-bottom: 52px;
+}
+
+.greeting p:nth-child(2) {
+    margin-right: 7px;
+}
+
+.profile {
+    margin-bottom: 60px;
+}
+
+.profile__header {
+    margin-bottom: 25px;
+}
+
+.profile__header a {
+    color: var(--color-gray200);
+}
+
+.profile__content {
+    align-items: start;
+}
+
+.profile__info-item {
+    margin-bottom: 20px;
+}
+
+.profile__info-item .font12 {
+    margin-bottom: 6px;
+    color: var(--color-gray300);
+}
+
+img.profile-img {
+    width: 165px;
+    height: 165px;
+}
+
+/* 선수용 */
+.check {
+    margin-bottom: 550px;
+}
+
+
+.check-title {
+    margin-bottom: 24px;
+}
+
+.check__container {
+    position: relative;
+}
+
+.check__container img {
+    height: 234px;
+    position: absolute;
+}
+
+.check__container-content {
+    position: absolute;
+    padding: 24px 17px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: var(--card-radius);
+    width: 100%;
+    height: 234px;
+    color: var(--color-white);
+    justify-content: end;
+}
+
+.check__container-content .font32 {
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.check__container-content .font14 {
+    font-weight: 300;
+    margin-bottom: 13px;
+}
+
+.btn-white {
+    width: 128px;
+    height: 36px;
+    font-size: var(--font12);
+    font-weight: 600;
+}
+
+/* 감독용 */
+.chart {
+    margin-bottom: 92px;
+}
+
+canvas#chart {
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.manage {
+    padding-bottom: 40px;
+}
+
+.label {
+    margin-top: 21px;
+}
+
+.label p {
+    font-weight: bold;
+    margin-right: 13px;
+    cursor: pointer;
+    color: var(--color-gray200);
+}
+
+.label p.active {
+    color: var(--color-black);
+}
+
+.target-list {
+    margin-top: 24px;
+}
+
+.target-grid {
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 8px;
+    row-gap: 12px;
+}
+
+.target-grid.active {
+    display: grid;
+}
+
+.target-item {
+    width: 100%;
+    height: 300px;
+    border: 1px solid var(--color-gray200);
+    border-radius: var(--card-radius);
+    cursor: pointer;
+}
+
+.target-item img {
+    height: 70%;
+    border-radius: 0 0 var(--card-radius) var(--card-radius);
+}
+
+.target-info {
+    height: 30%;
+    padding: 16px 10px;
+}
+
+/* =================MEDIA QUERY================ */
+@media screen and (max-width: 540px) {
+    .target-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

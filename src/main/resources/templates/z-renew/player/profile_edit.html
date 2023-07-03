@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Up</title>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- ICON SCOUT -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="/css/common/style.css">
+    <link rel="stylesheet" href="/css/common/profile_edit.css">
+
+</head>
+
+<body>
+    <!-- =========== PROFILE-EDIT ========== -->
+    <section id="profile-edit">
+
+        <nav id="navigation"></nav>
+
+        <div class="container profile-edit__container">
+            <!-- 프로필 이미지 -->
+            <div class="profile-img__container flex-center">
+                <img class="profile-img" src="/static/images/son.jpg">
+                <p class="font20">손흥민</p>
+                <a class="font14 pick-image" onclick="changeImage()">변경하기</a>
+                <input id="selectImg" type="file" hidden>
+            </div>
+            <!-- 정보 변경 -->
+            <form action="#">
+                <div class="form__container">
+                    <p class="input-label match-date">다음 경기 날짜</p>
+                    <input id="selectDate" type="date">
+                    <p class="input-label">소속팀</p>
+                    <input type="text" placeholder="팀 코드를 입력하세요">
+                    <p class="input-label">포지션</p>
+                    <input type="text" placeholder="포지션을 입력하세요">
+                    <div class="button__container flex-right">
+                        <button class="btn-basic" type="submit">저장</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+    <script src="/javascript/common/base.js"></script>
+    <script src="/javascript/common/profile_edit.js"></script>
+    <script src="/javascript/player/date_select.js"></script>
+
+</body>
+
+</html>

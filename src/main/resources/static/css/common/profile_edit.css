@@ -1,0 +1,30 @@
+.profile-img__container {
+    padding: var(--margin-top);
+    flex-direction: column;
+}
+
+.profile-img__container img {
+    width: 134px;
+    height: 134px;
+    margin-bottom: 8px;
+}
+
+.profile-img__container a {
+    color: var(--color-gray300);
+}
+
+.form__container {
+    margin-top: 5px;
+}
+
+.match-date {
+    margin-bottom: 0;
+}
+
+input#selectDate {
+    border: 0;
+    font-size: 18px;
+    padding: 20px 10px;
+    background-color: var(--color-white);
+    margin-bottom: 5px;
+}
