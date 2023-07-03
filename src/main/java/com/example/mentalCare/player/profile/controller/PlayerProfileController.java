@@ -28,7 +28,7 @@ public class PlayerProfileController {
 
         model.addAttribute("profile", playerProfileService.getProfileRead(userLoginId));
 
-        return "player/profile";
+        return "z-renew/player/profile";
     }
 
     /**
@@ -42,7 +42,7 @@ public class PlayerProfileController {
 
         model.addAttribute("playerProfileUpdateReq", new PlayerProfileUpdateReq());
 
-        return "player/profile_setting";
+        return "z-renew/player/profile_setting";
     }
 
     /**

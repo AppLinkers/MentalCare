@@ -25,7 +25,7 @@ public class TestController {
     public String testPage(Model model) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("isLastExist",playerTestService.isLastAnswerExist(userLoginId));
-        return "player/test";
+        return "z-renew/player/test";
     }
 
     /**
@@ -47,7 +47,7 @@ public class TestController {
         answerWriteReq.setAnswerWriteReq(diagnoseWriteReqList);
         model.addAttribute("answerWriteReq",answerWriteReq);
 
-        return "player/test_all";
+        return "z-renew/player/test_all";
     }
 
     /**
@@ -59,7 +59,7 @@ public class TestController {
 
         playerTestService.submitTestAll(userLoginId, answerWriteReq.getAnswerWriteReq());
 
-        return "redirect:/player/test/result";
+        return "redirect:z-renew/player/test/result";
     }
 
     /**
@@ -81,7 +81,7 @@ public class TestController {
         answerWriteReq.setAnswerWriteReq(diagnoseWriteReqList);
         model.addAttribute("answerWriteReq",answerWriteReq);
 
-        return "test";
+        return "z-renew/player/profile";
     }
 
     /**
@@ -92,7 +92,7 @@ public class TestController {
 
         model.addAttribute("diagnoseInfoList", playerTestService.getAllDiagnoseInfoRead());
 
-        return "player/test_type_select";
+        return "z-renew/player/select_type";
     }
 
     /**
@@ -106,7 +106,7 @@ public class TestController {
 
         model.addAttribute("diagnoseWriteReq", typeDiagnoseReadRes.typeDiagnoseReadResToDiagnoseWriteReq());
 
-        return "player/test_type";
+        return "z-renew/player/test_type";
     }
 
     /**
@@ -117,7 +117,7 @@ public class TestController {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
         playerTestService.submitTestType(userLoginId, diagnoseWriteReq);
 
-        return "redirect:/player/test/result";
+        return "redirect:/z-renew/player/test/result";
     }
 
     /**
@@ -128,7 +128,7 @@ public class TestController {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
 
         model.addAttribute("testResultInfoList", playerTestService.getAllTestResultByUserLoginId(userLoginId));
-        return "player/test_result_list";
+        return "z-renew/player/test_result_list";
     }
 
     /**
@@ -138,6 +138,6 @@ public class TestController {
     public String testResultPage(Model model, @PathVariable Long id) {
         model.addAttribute("player", playerTestService.getPlayerInfoOfTestResult(id));
         model.addAttribute("testResult", playerTestService.getTestResult(id));
-        return "player/test_result";
+        return "z-renew/player/test_result";
     }
 }
