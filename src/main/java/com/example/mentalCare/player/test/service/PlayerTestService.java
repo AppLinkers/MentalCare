@@ -142,11 +142,15 @@ public class PlayerTestService {
 
             DiagnoseReadRes diagnoseReadRes = DiagnoseReadRes.builder()
                     .id(diagnose.getId())
+                    .title(diagnose.getTitle())
+                    .description(diagnose.getDescription())
+                    .iconUrl(diagnose.getIconUrl())
                     .questionReadResList(questionReadResList)
                     .build();
 
             result.add(diagnoseReadRes);
         }
+
 
         return result;
     }

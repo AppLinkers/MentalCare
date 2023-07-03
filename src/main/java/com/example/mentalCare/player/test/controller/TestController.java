@@ -37,7 +37,7 @@ public class TestController {
         answerWriteReq.setAnswerWriteReq(diagnoseWriteReqList);
         model.addAttribute("answerWriteReq",answerWriteReq);
 
-        return "player/test_all";
+        return "z-renew/test";
     }
 
     /**
@@ -49,7 +49,7 @@ public class TestController {
 
         playerTestService.submitTestAll(userLoginId, answerWriteReq);
 
-        return "redirect:/player/test/result";
+        return "redirect:/z-renew/player/result_list";
     }
 
     /**
@@ -60,7 +60,7 @@ public class TestController {
 
         model.addAttribute("diagnoseInfoList", playerTestService.getAllDiagnoseInfoRead());
 
-        return "player/test_type_select";
+        return "z-renew/player/select_type";
     }
 
     /**
@@ -82,7 +82,6 @@ public class TestController {
         answerWriteReq.setAnswerWriteReq(diagnoseWriteReqList);
         model.addAttribute("answerWriteReq",answerWriteReq);
 
-
         List<DiagnoseInfoReadRes> diagnoseInfoList = playerTestService.getDiagnoseInfoReadExceptByIds(ids);
 
         model.addAttribute("diagnoseInfoList", diagnoseInfoList);
@@ -99,7 +98,7 @@ public class TestController {
         answerDiagnoseWriteReq.setAnswerDiagnoseWriteReq(diagnoseAvgWriteReqList);
         model.addAttribute("answerDiagnoseWriteReq", answerDiagnoseWriteReq);
 
-        return "test";
+        return "z-renew/player/check";
     }
 
     /**
@@ -108,9 +107,17 @@ public class TestController {
     @PostMapping("/type")
     public String testTypeSubmit(AnswerWriteReq answerWriteReq, AnswerDiagnoseWriteReq answerDiagnoseWriteReq) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        List<DiagnoseAvgWriteReq> ad = new ArrayList<>();
+        for(int i =1; i<9; i++){
+            DiagnoseAvgWriteReq d1 = new DiagnoseAvgWriteReq();
+            d1.setAvg(3);
+            d1.setId(new Long(i));
+            ad.add(d1);
+        }
+        answerDiagnoseWriteReq.setAnswerDiagnoseWriteReq(ad);
         playerTestService.submitTestType(userLoginId, answerWriteReq, answerDiagnoseWriteReq);
 
-        return "redirect:/player/test/result";
+        return "redirect:/z-renew/player/result_list";
     }
 
     /**
@@ -121,7 +128,7 @@ public class TestController {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
 
         model.addAttribute("testResultInfoList", playerTestService.getAllTestResultByUserLoginId(userLoginId));
-        return "player/test_result_list";
+        return "z-renew/player/result_list";
     }
 
     /**
@@ -138,6 +145,6 @@ public class TestController {
         model.addAttribute("ageResult", playerTestService.getAgeResult(userLoginId));
         model.addAttribute("monthlyResult", playerTestService.getMonthlyResult(userLoginId, testResult.getDate()));
 
-        return "player/test_result";
+        return "z-renew/player/result";
     }
 }

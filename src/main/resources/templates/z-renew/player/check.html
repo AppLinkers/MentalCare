@@ -26,112 +26,57 @@
 
     <!-- =========== CHECK ========== -->
     <section id="check">
-        <div class="container check__container">
-            <div class="check-title flex-left">
-                <img src="/static/images/type-performance.png">
-                <p class="font24">경기력</p>
-            </div>
-            <p class="font16 announce">현재 나의 경험이나 최근 상태와 가장 일치하는 곳에 표시 해주세요.</p>
-            <!-- 검사하기 -->
-            <form action="#">
-                <div class="form__container">
-                    <!-- 질문과 평가 세트 1 -->
-                    <div class="check-set set1">
-                        <p class="font18">1. 최근 경기력에 대해 만족하시나요?</p>
-                        <div class="select__container">
-                            <div class="select-item flex-column">
-                                <img src="/static/images/one.svg">
-                                <p class="font12">매우 없음</p>
-                            </div>
-                            <div class="select-item flex-column">
-                                <img src="/static/images/two.svg">
-                                <p class="font12">없음</p>
-                            </div>
-                            <div class="select-item flex-column">
-                                <img src="/static/images/three.svg">
-                                <p class="font12">보통</p>
-                            </div>
-                            <div class="select-item flex-column">
-                                <img src="/static/images/four.svg">
-                                <p class="font12">자신</p>
-                            </div>
-                            <div class="select-item flex-column">
-                                <img src="/static/images/five.svg">
-                                <p class="font12">매우 자신</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 질문과 평가 세트 2 -->
-                    <div class="check-set set2">
-                        <p class="font18">2. 나의 목표를 달성할 수 있을지 걱정된다.</p>
-                        <div class="select__container">
-                            <div class="select-item flex-column">
-                                <img src="/static/images/worst.svg">
-                                <p class="font12">매우 안좋음</p>
-                            </div>
-                            <div class="select-item flex-column">
-                                <img src="/static/images/bad.svg">
-                                <p class="font12">안좋음</p>
-                            </div>
-                            <div class="select-item flex-column">
-                                <img src="/static/images/soso.svg">
-                                <p class="font12">보통</p>
-                            </div>
-                            <div class="select-item flex-column">
-                                <img src="/static/images/good.svg">
-                                <p class="font12">걱정없음</p>
-                            </div>
-                            <div class="select-item flex-column">
-                                <img src="/static/images/best.svg">
-                                <p class="font12">전혀 없음</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 질문과 평가 세트 3 -->
-                    <div class="check-set set3">
-                        <p class="font18">3. 요즘 팀 동료들과 관계가 좋다.</p>
-                        <div class="select__container">
-                            <div class="select-item flex-column">
-                                <div class="circle__container flex-center">
-                                    <div class="circle-big border-red"></div>
-                                </div>
-                                <p class="font12">매우 별로</p>
-                            </div>
-                            <div class="select-item flex-column">
-                                <div class="circle__container flex-center">
-                                    <div class="circle border-red"></div>
-                                </div>
-                                <p class="font12">별로</p>
-                            </div>
-                            <div class="select-item flex-column">
-                                <div class="circle__container flex-center">
-                                    <div class="circle-small border-gray"></div>
-                                </div>
-                                <p class="font12">보통</p>
-                            </div>
-                            <div class="select-item flex-column">
-                                <div class="circle__container flex-center">
-                                    <div class="circle border-green"></div>
-                                </div>
-                                <p class="font12">좋음</p>
-                            </div>
-                            <div class="select-item flex-column">
-                                <div class="circle__container flex-center">
-                                    <div class="circle-big border-green"></div>
-                                </div>
-                                <p class="font12">매우 좋음</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="btn-bottom__container">
-                        <button class="btn-basic" type="submit">완료하기</button>
-                    </div>
-
-
+        <!-- 검사하기 -->
+        <form th:method="post" th:action="@{/player/test/type}" th:object="${answerWriteReq}">
+            <div class="container check__container" th:each="diagnoseReadRes, diagnoseStat : ${diagnoseList}">
+                <input type="hidden" th:field="*{answerWriteReq[__${diagnoseStat.index}__].id}"/>
+                <div class="check-title flex-left">
+                    <img th:src="${diagnoseReadRes.iconUrl}">
+                    <p class="font24" th:text="${diagnoseReadRes.title}">경기력</p>
                 </div>
-            </form>
-        </div>
+                <p class="font16 announce" th:text="${diagnoseReadRes.description}">현재 나의 경험이나 최근 상태와 가장 일치하는 곳에 표시 해주세요.</p>
+
+
+                <div class="form__container" >
+                    <!-- 질문과 평가 세트 1 -->
+                    <div class="check-set set1" th:each="question, questionStat : ${diagnoseReadRes.questionReadResList}">
+                        <p class="font18" th:text="${question.context}">1. 최근 경기력에 대해 만족하시나요?</p>
+                        <div class="select__container" >
+                            <div class="select-item flex-column">
+                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=5  id="worst" required>
+                                    <img src="/static/images/one.svg">
+                                    <p class="font12" th:text="${question.questionDetailReadResList[0].optionValue}">매우 없음</p>
+                                </input>
+                            </div>
+                            <div class="select-item flex-column">
+                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=4  id="high" />
+                                <img src="/static/images/two.svg">
+                                <p class="font12" th:text="${question.questionDetailReadResList[1].optionValue}">없음</p>
+                            </div>
+                            <div class="select-item flex-column">
+                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=3  id="soso" />
+                                <img src="/static/images/three.svg">
+                                <p class="font12" th:text="${question.questionDetailReadResList[2].optionValue}">보통</p>
+                            </div>
+                            <div class="select-item flex-column">
+                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=2  id="low" />
+                                <img src="/static/images/four.svg">
+                                <p class="font12" th:text="${question.questionDetailReadResList[3].optionValue}">자신</p>
+                            </div>
+                            <div class="select-item flex-column">
+                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=1  id="none" />
+                                <img src="/static/images/five.svg">
+                                <p class="font12" th:text="${question.questionDetailReadResList[4].optionValue}">매우 자신</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-bottom__container">
+                <button class="btn-basic" type="submit">완료하기</button>
+            </div>
+        </form>
     </section>
 
     <script src="/javascript/player/check.js"></script>
