@@ -1,10 +1,5 @@
-async function fetchAsText(url){
-    return await (await fetch(url)).text();
-}
+const navigation = document.getElementById('navigation');
 
-async function importNav(targetDiv) {
-    document.querySelector('#' + targetDiv).innerHTML = await fetchAsText("/nav");
-}
-
-importNav('nav');
-
+fetch('/static/page/navigation.html')
+    .then(res => res.text())
+    .then(data => navigation.innerHTML = data);

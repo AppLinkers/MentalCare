@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Up</title>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- ICON SCOUT -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="/css/common/style.css">
+    <link rel="stylesheet" href="/css/common/profile.css">
+</head>
+
+<body>
+    <!-- =========== PROFILE-PLAYER ========== -->
+    <section id="profile-player">
+
+        <nav id="navigation"></nav>
+
+        <div class="container profile__container">
+            <!-- 인사말 -->
+            <p class="greeting font24" id="greeting">손흥민</p>
+            <!-- 프로필 -->
+            <div class="profile">
+                <div class="profile__header flex-between">
+                    <p class="font20">프로필</p>
+                    <a class="font14" href="profile_edit.html">변경하기</a>
+                </div>
+                <div class="profile__content flex-between">
+                    <div class="profile__info flex-column">
+                        <div class="profile__info-item flex-column">
+                            <p class="font12">다음 경기까지</p>
+                            <p class="font16">D-24</p>
+                        </div>
+                        <div class="profile__info-item flex-column">
+                            <p class="font12">소속팀</p>
+                            <p class="font16">토트넘 훗스퍼 FC</p>
+                        </div>
+                        <div class="profile__info-item flex-column">
+                            <p class="font12">포지션</p>
+                            <p class="font16">FW</p>
+                        </div>
+                    </div>
+                    <img class="profile-img" src="/static/images/son.jpg">
+                </div>
+            </div>
+            <!-- 검사하기 -->
+            <div class="check">
+                <p class="font20 check-title">검사하기</p>
+                <!-- 통합 검사 -->
+                <div class="check__container">
+                    <img src="/static/images/check-all.jpg">
+                    <div class="check__container-content flex-column">
+                        <p class="font32">통합 검사</p>
+                        <p class="font14" style="font-weight: 300;">모든 검사를 한번에</p>
+                        <a href="check.html"><button class="btn-white">검사 시작하기</button></a>
+                    </div>
+                </div>
+                <!-- 유형별 검사 -->
+                <div class="check__container" style="margin-top: 270px;">
+                    <img src="/static/images/check-each.jpg">
+                    <div class="check__container-content flex-column">
+                        <p class="font32">유형별 검사</p>
+                        <p class="font14" style="font-weight: 300;">원하는 검사를 선택하기</p>
+                        <a href="select_type.html"><button class="btn-white">검사 시작하기</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="/javascript/common/base.js"></script>
+    <script src="/javascript/common/greeting.js"></script>
+
+</body>
+
+</html>

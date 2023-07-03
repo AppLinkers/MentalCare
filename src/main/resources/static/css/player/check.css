@@ -1,0 +1,154 @@
+.check__container {
+    padding-top: var(--margin-top);
+}
+
+.check-title img {
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+}
+
+.announce {
+    margin-top: 42px;
+}
+
+.form__container {
+    margin-top: 56px;
+}
+
+/* 세트 공통 */
+.check-set {
+    margin-bottom: 52px;
+}
+
+.select__container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin-top: 24px;
+}
+
+.select-item {
+    align-items: center;
+    cursor: pointer;
+}
+
+.select-item img {
+    width: 40px;
+    height: 40px;
+    filter: invert(83%) sepia(8%) saturate(11%) hue-rotate(131deg) brightness(90%) contrast(80%);
+}
+
+.select-item p {
+    font-weight: bold;
+    color: var(--color-gray200);
+    margin-top: 12px;
+}
+
+/* 세트 1번 */
+.set1 .select-item.active img {
+    filter: invert(0%) sepia(7%) saturate(7497%) hue-rotate(196deg) brightness(91%) contrast(101%);
+}
+
+.set1 .select-item.active p {
+    color: var(--color-black);
+}
+
+/* 세트 2번 */
+.set2 .select-item:nth-child(1).active img {
+    filter: invert(54%) sepia(63%) saturate(3915%) hue-rotate(336deg) brightness(93%) contrast(113%);
+}
+
+.set2 .select-item:nth-child(1).active p {
+    color: var(--color-red);
+}
+
+.set2 .select-item:nth-child(2).active img {
+    filter: invert(63%) sepia(83%) saturate(1879%) hue-rotate(299deg) brightness(98%) contrast(99%);
+}
+
+.set2 .select-item:nth-child(2).active p {
+    color: var(--color-pink);
+}
+
+.set2 .select-item:nth-child(3).active img {
+    filter: invert(89%) sepia(67%) saturate(1213%) hue-rotate(324deg) brightness(96%) contrast(95%);
+}
+
+.set2 .select-item:nth-child(3).active p {
+    color: var(--color-yellow);
+}
+
+.set2 .select-item:nth-child(4).active img {
+    filter: invert(57%) sepia(36%) saturate(860%) hue-rotate(108deg) brightness(96%) contrast(91%);
+}
+
+.set2 .select-item:nth-child(4).active p {
+    color: var(--color-green);
+}
+
+.set2 .select-item:nth-child(5).active img {
+    filter: invert(37%) sepia(73%) saturate(1848%) hue-rotate(212deg) brightness(100%) contrast(97%);
+}
+
+.set2 .select-item:nth-child(5).active p {
+    color: var(--color-blue);
+}
+
+/* 세트 3번 */
+.circle__container {
+    width: 60px;
+    height: 60px;
+}
+
+.circle-big {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+}
+
+.circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+}
+
+.circle-small {
+    width: 35px;
+    height: 35px;
+    border-radius: 30px;
+}
+
+.border-red {
+    border: 2px solid var(--color-red);
+}
+
+.border-green {
+    border: 2px solid var(--color-green);
+}
+
+.border-gray {
+    border: 2px solid var(--color-gray300);
+}
+
+.set3 .select-item.active .border-red {
+    background-color: var(--color-red);
+}
+
+.set3 .select-item.active .border-green {
+    background-color: var(--color-green);
+}
+
+.set3 .select-item.active .border-gray {
+    background-color: var(--color-gray300);
+}
+
+.set3 .font12 {
+    font-weight: 400;
+    color: var(--color-gray300);
+}
+
+/* 완료 버튼 */
+.btn-basic {
+    margin-top: 113px;
+    width: 100%;
+}
