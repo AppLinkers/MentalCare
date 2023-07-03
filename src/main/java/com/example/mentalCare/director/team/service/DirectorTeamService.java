@@ -30,7 +30,7 @@ public class DirectorTeamService {
     private final DirectorRepository directorRepository;
     private final AnswerRepository answerRepository;
     private final DiagnoseRepository diagnoseRepository;
-    private final TeamNotificationRepository teamNotificationRepository;
+
 
     /**
      * 팀 진단 유형 정보 조회
@@ -93,19 +93,33 @@ public class DirectorTeamService {
 
         List<TeamDirectorInfoReadRes> result = new ArrayList<>();
 
-        for (Director director : directorList) {
+        for (Director teamDirector : directorList) {
             result.add(
                     TeamDirectorInfoReadRes.builder()
-                            .id(director.getId())
-                            .imgUrl(director.getUser().getImgUrl())
-                            .name(director.getUser().getName())
-                            .role(director.getUser().getRole())
-                            .age(director.getUser().getAge())
+                            .id(teamDirector.getId())
+                            .imgUrl(teamDirector.getUser().getImgUrl())
+                            .name(teamDirector.getUser().getName())
+                            .role(teamDirector.getUser().getRole())
                             .build()
             );
         }
 
         return result;
+    }
+
+    /**
+     * 감독 정보 조회
+     */
+    @Transactional(readOnly = true)
+    public TeamDirectorInfoReadRes getTeamDirectorInfo(Long directorId) {
+        Director director = directorRepository.findById(directorId).get();
+
+        return TeamDirectorInfoReadRes.builder()
+                .id(director.getId())
+                .imgUrl(director.getUser().getImgUrl())
+                .name(director.getUser().getName())
+                .role(director.getUser().getRole())
+                .build();
     }
 
     /**
@@ -125,7 +139,6 @@ public class DirectorTeamService {
                             .name(player.getUser().getName())
                             .role(player.getUser().getRole())
                             .position(player.getPosition())
-                            .age(player.getUser().getAge())
                             .build()
             );
         }
@@ -133,36 +146,18 @@ public class DirectorTeamService {
         return result;
     }
 
-    /**
-     * 감독 정보 목록 -> 감독 권한 수정 정보 request
-     */
-    public DirectorRoleUpdateListReq teamDirectorInfoListToDirectorRoleUpdateListReq(List<TeamDirectorInfoReadRes> teamDirectorInfoList) {
-        DirectorRoleUpdateListReq result = new DirectorRoleUpdateListReq();
-        for (TeamDirectorInfoReadRes teamDirectorInfoReadRes : teamDirectorInfoList) {
-            result.add(
-                    DirectorRoleUpdateReq.builder()
-                            .id(teamDirectorInfoReadRes.getId())
-                            .role(teamDirectorInfoReadRes.getRole())
-                            .build()
-            );
-        }
 
-        return result;
-    }
 
     /**
      * 감독 권한 변경 서비스
      */
     @Transactional
-    public void changeDirectorRoleList(DirectorRoleUpdateListReq directorRoleUpdateListReq) {
-        for (DirectorRoleUpdateReq directorRoleUpdateReq : directorRoleUpdateListReq.getDirectorRoleUpdateReqList()) {
-            Director director = directorRepository.findById(directorRoleUpdateReq.getId()).get();
+    public void changeDirectorRole(DirectorRoleUpdateReq directorRoleUpdateReq) {
+        Director director = directorRepository.findById(directorRoleUpdateReq.getId()).get();
 
-            Role directorRole = director.getUser().getRole();
-            if (!directorRole.equals(directorRoleUpdateReq.getRole())) {
-                director.getUser().setRole(directorRoleUpdateReq.getRole());
-            }
-
+        Role directorRole = director.getUser().getRole();
+        if (!directorRole.equals(directorRoleUpdateReq.getRole())) {
+            director.getUser().setRole(directorRoleUpdateReq.getRole());
         }
     }
 
@@ -185,6 +180,11 @@ public class DirectorTeamService {
             }
         }
 
+        Double totalAvg = 0.0;
+        for (Double avg : avgList) {
+            totalAvg += avg;
+        }
+        totalAvg /= avgList.size();
 
         return TeamPlayerDetailReadRes.builder()
                 .id(playerId)
@@ -193,7 +193,7 @@ public class DirectorTeamService {
                 .role(player.getUser().getRole())
                 .position(player.getPosition())
                 .age(player.getUser().getAge())
-                .avgList(avgList)
+                .avg(totalAvg)
                 .answerDate(answerDate)
                 .build();
     }
@@ -204,7 +204,6 @@ public class DirectorTeamService {
     public PlayerInfoUpdateReq teamPlayerDetailReadResToPlayerInfoUpdateReq(TeamPlayerDetailReadRes teamPlayerDetailReadRes) {
         return PlayerInfoUpdateReq.builder()
                 .id(teamPlayerDetailReadRes.getId())
-                .position(teamPlayerDetailReadRes.getPosition())
                 .role(teamPlayerDetailReadRes.getRole())
                 .build();
     }
@@ -216,7 +215,6 @@ public class DirectorTeamService {
     public void changePlayerInfo(PlayerInfoUpdateReq playerInfoUpdateReq) {
         Player player = playerRepository.findById(playerInfoUpdateReq.getId()).get();
 
-        player.setPosition(playerInfoUpdateReq.getPosition());
         player.getUser().setRole(playerInfoUpdateReq.getRole());
     }
 }

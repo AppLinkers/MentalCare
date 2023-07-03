@@ -8,13 +8,9 @@ import lombok.Getter;
 @Builder
 public class DirectorProfileReadRes {
 
-    private Long id;
-
     private String name;
 
     private String imgUrl;
-
-    private Role role;
 
     private String teamName;
 }

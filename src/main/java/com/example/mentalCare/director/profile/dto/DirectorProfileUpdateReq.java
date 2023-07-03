@@ -1,5 +1,6 @@
 package com.example.mentalCare.director.profile.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.lang.Nullable;
@@ -13,4 +14,8 @@ public class DirectorProfileUpdateReq {
 
     private MultipartFile imgFile;
 
+    @Builder
+    public DirectorProfileUpdateReq(String teamCode) {
+        this.teamCode = teamCode;
+    }
 }

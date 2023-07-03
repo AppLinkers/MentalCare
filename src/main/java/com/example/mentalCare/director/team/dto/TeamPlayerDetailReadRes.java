@@ -24,9 +24,16 @@ public class TeamPlayerDetailReadRes {
 
     private Integer age;
 
-    private List<Double> avgList;
-
     @Nullable
     private LocalDate answerDate;
+
+    private Double avg;
+
+    public PlayerInfoUpdateReq toPlayerInfoUpdateReq() {
+        return PlayerInfoUpdateReq.builder()
+                .id(this.id)
+                .role(this.role)
+                .build();
+    }
 
 }

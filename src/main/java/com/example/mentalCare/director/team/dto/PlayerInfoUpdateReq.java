@@ -13,14 +13,11 @@ public class PlayerInfoUpdateReq {
 
     private Long id;
 
-    private String position;
-
     private Role role;
 
     @Builder
-    public PlayerInfoUpdateReq(Long id, String position, Role role) {
+    public PlayerInfoUpdateReq(Long id, Role role) {
         this.id = id;
-        this.position = position;
         this.role = role;
     }
 }

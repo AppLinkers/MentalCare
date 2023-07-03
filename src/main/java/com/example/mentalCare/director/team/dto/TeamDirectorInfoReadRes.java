@@ -16,6 +16,11 @@ public class TeamDirectorInfoReadRes {
 
     private Role role;
 
-    private Integer age;
+    public DirectorRoleUpdateReq toDirectorRoleUpdateReq() {
+        return DirectorRoleUpdateReq.builder()
+                .id(this.id)
+                .role(this.role)
+                .build();
+    }
 
 }
