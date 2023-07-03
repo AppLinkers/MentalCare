@@ -31,12 +31,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class DirectorProfileService {
 
-    private final DirectorRepository directorRepository;
     private final UserRepository userRepository;
-    private final PlayerRepository playerRepository;
     private final TeamRepository teamRepository;
-    private final AnswerRepository answerRepository;
-    private final DiagnoseRepository diagnoseRepository;
 
     private final S3Service s3Service;
 

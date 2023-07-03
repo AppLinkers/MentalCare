@@ -111,7 +111,7 @@ public class DirectorTeamService {
      * 감독 정보 조회
      */
     @Transactional(readOnly = true)
-    public TeamDirectorInfoReadRes getTeamDirectorInfo(Long directorId) {
+    public TeamDirectorInfoReadRes getTeamDirectorDetail(Long directorId) {
         Director director = directorRepository.findById(directorId).get();
 
         return TeamDirectorInfoReadRes.builder()
@@ -120,6 +120,19 @@ public class DirectorTeamService {
                 .name(director.getUser().getName())
                 .role(director.getUser().getRole())
                 .build();
+    }
+
+    /**
+     * 감독 권한 변경 서비스
+     */
+    @Transactional
+    public void changeDirectorRole(DirectorRoleUpdateReq directorRoleUpdateReq) {
+        Director director = directorRepository.findById(directorRoleUpdateReq.getId()).get();
+
+        Role directorRole = director.getUser().getRole();
+        if (!directorRole.equals(directorRoleUpdateReq.getRole())) {
+            director.getUser().setRole(directorRoleUpdateReq.getRole());
+        }
     }
 
     /**
@@ -144,21 +157,6 @@ public class DirectorTeamService {
         }
 
         return result;
-    }
-
-
-
-    /**
-     * 감독 권한 변경 서비스
-     */
-    @Transactional
-    public void changeDirectorRole(DirectorRoleUpdateReq directorRoleUpdateReq) {
-        Director director = directorRepository.findById(directorRoleUpdateReq.getId()).get();
-
-        Role directorRole = director.getUser().getRole();
-        if (!directorRole.equals(directorRoleUpdateReq.getRole())) {
-            director.getUser().setRole(directorRoleUpdateReq.getRole());
-        }
     }
 
     /**
@@ -195,16 +193,6 @@ public class DirectorTeamService {
                 .age(player.getUser().getAge())
                 .avg(totalAvg)
                 .answerDate(answerDate)
-                .build();
-    }
-
-    /**
-     * 선수 상세 정보 -> 선수 포지션 및 권한 변경 정보 request
-     */
-    public PlayerInfoUpdateReq teamPlayerDetailReadResToPlayerInfoUpdateReq(TeamPlayerDetailReadRes teamPlayerDetailReadRes) {
-        return PlayerInfoUpdateReq.builder()
-                .id(teamPlayerDetailReadRes.getId())
-                .role(teamPlayerDetailReadRes.getRole())
                 .build();
     }
 

@@ -46,7 +46,7 @@ public class DirectorTeamController {
     @GetMapping("/director/{id}")
     public String teamDirectorPage(Model model, @PathVariable Long id) {
 
-        TeamDirectorInfoReadRes teamDirectorDetail = directorTeamService.getTeamDirectorInfo(id);
+        TeamDirectorInfoReadRes teamDirectorDetail = directorTeamService.getTeamDirectorDetail(id);
         model.addAttribute("teamDirectorDetail", teamDirectorDetail);
 
         model.addAttribute("directorRoleUpdateReq", teamDirectorDetail.toDirectorRoleUpdateReq());
