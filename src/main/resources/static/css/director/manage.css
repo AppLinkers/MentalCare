@@ -1,0 +1,37 @@
+.form__container {
+    height: calc(100vh - 435px);
+}
+
+.auth-content {
+    padding: 20px 0;
+    cursor: pointer;
+}
+
+.auth-content p {
+    font-weight: bold;
+}
+
+.switch-box {
+    width: 60px;
+    height: 20px;
+    border-radius: 15px;
+    transition: var(--transition);
+    background-color: var(--color-gray200);
+}
+
+.switch-box.active {
+    justify-content: left;
+    background-color: var(--color-green);
+}
+
+.switch {
+    width: 28px;
+    height: 28px;
+    border-radius: 20px;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gray200);
+}
+
+.form__container button {
+    width: 100%;
+}

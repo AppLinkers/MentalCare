@@ -78,7 +78,7 @@ public class AuthService implements UserDetailsService {
     }
 
     /**
-     * 감독 회원가입 서비스
+     * 지도자 회원가입 서비스
      */
     @Transactional
     public void signUp(SignUpDirectorReq request) {
@@ -99,6 +99,7 @@ public class AuthService implements UserDetailsService {
     /**
      * 사용자 아이디 중복 검사
      */
+    @Transactional(readOnly = true)
     public void validateDuplicated(String loginId) {
         userRepository.findUserByLoginId(loginId).ifPresent(
                 (user) -> {
@@ -130,8 +131,8 @@ public class AuthService implements UserDetailsService {
 
 
     @Transactional
-    public void changePassword(ChangePwReq changePwReq){
-        User user = userRepository.findUserByLoginId(changePwReq.getLogin_id()).get();
+    public void changePassword(String loginId, ChangePwReq changePwReq){
+        User user = userRepository.findUserByLoginId(loginId).get();
         user.setLogin_pw(passwordEncoder.encode(changePwReq.getNew_pw()));
     }
 

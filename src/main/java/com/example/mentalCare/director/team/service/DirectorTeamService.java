@@ -219,20 +219,4 @@ public class DirectorTeamService {
         player.setPosition(playerInfoUpdateReq.getPosition());
         player.getUser().setRole(playerInfoUpdateReq.getRole());
     }
-
-    /**
-     * 팀 공지사항 작성 서비스
-     */
-    @Transactional
-    public void notificationWrite(String userLoginId, TeamNotificationWriteReq teamNotificationWriteReq) {
-        Director director = directorRepository.findDirectorByUserLogin_id(userLoginId);
-        TeamNotification teamNotification = TeamNotification.builder()
-                .team(director.getUser().getTeam())
-                .director(director)
-                .title(teamNotificationWriteReq.getTitle())
-                .content(teamNotificationWriteReq.getContent())
-                .build();
-
-        teamNotificationRepository.save(teamNotification);
-    }
 }

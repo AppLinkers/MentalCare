@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Up</title>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- ICON SCOUT -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="/css/common/style.css">
+    <link rel="stylesheet" href="/css/common/profile.css">
+</head>
+
+<body>
+    <!-- =========== PROFILE-DIRECTOR ========== -->
+    <section id="profile-director">
+
+        <nav id="navigation"></nav>
+
+        <div class="container profile__container">
+            <!-- 인사말 -->
+            <p class="greeting font24" id="greeting">메이슨</p>
+            <!-- 프로필 -->
+            <div class="profile">
+                <div class="profile__header flex-between">
+                    <p class="font20">프로필</p>
+                    <a class="font14" href="../common/profile_edit.html">변경하기</a>
+                </div>
+                <div class="profile__content flex-between">
+                    <div class="profile__info flex-column">
+                        <div class="profile__info-item flex-column">
+                            <p class="font12">소속팀</p>
+                            <p class="font16">토트넘 훗스퍼 FC</p>
+                        </div>
+                    </div>
+                    <img class="profile-img" src="/static/images/director.png">
+                </div>
+            </div>
+            <!-- 종합 차트 -->
+            <div class="chart">
+                <p class="font20">종합 차트</p>
+                <canvas id="chart"></canvas>
+            </div>
+            <!-- 팀 관리 -->
+            <div class="manage">
+                <p class="font20">팀 관리</p>
+                <div class="label flex-left">
+                    <p class="font16 active">선수 관리</p>
+                    <p class="font16">지도자 관리</p>
+                    <p class="font16">상담가 관리</p>
+                </div>
+                <!-- 관리 리스트 -->
+                <div class="target-list">
+                    <!-- 선수 리스트 -->
+                    <div class="target-grid active">
+
+                        <a href="manage.html">
+                            <div class="target-item flex-column">
+                                <img src="/static/images/son.jpg">
+                                <div class="target-info flex-between-column">
+                                    <p class="font16">손흥민</p>
+                                    <div class="flex-between">
+                                        <p class="font12">권한</p>
+                                        <!-- 권한 있음 -->
+                                        <div class="status green"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="manage.html">
+                            <div class="target-item flex-column">
+                                <img src="/static/images/son.jpg">
+                                <div class="target-info flex-between-column">
+                                    <p class="font16">손흥민</p>
+                                    <div class="flex-between">
+                                        <p class="font12">권한</p>
+                                        <!-- 권한 있음 -->
+                                        <div class="status gray"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+                    <!-- 지도자 리스트 -->
+                    <div class="target-grid">
+                        <a href="manage.html">
+                            <div class="target-item flex-column">
+                                <img src="/static/images/son.jpg">
+                                <div class="target-info flex-between-column">
+                                    <p class="font16">손흥민</p>
+                                    <div class="flex-between">
+                                        <p class="font12">권한</p>
+                                        <!-- 권한 있음 -->
+                                        <div class="status green"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- 상담가 리스트 -->
+                    <div class="target-grid">
+                        <a href="manage.html">
+                            <div class="target-item flex-column">
+                                <img src="/static/images/son.jpg">
+                                <div class="target-info flex-between-column">
+                                    <p class="font16">손흥민</p>
+                                    <div class="flex-between">
+                                        <p class="font12">권한</p>
+                                        <!-- 권한 있음 -->
+                                        <div class="status green"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="/javascript/common/base.js"></script>
+    <script src="/javascript/common/greeting.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="/javascript/director/profile.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Up</title>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- ICON SCOUT -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="/css/common/style.css">
+    <link rel="stylesheet" href="/css/player/select_type.css">
+</head>
+
+<body>
+    <!-- =========== SELECT-TYPE ========== -->
+    <section id="select-type">
+
+        <nav id="navigation"></nav>
+
+        <div class="wrapper flex-between-column">
+            <div class="container select-type__container">
+                <p class="font24">유형별 검사</p>
+                <p class="font16 announce">현재 나에게 문제가 있거나 스트레스를 받고 있는 부분을 체크해주세요.</p>
+                <!-- 검사 유형 -->
+                <div class="type__container">
+                    <div class="type-item flex-column">
+                        <img src="/static/images/type-performance.png">
+                        <p class="font14">경기력 문제</p>
+                    </div>
+                    <div class="type-item flex-column">
+                        <img src="/static/images/type-anxiety.png">
+                        <p class="font14">불안감</p>
+                    </div>
+                    <div class="type-item flex-column">
+                        <img src="/static/images/type-train.png">
+                        <p class="font14">훈련 스트레스</p>
+                    </div>
+                    <div class="type-item flex-column">
+                        <img src="/static/images/type-confidence.png">
+                        <p class="font14">기능 자신감</p>
+                    </div>
+                    <div class="type-item flex-column">
+                        <img src="/static/images/type-injury.png">
+                        <p class="font14">부상</p>
+                    </div>
+                    <div class="type-item flex-column">
+                        <img src="/static/images/type-relationship.png">
+                        <p class="font14">관계 문제</p>
+                    </div>
+                    <div class="type-item flex-column">
+                        <img src="/static/images/type-course.png">
+                        <p class="font14">진로 문제</p>
+                    </div>
+                    <div class="type-item flex-column">
+                        <img src="/static/images/type-education.png">
+                        <p class="font14">학업 스트레스</p>
+                    </div>
+                    <div class="type-item flex-column">
+                        <img src="/static/images/type-living.png">
+                        <p class="font14">생활 문제</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 하단 버튼 -->
+            <div class="container btn-bottom__container">
+                <button class="start-btn btn-basic">시작하기</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 다이얼로그 -->
+    <div id="dialog">
+        <div class="dialog__container flex-center">
+            <div class="dialog">
+                <p class="font16">알림</p>
+                <p class="font18 unselected" style="font-weight: 500;"></p>
+                <p class="font18">유형은 괜찮으신가요?</p>
+                <div class="dialog-btn">
+                    <button class="btn-white">아니오</button>
+                    <a href="check.html"><button class="btn-basic">네, 괜찮습니다</button></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="/javascript/common/base.js"></script>
+    <script src="/javascript/player/select_type.js"></script>
+</body>
+
+</html>
