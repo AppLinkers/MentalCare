@@ -48,10 +48,8 @@ public class PlayerProfileService {
         }
 
         return PlayerProfileReadRes.builder()
-                .id(player.getUser().getId())
                 .name(player.getUser().getName())
                 .imgUrl(player.getUser().getImgUrl())
-                .role(player.getUser().getRole())
                 .teamName(player.getUser().getTeam().getName())
                 .nextMatchDDay(nextMatchDDay.toString())
                 .position(player.getPosition())
@@ -67,10 +65,8 @@ public class PlayerProfileService {
         Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
 
         return PlayerProfileUpdateRes.builder()
-                .id(player.getUser().getId())
                 .name(player.getUser().getName())
                 .imgUrl(player.getUser().getImgUrl())
-                .role(player.getUser().getRole())
                 .teamCode(player.getUser().getTeam().getCode())
                 .nextMatchDate(player.getNextMatch())
                 .position(player.getPosition())

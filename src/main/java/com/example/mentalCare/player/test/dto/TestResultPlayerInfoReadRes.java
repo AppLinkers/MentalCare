@@ -13,5 +13,9 @@ public class TestResultPlayerInfoReadRes {
 
     private String position;
 
+    private String teamName;
+
+    private String nextMatchDDay;
+
     private String imgUrl;
 }

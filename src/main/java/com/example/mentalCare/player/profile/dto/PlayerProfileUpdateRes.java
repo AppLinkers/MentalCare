@@ -10,13 +10,9 @@ import java.time.LocalDate;
 @Builder
 public class PlayerProfileUpdateRes {
 
-    private Long id;
-
     private String name;
 
     private String imgUrl;
-
-    private Role role;
 
     private String teamCode;
 
