@@ -18,6 +18,4 @@ public class TeamPlayerInfoReadRes {
 
     private String position;
 
-    private Integer age;
-
 }

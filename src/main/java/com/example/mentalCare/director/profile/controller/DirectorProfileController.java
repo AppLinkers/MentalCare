@@ -1,7 +1,10 @@
 package com.example.mentalCare.director.profile.controller;
 
+import com.example.mentalCare.common.repository.UserRepository;
 import com.example.mentalCare.director.profile.dto.DirectorProfileUpdateReq;
+import com.example.mentalCare.director.profile.dto.DirectorProfileUpdateRes;
 import com.example.mentalCare.director.profile.service.DirectorProfileService;
+import com.example.mentalCare.director.team.service.DirectorTeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,9 @@ import java.io.IOException;
 public class DirectorProfileController {
 
     private final DirectorProfileService directorProfileService;
+    private final DirectorTeamService directorTeamService;
+
+    private final UserRepository userRepository;
 
     /**
      * 감독 프로필 조회 페이지
@@ -25,8 +31,12 @@ public class DirectorProfileController {
     @GetMapping("")
     public String profilePage(Model model) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        Long teamId = userRepository.findUserByLoginId(userLoginId).get().getTeam().getId();
 
         model.addAttribute("profile", directorProfileService.getProfileRead(userLoginId));
+        model.addAttribute("teamDiagnoseResultList", directorTeamService.getTeamDiagnoseResultList(teamId));
+        model.addAttribute("teamDirectorInfoList", directorTeamService.getTeamDirectorInfoList(teamId));
+        model.addAttribute("teamPlayerInfoList", directorTeamService.getTeamPlayerInfoList(teamId));
 
         return "director/profile";
     }
@@ -38,9 +48,11 @@ public class DirectorProfileController {
     public String profileSettingPage(Model model) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        model.addAttribute("profile", directorProfileService.getProfileUpdate(userLoginId));
+        DirectorProfileUpdateRes directorProfileUpdateRes = directorProfileService.getProfileUpdate(userLoginId);
 
-        model.addAttribute("directorProfileUpdateReq", new DirectorProfileUpdateReq());
+        model.addAttribute("profile", directorProfileUpdateRes);
+
+        model.addAttribute("directorProfileUpdateReq", directorProfileUpdateRes.toDirectorProfileUpdateReq());
 
         return "director/profile_setting";
     }
