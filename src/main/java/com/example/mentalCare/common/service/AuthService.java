@@ -112,19 +112,23 @@ public class AuthService implements UserDetailsService {
      * UserSignUpReq -> User
      */
     public User userSignUpReqToUser(SignUpUserReq request, Role role) {
-        Team team = teamRepository.findTeamByCode(request.getTeamCode()).get();
+
         User user =  User.builder()
                 .login_id(request.getLogin_id())
                 .login_pw(request.getLogin_pw())
                 .name(request.getName())
                 .imgUrl("https://mindup.s3.ap-northeast-2.amazonaws.com/profile.png")
-                .team(team)
                 .birthDate(request.getBirthDate())
                 .privacyPolicy(request.getPrivacyPolicy())
                 .role(role)
                 .build();
 
-        team.addUser(user);
+        if (!request.getTeamCode().isEmpty()) {
+            Team team = teamRepository.findTeamByCode(request.getTeamCode()).get();
+            user.setTeam(team);
+            team.addUser(user);
+        }
+
         return user;
     }
 

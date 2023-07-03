@@ -1,54 +1,48 @@
-.logo {
-    margin-top: var(--margin-top);
-    margin-bottom: 50px;
+.back {
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    font-size: 2rem;
 }
 
-input.last-child {
-    margin-bottom: 0;
+.login__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+}
+.login__content form{
+    margin-top: 4rem;
+}
+.login__content input{
+    width: 100%;
+    margin-top: 1rem;
+}
+.login__content button{
+    margin-top: 1.5rem;
+    width: 100%;
+    cursor: pointer;
 }
 
-
-section#sign_up {
-    padding-bottom: 60px;
+.line {
+    width: 100%;
+    height: 1px;
+    background: var(--color-light);
+    margin-top: 2.5rem;
 }
 
-.select__container {
-    margin-bottom: var(--margin-input);
-    position: relative;
+.option {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
 }
-
-.select__container i {
-    position: absolute;
-    font-size: 25px;
-    top: 17%;
-    right: 3%;
-}
-
-.sign_up_form {
-    display: none;
-}
-
-.sign_up_form.active {
-    display: block;
-}
-
-.terms {
-    margin-top: 30px;
-}
-
-.terms input {
-    width: 20px;
-    height: 20px;
-    margin: 0;
-    accent-color: var(--color-primary);
-}
-
-.terms p {
-    margin-bottom: 0;
-    margin-left: 14px;
-    font-weight: 600;
-}
-
-.terms p a {
-    text-decoration: underline;
+.option span {
+    cursor: pointer;
+    color: var(--color-gray);
+    padding: 2rem 3rem;
 }

@@ -14,5 +14,4 @@ public class TestResultInfoReadRes {
 
     private LocalDate date;
 
-    private List<String> diagnoseTypeList;
 }

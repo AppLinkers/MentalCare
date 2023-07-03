@@ -12,6 +12,12 @@ public class DiagnoseReadRes {
 
     private Long id;
 
+    private String title;
+
+    private String description;
+
+    private String iconUrl;
+
     private List<QuestionReadRes> questionReadResList;
 
     /**

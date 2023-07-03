@@ -10,9 +10,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
 @RequiredArgsConstructor
@@ -55,6 +60,9 @@ public class PlayerTestService {
 
             DiagnoseReadRes diagnoseReadRes = DiagnoseReadRes.builder()
                     .id(diagnose.getId())
+                    .title(diagnose.getTitle())
+                    .description(diagnose.getDescription())
+                    .iconUrl(diagnose.getIconUrl())
                     .questionReadResList(questionReadResList)
                     .build();
 
@@ -68,7 +76,7 @@ public class PlayerTestService {
      * 통합진단 답변 제출
      */
     @Transactional
-    public void submitTestAll(String userLoginId, List<DiagnoseWriteReq> answerWriteReq) {
+    public void submitTestAll(String userLoginId, AnswerWriteReq answerWriteReq) {
         Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
 
         Answer answer = Answer.builder()
@@ -79,7 +87,7 @@ public class PlayerTestService {
 
         player.addAnswer(savedAnswer);
 
-        for (DiagnoseWriteReq diagnoseWriteReq : answerWriteReq) {
+        for (DiagnoseWriteReq diagnoseWriteReq : answerWriteReq.getAnswerWriteReq()) {
             AnswerDiagnose answerDiagnose = AnswerDiagnose.builder()
                     .answer(savedAnswer)
                     .diagnose(diagnoseRepository.findById(diagnoseWriteReq.getId()).get()).build();
@@ -166,70 +174,68 @@ public class PlayerTestService {
     }
 
     /**
-     * 유형 진단 질문 리스트 추출
-     */
-    @Transactional(readOnly = true)
-    public TypeDiagnoseReadRes getTestTypeDiagnoseRead(Long diagnoseId) {
-
-        Diagnose diagnose = diagnoseRepository.findById(diagnoseId).get();
-        List<Question> questionList = questionRepository.findAllByDiagnoseIdAndDeletedFalse(diagnoseId);
-
-        List<QuestionReadRes> questionReadResList = new ArrayList<>();
-        for (Question question : questionList) {
-
-            List<QuestionDetailReadRes> questionDetailReadResList = new ArrayList<>();
-            for (QuestionDetail questionDetail : question.getQuestionDetailList()){
-                questionDetailReadResList.add(questionDetail.toQuestionDetailReadRes());
-            }
-
-            QuestionReadRes questionReadRes = QuestionReadRes.builder()
-                    .id(question.getId())
-                    .context(question.getContext())
-                    .questionDetailReadResList(questionDetailReadResList)
-                    .build();
-            questionReadResList.add(questionReadRes);
-        }
-        return TypeDiagnoseReadRes.builder()
-                .id(diagnose.getId())
-                .title(diagnose.getTitle())
-                .iconUrl(diagnose.getIconUrl())
-                .questionReadResList(questionReadResList)
-                .build();
-
-    }
-
-    public Boolean isLastAnswerExist(String userLoginId){
-        Long userId = userRepository.findUserIdByLoginId(userLoginId);
-        return answerRepository.existsByPlayer_UserId(userId);
-
-    }
-
-    /**
      * 유형진단 답변 제출
      * 최근 Answer 에 덮어 씌우기
      */
     @Transactional
-    public void submitTestType(String userLoginId, DiagnoseWriteReq diagnoseWriteReq) {
-        Long userId = userRepository.findUserIdByLoginId(userLoginId);
-        Answer answer = answerRepository.getFirstByPlayerUserIdOrderByUpdatedAtDesc(userId);
+    public void submitTestType(String userLoginId, AnswerWriteReq answerWriteReq, AnswerDiagnoseWriteReq answerDiagnoseWriteReq) {
+        Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
 
-        answer.setUpdatedAt(LocalDateTime.now());
+        Answer answer = Answer.builder()
+                .player(player)
+                .build();
 
-        AnswerDiagnose answerDiagnose = answer.findAnswerDiagnoseByDiagnoseId(diagnoseWriteReq.getId());
-        answerDiagnose.setUpdatedAt(LocalDateTime.now());
+        Answer savedAnswer = answerRepository.save(answer);
 
-        List<QuestionWriteReq> questionWriteReqList = diagnoseWriteReq.getQuestionWriteReqList();
-        List<AnswerDetail> answerDetailList = answerDiagnose.getAnswerDetailList();
+        player.addAnswer(savedAnswer);
 
-        for (AnswerDetail answerDetail : answerDetailList) {
-            for (QuestionWriteReq questionWriteReq : questionWriteReqList) {
-                if (answerDetail.getQuestion().getId().equals(questionWriteReq.getId())) {
-                    answerDetail.setAnswer(questionWriteReq.getAnswer());
-                }
+        for (DiagnoseWriteReq diagnoseWriteReq : answerWriteReq.getAnswerWriteReq()) {
+            AnswerDiagnose answerDiagnose = AnswerDiagnose.builder()
+                    .answer(savedAnswer)
+                    .diagnose(diagnoseRepository.findById(diagnoseWriteReq.getId()).get()).build();
+
+            AnswerDiagnose savedAnswerDiagnose = answerDiagnoseRepository.save(answerDiagnose);
+            savedAnswer.addAnswerDiagnose(savedAnswerDiagnose);
+
+
+            List<AnswerDetail> answerDetailList = new ArrayList<>();
+
+            for (QuestionWriteReq questionWriteReq : diagnoseWriteReq.getQuestionWriteReqList()) {
+                AnswerDetail answerDetail = AnswerDetail.builder()
+                        .question(questionRepository.findById(questionWriteReq.getId()).get())
+                        .answerDiagnose(savedAnswerDiagnose)
+                        .answer(questionWriteReq.getAnswer()).build();
+
+                answerDetailList.add(answerDetail);
             }
+
+            List<AnswerDetail> savedAnswerDetailList = answerDetailRepository.saveAll(answerDetailList);
+            savedAnswerDiagnose.addAnswerDetailList(savedAnswerDetailList);
         }
 
+        for (DiagnoseAvgWriteReq diagnoseAvgWriteReq : answerDiagnoseWriteReq.getAnswerDiagnoseWriteReq()) {
+            Diagnose diagnose = diagnoseRepository.findById(diagnoseAvgWriteReq.getId()).get();
+            AnswerDiagnose answerDiagnose = AnswerDiagnose.builder()
+                    .answer(savedAnswer)
+                    .diagnose(diagnose).build();
 
+            AnswerDiagnose savedAnswerDiagnose = answerDiagnoseRepository.save(answerDiagnose);
+            savedAnswer.addAnswerDiagnose(savedAnswerDiagnose);
+
+            List<AnswerDetail> answerDetailList = new ArrayList<>();
+
+            for (Question question : questionRepository.findAllByDiagnoseIdAndDeletedFalse(diagnose.getId())) {
+                AnswerDetail answerDetail = AnswerDetail.builder()
+                        .question(question)
+                        .answerDiagnose(savedAnswerDiagnose)
+                        .answer(diagnoseAvgWriteReq.getAvg()).build();
+
+                answerDetailList.add(answerDetail);
+            }
+
+            List<AnswerDetail> savedAnswerDetailList = answerDetailRepository.saveAll(answerDetailList);
+            savedAnswerDiagnose.addAnswerDetailList(savedAnswerDetailList);
+        }
     }
 
     /**
@@ -247,7 +253,6 @@ public class PlayerTestService {
                             TestResultInfoReadRes.builder()
                                     .id(answer.getId())
                                     .date(answer.getUpdatedAt().toLocalDate())
-                                    .diagnoseTypeList(answer.findDiagnoseTypeOfAnswer())
                                     .build()
                     );
 
@@ -261,15 +266,29 @@ public class PlayerTestService {
      * 진단 결과 (조회) - Player Info
      */
     @Transactional(readOnly = true)
-    public TestResultPlayerInfoReadRes getPlayerInfoOfTestResult(Long answerId) {
-        Answer answer = answerRepository.findById(answerId).get();
+    public TestResultPlayerInfoReadRes getPlayerInfoOfTestResult(String userLoginId) {
+        Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
 
-        Player player = answer.getPlayer();
+        StringBuilder nextMatchDDay = new StringBuilder();
+
+        if (player.getNextMatch() != null) {
+            Integer nextMatchDDayNum = (int) DAYS.between(player.getNextMatch(), LocalDate.now());
+
+            if (nextMatchDDayNum >= 0) {
+                nextMatchDDay.append("+ ");
+            } else {
+                nextMatchDDay.append("- ");
+                nextMatchDDayNum *= -1;
+            }
+            nextMatchDDay.append(nextMatchDDayNum);
+        }
 
         return TestResultPlayerInfoReadRes.builder()
                 .name(player.getUser().getName())
                 .age(player.getUser().getAge())
                 .position(player.getPosition())
+                .teamName(player.getUser().getTeam().getName())
+                .nextMatchDDay(nextMatchDDay.toString())
                 .imgUrl(player.getUser().getImgUrl())
                 .build();
     }
@@ -305,7 +324,6 @@ public class PlayerTestService {
                             .title(answerDiagnose.getDiagnose().getTitle())
                             .avg(answerDiagnoseAvg)
                             .questionResultList(questionResultList)
-                            .date(answerDiagnose.getUpdatedAt().toLocalDate())
                             .build()
             );
         }
@@ -321,4 +339,51 @@ public class PlayerTestService {
     }
 
 
+    public List<DiagnoseInfoReadRes> getDiagnoseInfoReadExceptByIds(List<Long> ids) {
+        List<Diagnose> diagnoseList = diagnoseRepository.findAllByDeletedFalse();
+
+        List<DiagnoseInfoReadRes> result = new ArrayList<>();
+
+        for (Diagnose diagnose : diagnoseList) {
+            if (!ids.contains(diagnose.getId())) {
+                DiagnoseInfoReadRes diagnoseInfoReadRes = DiagnoseInfoReadRes.builder()
+                        .id(diagnose.getId())
+                        .title(diagnose.getTitle())
+                        .iconUrl(diagnose.getIconUrl())
+                        .build();
+                result.add(diagnoseInfoReadRes);
+            }
+        }
+
+        return result;
+    }
+
+    public List<TestDiagnoseResultReadRes> getPositionResult(String userLoginId) {
+        String position = playerRepository.findPlayerPositionByUserLogin_id(userLoginId);
+
+        return playerRepository.findTestDiagnoseResultByPosition(position);
+    }
+
+    public List<TestDiagnoseResultReadRes> getAgeResult(String userLoginId) {
+        Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
+
+        return playerRepository.findTestDiagnoseResultByAge(player.getUser().getAge());
+    }
+
+    public List<MonthlyResultReadRes> getMonthlyResult(String userLoginId, LocalDate date) {
+        List<MonthlyResultReadRes> result = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            YearMonth yearMonth = YearMonth.from(date.minusMonths(i)); // 현재 날짜부터 i달 전의 YearMonth 객체
+            String formattedYearMonth = yearMonth.format(DateTimeFormatter.ofPattern("yyyy-MM")); // YearMonth를 원하는 형식으로 포맷
+
+            MonthlyResultReadRes monthlyResultReadRes = MonthlyResultReadRes.builder()
+                    .yearMonth(formattedYearMonth)
+                    .diagnoseResultList(playerRepository.findTestDiagnoseResultByUserLoginIdAndYearMonth(userLoginId, formattedYearMonth))
+                    .build();
+
+            result.add(monthlyResultReadRes);
+        }
+
+        return result;
+    }
 }

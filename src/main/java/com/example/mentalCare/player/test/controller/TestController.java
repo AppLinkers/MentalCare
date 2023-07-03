@@ -19,16 +19,6 @@ public class TestController {
     private final PlayerTestService playerTestService;
 
     /**
-     * 테스트 선택 페이지
-     */
-    @GetMapping("")
-    public String testPage(Model model) {
-        String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
-        model.addAttribute("isLastExist",playerTestService.isLastAnswerExist(userLoginId));
-        return "z-renew/player/test";
-    }
-
-    /**
      * 통합 테스트 페이지
      */
     @GetMapping("/all")
@@ -47,7 +37,7 @@ public class TestController {
         answerWriteReq.setAnswerWriteReq(diagnoseWriteReqList);
         model.addAttribute("answerWriteReq",answerWriteReq);
 
-        return "z-renew/player/test_all";
+        return "player/test_all";
     }
 
     /**
@@ -57,13 +47,24 @@ public class TestController {
     public String testAllSubmit(AnswerWriteReq answerWriteReq) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        playerTestService.submitTestAll(userLoginId, answerWriteReq.getAnswerWriteReq());
+        playerTestService.submitTestAll(userLoginId, answerWriteReq);
 
-        return "redirect:z-renew/player/test/result";
+        return "redirect:/player/test/result";
     }
 
     /**
-     * (다수 선택) 유형 테스트 페이지
+     * 유형 테스트 - 유형 선택 페이지
+     */
+    @GetMapping("/type_select")
+    public String testTypeSelectPage(Model model) {
+
+        model.addAttribute("diagnoseInfoList", playerTestService.getAllDiagnoseInfoRead());
+
+        return "player/test_type_select";
+    }
+
+    /**
+     * 유형 테스트 페이지
      */
     @GetMapping("/type")
     public String testMultiTypePate(Model model, @RequestParam(value = "ids") List<Long> ids) {
@@ -81,43 +82,35 @@ public class TestController {
         answerWriteReq.setAnswerWriteReq(diagnoseWriteReqList);
         model.addAttribute("answerWriteReq",answerWriteReq);
 
-        return "z-renew/player/profile";
-    }
 
-    /**
-     * 유형 테스트 - 유형 선택 페이지
-     */
-    @GetMapping("/type_select")
-    public String testTypeSelectPage(Model model) {
+        List<DiagnoseInfoReadRes> diagnoseInfoList = playerTestService.getDiagnoseInfoReadExceptByIds(ids);
 
-        model.addAttribute("diagnoseInfoList", playerTestService.getAllDiagnoseInfoRead());
+        model.addAttribute("diagnoseInfoList", diagnoseInfoList);
 
-        return "z-renew/player/select_type";
-    }
+        AnswerDiagnoseWriteReq answerDiagnoseWriteReq = new AnswerDiagnoseWriteReq();
+        List<DiagnoseAvgWriteReq> diagnoseAvgWriteReqList = new ArrayList<>();
+        for (DiagnoseInfoReadRes diagnoseInfoReadRes : diagnoseInfoList) {
+            DiagnoseAvgWriteReq diagnoseAvgWriteReq = DiagnoseAvgWriteReq.builder()
+                    .id(diagnoseInfoReadRes.getId()).build();
 
-    /**
-     * 유형 테스트 페이지
-     */
-    @GetMapping("/type/{id}")
-    public String testTypePage(Model model, @PathVariable Long id) {
+            diagnoseAvgWriteReqList.add(diagnoseAvgWriteReq);
+        }
 
-        TypeDiagnoseReadRes typeDiagnoseReadRes = playerTestService.getTestTypeDiagnoseRead(id);
-        model.addAttribute("diagnose", typeDiagnoseReadRes);
+        answerDiagnoseWriteReq.setAnswerDiagnoseWriteReq(diagnoseAvgWriteReqList);
+        model.addAttribute("answerDiagnoseWriteReq", answerDiagnoseWriteReq);
 
-        model.addAttribute("diagnoseWriteReq", typeDiagnoseReadRes.typeDiagnoseReadResToDiagnoseWriteReq());
-
-        return "z-renew/player/test_type";
+        return "test";
     }
 
     /**
      * 유형 테스트 답변 제출 서비스
      */
     @PostMapping("/type")
-    public String testTypeSubmit(DiagnoseWriteReq diagnoseWriteReq) {
+    public String testTypeSubmit(AnswerWriteReq answerWriteReq, AnswerDiagnoseWriteReq answerDiagnoseWriteReq) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
-        playerTestService.submitTestType(userLoginId, diagnoseWriteReq);
+        playerTestService.submitTestType(userLoginId, answerWriteReq, answerDiagnoseWriteReq);
 
-        return "redirect:/z-renew/player/test/result";
+        return "redirect:/player/test/result";
     }
 
     /**
@@ -128,7 +121,7 @@ public class TestController {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
 
         model.addAttribute("testResultInfoList", playerTestService.getAllTestResultByUserLoginId(userLoginId));
-        return "z-renew/player/test_result_list";
+        return "player/test_result_list";
     }
 
     /**
@@ -136,8 +129,15 @@ public class TestController {
      */
     @GetMapping("/result/{id}")
     public String testResultPage(Model model, @PathVariable Long id) {
-        model.addAttribute("player", playerTestService.getPlayerInfoOfTestResult(id));
-        model.addAttribute("testResult", playerTestService.getTestResult(id));
-        return "z-renew/player/test_result";
+        String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        model.addAttribute("player", playerTestService.getPlayerInfoOfTestResult(userLoginId));
+        TestResultReadRes testResult = playerTestService.getTestResult(id);
+        model.addAttribute("testResult", testResult);
+        model.addAttribute("positionResult", playerTestService.getPositionResult(userLoginId));
+        model.addAttribute("ageResult", playerTestService.getAgeResult(userLoginId));
+        model.addAttribute("monthlyResult", playerTestService.getMonthlyResult(userLoginId, testResult.getDate()));
+
+        return "player/test_result";
     }
 }

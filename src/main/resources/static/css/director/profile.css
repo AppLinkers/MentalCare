@@ -1,0 +1,65 @@
+/* ===========PROFILE HEADER =========== */
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 0;
+}
+
+.header-info span {
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.header-info h3 {
+    font-weight: 700;
+}
+
+.header-img {
+    width: 5rem;
+    height: 5rem;
+}
+
+.header-img img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+/* ===========LINE =========== */
+
+.line {
+    width: 100%;
+    height: 3px;
+    background: var(--color-light);
+}
+
+.thin {
+    height: 1px;
+}
+
+/* ===========PROFILE BODY =========== */
+.body-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 0;
+}
+
+.body-info h3 {
+    font-weight: 400;
+}
+
+/* ===========PROFILE BTN =========== */
+.profile-btn {
+    padding-top: 18rem;
+}
+
+.profile-btn button {
+    width: 100%;
+}
+
+.profile-btn button:first-child {
+    margin-bottom: 1rem;
+}

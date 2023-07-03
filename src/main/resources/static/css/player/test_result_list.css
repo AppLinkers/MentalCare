@@ -1,0 +1,47 @@
+.title {
+    padding-top: 3rem;
+}
+.title h2{
+    font-weight: 700;
+}
+.line {
+    width: 100%;
+    height: 1px;
+    background: var(--color-light);
+    margin-top: 1.5rem;
+}
+.result__container article {
+    cursor: pointer;
+}
+.result__date {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+.result__date i {
+    font-size: 1.5rem;
+}
+.result__type {
+    padding: 1rem 0;
+}
+.type__container {
+    display: flex;
+    padding: 1rem 0;
+}
+.type {
+    padding: 0.4rem 0.8rem;
+    margin-right: 1rem;
+    border-radius: 0.4rem;
+    background: var(--color-light);
+}
+.type h4{
+    font-weight: 500;
+}
+.inside {
+    margin-top: 0;
+}
+.inside__large {
+    margin-top: 0;
+    height: 5px;
+}

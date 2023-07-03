@@ -14,7 +14,5 @@ public class DiagnoseResultReadOfTestResultRes {
 
     private Double avg;
 
-    private LocalDate date;
-
     List<QuestionResultReadOfDiagnoseResult> questionResultList;
 }

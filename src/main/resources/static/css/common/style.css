@@ -1,53 +1,25 @@
 /* =================GENERAL CSS================ */
-
 :root {
-
-    --color-primary: #FFE400;
-    --color-primary-dark: #d4c004;
-    --color-primary-light: #fff8bc;
-
-
-    --color-white: #FFFFFF;
+    --color-primary: #6951FF;
+    --color-white: #fff;
+    --color-light: #f4f4f4;
     --color-black: #000000;
-    --color-gray100: #FAFAFA;
-    --color-gray200: #B5B5B5;
-    --color-gray300: #575757;
-
-    --color-red: #FC5230;
-    --color-lightRed: #FFE2DC;
-    --color-yellow: #EFB93A;
-    --color-lightYellow: #F5ECD7;
+    --color-dark: #575757;
+    --color-gray: #9e9e9e;
+    --color-lightgray: #c2c2c2;
+    --color-darkblue: #3a4ca8;
+    --color-purple: #A07FF1;
     --color-green: #1DBA84;
-    --color-lightGreen: #CDF3E6;
-    --color-pink: #FA6EA1;
-    --color-blue: #4B77FA;
+    --color-yellow: #EFB93A;
+    --color-red: #FC5230;
 
-    --transition: all 300ms ease;
+    --transition: all 400ms ease;
 
-    --container-width: 1160px;
-    --container-center-fit: 600px;
-    --container-width-phone: 95%;
+    --card-border-radius: 2rem;
 
-    --button-radius: 20px;
-    --input-radius: 10px;
-    --card-radius: 5px;
-
-    --font32: 32px;
-    --font28: 28px;
-    --font24: 24px;
-    --font20: 20px;
-    --font18: 18px;
-    --font16: 16px;
-    --font14: 14px;
-    --font12: 12px;
-    --font10: 10px;
-
-    --image-size-round: 60px;
-
-    --margin-top: 25px;
-    --margin-label: 10px;
-    --margin-input: 30px;
-
+    --container-width: 84%;
+    --container-width-tablet: 90%;
+    --container-width-phone: 94%;
 }
 
 * {
@@ -65,10 +37,15 @@ html {
 }
 
 body {
-    /* 300,400,500,700,900 사용가능 */
+    /* 100 , 300, 400, 500, 700, 900 사용가능 */
     font-family: 'Noto Sans KR', sans-serif;
     color: var(--color-black);
+    line-height: 1.7;
     background: var(--color-white);
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 body::-webkit-scrollbar {
@@ -76,341 +53,190 @@ body::-webkit-scrollbar {
     /* Chrome, Safari, Opera*/
 }
 
-/* =================LANGUAGE CSS================ */
-.eng {
-    /* 300,400,500,700,900 사용가능 */
-    font-family: 'Roboto', sans-serif;
-}
-
-/* =================FONT CSS================ */
-.font32 {
-    font-size: var(--font32);
-}
-
-.font28 {
-    font-size: var(--font28);
-}
-
-.font24 {
-    font-size: var(--font24);
-}
-
-.font20 {
-    font-size: var(--font20);
-}
-
-.font18 {
-    font-size: var(--font18);
-}
-
-.font16 {
-    font-size: var(--font16);
-}
-
-.font14 {
-    font-size: var(--font14);
-}
-
-.font12 {
-    font-size: var(--font12);
-}
-
-.font10 {
-    font-size: var(--font10);
-}
-
-a {
-    cursor: pointer;
-    color: var(--color-black);
-    -webkit-tap-highlight-color: transparent;
-}
-
-.logo {
-    font-size: var(--font16);
-    font-weight: 900;
-}
-
-.logo-big {
-    font-size: var(--font20);
-    font-weight: 900;
-}
-
-/* =================COLOR CSS================ */
-
-.green {
-    background-color: var(--color-green);
-}
-
-.yellow {
-    background-color: var(--color-yellow);
-}
-
-.red {
-    background-color: var(--color-red);
-}
-
-.blue {
-    background-color: var(--color-blue);
-}
-
-.pink {
-    background-color: var(--color-pink);
-}
-
-.gray {
-    background-color: var(--color-gray200);
-}
-
-/* =================WIDGET CSS================ */
-.wrapper {
-    height: calc(100vh - 69px);
-}
-
 .container {
     width: var(--container-width);
-    max-width: var(--container-center-fit);
     margin: 0 auto;
 }
 
-.container-fit {
-    width: var(--container-width);
-    max-width: var(--container-width);
-    margin: 0 auto;
-}
-
-button {
-    border-radius: var(--button-radius);
-    background-color: var(--color-black);
-    color: var(--color-white);
-    font-size: var(--font16);
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.btn-basic {
-    width: 100px;
-    height: 45px;
-}
-
-.btn-big {
-    width: 130px;
-    height: 50px;
-    font-size: var(--font18);
-    font-weight: 400;
-}
-
-.btn-small {
-    width: 75px;
-    height: 35px;
-    font-size: var(--font12);
-    font-weight: 400;
-}
-
-.btn-white {
-    background-color: var(--color-white);
+h1 {
+    font-size: 5rem;
+    line-height: 1;
+    font-weight: 500;
     color: var(--color-black);
 }
 
-.btn-transparent {
-    background-color: transparent;
-    border: 1px solid var(--color-white);
+h2 {
+    font-size: 3rem;
+    font-weight: 400;
+    line-height: 1;
 }
 
-.button__container {
-    margin-top: 45px;
-}
-
-.btn-bottom__container {
-    padding-bottom: 30px;
-}
-
-input {
-    width: 100%;
-    border: 1px solid var(--color-gray200);
-    border-radius: var(--input-radius);
-    font-size: var(--font16);
-    padding: 20px 10px;
-    margin-bottom: var(--margin-input);
-}
-
-input:focus {
-    border: 1px solid var(--color-black);
-}
-
-input::placeholder {
-    color: var(--color-gray300);
-}
-
-textarea {
-    width: 100%;
-    border: 1px solid var(--color-gray200);
-    border-radius: var(--input-radius);
-    font-size: var(--font16);
-    padding: 20px 10px;
-    font-family: 'Noto Sans KR', sans-serif;
-}
-
-textarea:focus {
-    border: 1px solid var(--color-black);
-}
-
-textarea::placeholder {
-    color: var(--color-gray300);
+h3 {
+    font-size: 1.8rem;
     font-weight: 300;
 }
 
-.input-label {
-    font-size: var(--font14);
-    margin-bottom: var(--margin-label);
-    margin-left: 8px;
+h4 {
+    font-size: 1.5rem;
+    font-weight: 300;
 }
 
-select {
-    width: 100%;
-    border: 1px solid var(--color-gray200);
-    border-radius: var(--input-radius);
-    font-size: var(--font16);
-    padding: 20px 10px;
-    appearance: none;
+h5 {
+    font-size: 1.3rem;
 }
 
-option {
-    padding: 15px 0;
+a {
+    color: var(--color-black);
+    font-weight: 300;
+}
+
+button {
+    background: transparent;
 }
 
 img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-radius: var(--card-radius);
 }
 
+.btn {
+    display: inline-block;
+    padding: 1.2rem 2.3rem;
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-weight: 500;
+    border-radius: 0.2rem;
+    transition: all 300ms ease;
+    cursor: pointer;
+}
+
+.btn-varient {
+    background: var(--color-darkblue);
+    color: var(--color-white);
+    transition: all 300ms ease;
+    padding: 1.8rem 3rem;
+    font-size: 1.1rem;
+}
+
+.btn-light {
+    background: var(--color-light);
+    color: var(--color-black);
+    font-weight: 600;
+}
+
+.btn-white {
+    padding: 1.2rem 4rem;
+    background: var(--color-white);
+    color: var(--color-black);
+    font-weight: 900;
+    border-radius: 1rem;
+    font-size: 1.1rem;
+    box-shadow: 0.2rem 0.2rem 0.5rem rgba(0, 0, 0, 0.3);
+}
+
+.btn-edit {
+    padding: 0.6rem 1.2rem;
+    background: var(--color-white);
+    border: 1px solid var(--color-gray);
+    color: var(--color-dark);
+    font-weight: 500;
+}
+
+.btn-input {
+    padding: 1.2rem 1rem;
+    background: var(--color-white);
+    color: var(--color-dark);
+    border: solid 1px var(--color-gray);
+}
+
+.btn-input:focus {
+    border: solid 1px var(--color-black);
+}
+
+.avatar {
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
 
 section {
-    width: 100%;
+    max-width: 100vw;
 }
 
-.fit-height {
-    height: 100vh;
+/* =================MEDIA QEURIES
+(TABLETS)================ */
+@media screen and (max-width: 1024px) {
+    .container {
+        width: var(--container-width-tablet);
+    }
+
+    h1 {
+        font-size: 4.2rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    h3 {
+        font-size: 1.6rem;
+    }
+
+    h4 {
+        font-size: 1.25rem;
+    }
+
+    h5 {
+        font-size: 1.1rem;
+    }
 }
 
-
-
-/* =================CUSTOM CSS================ */
-
-/* flex 요소 */
-.flex-center {
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    display: -webkit-box;
-    -webkit-box-pack: center;
-    -webkit-box-align: center;
-
-    display: -ms-flexbox;
-    -ms-flex-pack: center;
-    -ms-flex-align: center;
-
-    display: -webkit-flex;
-    -webkit-justify-content: center;
-    -webkit-align-items: center;
+/* =================MEDIA QEURIES
+(PHONES)================ */
+@media screen and (max-width: 780px) {
+    h1 {
+        font-size: 3rem;
+    }
 }
 
-.flex-between {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+/* =================MEDIA QEURIES
+(PHONES)================ */
+@media screen and (max-width: 600px) {
+    html {
+        font-size: 14px;
+    }
 
-.flex-between-column {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.flex-even {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-.flex-left {
-    display: flex;
-    align-items: center;
-    justify-content: left;
-}
-
-.flex-right {
-    display: flex;
-    align-items: center;
-    justify-content: right;
-}
-
-.flex-column {
-    display: flex;
-    flex-direction: column;
-}
-
-.flex-column-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* 말줄임표 */
-.ellipsis-line-one {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-}
-
-.ellipsis-line-three {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-}
-
-/* 상태 */
-.status {
-    width: 15px;
-    height: 15px;
-    border-radius: 10px;
-}
-
-/* 가입 유형 */
-.user-type {
-    display: inline-block;
-    padding: 3px 5px;
-}
-
-.player {
-    background-color: var(--color-lightGreen);
-    color: var(--color-green);
-}
-
-.director {
-    background-color: var(--color-lightRed);
-    color: var(--color-red);
-}
-
-.consultant {
-    background-color: var(--color-lightYellow);
-    color: var(--color-yellow);
-}
-
-/* =================MEDIA QUERY================ */
-@media screen and (max-width:780px) {
     .container {
         width: var(--container-width-phone);
     }
 
-    .container-fit {
-        width: 100%;
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 2.2rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    h4 {
+        font-size: 1.1rem;
+    }
+
+    h5 {
+        font-size: 1rem;
+    }
+
+}
+
+/* =================MEDIA QEURIES
+(PHONES)================ */
+@media screen and (max-width: 400px) {
+    h1 {
+        font-size: 2.1rem;
     }
 }
