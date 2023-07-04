@@ -88,13 +88,19 @@
         var iconList = [fingerIcon, faceIcon]
 
         var testElements = document.getElementsByClassName("check-set");
-        console.log(testElements);
         for (let i = 0; i < testElements.length; i++) {
+            console.log(testElements[i]);
             var idx = (i + 1) % 2
-            var one = testElements[i].getElementsByClassName("one");
-            console.log(one);
+            var one = testElements[i].getElementsByClassName("one")[0];
             one.src = iconList[idx][0];
-
+            var two = testElements[i].getElementsByClassName("two")[0];
+            two.src = iconList[idx][0];
+            var three = testElements[i].getElementsByClassName("three")[0];
+            three.src = iconList[idx][0];
+            var four = testElements[i].getElementsByClassName("four")[0];
+            four.src = iconList[idx][0];
+            var five = testElements[i].getElementsByClassName("five")[0];
+            five.src = iconList[idx][0];
         }
 
     </script>
