@@ -16,6 +16,10 @@ public class TeamPlayerDetailReadRes {
 
     private String name;
 
+    private String teamName;
+
+    private String nextMatchDDay;
+
     private String imgUrl;
 
     private Role role;
@@ -29,8 +33,8 @@ public class TeamPlayerDetailReadRes {
 
     private Double avg;
 
-    public PlayerInfoUpdateReq toPlayerInfoUpdateReq() {
-        return PlayerInfoUpdateReq.builder()
+    public PlayerRoleUpdateReq toPlayerRoleUpdateReq() {
+        return PlayerRoleUpdateReq.builder()
                 .id(this.id)
                 .role(this.role)
                 .build();

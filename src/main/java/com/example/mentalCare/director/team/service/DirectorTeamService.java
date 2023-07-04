@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 @Service
 @RequiredArgsConstructor
 public class DirectorTeamService {
@@ -118,6 +120,7 @@ public class DirectorTeamService {
                 .id(director.getId())
                 .imgUrl(director.getUser().getImgUrl())
                 .name(director.getUser().getName())
+                .teamName(director.getUser().getTeam().getName())
                 .role(director.getUser().getRole())
                 .build();
     }
@@ -183,10 +186,27 @@ public class DirectorTeamService {
             totalAvg += avg;
         }
         totalAvg /= avgList.size();
+        totalAvg = Math.round(totalAvg * 100.0) / 100.0;
+
+        StringBuilder nextMatchDDay = new StringBuilder();
+
+        if (player.getNextMatch() != null) {
+            Integer nextMatchDDayNum = (int) DAYS.between(player.getNextMatch(), LocalDate.now());
+
+            if (nextMatchDDayNum >= 0) {
+                nextMatchDDay.append("+ ");
+            } else {
+                nextMatchDDay.append("- ");
+                nextMatchDDayNum *= -1;
+            }
+            nextMatchDDay.append(nextMatchDDayNum);
+        }
 
         return TeamPlayerDetailReadRes.builder()
                 .id(playerId)
                 .name(player.getUser().getName())
+                .teamName(player.getUser().getTeam().getName())
+                .nextMatchDDay(nextMatchDDay.toString())
                 .imgUrl(player.getUser().getImgUrl())
                 .role(player.getUser().getRole())
                 .position(player.getPosition())
@@ -200,7 +220,7 @@ public class DirectorTeamService {
      * 선수 포지션 및 권한 변경 서비스
      */
     @Transactional
-    public void changePlayerInfo(PlayerInfoUpdateReq playerInfoUpdateReq) {
+    public void changePlayerRole(PlayerRoleUpdateReq playerInfoUpdateReq) {
         Player player = playerRepository.findById(playerInfoUpdateReq.getId()).get();
 
         player.getUser().setRole(playerInfoUpdateReq.getRole());

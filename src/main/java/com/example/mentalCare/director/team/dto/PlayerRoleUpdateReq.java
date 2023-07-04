@@ -9,14 +9,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PlayerInfoUpdateReq {
+public class PlayerRoleUpdateReq {
 
     private Long id;
 
     private Role role;
 
     @Builder
-    public PlayerInfoUpdateReq(Long id, Role role) {
+    public PlayerRoleUpdateReq(Long id, Role role) {
         this.id = id;
         this.role = role;
     }
