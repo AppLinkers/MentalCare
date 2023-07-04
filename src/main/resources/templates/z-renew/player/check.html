@@ -87,15 +87,6 @@
         var faceIcon = ["/images/worst.svg","/images/bad.svg","/images/soso.svg","/images/good.svg","/images/best.svg"]
         var iconList = [fingerIcon, faceIcon]
 
-        var testElements = document.getElementsByClassName("check-set");
-        console.log(testElements);
-        for (let i = 0; i < testElements.length; i++) {
-            var idx = (i + 1) % 2
-            var one = testElements[i].getElementsByClassName("one");
-            console.log(one);
-            one.src = iconList[idx][0];
-
-        }
 
     </script>
 
