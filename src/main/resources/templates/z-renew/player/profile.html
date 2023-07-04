@@ -64,7 +64,7 @@
                     <div class="check__container-content flex-column">
                         <p class="font32">통합 검사</p>
                         <p class="font14" style="font-weight: 300;">모든 검사를 한번에</p>
-                        <a href="check.html"><button class="btn-white">검사 시작하기</button></a>
+                        <a th:href="@{/player/test/all}"><button class="btn-white">검사 시작하기</button></a>
                     </div>
                 </div>
                 <!-- 유형별 검사 -->
@@ -73,7 +73,7 @@
                     <div class="check__container-content flex-column">
                         <p class="font32">유형별 검사</p>
                         <p class="font14" style="font-weight: 300;">원하는 검사를 선택하기</p>
-                        <a href="select_type.html"><button class="btn-white">검사 시작하기</button></a>
+                        <a th:href="@{/player/test/type_select}"><button class="btn-white">검사 시작하기</button></a>
                     </div>
                 </div>
             </div>

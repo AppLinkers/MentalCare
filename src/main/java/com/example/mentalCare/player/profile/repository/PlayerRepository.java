@@ -28,14 +28,14 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
     @Query("select new com.example.mentalCare.player.test.dto.TestDiagnoseResultReadRes(d.title, avg(adt.answer))"+
             "from User u, Player p, Answer a, AnswerDiagnose  ad, AnswerDetail adt, Diagnose d " +
             "where p.user = u and p = a.player and a = ad.answer and ad = adt.answerDiagnose and ad.diagnose = d " +
-            "and function('timestampdiff', u.birthDate, current_date) =: age group by ad.diagnose"
+            "and function('timestampdiff', YEAR, u.birthDate, current_date) = :age group by ad.diagnose"
     )
     List<TestDiagnoseResultReadRes> findTestDiagnoseResultByAge(Integer age);
 
 
     @Query("select new com.example.mentalCare.player.test.dto.TestDiagnoseResultReadRes(d.title, avg(adt.answer))" +
             "from User u, Player p, Answer a, AnswerDiagnose ad, AnswerDetail adt, Diagnose d " +
-            "where p.user = u and p = a.player and a = ad.answer and ad = adt.answerDiagnose and ad.diagnose = d and p.user.login_id =: userLoginId " +
-            "and substring(a.createdAt, 1, 7) =: yearMonth group by ad.diagnose")
-    List<TestDiagnoseResultReadRes> findTestDiagnoseResultByUserLoginIdAndYearMonth(String userLoginId, String yearMonth);
+            "where p.user = u and p = a.player and a = ad.answer and ad = adt.answerDiagnose and ad.diagnose = d and p.user.login_id = :userLoginId " +
+            "and substring(a.createdAt, 1, 7) = :ym group by ad.diagnose")
+    List<TestDiagnoseResultReadRes> findTestDiagnoseResultByUserLoginIdAndYearMonth(String userLoginId, String ym);
 }
