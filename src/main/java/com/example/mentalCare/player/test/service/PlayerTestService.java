@@ -333,6 +333,7 @@ public class PlayerTestService {
         }
 
         answerAvg /= answer.getAnswerDiagnoseList().size();
+        answerAvg = Math.round(answerAvg * 100.0) / 100.0;
 
         return TestResultReadRes.builder()
                 .date(answer.getUpdatedAt().toLocalDate())

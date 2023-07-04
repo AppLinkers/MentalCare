@@ -36,30 +36,13 @@
             <div class="result-list">
 
 
-                <div class="result-list-item flex-between">
+                <div class="result-list-item flex-between" th:each="test : ${testResultInfoList}">
                     <div class="result-date flex-between-column">
                         <p class="font12">검사 날짜</p>
-                        <p class="font20">2023. 06. 30</p>
+                        <p class="font20" th:text="${test.date}">2023. 06. 30</p>
                     </div>
-                    <a href="result.html"><button class="btn-small">결과 보기</button></a>
+                    <a th:href="@{|result/${test.id}|}"><button class="btn-small">결과 보기</button></a>
                 </div>
-
-                <div class="result-list-item flex-between">
-                    <div class="result-date flex-between-column">
-                        <p class="font12">검사 날짜</p>
-                        <p class="font20">2023. 06. 30</p>
-                    </div>
-                    <a href="result.html"><button class="btn-small">결과 보기</button></a>
-                </div>
-
-                <div class="result-list-item flex-between">
-                    <div class="result-date flex-between-column">
-                        <p class="font12">검사 날짜</p>
-                        <p class="font20">2023. 06. 30</p>
-                    </div>
-                    <a href="result.html"><button class="btn-small">결과 보기</button></a>
-                </div>
-
 
             </div>
 
