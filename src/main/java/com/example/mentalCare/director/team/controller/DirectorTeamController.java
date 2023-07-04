@@ -26,17 +26,17 @@ public class DirectorTeamController {
         TeamPlayerDetailReadRes teamPlayerDetail = directorTeamService.getTeamPlayerDetail(id);
         model.addAttribute("teamPlayerDetail", teamPlayerDetail);
 
-        model.addAttribute("playerInfoUpdateReq", teamPlayerDetail.toPlayerInfoUpdateReq());
+        model.addAttribute("playerRoleUpdateReq", teamPlayerDetail.toPlayerRoleUpdateReq());
 
-        return "director/player_info";
+        return "z-renew/director/player_manage";
     }
 
     /**
      * 선수 포지션 및 권한 변경 서비스
      */
     @PutMapping("/player")
-    public String changePlayerInfo(PlayerInfoUpdateReq playerInfoUpdateReq) {
-        directorTeamService.changePlayerInfo(playerInfoUpdateReq);
+    public String changePlayerRole(PlayerRoleUpdateReq playerRoleUpdateReq) {
+        directorTeamService.changePlayerRole(playerRoleUpdateReq);
         return "redirect:/director/profile";
     }
 
@@ -51,17 +51,17 @@ public class DirectorTeamController {
 
         model.addAttribute("directorRoleUpdateReq", teamDirectorDetail.toDirectorRoleUpdateReq());
 
-        return "director/player_info";
+        return "z-renew/director/director_manage";
     }
 
     /**
      * 감독 권한 변경 서비스
      */
-    @PutMapping("/director_role")
-    public String changeDirectorRoleList(DirectorRoleUpdateReq directorRoleUpdateReq) {
+    @PutMapping("/director")
+    public String changeDirectorRole(DirectorRoleUpdateReq directorRoleUpdateReq) {
         directorTeamService.changeDirectorRole(directorRoleUpdateReq);
 
-        return "redirect:/director/team";
+        return "redirect:/director/profile";
     }
 
 }

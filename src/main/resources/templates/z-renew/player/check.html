@@ -38,6 +38,7 @@
 
 
                 <div class="form__container" >
+
                     <!-- 질문과 평가 세트 1 -->
                     <div class="check-set set1" th:each="question, questionStat : ${diagnoseReadRes.questionReadResList}">
                         <input type="hidden" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].id}"/>
@@ -45,28 +46,28 @@
                         <div class="select__container" >
                             <div class="select-item flex-column">
                                 <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=5  id="worst" required>
-                                    <img src="/static/images/one.svg">
+                                    <img class = "one" >
                                     <p class="font12" th:text="${question.questionDetailReadResList[0].optionValue}">매우 없음</p>
                                 </input>
                             </div>
                             <div class="select-item flex-column">
                                 <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=4  id="high" />
-                                <img src="/static/images/two.svg">
+                                <img class = "two">
                                 <p class="font12" th:text="${question.questionDetailReadResList[1].optionValue}">없음</p>
                             </div>
                             <div class="select-item flex-column">
                                 <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=3  id="soso" />
-                                <img src="/static/images/three.svg">
+                                <img class = "three">
                                 <p class="font12" th:text="${question.questionDetailReadResList[2].optionValue}">보통</p>
                             </div>
                             <div class="select-item flex-column">
                                 <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=2  id="low" />
-                                <img src="/static/images/four.svg">
+                                <img class = "four" >
                                 <p class="font12" th:text="${question.questionDetailReadResList[3].optionValue}">자신</p>
                             </div>
                             <div class="select-item flex-column">
                                 <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=1  id="none" />
-                                <img src="/static/images/five.svg">
+                                <img class = "five" >
                                 <p class="font12" th:text="${question.questionDetailReadResList[4].optionValue}">매우 자신</p>
                             </div>
                         </div>
@@ -81,6 +82,22 @@
     </section>
 
     <script src="/javascript/player/check.js"></script>
+    <script>
+        var fingerIcon =["/images/one.svg","/images/two.svg","/images/three.svg","/images/four.svg","/images/five.svg"]
+        var faceIcon = ["/images/worst.svg","/images/bad.svg","/images/soso.svg","/images/good.svg","/images/best.svg"]
+        var iconList = [fingerIcon, faceIcon]
+
+        var testElements = document.getElementsByClassName("check-set");
+        console.log(testElements);
+        for (let i = 0; i < testElements.length; i++) {
+            var idx = (i + 1) % 2
+            var one = testElements[i].getElementsByClassName("one");
+            console.log(one);
+            one.src = iconList[idx][0];
+
+        }
+
+    </script>
 
 </body>
 

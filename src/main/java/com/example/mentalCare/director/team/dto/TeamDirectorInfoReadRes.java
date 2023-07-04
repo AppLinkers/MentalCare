@@ -14,6 +14,8 @@ public class TeamDirectorInfoReadRes {
 
     private String name;
 
+    private String teamName;
+
     private Role role;
 
     public DirectorRoleUpdateReq toDirectorRoleUpdateReq() {

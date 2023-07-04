@@ -147,7 +147,7 @@
                     <i class="uil uil-angle-down font24"></i>
                 </div>
 
-                <div class="type-detail-body" th:each="">
+                <div class="type-detail-body">
 
                     <div class="type-detail-item flex-column-center">
                         <canvas id="type-detail-item0"></canvas>
@@ -190,8 +190,8 @@
 
             </div>
             <!-- 유형별 필터 - 기간별 보기 -->
-            <div class="type-filter__container"th:each="monthlyList : ${monthlyResult}">
-                <div th:each="monthly:${monthlyList}">
+            <div th:each="monthlyList : ${monthlyResult}">
+                <div class="type-filter__container"th:each="monthly:${monthlyList}">
                     <div class="type-filter flex-center active"th:each="diagList:${monthly.diagnoseResultList}">
                         <p class="font14" th:text="${diagList.title}">경기력</p>
 

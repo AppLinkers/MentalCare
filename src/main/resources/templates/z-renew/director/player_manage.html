@@ -38,19 +38,11 @@
                         <div class="user-type player flex-center">
                             <p class="font10">PLAYER</p>
                         </div>
-                        <!-- 지도자인 경우 -->
-                        <div class="user-type director flex-center">
-                            <p class="font10">DIRECTOR</p>
-                        </div>
-                        <!-- 상담가인 경우 -->
-                        <div class="user-type consultant flex-center">
-                            <p class="font10">CONSULTANT</p>
-                        </div>
                     </div>
-                    <p class="font20">손흥민</p>
-                    <p class="font12">토트넘 훗스퍼 FC</p>
+                    <p class="font20" th:text="${teamPlayerDetail.name}"></p>
+                    <p class="font12" th:text="${teamPlayerDetail.teamName}"></p>
                 </div>
-                <img src="/static/images/son.jpg" class="profile">
+                <img th:src="${teamPlayerDetail.imgUrl}" class="profile">
             </div>
         </div>
         <!-- 선수 상세 정보 -->
@@ -59,26 +51,26 @@
                 <p class="font16">정보</p>
                 <div class="info-box flex-between">
                     <p class="info-label font14">나이</p>
-                    <p class="font14">26세</p>
+                    <p class="font14" th:text="${teamPlayerDetail.age} + '세'"></p>
                 </div>
                 <div class="info-box flex-between">
                     <p class="info-label font14">포지션</p>
-                    <p class="font14">FW</p>
+                    <p class="font14" th:text="${teamPlayerDetail.position}"></p>
                 </div>
                 <div class="info-box flex-between">
                     <p class="info-label font14">다음 경기</p>
-                    <p class="font14">D-17</p>
+                    <p class="font14" th:text="'D '+${teamPlayerDetail.nextMatchDDay}"></p>
                 </div>
             </div>
             <div class="info-right">
                 <p class="font16" style="color: var(--color-white);">.</p>
                 <div class="info-box flex-between">
                     <p class="info-label font14">마지막 검사</p>
-                    <p class="font14">2023.06.24</p>
+                    <p class="font14" th:text="${teamPlayerDetail.answerDate}"></p>
                 </div>
                 <div class="info-box flex-between">
                     <p class="info-label font14">평균</p>
-                    <p class="font14">4.7</p>
+                    <p class="font14" th:text="${teamPlayerDetail.avg}"></p>
                 </div>
             </div>
         </div>
@@ -86,7 +78,9 @@
         <div class="divider container-fit"></div>
         <!-- 권한 설정 -->
         <div class="auth__container container">
-            <form action="#">
+            <form th:method="put" th:action="@{/director/player}" th:object="${playerRoleUpdateReq}">
+                <input type="hidden" name="id" th:value="${playerRoleUpdateReq.id}"/>
+                <input type="hidden" id="playerAuth" name="role" th:value="${playerRoleUpdateReq.role}"/>
                 <div class="form__container flex-between-column">
                     <div class="auth-content flex-between">
                         <p class="font16">권한</p>
