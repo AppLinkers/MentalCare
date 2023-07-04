@@ -1,6 +1,7 @@
 package com.example.mentalCare.common.advice;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -28,7 +29,15 @@ public class FormAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
             String redirectUrl = savedRequest.getRedirectUrl();
             redirectStrategy.sendRedirect(request, response, redirectUrl);
         } else {
-            redirectStrategy.sendRedirect(request, response, getDefaultTargetUrl());
+            String redirectUrl;
+            if (authentication.getAuthorities().toArray()[0].toString().equals("PLAYER")) {
+                redirectUrl = "/player/profile";
+            } else if (authentication.getAuthorities().toArray()[0].toString().equals("DIRECTOR")) {
+                redirectUrl = "/director/profile";
+            } else {
+                redirectUrl = getDefaultTargetUrl();
+            }
+            redirectStrategy.sendRedirect(request, response, redirectUrl);
         }
     }
 }
