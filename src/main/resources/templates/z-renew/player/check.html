@@ -83,10 +83,29 @@
 
     <script src="/javascript/player/check.js"></script>
     <script>
-        var fingerIcon =["/images/one.svg","/images/two.svg","/images/three.svg","/images/four.svg","/images/five.svg"]
+        var fingerIcon =["/images/oneSvg.svg","/images/twoSvg.svg","/images/threeSvg.svg","/images/fiveSvg.svg","/images/fourSvg.svg"]
         var faceIcon = ["/images/worst.svg","/images/bad.svg","/images/soso.svg","/images/good.svg","/images/best.svg"]
         var iconList = [fingerIcon, faceIcon]
 
+        var testElements = document.getElementsByClassName("form__container");
+        for (let i = 0; i < testElements.length; i++) {
+            var idx = (i+1)%2
+            questionCnt = testElements[i].getElementsByClassName("check-set").length;
+            for(let j=0; j<questionCnt; j++){
+                var container = testElements[i].getElementsByClassName("check-set")[j];
+                var one = container.getElementsByClassName("one")[0];
+                one.src = iconList[idx][0];
+                var two = container.getElementsByClassName("two")[0];
+                two.src = iconList[idx][1];
+                var three = container.getElementsByClassName("three")[0];
+                three.src = iconList[idx][2];
+                var four = container.getElementsByClassName("four")[0];
+                four.src = iconList[idx][3];
+                var five = container.getElementsByClassName("five")[0];
+                five.src = iconList[idx][4];
+            }
+
+        }
 
     </script>
 
