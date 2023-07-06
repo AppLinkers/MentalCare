@@ -35,7 +35,7 @@
             <div class="profile">
                 <div class="profile__header flex-between">
                     <p class="font20">프로필</p>
-                    <a class="font14" href="/director/profile/setting">변경하기</a>
+                    <a class="font14" th:href="@{/director/profile/setting}">변경하기</a>
                 </div>
                 <div class="profile__content flex-between">
                     <div class="profile__info flex-column">
@@ -77,8 +77,7 @@
                 <div class="target-list">
                     <!-- 선수 리스트 -->
                     <div class="target-grid active">
-
-                        <a th:href="'/director/player/' + ${player.id}" th:each="player : ${teamPlayerInfoList}">
+                        <a th:href="@{|/director/player/${player.id}|}" th:each="player : ${teamPlayerInfoList}">
                             <div class="target-item flex-column">
                                 <img th:src="${player.imgUrl}">
                                 <div class="target-info flex-between-column">
@@ -96,7 +95,7 @@
                     </div>
                     <!-- 지도자 리스트 -->
                     <div class="target-grid">
-                        <a th:href="'/director/director/' + ${director.id}" th:each="director : ${teamDirectorInfoList}">
+                        <a th:href="@{|/director/director/${director.id}|}" th:each="director : ${teamDirectorInfoList}">
                             <div class="target-item flex-column">
                                 <img th:src="${director.imgUrl}">
                                 <div class="target-info flex-between-column">

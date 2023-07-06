@@ -36,7 +36,7 @@
             </div>
             <div class="announce-list">
 
-                <a th:href="'/noti/' + ${teamNotification.id}" th:each="teamNotification : ${teamNotificationList}">
+                <a th:href="@{|/noti/${teamNotification.id}|}" th:each="teamNotification : ${teamNotificationList}">
                     <div class="announce-item" >
                         <div class="announce-item-body flex-column">
                             <p class="font16" th:text="${teamNotification.title}">마인드업 멤버가 된 것을 환영합니다.</p>

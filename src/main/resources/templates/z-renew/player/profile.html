@@ -37,7 +37,11 @@
                 <div class="profile__header flex-between">
                     <p class="font20">프로필</p>
                     <a class="font14" th:href="@{/player/profile/setting}">변경하기</a>
-
+                </div>
+                <div class="profile__content flex-between">
+                    <div class="profile__info flex-column">
+                        <div class="profile__info-item flex-column">
+                            <p class="font12">다음 경기까지</p>
                             <p class="font16"th:text="'D ' + ${player.nextMatchDDay}">-24</p>
                         </div>
                         <div class="profile__info-item flex-column">
