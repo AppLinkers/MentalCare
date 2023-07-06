@@ -28,31 +28,31 @@
 
         <nav id="navigation"></nav>
 
-        <div class="container profile__container">
+        <div class="container profile__container" th:each="player : ${profile}">
             <!-- 인사말 -->
-            <p class="greeting font24" id="greeting">손흥민</p>
+            <p class="greeting font24" id="greeting" th:text="${player.name}">손흥민</p>
             <!-- 프로필 -->
             <div class="profile">
                 <div class="profile__header flex-between">
-                    <p class="font20">프로필</p>
+                    <p class="font20" >프로필</p>
                     <a class="font14" href="profile_edit.html">변경하기</a>
                 </div>
                 <div class="profile__content flex-between">
                     <div class="profile__info flex-column">
                         <div class="profile__info-item flex-column">
                             <p class="font12">다음 경기까지</p>
-                            <p class="font16">D-24</p>
+                            <p class="font16"th:text="'D ' + ${player.nextMatchDDay}">-24</p>
                         </div>
                         <div class="profile__info-item flex-column">
                             <p class="font12">소속팀</p>
-                            <p class="font16">토트넘 훗스퍼 FC</p>
+                            <p class="font16" th:text="${player.teamName}">토트넘 훗스퍼 FC</p>
                         </div>
                         <div class="profile__info-item flex-column">
                             <p class="font12">포지션</p>
-                            <p class="font16">FW</p>
+                            <p class="font16" th:text="${player.position}">FW</p>
                         </div>
                     </div>
-                    <img class="profile-img" src="/static/images/son.jpg">
+                    <img class="profile-img" th:src="${player.imgUrl}">
                 </div>
             </div>
             <!-- 검사하기 -->
@@ -60,7 +60,7 @@
                 <p class="font20 check-title">검사하기</p>
                 <!-- 통합 검사 -->
                 <div class="check__container">
-                    <img src="/static/images/check-all.jpg">
+                    <img src="/images/check-all.jpg">
                     <div class="check__container-content flex-column">
                         <p class="font32">통합 검사</p>
                         <p class="font14" style="font-weight: 300;">모든 검사를 한번에</p>
@@ -69,7 +69,7 @@
                 </div>
                 <!-- 유형별 검사 -->
                 <div class="check__container" style="margin-top: 270px;">
-                    <img src="/static/images/check-each.jpg">
+                    <img src="/images/check-each.jpg">
                     <div class="check__container-content flex-column">
                         <p class="font32">유형별 검사</p>
                         <p class="font14" style="font-weight: 300;">원하는 검사를 선택하기</p>

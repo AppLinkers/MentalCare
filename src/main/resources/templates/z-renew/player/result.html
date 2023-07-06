@@ -42,7 +42,7 @@
                         <p class="font10">2023.06.22</p>
                     </div>
                 </div>
-                <img src="/static/images/son.jpg" class="profile">
+                <img th:src="${player.imgUrl}" class="profile">
             </div>
         </div>
         <!-- 선수 상세 정보 -->
@@ -59,7 +59,7 @@
                 </div>
                 <div class="info-box flex-between">
                     <p class="info-label font14">다음 경기</p>
-                    <p class="font14" th:text="${player.nextMatchDDay}">D-17</p>
+                    <p class="font14" th:text="'D ' + ${player.nextMatchDDay}"></p>
                 </div>
             </div>
             <div class="info-right">

@@ -34,40 +34,40 @@
                 <p class="font16 announce">현재 나에게 문제가 있거나 스트레스를 받고 있는 부분을 체크해주세요.</p>
                 <!-- 검사 유형 -->
                 <div class="type__container">
-                    <div class="type-item flex-column">
-                        <img src="/static/images/type-performance.png">
+                    <div class="type-item flex-column" id="1">
+                        <img src="/images/type-performance.png">
                         <p class="font14">경기력 문제</p>
                     </div>
-                    <div class="type-item flex-column">
-                        <img src="/static/images/type-anxiety.png">
+                    <div class="type-item flex-column"id="2">
+                        <img src="/images/type-anxiety.png" >
                         <p class="font14">불안감</p>
                     </div>
-                    <div class="type-item flex-column">
-                        <img src="/static/images/type-train.png">
+                    <div class="type-item flex-column"id="3">
+                        <img src="/images/type-train.png" >
                         <p class="font14">훈련 스트레스</p>
                     </div>
-                    <div class="type-item flex-column">
-                        <img src="/static/images/type-confidence.png">
+                    <div class="type-item flex-column"id="4">
+                        <img src="/images/type-confidence.png" >
                         <p class="font14">기능 자신감</p>
                     </div>
-                    <div class="type-item flex-column">
-                        <img src="/static/images/type-injury.png">
+                    <div class="type-item flex-column" id="5">
+                        <img src="/images/type-injury.png" >
                         <p class="font14">부상</p>
                     </div>
-                    <div class="type-item flex-column">
-                        <img src="/static/images/type-relationship.png">
+                    <div class="type-item flex-column" id="6">
+                        <img src="/images/type-relationship.png">
                         <p class="font14">관계 문제</p>
                     </div>
-                    <div class="type-item flex-column">
-                        <img src="/static/images/type-course.png">
+                    <div class="type-item flex-column" id="7">
+                        <img src="/images/type-course.png" >
                         <p class="font14">진로 문제</p>
                     </div>
-                    <div class="type-item flex-column">
-                        <img src="/static/images/type-education.png">
+                    <div class="type-item flex-column" id="8">
+                        <img src="/images/type-education.png" >
                         <p class="font14">학업 스트레스</p>
                     </div>
-                    <div class="type-item flex-column">
-                        <img src="/static/images/type-living.png">
+                    <div class="type-item flex-column" id="9">
+                        <img src="/images/type-living.png" >
                         <p class="font14">생활 문제</p>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                 <p class="font18">유형은 괜찮으신가요?</p>
                 <div class="dialog-btn">
                     <button class="btn-white">아니오</button>
-                    <a href="check.html"><button class="btn-basic">네, 괜찮습니다</button></a>
+                    <a th:onclick="|javascript:page()|"><button class="btn-basic">네, 괜찮습니다</button></a>
                 </div>
             </div>
 
@@ -96,7 +96,58 @@
     </div>
 
     <script src="/javascript/common/base.js"></script>
-    <script src="/javascript/player/select_type.js"></script>
 </body>
+
+
+<script>
+    const typeItem = document.querySelectorAll(".type-item");
+
+    typeItem.forEach(item => {
+        item.addEventListener("click", () => {
+            item.classList.toggle("active");
+        });
+    });
+
+    const startButton = document.querySelector(".start-btn");
+    const dialog = document.getElementById("dialog");
+    const unselectedText = dialog.querySelector(".unselected");
+    const dialogNegativeButton = dialog.querySelector(".btn-white");
+
+    startButton.addEventListener("click", () => {
+        var unselected = checkUnselectedItem();
+        console.log(selected);
+        if (unselected.length === typeItem.length) return;
+        unselectedText.innerHTML = unselected.join(", ");
+        dialog.classList.add("active");
+
+    });
+
+    dialogNegativeButton.addEventListener("click", () => {
+        dialog.classList.remove("active");
+    });
+    var selected = [];
+    function checkUnselectedItem() {
+        const unselectedList = [];
+
+        typeItem.forEach(item => {
+            if (!item.classList.contains("active")) {
+                unselectedList.push(item.querySelector("p").innerHTML);
+
+            }else{
+                selected.push(item.id)
+            }
+        });
+
+
+        return unselectedList;
+    }
+
+    function page() {
+
+        var pageNum = selected.join(",");
+        location.href="http://localhost:8080/player/test/type?ids="+pageNum;
+    }
+
+</script>
 
 </html>
