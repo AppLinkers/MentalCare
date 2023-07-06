@@ -107,15 +107,9 @@ public class TestController {
     @PostMapping("/type")
     public String testTypeSubmit(AnswerWriteReq answerWriteReq, AnswerDiagnoseWriteReq answerDiagnoseWriteReq) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
-        List<DiagnoseAvgWriteReq> ad = new ArrayList<>();
-        for(int i =1; i<9; i++){
-            DiagnoseAvgWriteReq d1 = new DiagnoseAvgWriteReq();
-            d1.setAvg(3);
-            d1.setId(new Long(i));
-            ad.add(d1);
-        }
-        answerDiagnoseWriteReq.setAnswerDiagnoseWriteReq(ad);
-        playerTestService.submitTestType(userLoginId, answerWriteReq, answerDiagnoseWriteReq);
+        System.out.println(answerDiagnoseWriteReq.getAnswerDiagnoseWriteReq().size());
+
+        //playerTestService.submitTestType(userLoginId, answerWriteReq, answerDiagnoseWriteReq);
 
         return "redirect:result";
     }

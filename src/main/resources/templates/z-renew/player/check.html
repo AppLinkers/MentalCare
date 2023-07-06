@@ -36,44 +36,44 @@
                 <div class="container check__container" th:each="unSelectedDiagnose, unSelectedDiagnoseStat : ${diagnoseInfoList}">
 <!--                    <img th:src="${unSelectedDiagnose.iconUrl}">-->
                     <p class="font24" th:text="${unSelectedDiagnose.title}">경기력</p>
-                </div>
-                <div class="form__container" >
-                    <div th:text="${unSelectedDiagnose}"></div>
 
-                    <!-- 질문과 평가 세트 1 -->
-                    <div class="check-set set1">
-                        <p class="font18">해당 유형의 평소 만족도는 어떻게 되시나요? </p>
-                        <input type="hidden" th:field="${answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].id}"/>
-                        <div class="select__container" >
-                            <div class="select-item flex-column">
-                                <input type="radio" th:field="${answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}" th:value=5  id="worst" required>
-                                <img src="/images/oneSvg.svg">
-                                <p class="font12" >매우 없음</p>
-                                </input>
-                            </div>
-                            <div class="select-item flex-column">
-                                <input type="radio" th:field="${answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}"  th:value=4  id="high" />
-                                <img src="/images/twoSvg.svg">
-                                <p class="font12" >없음</p>
-                            </div>
-                            <div class="select-item flex-column">
-                                <input type="radio" th:field="${answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}"  th:value=3  id="soso" />
-                                <img src="/images/threeSvg.svg">
-                                <p class="font12">보통</p>
-                            </div>
-                            <div class="select-item flex-column">
-                                <input type="radio" th:field="${answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}" th:value=2  id="low" />
-                                <img src="/images/fourSvg.svg">
-                                <p class="font12" >자신</p>
-                            </div>
-                            <div class="select-item flex-column">
-                                <input type="radio" th:field="${answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}"  th:value=1  id="none" />
-                                <img src="/images/fiveSvg.svg">
-                                <p class="font12" >매우 자신</p>
+                    <div class="form__container2" >
+
+                        <!-- 질문과 평가 세트 1 -->
+                        <div class="check-set set1">
+                            <p class="font18">해당 유형의 평소 만족도는 어떻게 되시나요? </p>
+                            <input type="hidden" th:name="${answerDiagnoseWriteReq.answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].id}"/>
+                            <div class="select__container" >
+                                <div class="select-item flex-column">
+                                    <input type="radio" th:name="${answerDiagnoseWriteReq.answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}" th:value=5  id="worst" required>
+                                    <img src="/images/oneSvg.svg">
+                                    <p class="font12" >매우 없음</p>
+                                    </input>
+                                </div>
+                                <div class="select-item flex-column">
+                                    <input type="radio" th:name="${answerDiagnoseWriteReq.answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}"  th:value=4  id="high" />
+                                    <img src="/images/twoSvg.svg">
+                                    <p class="font12" >없음</p>
+                                </div>
+                                <div class="select-item flex-column">
+                                    <input type="radio" th:name="${answerDiagnoseWriteReq.answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}"  th:value=3  id="soso" />
+                                    <img src="/images/threeSvg.svg">
+                                    <p class="font12">보통</p>
+                                </div>
+                                <div class="select-item flex-column">
+                                    <input type="radio" th:name="${answerDiagnoseWriteReq.answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}" th:value=2  id="low" />
+                                    <img src="/images/fourSvg.svg">
+                                    <p class="font12" >자신</p>
+                                </div>
+                                <div class="select-item flex-column">
+                                    <input type="radio" th:name="${answerDiagnoseWriteReq.answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}"  th:value=1  id="none" />
+                                    <img src="/images/fiveSvg.svg">
+                                    <p class="font12" >매우 자신</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
 
             </div>
@@ -133,7 +133,7 @@
 
     <script src="/javascript/player/check.js"></script>
     <script>
-        var fingerIcon =["/images/oneSvg.svg","/images/twoSvg.svg","/images/threeSvg.svg","/images/fiveSvg.svg","/images/fourSvg.svg"]
+        var fingerIcon =["/images/oneSvg.svg","/images/twoSvg.svg","/images/threeSvg.svg","/images/fourSvg.svg","/images/fiveSvg.svg"]
         var faceIcon = ["/images/worst.svg","/images/bad.svg","/images/soso.svg","/images/good.svg","/images/best.svg"]
         var iconList = [fingerIcon, faceIcon]
 
