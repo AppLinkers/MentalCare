@@ -54,7 +54,7 @@ public class DirectorProfileController {
 
         model.addAttribute("directorProfileUpdateReq", directorProfileUpdateRes.toDirectorProfileUpdateReq());
 
-        return "z-renew/director/profile_setting";
+        return "z-renew/director/profile_edit";
     }
 
     /**
