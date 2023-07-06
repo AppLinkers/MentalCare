@@ -37,7 +37,7 @@ public class TestController {
         answerWriteReq.setAnswerWriteReq(diagnoseWriteReqList);
         model.addAttribute("answerWriteReq",answerWriteReq);
 
-        return "z-renew/player/check";
+        return "z-renew/player/test_all";
     }
 
     /**
@@ -49,7 +49,7 @@ public class TestController {
 
         playerTestService.submitTestAll(userLoginId, answerWriteReq);
 
-        return "redirect:/z-renew/player/result_list";
+        return "redirect:/player/test/result";
     }
 
     /**
@@ -117,7 +117,7 @@ public class TestController {
         answerDiagnoseWriteReq.setAnswerDiagnoseWriteReq(ad);
         playerTestService.submitTestType(userLoginId, answerWriteReq, answerDiagnoseWriteReq);
 
-        return "redirect:result";
+        return "redirect:/player/test/result";
     }
 
     /**
