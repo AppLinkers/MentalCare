@@ -80,7 +80,6 @@ public class TestController {
             diagnoseWriteReqList.add(diagnoseWriteReq);
         }
         answerWriteReq.setAnswerWriteReq(diagnoseWriteReqList);
-        model.addAttribute("answerWriteReq",answerWriteReq);
 
         List<DiagnoseInfoReadRes> diagnoseInfoList = playerTestService.getDiagnoseInfoReadExceptByIds(ids);
 
@@ -96,20 +95,28 @@ public class TestController {
         }
 
         answerDiagnoseWriteReq.setAnswerDiagnoseWriteReq(diagnoseAvgWriteReqList);
-        model.addAttribute("answerDiagnoseWriteReq", answerDiagnoseWriteReq);
 
-        return "z-renew/player/check";
+        TypeTestReq typeTestReq = TypeTestReq.builder()
+                .answerWriteReq(answerWriteReq)
+                .answerDiagnoseWriteReq(answerDiagnoseWriteReq)
+                .build();
+
+        model.addAttribute("typeTestReq", typeTestReq);
+
+        return "z-renew/player/test_type";
     }
 
     /**
      * 유형 테스트 답변 제출 서비스
      */
     @PostMapping("/type")
-    public String testTypeSubmit(AnswerWriteReq answerWriteReq, AnswerDiagnoseWriteReq answerDiagnoseWriteReq) {
+    public String testTypeSubmit(TypeTestReq typeTestReq) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
-        System.out.println(answerDiagnoseWriteReq.getAnswerDiagnoseWriteReq().size());
 
-        //playerTestService.submitTestType(userLoginId, answerWriteReq, answerDiagnoseWriteReq);
+        AnswerWriteReq answerWriteReq = typeTestReq.getAnswerWriteReq();
+        AnswerDiagnoseWriteReq answerDiagnoseWriteReq = typeTestReq.getAnswerDiagnoseWriteReq();
+
+        playerTestService.submitTestType(userLoginId, answerWriteReq, answerDiagnoseWriteReq);
 
         return "redirect:/player/test/result";
     }
