@@ -27,7 +27,7 @@ public class AdminController {
         model.addAttribute("userInfoResList", userInfoResList);
         model.addAttribute("userRoleUpdateReqList", adminService.userInfoListToUserRoleUpdateListReq(userInfoResList));
         model.addAttribute("teamInfoResList", adminService.getTeamInfoResList());
-        return "admin/user";
+        return "z-renew/admin/user";
     }
 
     /**
@@ -47,7 +47,7 @@ public class AdminController {
     public String teamPage(Model model) {
         model.addAttribute("teamInfoResList", adminService.getTeamInfoResList());
 
-        return "admin/team";
+        return "z-renew/admin/team";
     }
 
     /**
@@ -65,7 +65,7 @@ public class AdminController {
      */
     @GetMapping("/team/form")
     public String teamFormPage(TeamAddReq teamAddReq) {
-        return "admin/team_form";
+        return "z-renew/admin/team_form";
     }
 
     /**
