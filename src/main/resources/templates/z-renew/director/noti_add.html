@@ -30,14 +30,14 @@
         <nav id="navigation"></nav>
 
         <div class="container">
-            <form action="#">
+            <form th:method="post" th:action="@{/noti/noti}" th:object="${teamNotificationWriteReq}">
                 <div class="announce__container wrapper flex-between-column">
                     <div class="input__container">
                         <p class="font24">공지사항 작성</p>
                         <p class="input-label">제목</p>
-                        <input type="text" placeholder="제목을 입력하세요." required>
+                        <input type="text" placeholder="제목을 입력하세요." th:name="title" required>
                         <p class="input-label">내용</p>
-                        <textarea placeholder="공지사항 내용을 입력하세요." required></textarea>
+                        <textarea placeholder="공지사항 내용을 입력하세요." th:name="content" required></textarea>
                     </div>
                     <div class="btn-bottom__container">
                         <button class="btn-basic" type="submit">발행하기</button>
@@ -47,7 +47,7 @@
         </div>
     </section>
 
-    <script src="/static/javascript/common/base.js"></script>
+    <script src="/javascript/common/base.js"></script>
 
 </body>
 

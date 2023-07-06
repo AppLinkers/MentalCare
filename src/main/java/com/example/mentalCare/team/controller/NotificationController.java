@@ -3,13 +3,11 @@ package com.example.mentalCare.team.controller;
 import com.example.mentalCare.common.domain.User;
 import com.example.mentalCare.common.repository.UserRepository;
 import com.example.mentalCare.director.team.dto.TeamNotificationWriteReq;
-import com.example.mentalCare.director.team.service.DirectorTeamService;
 import com.example.mentalCare.team.domain.Team;
 import com.example.mentalCare.team.dto.TeamNotificationDetailRes;
 import com.example.mentalCare.team.dto.TeamNotificationInfoRes;
 import com.example.mentalCare.team.service.NotificationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +39,7 @@ public class NotificationController {
 
         model.addAttribute("userRole", user.getRole());
 
-        return "team/noti_list";
+        return "z-renew/team/noti_list";
     }
 
     @GetMapping("/{id}")
@@ -50,7 +48,7 @@ public class NotificationController {
 
         model.addAttribute("teamNotification", getTeamNotificationDetailRes);
 
-        return "team/noti_detail";
+        return "z-renew/team/noti_detail";
     }
 
     /**
@@ -61,7 +59,7 @@ public class NotificationController {
 
         model.addAttribute("teamNotificationWriteReq", new TeamNotificationWriteReq());
 
-        return "director/noti_add";
+        return "z-renew/director/noti_add";
     }
 
     /**

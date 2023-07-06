@@ -31,21 +31,21 @@
 
         <div class="announce__container container">
             <div class="announce-detail-header flex-left">
-                <img src="/static/images/director.png">
+                <img th:src="${teamNotification.directorImgUrl}">
                 <div class="flex-column">
-                    <p class="font14">감독 이름</p>
+                    <p class="font14" th:text="${teamNotification.directorName}">감독 이름</p>
                     <div class="font12 flex-left">
-                        <p>2023.06.28</p>
+                        <p th:text="${teamNotification.createdAt}">2023.06.28</p>
                         <p>·</p>
-                        <p>26</p>
+                        <p th:text="${teamNotification.viewCnt}">26</p>
                         <p>read</p>
                     </div>
                 </div>
             </div>
-            <p class="announce-detail-title font20">
+            <p class="announce-detail-title font20" th:text="${teamNotification.title}">
                 마인드업 멤버가 된 것을 환영합니다.
             </p>
-            <p class="announce-detail-content font18">
+            <p class="announce-detail-content font18" th:text="${teamNotification.content}">
                 예시 공지사항입니다. 예시 공지사항입니다. 예시 공지사항입니다. 예시 공지사항입니다. 예시
                 공지사항입니다. 예시 공지사항입니다. 예시 공지사항입니다. 예시 공지사항입니다. 예시 공지사항입니다. 예시 공지사항입니다. 예시 공지사항입니다. 예시
                 공지사항입니다.
