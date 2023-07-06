@@ -125,6 +125,8 @@
                     var typeLabels = new Array();
                     var myAgeAvgList = new Array();
                     var myAgeLabelList = new Array();
+                    var myQuestionLabelList = new Array();
+                    var myQuestionDataList = new Array()
                 </script>
                 <canvas id="chart-radar" class="main-chart"></canvas>
                 <div th:each="diagnose : ${testResult.diagnoseResultList}">
@@ -205,11 +207,28 @@
                                 <div class="font12 item-average" th:text="${diagnose.avg}">3.2</div>
                             </div>
                         </div>
+                        <script>
+                            var diagnoseList = [];
+                            var diagnoseLabelList = [];
+                        </script>
+                        <div th:each="question : ${diagnose.questionResultList}">
+                            <script th:inline="javascript">
+                                var questionLabel = [[${question.keyword}]]
+                                var questionData = [[${question.answer}]]
+
+                                diagnoseLabelList.push(questionLabel)
+                                diagnoseList.push(questionData)
+                            </script>
+                        </div>
+                        <script>
+                            myQuestionLabelList.push(diagnoseLabelList);
+                            myQuestionDataList.push(diagnoseList);
+                        </script>
                         <i class="uil uil-angle-down"></i>
                     </div>
                     <div class="item-chart flex-center">
 
-                        <canvas id="chart-by-type0"></canvas>
+                        <canvas class="chart-by-type0"></canvas>
                     </div>
                 </div>
 
@@ -243,6 +262,9 @@
         const canvases = document.querySelectorAll(".canvas__container");
         const typeDetailContainer = document.querySelector(".type-detail__container");
         const typeFilterContainer = document.querySelector(".type-filter__container");
+
+        // 유형 차트 아이템 동작
+        const typeChartItems = document.querySelectorAll(".type-chart-item");
 
         tabs.forEach((tab, idx) => {
 
@@ -303,8 +325,8 @@
 
         });
 
-        // 유형 차트 아이템 동작
-        const typeChartItems = document.querySelectorAll(".type-chart-item");
+
+
 
         typeChartItems.forEach(item => {
 
@@ -336,6 +358,72 @@
         const elementLabels = ["요인 1", "요인 2", "요인 3", "요인 4", "요인 5"];
         const compareAgeLabel = ["내 데이터", "나이 평균"];
         const comparePositionLabel = ["내 데이터", "포지션 평균"];
+
+
+        //유형별
+
+
+
+        for(var i=0; i<typeChartItems.length; i++){
+            var typeCanvas = typeChartItems[i].getElementsByClassName('chart-by-type0');
+            const byTypeData = myQuestionDataList[i]
+
+            const byTypeDatasets = {
+                label: '심리 상태',
+                data: byTypeData,
+                backgroundColor: byTypeData.map(function (value) {
+                    if (value >= 4) {
+                        return '#CDF3E6';
+                    } else if (value >= 2) {
+                        return '#F5ECD7';
+                    } else {
+                        return '#FFE2DC';
+                    }
+                }),
+                borderColor: byTypeData.map(function (value) {
+                    if (value >= 4) {
+                        return '#1DBA84';
+                    } else if (value >= 2) {
+                        return '#EFB93A';
+                    } else {
+                        return '#FC5230';
+                    }
+                }),
+                borderWidth: 1
+            };
+
+
+            // 유형별 차트
+            var data_byType = {
+                labels: myQuestionLabelList[i],
+                datasets: [byTypeDatasets]
+            };
+
+            // 바 차트 - 유형별
+            var config_bar = {
+                type: 'bar',
+                data: data_byType,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 5,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                    },
+                }
+            };
+
+            var barChart = new Chart(typeCanvas, config_bar);
+
+        }
 
 
         /////// 데이터 ///////
@@ -460,11 +548,7 @@
 
 
 
-        // // 유형별 차트
-        // const data_byType = {
-        //     labels: elementLabels,
-        //     datasets: [byTypeDatasets]
-        // };
+
 
         // 유형별 상세
         const data_compareAge = {
