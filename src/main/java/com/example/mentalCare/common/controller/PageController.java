@@ -20,7 +20,7 @@ public class PageController {
         }
 
         model.addAttribute("userRole", authority);
-        return "common/nav";
+        return "z-renew/common/nav";
     }
 
     /**
