@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Up</title>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- ICON SCOUT -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="/css/common/style.css">
+    <link rel="stylesheet" href="/css/player/check.css">
+</head>
+
+<body>
+
+    <!-- =========== CHECK ========== -->
+    <section id="check">
+
+
+        <!-- 검사하기 -->
+        <form th:method="post" th:action="@{/player/test/all}" th:object="${answerWriteReq}">
+            <div class="container check__container" th:each="diagnoseReadRes, diagnoseStat : ${diagnoseList}">
+                <input type="hidden" th:field="*{answerWriteReq[__${diagnoseStat.index}__].id}"/>
+                <div class="check-title flex-left">
+                    <img th:src="${diagnoseReadRes.iconUrl}">
+                    <p class="font24" th:text="${diagnoseReadRes.title}">경기력</p>
+                </div>
+                <p class="font16 announce" th:text="${diagnoseReadRes.description}">현재 나의 경험이나 최근 상태와 가장 일치하는 곳에 표시 해주세요.</p>
+
+
+                <div class="form__container" >
+
+                    <!-- 질문과 평가 세트 1 -->
+                    <div class="check-set set1" th:each="question, questionStat : ${diagnoseReadRes.questionReadResList}">
+                        <input type="hidden" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].id}"/>
+                        <p class="font18" th:text="${question.context}">1. 최근 경기력에 대해 만족하시나요?</p>
+                        <div class="select__container" >
+                            <div class="select-item flex-column">
+                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=5  id="worst" required>
+                                    <img class = "one" >
+                                    <p class="font12" th:text="${question.questionDetailReadResList[0].optionValue}">매우 없음</p>
+                                </input>
+                            </div>
+                            <div class="select-item flex-column">
+                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=4  id="high" />
+                                <img class = "two">
+                                <p class="font12" th:text="${question.questionDetailReadResList[1].optionValue}">없음</p>
+                            </div>
+                            <div class="select-item flex-column">
+                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=3  id="soso" />
+                                <img class = "three">
+                                <p class="font12" th:text="${question.questionDetailReadResList[2].optionValue}">보통</p>
+                            </div>
+                            <div class="select-item flex-column">
+                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=2  id="low" />
+                                <img class = "four" >
+                                <p class="font12" th:text="${question.questionDetailReadResList[3].optionValue}">자신</p>
+                            </div>
+                            <div class="select-item flex-column">
+                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=1  id="none" />
+                                <img class = "five" >
+                                <p class="font12" th:text="${question.questionDetailReadResList[4].optionValue}">매우 자신</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-bottom__container">
+                <button class="btn-basic" type="submit">완료하기</button>
+            </div>
+        </form>
+    </section>
+
+    <script src="/javascript/player/check.js"></script>
+    <script>
+        var fingerIcon =["/images/oneSvg.svg","/images/twoSvg.svg","/images/threeSvg.svg","/images/fiveSvg.svg","/images/fourSvg.svg"]
+        var faceIcon = ["/images/worst.svg","/images/bad.svg","/images/soso.svg","/images/good.svg","/images/best.svg"]
+        var iconList = [fingerIcon, faceIcon]
+
+        var testElements = document.getElementsByClassName("form__container");
+        for (let i = 0; i < testElements.length; i++) {
+            var idx = (i+1)%2
+            questionCnt = testElements[i].getElementsByClassName("check-set").length;
+            for(let j=0; j<questionCnt; j++){
+                var container = testElements[i].getElementsByClassName("check-set")[j];
+                var one = container.getElementsByClassName("one")[0];
+                one.src = iconList[idx][0];
+                var two = container.getElementsByClassName("two")[0];
+                two.src = iconList[idx][1];
+                var three = container.getElementsByClassName("three")[0];
+                three.src = iconList[idx][2];
+                var four = container.getElementsByClassName("four")[0];
+                four.src = iconList[idx][3];
+                var five = container.getElementsByClassName("five")[0];
+                five.src = iconList[idx][4];
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
