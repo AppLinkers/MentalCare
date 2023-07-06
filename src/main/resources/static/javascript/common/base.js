@@ -1,5 +1,5 @@
 const navigation = document.getElementById('navigation');
 
-fetch('/page/navigation.html')
+fetch('/nav')
     .then(res => res.text())
     .then(data => navigation.innerHTML = data);
