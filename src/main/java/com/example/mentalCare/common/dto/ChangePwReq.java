@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ChangePwReq {
-    private String new_pw;
+    private String newPw;
 }

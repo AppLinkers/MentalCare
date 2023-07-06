@@ -30,17 +30,14 @@
 
         <div class="container profile__container" th:each="player : ${profile}">
             <!-- 인사말 -->
-            <p class="greeting font24" id="greeting" th:text="${player.name}">손흥민</p>
+
+            <p class="greeting font24" id="greeting" th:text="${profile.name}">손흥민</p>
             <!-- 프로필 -->
             <div class="profile">
                 <div class="profile__header flex-between">
-                    <p class="font20" >프로필</p>
-                    <a class="font14" href="profile_edit.html">변경하기</a>
-                </div>
-                <div class="profile__content flex-between">
-                    <div class="profile__info flex-column">
-                        <div class="profile__info-item flex-column">
-                            <p class="font12">다음 경기까지</p>
+                    <p class="font20">프로필</p>
+                    <a class="font14" th:href="@{/player/profile/setting}">변경하기</a>
+
                             <p class="font16"th:text="'D ' + ${player.nextMatchDDay}">-24</p>
                         </div>
                         <div class="profile__info-item flex-column">
@@ -53,6 +50,7 @@
                         </div>
                     </div>
                     <img class="profile-img" th:src="${player.imgUrl}">
+
                 </div>
             </div>
             <!-- 검사하기 -->

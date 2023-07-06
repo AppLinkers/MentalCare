@@ -16,5 +16,7 @@ public class TeamNotificationInfoRes {
 
     private String title;
 
+    private String content;
+
     private LocalDate createdAt;
 }

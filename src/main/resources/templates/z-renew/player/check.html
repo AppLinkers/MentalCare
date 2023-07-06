@@ -32,51 +32,6 @@
         <form th:method="post" th:action="@{/player/test/type}" th:object="${answerWriteReq}">
 
 
-            <div>
-                <div class="container check__container" th:each="unSelectedDiagnose, unSelectedDiagnoseStat : ${diagnoseInfoList}">
-                    <img th:src="${unSelectedDiagnose.iconUrl}">
-                    <p class="font24" th:text="${unSelectedDiagnose.title}">경기력</p>
-                </div>
-                <p class="font16 announce" th:text="${unSelectedDiagnose.description}"></p>
-                <div class="form__container" >
-
-                    <!-- 질문과 평가 세트 1 -->
-                    <div class="check-set set1" th:each="">
-                        <p class="font18">해당 유형의 평소 만족도는 어떻게 되시나요? </p>
-                        <div class="select__container" >
-                            <div class="select-item flex-column">
-                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].id}" th:value=5  id="worst" required>
-                                <img src="/images/oneSvg.svg">
-                                <p class="font12" >매우 없음</p>
-                                </input>
-                            </div>
-                            <div class="select-item flex-column">
-                                <input type="radio" th:value=4  id="high" />
-                                <img src="/images/twoSvg.svg">
-                                <p class="font12" >없음</p>
-                            </div>
-                            <div class="select-item flex-column">
-                                <input type="radio" th:value=3  id="soso" />
-                                <img src="/images/threeSvg.svg">
-                                <p class="font12">보통</p>
-                            </div>
-                            <div class="select-item flex-column">
-                                <input type="radio"th:value=2  id="low" />
-                                <img src="/images/fourSvg.svg">
-                                <p class="font12" >자신</p>
-                            </div>
-                            <div class="select-item flex-column">
-                                <input type="radio" th:value=1  id="none" />
-                                <img src="/images/fiveSvg.svg">
-                                <p class="font12" >매우 자신</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
             <div class="container check__container" th:each="diagnoseReadRes, diagnoseStat : ${diagnoseList}">
                 <input type="hidden" th:field="*{answerWriteReq[__${diagnoseStat.index}__].id}"/>
                 <div class="check-title flex-left">

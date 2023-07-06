@@ -19,25 +19,28 @@
 
     <!-- STYLE SHEET -->
     <link rel="stylesheet" href="/css/common/style.css">
-    <link rel="stylesheet" href="/css/common/password_change.css">
+    <link rel="stylesheet" href="/css/common/announce.css">
 </head>
 
 <body>
-    <!-- =========== PASSWORD CHANGE ========== -->
-    <section id="password-change">
+
+    <!-- =========== ANNOUNCE-WRITE ========== -->
+    <section id="announce-write">
 
         <nav id="navigation"></nav>
 
-        <div class="password-change__container container">
-            <p class="font24">비밀번호 변경</p>
-            <form action="#">
-                <div class="form__container flex-column" style="display: block;">
-                    <p class="input-label">새 비밀번호</p>
-                    <input id="password" type="password" placeholder="비밀번호를 입력하세요" required>
-                    <input id="re-password" type="password" placeholder="비밀번호를 다시 입력하세요" required>
-                    <p class="font12 error">비밀번호가 일치하지 않습니다.</p>
-                    <div class="button__container flex-right">
-                        <button class="btn-basic" type="submit" disabled>변경하기</button>
+        <div class="container">
+            <form th:method="post" th:action="@{/noti/noti}" th:object="${teamNotificationWriteReq}">
+                <div class="announce__container wrapper flex-between-column">
+                    <div class="input__container">
+                        <p class="font24">공지사항 작성</p>
+                        <p class="input-label">제목</p>
+                        <input type="text" placeholder="제목을 입력하세요." th:name="title" required>
+                        <p class="input-label">내용</p>
+                        <textarea placeholder="공지사항 내용을 입력하세요." th:name="content" required></textarea>
+                    </div>
+                    <div class="btn-bottom__container">
+                        <button class="btn-basic" type="submit">발행하기</button>
                     </div>
                 </div>
             </form>
@@ -45,7 +48,6 @@
     </section>
 
     <script src="/javascript/common/base.js"></script>
-    <script src="/javascript/common/password_change.js"></script>
 
 </body>
 

@@ -35,6 +35,7 @@ public class NotificationService {
                             TeamNotificationInfoRes.builder()
                                     .id(teamNotification.getId())
                                     .title(teamNotification.getTitle())
+                                    .content(teamNotification.getContent())
                                     .directorName(teamNotification.getDirector().getUser().getName())
                                     .createdAt(teamNotification.getCreatedAt().toLocalDate())
                                     .build()

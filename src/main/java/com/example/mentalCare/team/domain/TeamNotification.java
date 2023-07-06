@@ -33,6 +33,7 @@ public class TeamNotification {
 
     private String title;
 
+    @Column(length=1000)
     private String content;
 
     @CreatedDate

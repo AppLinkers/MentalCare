@@ -30,22 +30,22 @@
         <nav id="navigation"></nav>
 
         <div class="container profile-edit__container">
-            <!-- 프로필 이미지 -->
-            <div class="profile-img__container flex-center">
-                <img class="profile-img" src="/static/images/son.jpg">
-                <p class="font20">손흥민</p>
-                <a class="font14 pick-image" onclick="changeImage()">변경하기</a>
-                <input id="selectImg" type="file" hidden>
-            </div>
             <!-- 정보 변경 -->
-            <form action="#">
+            <form th:method="put" th:action="@{/player/profile/setting}" th:object="${directorProfileUpdateReq}" enctype="multipart/form-data">
+                <!-- 프로필 이미지 -->
+                <div class="profile-img__container flex-center">
+                    <img class="profile-img" th:src="${profile.imgUrl}">
+                    <p class="font20" th:text="${profile.name}">손흥민</p>
+                    <a class="font14 pick-image" onclick="changeImage()">변경하기</a>
+                    <input id="selectImg" type="file" th:name="imgFile" hidden>
+                </div>
                 <div class="form__container">
                     <p class="input-label match-date">다음 경기 날짜</p>
-                    <input id="selectDate" type="date">
+                    <input id="selectDate" type="date" th:name="nextMatchDate" th:value="${profile.nextMatchDate}">
                     <p class="input-label">소속팀</p>
-                    <input type="text" placeholder="팀 코드를 입력하세요">
-                    <p class="input-label">포지션</p>
-                    <input type="text" placeholder="포지션을 입력하세요">
+                    <input type="text" placeholder="팀 코드를 입력하세요" th:name="teamCode" th:value="${profile.teamCode}">
+                    <p class="input-label" >포지션</p>
+                    <input type="text" placeholder="포지션을 입력하세요" th:name="position" th:value="${profile.position}">
                     <div class="button__container flex-right">
                         <button class="btn-basic" type="submit">저장</button>
                     </div>

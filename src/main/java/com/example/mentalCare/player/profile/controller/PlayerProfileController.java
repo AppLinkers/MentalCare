@@ -42,7 +42,7 @@ public class PlayerProfileController {
 
         model.addAttribute("playerProfileUpdateReq", new PlayerProfileUpdateReq());
 
-        return "z-renew/player/profile_setting";
+        return "z-renew/player/profile_edit";
     }
 
     /**

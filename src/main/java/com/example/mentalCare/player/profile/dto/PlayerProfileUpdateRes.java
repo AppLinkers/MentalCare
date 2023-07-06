@@ -1,6 +1,5 @@
 package com.example.mentalCare.player.profile.dto;
 
-import com.example.mentalCare.common.domain.type.Role;
 import lombok.Builder;
 import lombok.Getter;
 
