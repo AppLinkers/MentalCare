@@ -34,7 +34,7 @@ public class PageController {
         }
 
         model.addAttribute("userRole", authority);
-        return "common/main";
+        return "z-renew/common/main";
     }
 
 }

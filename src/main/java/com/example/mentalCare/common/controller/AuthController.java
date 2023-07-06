@@ -8,7 +8,6 @@ import com.example.mentalCare.common.dto.UserLoginReq;
 import com.example.mentalCare.common.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -34,7 +33,7 @@ public class AuthController {
         model.addAttribute("signUpPlayerReq", new SignUpPlayerReq());
         model.addAttribute("signUpDirectorReq", new SignUpDirectorReq());
 
-        return "common/sign_up";
+        return "z-renew/common/sign_up";
     }
 
     /**
@@ -57,14 +56,14 @@ public class AuthController {
 
     @GetMapping("/pwChange")
     public String changePasswordPage(ChangePwReq changePwReq){
-        return "common/change_password";
+        return "z-renew/common/change_password";
     }
 
     @PutMapping("/pwChange")
     public String changePassword(ChangePwReq changePwReq){
         String login_id = SecurityContextHolder.getContext().getAuthentication().getName();
         authService.changePassword(login_id, changePwReq);
-        return "redirect:/login";
+        return "redirect:/logout";
     }
 
     /**
@@ -74,7 +73,7 @@ public class AuthController {
     public String loginPage(Model model) {
 
         model.addAttribute("userLoginReq", new UserLoginReq());
-        return "common/login";
+        return "z-renew/common/login";
     }
 
     /**

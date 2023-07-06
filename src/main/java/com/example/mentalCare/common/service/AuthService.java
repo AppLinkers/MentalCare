@@ -137,7 +137,7 @@ public class AuthService implements UserDetailsService {
     @Transactional
     public void changePassword(String loginId, ChangePwReq changePwReq){
         User user = userRepository.findUserByLoginId(loginId).get();
-        user.setLogin_pw(passwordEncoder.encode(changePwReq.getNew_pw()));
+        user.setLogin_pw(passwordEncoder.encode(changePwReq.getNewPw()));
     }
 
 }
