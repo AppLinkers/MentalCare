@@ -123,6 +123,8 @@
                 <script>
                     var myAvgData = new Array();
                     var typeLabels = new Array();
+                    var myAgeAvgList = new Array();
+                    var myAgeLabelList = new Array();
                 </script>
                 <canvas id="chart-radar" class="main-chart"></canvas>
                 <div th:each="diagnose : ${testResult.diagnoseResultList}">
@@ -147,45 +149,18 @@
                     <i class="uil uil-angle-down font24"></i>
                 </div>
 
-                <div class="type-detail-body">
 
-                    <div class="type-detail-item flex-column-center">
-                        <canvas id="type-detail-item0"></canvas>
-                        <p class="font14">경기력</p>
+                <div class="type-detail-body" th:each="agelist : ${ageResult}">
+                    <div class="type-detail-item flex-column-center" th:each="age : ${agelist}">
+                        <canvas class="type-detail-item-canvas"></canvas>
+                        <p class="font14" th:text="${age.title}">경기력</p>
+                        <script th:inline="javascript">
+                            var myAvgDetail = [[${age.avg}]]
+                            var myAvgLabel = [[${age.title}]]
+                            myAgeAvgList.push(myAvgDetail)
+                            myAgeLabelList.push(myAvgLabel)
+                        </script>
                     </div>
-                    <div class="type-detail-item flex-column-center">
-                        <canvas id="type-detail-item1"></canvas>
-                        <p class="font14">불안감</p>
-                    </div>
-                    <div class="type-detail-item flex-column-center">
-                        <canvas id="type-detail-item2"></canvas>
-                        <p class="font14">훈련</p>
-                    </div>
-                    <div class="type-detail-item flex-column-center">
-                        <canvas id="type-detail-item3"></canvas>
-                        <p class="font14">기능 자신감</p>
-                    </div>
-                    <div class="type-detail-item flex-column-center">
-                        <canvas id="type-detail-item4"></canvas>
-                        <p class="font14">부상</p>
-                    </div>
-                    <div class="type-detail-item flex-column-center">
-                        <canvas id="type-detail-item5"></canvas>
-                        <p class="font14">관계</p>
-                    </div>
-                    <div class="type-detail-item flex-column-center">
-                        <canvas id="type-detail-item6"></canvas>
-                        <p class="font14">진로</p>
-                    </div>
-                    <div class="type-detail-item flex-column-center">
-                        <canvas id="type-detail-item7"></canvas>
-                        <p class="font14">학업</p>
-                    </div>
-                    <div class="type-detail-item flex-column-center">
-                        <canvas id="type-detail-item8"></canvas>
-                        <p class="font14">생활</p>
-                    </div>
-
                 </div>
 
             </div>
@@ -496,6 +471,8 @@
             labels: compareAgeLabel,
             datasets: [compareDatasets]
         };
+
+
         const data_comparePosition = {
             labels: comparePositionLabel,
             datasets: [compareDatasets]
@@ -647,11 +624,23 @@
         const avgChart = new Chart(radarChart, config_radar);
         const dateChart = new Chart(lineChart, config_line);
         const typeDetailCharts = [];
-        //
-        // for (var i = 0; i < 9; i++) {
-        //     new Chart(document.getElementById("chart-by-type" + i), config_bar);
-        //     typeDetailCharts[i] = new Chart(document.getElementById("type-detail-item" + i), config_bar_avg);
-        // }
+
+
+        var avgDetailContainer = document.getElementsByClassName("type-detail-item");
+        var compareAgeDataSet = [];
+
+        for(var n=0; n<avgDetailContainer.length; n++){
+            var canvas = avgDetailContainer[n].getElementsByClassName("type-detail-item-canvas")[0];
+            var myAge = myAvgData[n];
+            //또래애들 데이터
+            var ageAvg = myAgeAvgList[n]
+
+            compareAgeDataSet.push([myAge, ageAvg]);
+
+            typeDetailCharts[n] = new Chart(canvas, config_bar_avg);
+        }
+
+        console.log(compareAgeDataSet)
 
         // 필터
         const averageFilter = document.getElementById("average-filter");

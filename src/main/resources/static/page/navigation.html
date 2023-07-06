@@ -17,14 +17,14 @@
         <!-- 공통-임시 -->
         <p class="font18">공통 메뉴</p>
         <div class="menu-content flex-column">
-            <a href="../../templates/common/announce.html" class="font28">공지사항</a>
+            <a th:href="@{/noti/list}" class="font28">공지사항</a>
             <a href="../../templates/common/password_change.html" class="font28">비밀번호 변경</a>
         </div>
         <!-- 선수 -->
         <p class="font18">선수 메뉴</p>
         <div class="menu-content flex-column">
-            <a href="../../templates/player/profile.html" class="font28">프로필</a>
-            <a href="../../templates/player/result_list.html" class="font28">검사 결과</a>
+            <a th:href="@{/player/profile}"class="font28">프로필</a>
+            <a th:href="@{/player/test/result}" class="font28">검사 결과</a>
             <!-- <a href="/templates/common/announce.html" class="font28">공지사항</a>
             <a href="/templates/common/password_change.html" class="font28">비밀번호 변경</a> -->
         </div>
@@ -32,8 +32,8 @@
         <!-- 지도자 -->
         <p class="font18">지도자 메뉴</p>
         <div class="menu-content flex-column">
-            <a href="../../templates/director/profile.html" class="font28">프로필</a>
-            <!-- <a href="/templates/common/announce.html" class="font28">공지사항</a>
+            <a th:href="@{/director/profile}" class="font28">프로필</a>
+            <a th:href="@{/noti/list}" class="font28">공지사항</a>
             <a href="/templates/common/password_change.html" class="font28">비밀번호 변경</a> -->
         </div>
 
