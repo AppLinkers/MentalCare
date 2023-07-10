@@ -119,7 +119,7 @@ select {
 }
 
 canvas#chart-radar {
-    margin: 25px;
+    z-index: 2;
 }
 
 canvas#chart-line {
@@ -252,8 +252,8 @@ canvas#chart-line {
     margin-left: 5px;
 }
 
-.item-info .color {
-    margin-bottom: 3px;
+.item-info .status {
+    margin-bottom: 4px;
 }
 
 .item-info i {
