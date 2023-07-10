@@ -22,6 +22,17 @@
     --color-pink: #FA6EA1;
     --color-blue: #4B77FA;
 
+    --color-dot1: #44AFC6;
+    --color-dot2: #FF902F;
+    --color-dot3: #75943E;
+    --color-dot4: #91D64E;
+    --color-dot5: #FFFE61;
+    --color-dot6: #898989;
+    --color-dot7: #3E6388;
+    --color-dot8: #000000;
+    --color-dot9: #C44F47;
+
+
     --transition: all 300ms ease;
 
     --container-width: 1160px;
@@ -378,8 +389,8 @@ section {
 
 /* 상태 */
 .status {
-    width: 15px;
-    height: 15px;
+    width: 18px;
+    height: 18px;
     border-radius: 10px;
 }
 
@@ -404,6 +415,84 @@ section {
     color: var(--color-yellow);
 }
 
+/* 레이더 차트 아이콘 */
+.radar__container {
+    position: relative;
+    padding: 25px;
+}
+
+.radar__container img {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    top: 49%;
+    left: 48.4%;
+    transform: translate(-50%, -50%);
+}
+
+.radar__container .dot {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    opacity: 0.6;
+    transform: translate(-50%, -50%);
+}
+
+.dot.type-dot1 {
+    background-color: var(--color-dot1);
+    top: 10%;
+    left: 48.5%;
+}
+
+.dot.type-dot2 {
+    background-color: var(--color-dot2);
+    top: 19%;
+    left: 74%;
+}
+
+.dot.type-dot3 {
+    background-color: var(--color-dot3);
+    top: 42%;
+    left: 87%;
+}
+
+.dot.type-dot4 {
+    background-color: var(--color-dot4);
+    top: 68.5%;
+    left: 82.5%;
+}
+
+.dot.type-dot5 {
+    background-color: var(--color-dot5);
+    top: 85.5%;
+    left: 61.5%;
+}
+
+.dot.type-dot6 {
+    background-color: var(--color-dot6);
+    top: 85.5%;
+    left: 34.5%;
+}
+
+.dot.type-dot7 {
+    background-color: var(--color-dot7);
+    top: 68.5%;
+    left: 14.5%;
+}
+
+.dot.type-dot8 {
+    background-color: var(--color-dot8);
+    top: 42%;
+    left: 10.5%;
+}
+
+.dot.type-dot9 {
+    background-color: var(--color-dot9);
+    top: 19%;
+    left: 23%;
+}
+
 /* =================MEDIA QUERY================ */
 @media screen and (max-width:780px) {
     .container {
@@ -412,5 +501,270 @@ section {
 
     .container-fit {
         width: 100%;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .radar__container .dot {
+        width: 26px;
+        height: 26px;
+    }
+
+    .dot.type-dot1 {
+        top: 10.5%;
+        left: 48.5%;
+    }
+
+    .dot.type-dot2 {
+        top: 20%;
+        left: 73.5%;
+    }
+
+    .dot.type-dot3 {
+        top: 42.5%;
+        left: 85.5%;
+    }
+
+    .dot.type-dot4 {
+        top: 68%;
+        left: 81.5%;
+    }
+
+    .dot.type-dot5 {
+        top: 85%;
+        left: 61.2%;
+    }
+
+    .dot.type-dot6 {
+        top: 85%;
+        left: 35%;
+    }
+
+    .dot.type-dot7 {
+        top: 68%;
+        left: 15%;
+    }
+
+    .dot.type-dot8 {
+        top: 42.5%;
+        left: 10.5%;
+    }
+
+    .dot.type-dot9 {
+        top: 20%;
+        left: 23.5%;
+    }
+}
+
+@media screen and (max-width:550px) {
+    .radar__container img {
+        width: 65px;
+        height: 65px;
+        left: 47.8%;
+    }
+
+    .dot.type-dot1 {
+        top: 12%;
+        left: 48%;
+    }
+
+    .dot.type-dot2 {
+        top: 21.5%;
+        left: 72%;
+    }
+
+    .dot.type-dot3 {
+        top: 42.5%;
+        left: 84%;
+    }
+
+    .dot.type-dot4 {
+        top: 67%;
+        left: 79.5%;
+    }
+
+    .dot.type-dot5 {
+        top: 83.5%;
+        left: 60.5%;
+    }
+
+    .dot.type-dot6 {
+        top: 83.5%;
+        left: 35%;
+    }
+
+    .dot.type-dot7 {
+        top: 67%;
+        left: 16%;
+    }
+
+    .dot.type-dot8 {
+        top: 42.5%;
+        left: 12%;
+    }
+
+    .dot.type-dot9 {
+        top: 21.5%;
+        left: 24%;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .radar__container img {
+        width: 60px;
+        height: 60px;
+        top: 48.6%;
+        left: 47.5%;
+    }
+
+    .dot.type-dot1 {
+        top: 13%;
+        left: 47.5%;
+    }
+
+    .dot.type-dot2 {
+        top: 21.5%;
+        left: 70.5%;
+    }
+
+    .dot.type-dot3 {
+        top: 42.5%;
+        left: 82%;
+    }
+
+    .dot.type-dot4 {
+        top: 66%;
+        left: 78.5%;
+    }
+
+    .dot.type-dot5 {
+        top: 81.5%;
+        left: 59%;
+    }
+
+    .dot.type-dot6 {
+        top: 81.5%;
+        left: 35%;
+    }
+
+    .dot.type-dot7 {
+        top: 66%;
+        left: 18%;
+    }
+
+    .dot.type-dot8 {
+        top: 42.5%;
+        left: 12%;
+    }
+
+    .dot.type-dot9 {
+        top: 21.5%;
+        left: 24%;
+    }
+}
+
+@media screen and (max-width:450px) {
+
+    .radar__container .dot {
+        width: 22px;
+        height: 22px;
+    }
+
+    .dot.type-dot1 {
+        top: 14.5%;
+        left: 46.8%;
+    }
+
+    .dot.type-dot2 {
+        top: 23%;
+        left: 68.5%;
+    }
+
+    .dot.type-dot3 {
+        top: 42.5%;
+        left: 79%;
+    }
+
+    .dot.type-dot4 {
+        top: 64.5%;
+        left: 75%;
+    }
+
+    .dot.type-dot5 {
+        top: 78.5%;
+        left: 58%;
+    }
+
+    .dot.type-dot6 {
+        top: 78.5%;
+        left: 35%;
+    }
+
+    .dot.type-dot7 {
+        top: 64.5%;
+        left: 18%;
+    }
+
+    .dot.type-dot8 {
+        top: 42.5%;
+        left: 14.5%;
+    }
+
+    .dot.type-dot9 {
+        top: 23%;
+        left: 25%;
+    }
+}
+
+@media screen and (max-width:420px) {
+
+    .radar__container .dot {
+        width: 20px;
+        height: 20px;
+    }
+
+    .dot.type-dot1 {
+        top: 16%;
+        left: 46%;
+    }
+
+    .dot.type-dot2 {
+        top: 24%;
+        left: 67%;
+    }
+
+    .dot.type-dot3 {
+        top: 42%;
+        left: 77%;
+    }
+
+    .dot.type-dot4 {
+        top: 64%;
+        left: 73%;
+    }
+
+    .dot.type-dot5 {
+        top: 77%;
+        left: 58%;
+    }
+
+    .dot.type-dot6 {
+        top: 77%;
+        left: 35%;
+    }
+
+    .dot.type-dot7 {
+        top: 64%;
+        left: 19%;
+    }
+
+    .dot.type-dot8 {
+        top: 42%;
+        left: 15%;
+    }
+
+    .dot.type-dot9 {
+        top: 24%;
+        left: 25%;
     }
 }
