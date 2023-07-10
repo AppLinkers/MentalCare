@@ -152,16 +152,18 @@
                 </div>
 
 
-                <div class="type-detail-body" th:each="agelist : ${ageResult}">
-                    <div class="type-detail-item flex-column-center" th:each="age : ${agelist}">
-                        <canvas class="type-detail-item-canvas"></canvas>
-                        <p class="font14" th:text="${age.title}">경기력</p>
-                        <script th:inline="javascript">
-                            var myAvgDetail = [[${age.avg}]]
-                            var myAvgLabel = [[${age.title}]]
-                            myAgeAvgList.push(myAvgDetail)
-                            myAgeLabelList.push(myAvgLabel)
-                        </script>
+                <div class="type-detail-body" >
+                    <div th:each="agelist : ${ageResult}">
+                        <div class="type-detail-item flex-column-center" th:each="age : ${agelist}">
+                            <canvas class="type-detail-item-canvas"></canvas>
+                            <p class="font14" th:text="${age.title}">경기력</p>
+                            <script th:inline="javascript">
+                                var myAvgDetail = [[${age.avg}]]
+                                var myAvgLabel = [[${age.title}]]
+                                myAgeAvgList.push(myAvgDetail)
+                                myAgeLabelList.push(myAvgLabel)
+                            </script>
+                        </div>
                     </div>
                 </div>
 
@@ -550,19 +552,6 @@
 
 
 
-        // 유형별 상세
-        const data_compareAge = {
-            labels: compareAgeLabel,
-            datasets: [compareDatasets]
-        };
-
-
-        const data_comparePosition = {
-            labels: comparePositionLabel,
-            datasets: [compareDatasets]
-        };
-
-
         /////// 차트 Configuration ///////
 
         // 레이더 차트
@@ -681,50 +670,30 @@
         //     }
         // };
 
-        // 바 차트 - 평균 상세
-        const config_bar_avg = {
-            type: 'bar',
-            data: data_compareAge,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 5,
-                        ticks: {
-                            stepSize: 1
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                },
-            }
-        };
+
 
 
         // 첫 화면: 평균 보기 - 내 평균
         const avgChart = new Chart(radarChart, config_radar);
         const dateChart = new Chart(lineChart, config_line);
-        const typeDetailCharts = [];
+        var typeDetailCharts = [];
+
+
+        let myPositionAvgList = [];
+
+        /*[# th:each="n : ${positionResult}"]*/
+
+        myPositionAvgList.push("[(${n.avg})]");
+
+        /*[/]*/
+        console.log(myPositionAvgList);
 
 
         var avgDetailContainer = document.getElementsByClassName("type-detail-item");
-        var compareAgeDataSet = [];
+        var compareAvgList = [];
+        var compareChartList = CompareChart(avgDetailContainer, comparePositionLabel ,myAvgData, positionAvgList);
 
-        for(var n=0; n<avgDetailContainer.length; n++){
-            var canvas = avgDetailContainer[n].getElementsByClassName("type-detail-item-canvas")[0];
-            var myAge = myAvgData[n];
-            //또래애들 데이터
-            var ageAvg = myAgeAvgList[n]
 
-            compareAgeDataSet.push([myAge, ageAvg]);
-
-            typeDetailCharts[n] = new Chart(canvas, config_bar_avg);
-        }
-
-        console.log(compareAgeDataSet)
 
         // 필터
         const averageFilter = document.getElementById("average-filter");
@@ -759,10 +728,76 @@
         }
 
         function updateTypeDetailCharts(selected) {
-            if (selected === 0) config_bar_avg.data = data_compareAge;
-            if (selected === 1) config_bar_avg.data = data_comparePosition;
-            for (var i in typeDetailCharts) {
-                typeDetailCharts[i].update();
+            if (selected === 0) CompareChart(avgDetailContainer,compareAgeLabel,myAvgData,myAgeAvgList);
+            if (selected === 1) CompareChart(avgDetailContainer, comparePositionLabel ,myAvgData, positionAvgList);
+
+        }
+
+
+
+
+        //유형별 비교 차트
+
+        function CompareChart(avgDetailContainer,compareLabel ,myDataList, myCompareAvgList){
+            var canvasList = []
+            for(var n=0; n<avgDetailContainer.length; n++){
+                var oldcanvas = avgDetailContainer[n].getElementsByClassName("type-detail-item-canvas");
+                while(oldcanvas.length > 0){
+                    oldcanvas[0].parentNode.removeChild(oldcanvas[0]);
+                }
+                var canvas = document.createElement('canvas');
+                canvas.setAttribute('class', "type-detail-item-canvas")
+                canvas.setAttribute('style', "display: block; box-sizing: border-box; height: 90px; width: 180.5px;")
+                avgDetailContainer[n].append(canvas);
+
+                // var canvas = avgDetailContainer[n].getElementsByClassName("type-detail-item-canvas")[0];
+                var myAvg = myAvgData[n];
+                //또래애들 데이터
+                var compareAvg = myCompareAvgList[n]
+
+                const compareDatasets = {
+                    data: [myAvg, compareAvg],
+                    backgroundColor: [
+                        'rgba(255,228,0,0.2)',
+                        '#F9F9F9'
+
+                    ],
+                    borderColor: [
+                        '#FFE400',
+                        '#B5B5B5'
+                    ],
+                    borderWidth: 1
+                };
+
+
+                // 유형별 상세
+                var data_compare = {
+                    labels: compareLabel,
+                    datasets: [compareDatasets]
+                };
+
+                // 바 차트 - 평균 상세
+                var config_bar_comapre = {
+                    type: 'bar',
+                    data: data_compare,
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 5,
+                                ticks: {
+                                    stepSize: 1
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                        },
+                    }
+                };
+                canvasList.push(new Chart(canvas, config_bar_comapre));
             }
         }
 
