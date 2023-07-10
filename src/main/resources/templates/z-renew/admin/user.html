@@ -71,8 +71,7 @@
                                         <h4>선수</h4>
                                     </div>
                                 </div>
-                                <div class="user__team" th:text="${user.teamName}" hidden> </div>
-                                <h4 th:text="${user.teamInfo}">FC 서울 (S)</h4>
+                                <h4 th:text="${user.teamName} + ' (' + ${user.teamCode} + ')'">FC 서울 (S)</h4>
                             </div>
                         </div>
                         <!-- 'active'로 css가 바뀜, 만약 허가돼있으면 밑 button의 classList에 active를 추가해주면 됩니다 -->

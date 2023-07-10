@@ -33,12 +33,6 @@ public class AdminService {
                 continue;
             }
 
-            StringBuilder sb = new StringBuilder();
-            sb.append(user.getTeam().getName());
-            sb.append(" (");
-            sb.append(user.getTeam().getCode());
-            sb.append(")");
-
             result.add(
                     UserInfoRes.builder()
                             .id(user.getId())
@@ -46,7 +40,7 @@ public class AdminService {
                             .role(user.getRole())
                             .imgUrl(user.getImgUrl())
                             .teamName(user.getTeam().getName())
-                            .teamInfo(sb.toString())
+                            .teamCode(user.getTeam().getCode())
                             .build()
             );
 
