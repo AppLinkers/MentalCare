@@ -3,6 +3,7 @@
     <a onclick="document.getElementById('menu').style.display='block'"><i class="uil uil-bars font20"></i></a>
     <a th:if="${userRole == 'PLAYER'}" th:href="@{/player/profile}" class="logo-big eng">MIND UP</a>
     <a th:if="${userRole == 'DIRECTOR'}" th:href="@{/director/profile}" class="logo-big eng">MIND UP</a>
+    <a th:if="${userRole == 'ADMIN'}" th:href="@{/admin/user}" class="logo-big eng">MIND UP</a>
     <a th:href="@{/logout}"><i class="uil uil-signout font20"></i></a>
 </div>
 
@@ -21,6 +22,16 @@
             <a th:href="@{/noti/list}" class="font28">공지사항</a>
             <a th:href="@{/pwChange}" class="font28">비밀번호 변경</a>
         </div>
+
+        <!-- 지도자 -->
+        <div th:if="${userRole == 'ADMIN'}">
+            <p class="font18">관리자 메뉴</p>
+            <div class="menu-content flex-column">
+                <a th:href="@{/admin/team}" class="font28">팀 코드 관리</a>
+                <a th:href="@{/admin/user}" class="font28">사용자 관리</a>
+            </div>
+        </div>
+
         <!-- 선수 -->
         <div th:if="${userRole == 'PLAYER'}">
             <p class="font18">선수 메뉴</p>
