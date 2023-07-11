@@ -31,16 +31,6 @@
 <section id="admin">
     <div class="container admin__container">
 
-        <div class="label">
-            <a href="/admin/team">
-                <h3 style="margin-right: 1rem;">팀 코드 관리</h3>
-            </a>
-            <a href="/admin/member">
-                <h3 class="active">사용자 관리</h3>
-            </a>
-        </div>
-
-
         <form th:method="put" th:action="@{/admin/user}" th:object="${userRoleUpdateReqList}">
             <div class="button__container" style="border: none;">
                 <h2>멤버 관리</h2>
