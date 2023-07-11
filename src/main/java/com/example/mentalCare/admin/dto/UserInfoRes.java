@@ -18,5 +18,5 @@ public class UserInfoRes {
 
     private String teamName;
 
-    private String teamInfo;
+    private String teamCode;
 }
