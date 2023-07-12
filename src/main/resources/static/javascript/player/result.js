@@ -1,3 +1,7 @@
+/////////// 메인 차트 ///////////
+const radarChart = document.getElementById("chart-radar");
+const lineChart = document.getElementById("chart-line");
+
 // 심리 점수
 const scoreBox = document.querySelector(".info-score");
 const mindScore = scoreBox.querySelector("p");
@@ -30,29 +34,6 @@ const avgByPositionData = [4, 4, 4, 4, 4, 4, 4, 4, 4];
 
 const compareAgeData = mergeArraysByIndex(myAvgData, avgByAgeData);
 const comparePositionData = mergeArraysByIndex(myAvgData, avgByPositionData);
-
-const monthData = [
-    [2.3, 4.5, 3.7, 2.5, 3.8, 3.6],
-    [3.1, 2.4, 5.0, 1.7, 2.2, 3.8],
-    [4.3, 2.5, 1.7, 3.5, 2.8, 4.6],
-    [2.3, 4.5, 3.7, 2.5, 3.8, 3.6],
-    [3.1, 2.4, 5.0, 1.7, 2.2, 3.8],
-    [4.3, 2.5, 1.7, 3.5, 2.8, 4.6],
-    [2.3, 4.5, 3.7, 2.5, 3.8, 3.6],
-    [3.1, 2.4, 5.0, 1.7, 2.2, 3.8],
-    [4.3, 2.5, 1.7, 3.5, 2.8, 4.6],
-];
-const dayData = [
-    [2.8, 3.3, 2.5, 3.9],
-    [4.8, 2.3, 1.5, 2.9],
-    [3.8, 2.3, 4.5, 4.9],
-    [2.8, 3.3, 2.5, 3.9],
-    [4.8, 2.3, 1.5, 2.9],
-    [3.8, 2.3, 4.5, 4.9],
-    [2.8, 3.3, 2.5, 3.9],
-    [4.8, 2.3, 1.5, 2.9],
-    [3.8, 2.3, 4.5, 4.9],
-];
 
 function calculateAverageForEachIndex(data) {
     var averages = data.map(function (numbers) {
@@ -127,17 +108,113 @@ typeDetailHeader.addEventListener("click", () => {
     typeDetailIcon.classList.toggle("active");
 });
 
+////////////////////////////////////////////////////////////////////////
+/// 기간별 보기
+////////////////////////////////////////////////////////////////////////
+
+const monthData = [
+    [2.3, 4.5, 3.7, 2.5, 3.8, 3.6],
+    [3.1, 2.4, 4.0, 1.7, 2.2, 3.8],
+    [4.3, 2.5, 1.7, 3.5, 2.8, 4.6],
+    [2.3, 4.5, 3.7, 2.5, 3.8, 3.6],
+    [3.1, 2.4, 3.0, 1.7, 2.2, 3.8],
+    [4.3, 2.5, 1.7, 3.5, 2.8, 4.6],
+    [2.3, 4.5, 3.7, 2.5, 3.8, 3.6],
+    [3.1, 2.4, 2.0, 1.7, 2.2, 3.8],
+    [4.3, 2.5, 1.7, 3.5, 2.8, 4.6],
+];
+
+const monthLabels = ["1월", "2월", "3월", "4월", "5월", "6월"];
+
+const config_line = makeLineConfig(makeDateData(makeDateDatasets(monthData[0])));
+const dateChart = new Chart(lineChart, config_line);
+const dateDataList = [];
+
 // 기간별 보기의 유형 필터 동작
 const typeFilters = typeFilterContainer.querySelectorAll(".type-filter");
 
 typeFilters.forEach((typeFilter, idx) => {
+
+    dateDataList[idx] = makeDateData(makeDateDatasets(monthData[idx]));
+
     typeFilter.addEventListener("click", () => {
         typeFilters.forEach(each => {
             each.classList.remove("active");
         });
+        config_line.data = dateDataList[idx];
+        dateChart.update();
         typeFilters[idx].classList.add("active");
     });
 });
+
+function makeDateDatasets(data) {
+    return {
+        data: data,
+        borderColor: '#FFE400',
+        borderWidth: 1,
+        pointRadius: 5,
+        pointBackgroundColor: '#FFE400',
+    };
+};
+
+function makeDateData(datasets) {
+    return {
+        labels: monthLabels,
+        datasets: [datasets]
+    };
+};
+
+function makeLineConfig(data) {
+    return {
+        type: 'line',
+        data: data,
+        plugins: [ChartDataLabels],
+        options: {
+            scales: {
+                x: {
+                    offset: true,
+                    ticks: {
+                        padding: 10,
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    max: 5,
+                    ticks: {
+                        stepSize: 1,
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                datalabels: {
+                    formatter: function (value) {
+                        return value.toFixed(1);
+                    },
+                    align: 'top',
+                    anchor: 'center',
+                    padding: 10,
+                    font: {
+                        size: 14,
+                        weight: 'bold'
+                    },
+                },
+            }
+        }
+    };
+};
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
 
 // 유형 차트 아이템 동작
 const typeChartItems = document.querySelectorAll(".type-chart-item");
@@ -171,15 +248,10 @@ function calculateAverage(numbers) {
     return average.toFixed(1);
 };
 
-/////////// 메인 차트 ///////////
-const radarChart = document.getElementById("chart-radar");
-const lineChart = document.getElementById("chart-line");
-
 /////// 라벨 ///////
 
 // 라벨 - 메인
 const typeLabels = ["경기력", "불안감", "훈련", "기능 자신감", "부상", "관계", "진로", "학업", "생활"];
-const monthLabels = ["1월", "2월", "3월", "4월", "5월", "6월"];
 const dayLabels = ["05.01", "05.13", "05.18", "05.20"];
 
 // 라벨 - 유형별
@@ -264,35 +336,7 @@ function makeCompareData(label, compareData) {
     };
 };
 
-//////////////////// 기간별 차트 (월별 주별) //////////////////////
-function makeDateDatasets(data) {
-    return {
-        data: data,
-        borderColor: '#FFE400',
-        borderWidth: 1,
-        pointRadius: 5,
-        pointBackgroundColor: '#FFE400',
-    };
-};
 
-// 기간별 보기 - 월별 평균
-const data_byMonth = {
-    labels: monthLabels,
-    datasets: [makeDateDatasets(monthData)]
-};
-
-// 기간별 보기 - 주별 평균
-const data_byDay = {
-    labels: dayLabels,
-    datasets: [makeDateDatasets(dayData)]
-};
-
-function makeDateData(labels, datasets) {
-    return {
-        labels: labels,
-        datasets: [datasets]
-    };
-};
 
 //////////////////// 유형별 차트 //////////////////////
 function makeTypeDataColor(data, green, yellow, red) {
@@ -396,53 +440,7 @@ const config_radar = {
     }
 };
 
-// 라인 차트
-const config_line = {
-    type: 'line',
-    data: data_byMonth,
-    plugins: [ChartDataLabels],
-    options: {
-        scales: {
-            x: {
-                offset: true,
-                ticks: {
-                    padding: 10,
-                    font: {
-                        size: 14,
-                        weight: 'bold'
-                    }
-                }
-            },
-            y: {
-                beginAtZero: true,
-                max: 5,
-                ticks: {
-                    stepSize: 1,
-                    font: {
-                        size: 14
-                    }
-                }
-            }
-        },
-        plugins: {
-            legend: {
-                display: false
-            },
-            datalabels: {
-                formatter: function (value) {
-                    return value;
-                },
-                align: 'top',
-                anchor: 'center',
-                padding: 10,
-                font: {
-                    size: 14,
-                    weight: 'bold'
-                },
-            },
-        }
-    }
-};
+
 
 // 바 차트 - 평균 상세
 const config_bar_avg = {
@@ -469,7 +467,6 @@ const config_bar_avg = {
 
 // 첫 화면: 평균 보기 - 내 평균
 const avgChart = new Chart(radarChart, config_radar);
-const dateChart = new Chart(lineChart, config_line);
 const typeDetailCharts = [];
 
 const compareConfigs = [];
@@ -513,13 +510,6 @@ function avgFilterChange() {
         typeDetailContainer.classList.remove("show");
     }
     avgChart.update();
-}
-
-function dateFilterChange() {
-    var selected = dateFilter.options[dateFilter.selectedIndex].value;
-    if (selected === "byMonth") config_line.data = data_byMonth;
-    if (selected === "byWeek") config_line.data = data_byDay;
-    dateChart.update();
 }
 
 function updateTypeDetailCharts(selected) {
