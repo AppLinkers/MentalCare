@@ -83,7 +83,9 @@
         var myAgeAvgList = new Array();
         var myAgeLabelList = new Array();
         var myQuestionLabelList = new Array();
-        var myQuestionDataList = new Array()
+        var myQuestionDataList = new Array();
+        var myMonthlyLabel = new Array();
+        var myMonthlyAvgData = Array.from(Array(9), () => new Array());
     </script>
 
     <div th:each="ageData : ${ageResult}">
@@ -173,9 +175,17 @@
         <!-- 유형별 필터 - 기간별 보기 -->
         <div th:each="monthlyList : ${monthlyResult}">
             <div class="type-filter__container"th:each="monthly:${monthlyList}">
-                <div class="type-filter flex-center active"th:each="diagList:${monthly.diagnoseResultList}">
+                <script th:inline="javascript">
+                    var diagmonthlyLabel = [[${monthly.yearMonth}]]
+                    myMonthlyLabel.push(diagmonthlyLabel)
+                </script>
+                <div class="type-filter flex-center active"th:each="diagList, diagStat:${monthly.diagnoseResultList}">
                     <p class="font14" th:text="${diagList.title}">경기력</p>
-
+                    <script th:inline="javascript">
+                        var diagListAvg = [[${diagList.avg}]];
+                        var diagIndex = [[${__diagStat.index__}]];
+                        myMonthlyAvgData[diagIndex].push(diagListAvg);
+                    </script>
                 </div>
             </div>
 
@@ -324,20 +334,7 @@
 
     // 기간별 보기의 유형 필터 동작
     const typeFilters = typeFilterContainer.querySelectorAll(".type-filter");
-
-    typeFilters.forEach((typeFilter, idx) => {
-
-        typeFilter.addEventListener("click", () => {
-
-            typeFilters.forEach(each => {
-                each.classList.remove("active");
-            });
-
-            typeFilters[idx].classList.add("active");
-
-        });
-
-    });
+    const dateDataList = [];
 
 
 
@@ -366,17 +363,108 @@
     /////// 라벨 ///////
 
     // 라벨 - 메인
-    const monthLabels = ["1월", "2월", "3월", "4월", "5월", "6월"];
+    const monthLabels = myMonthlyLabel;
     const dayLabels = ["05.01", "05.13", "05.18", "05.20"];
     // 라벨 - 유형별
     const elementLabels = ["요인 1", "요인 2", "요인 3", "요인 4", "요인 5"];
     const compareAgeLabel = ["내 데이터", "나이 평균"];
     const comparePositionLabel = ["내 데이터", "포지션 평균"];
 
+    //월별보기 데이
+
+    function makeDateDatasets(data) {
+        return {
+            data: data,
+            borderColor: '#FFE400',
+            borderWidth: 1,
+            pointRadius: 5,
+            pointBackgroundColor: '#FFE400',
+        };
+    };
+
+
+    // const monthData = [
+    //     [2.3, 4.5, 3.7, 2.5, 3.8, 3.6],
+    //     [3.1, 2.4, 5.0, 1.7, 2.2, 3.8],
+    //     [4.3, 2.5, 1.7, 3.5, 2.8, 4.6],
+    //     [2.3, 4.5, 3.7, 2.5, 3.8, 3.6],
+    //     [3.1, 2.4, 5.0, 1.7, 2.2, 3.8],
+    //     [4.3, 2.5, 1.7, 3.5, 2.8, 4.6],
+    //     [2.3, 4.5, 3.7, 2.5, 3.8, 3.6],
+    //     [3.1, 2.4, 5.0, 1.7, 2.2, 3.8],
+    //     [4.3, 2.5, 1.7, 3.5, 2.8, 4.6],
+    // ];
+    const monthData = myMonthlyAvgData
+
+
+    const config_line = makeLineConfig(makeDateData(makeDateDatasets(monthData[0])));
+    const dateChart = new Chart(lineChart, config_line);
+
+
+    // 기간별 보기 - 월별 평균
+    const data_byMonth2 = {
+        labels: monthLabels,
+        datasets: [makeDateDatasets(monthData)]
+    };
+
+    function makeDateData(datasets) {
+        return {
+            labels: monthLabels,
+            datasets: [datasets]
+        };
+    };
+
+    function makeLineConfig(data) {
+        return {
+            type: 'line',
+            data: data,
+            plugins: [ChartDataLabels],
+            options: {
+                scales: {
+                    x: {
+                        offset: true,
+                        ticks: {
+                            padding: 10,
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 5,
+                        ticks: {
+                            stepSize: 1,
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    datalabels: {
+                        formatter: function (value) {
+                            return value.toFixed(1);
+                        },
+                        align: 'top',
+                        anchor: 'center',
+                        padding: 10,
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        },
+                    },
+                }
+            }
+        };
+    };
+
 
     //유형별
-
-
 
     for(var i=0; i<typeChartItems.length; i++){
         var typeCanvas = typeChartItems[i].getElementsByClassName('chart-by-type0');
@@ -445,7 +533,6 @@
     // 데이터 - 메인
     const avgByAgeData = ageAvgList;
     const avgByPositionData = positionAvgList;
-    const monthData = [2.3, 4.5, 3.7, 2.5, 3.8, 3.6];
     const dayData = [2.8, 3.3, 2.5, 3.9];
     // 데이터 - 유형별
     const byTypeData = [4, 3, 2, 1, 4];
@@ -480,14 +567,6 @@
         backgroundColor: 'white',
         borderColor: '#F86F03',
         borderWidth: 3
-    };
-
-    const monthDatasets = {
-        data: monthData,
-        borderColor: '#FFE400',
-        borderWidth: 1,
-        pointRadius: 5,
-        pointBackgroundColor: '#FFE400',
     };
 
     const dayDatasets = {
@@ -554,14 +633,6 @@
         datasets: [myDatasets, positionDatasets]
     };
 
-    // 기간별 보기 - 월별 평균
-    const data_byMonth = {
-        labels: monthLabels,
-        datasets: [monthDatasets]
-    };
-
-
-
 
 
     /////// 차트 Configuration ///////
@@ -612,100 +683,15 @@
         }
     };
 
-    // 라인 차트
-    const config_line = {
-        type: 'line',
-        data: data_byMonth,
-        plugins: [ChartDataLabels],
-        options: {
-            scales: {
-                x: {
-                    offset: true,
-                    ticks: {
-                        padding: 10,
-                        font: {
-                            size: 14,
-                            weight: 'bold'
-                        }
-                    }
-                },
-                y: {
-                    beginAtZero: true,
-                    max: 5,
-                    ticks: {
-                        stepSize: 1,
-                        font: {
-                            size: 14
-                        }
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false
-                },
-                datalabels: {
-                    formatter: function (value) {
-                        return value;
-                    },
-                    align: 'top',
-                    anchor: 'center',
-                    padding: 10,
-                    font: {
-                        size: 14,
-                        weight: 'bold'
-                    },
-                },
-            }
-        }
-    };
-
-    // // 바 차트 - 유형별
-    // const config_bar = {
-    //     type: 'bar',
-    //     data: data_byType,
-    //     options: {
-    //         scales: {
-    //             y: {
-    //                 beginAtZero: true,
-    //                 max: 5,
-    //                 ticks: {
-    //                     stepSize: 1
-    //                 }
-    //             }
-    //         },
-    //         plugins: {
-    //             legend: {
-    //                 display: false
-    //             },
-    //         },
-    //     }
-    // };
-
-
-
-
     // 첫 화면: 평균 보기 - 내 평균
     const avgChart = new Chart(radarChart, config_radar);
-    const dateChart = new Chart(lineChart, config_line);
-    var typeDetailCharts = [];
-
-
     let myPositionAvgList = [];
 
     /*[# th:each="n : ${positionResult}"]*/
-
     myPositionAvgList.push("[(${n.avg})]");
-
     /*[/]*/
-    console.log(myPositionAvgList);
-
 
     var avgDetailContainer = document.getElementsByClassName("type-detail-item");
-    var compareAvgList = [];
-    var compareChartList = CompareChart(avgDetailContainer, comparePositionLabel ,myAvgData, positionAvgList);
-
-
 
     // 필터
     const averageFilter = document.getElementById("average-filter");
@@ -734,7 +720,7 @@
 
     function dateFilterChange() {
         var selected = dateFilter.options[dateFilter.selectedIndex].value;
-        if (selected === "byMonth") config_line.data = data_byMonth;
+        if (selected === "byMonth") config_line.data = data_byMonth2;
         if (selected === "byWeek") config_line.data = data_byDay;
         dateChart.update();
     }
@@ -744,6 +730,23 @@
         if (selected === 1) CompareChart(avgDetailContainer, comparePositionLabel ,myAvgData, positionAvgList);
 
     }
+
+    typeFilters.forEach((typeFilter, idx) => {
+
+        dateDataList[idx] = makeDateData(makeDateDatasets(monthData[idx]));
+
+        typeFilter.addEventListener("click", () => {
+
+            typeFilters.forEach(each => {
+                each.classList.remove("active");
+            });
+            config_line.data = dateDataList[idx];
+            dateChart.update();
+            typeFilters[idx].classList.add("active");
+
+        });
+
+    });
 
 
 

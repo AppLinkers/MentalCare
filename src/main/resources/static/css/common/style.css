@@ -418,7 +418,7 @@ section {
 /* 레이더 차트 아이콘 */
 .radar__container {
     position: relative;
-    padding: 1px;
+    padding: 25px;
 }
 
 .radar__container img {
