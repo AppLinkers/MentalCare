@@ -363,7 +363,7 @@
     /////// 라벨 ///////
 
     // 라벨 - 메인
-    const monthLabels = myMonthlyLabel;
+    const monthLabels = myMonthlyLabel.reverse();
     const dayLabels = ["05.01", "05.13", "05.18", "05.20"];
     // 라벨 - 유형별
     const elementLabels = ["요인 1", "요인 2", "요인 3", "요인 4", "요인 5"];
@@ -383,18 +383,21 @@
     };
 
 
-    // const monthData = [
-    //     [2.3, 4.5, 3.7, 2.5, 3.8, 3.6],
-    //     [3.1, 2.4, 5.0, 1.7, 2.2, 3.8],
-    //     [4.3, 2.5, 1.7, 3.5, 2.8, 4.6],
-    //     [2.3, 4.5, 3.7, 2.5, 3.8, 3.6],
-    //     [3.1, 2.4, 5.0, 1.7, 2.2, 3.8],
-    //     [4.3, 2.5, 1.7, 3.5, 2.8, 4.6],
-    //     [2.3, 4.5, 3.7, 2.5, 3.8, 3.6],
-    //     [3.1, 2.4, 5.0, 1.7, 2.2, 3.8],
-    //     [4.3, 2.5, 1.7, 3.5, 2.8, 4.6],
-    // ];
-    const monthData = myMonthlyAvgData
+
+    var monthData = [];
+
+    for(var i=0; i<myMonthlyAvgData.length; i++){
+        for(var j=0; j<6; j++){
+            if(myMonthlyAvgData[i][j]==null){
+                myMonthlyAvgData[i][j] = 0;
+            }
+        }
+    }
+
+    for(var i=0; i<myMonthlyAvgData.length; i++){
+        monthData.push(myMonthlyAvgData[i].reverse());
+    }
+
 
 
     const config_line = makeLineConfig(makeDateData(makeDateDatasets(monthData[0])));
@@ -433,7 +436,7 @@
                     },
                     y: {
                         beginAtZero: true,
-                        max: 5,
+                        max: 6,
                         ticks: {
                             stepSize: 1,
                             font: {
