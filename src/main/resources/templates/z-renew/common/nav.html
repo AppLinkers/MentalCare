@@ -19,7 +19,7 @@
         <!-- 공통-임시 -->
         <p class="font18">공통 메뉴</p>
         <div class="menu-content flex-column">
-            <a th:href="@{/noti/list}" class="font28">공지사항</a>
+            <a th:unless="${userRole == 'ADMIN'}" th:href="@{/noti/list}" class="font28">공지사항</a>
             <a th:href="@{/pwChange}" class="font28">비밀번호 변경</a>
         </div>
 
