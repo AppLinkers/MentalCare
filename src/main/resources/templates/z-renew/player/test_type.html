@@ -48,28 +48,28 @@
                             <input type="hidden" th:field="*{answerDiagnoseWriteReq.answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].id}"/>
                             <div class="select__container" >
                                 <div class="select-item flex-column">
-                                    <input type="radio" th:field="*{answerDiagnoseWriteReq.answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}" th:value=5  id="worst" required>
+                                    <input type="radio" th:field="*{answerDiagnoseWriteReq.answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}" th:value=5  id="worst" hidden required>
                                     <img src="/images/oneSvg.svg">
                                     <p class="font12" >매우 없음</p>
                                     </input>
                                 </div>
                                 <div class="select-item flex-column">
-                                    <input type="radio" th:field="*{answerDiagnoseWriteReq.answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}"  th:value=4  id="high" />
+                                    <input type="radio" th:field="*{answerDiagnoseWriteReq.answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}"  th:value=4  id="high" hidden/>
                                     <img src="/images/twoSvg.svg">
                                     <p class="font12" >없음</p>
                                 </div>
                                 <div class="select-item flex-column">
-                                    <input type="radio" th:field="*{answerDiagnoseWriteReq.answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}"  th:value=3  id="soso" />
+                                    <input type="radio" th:field="*{answerDiagnoseWriteReq.answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}"  th:value=3  id="soso" hidden/>
                                     <img src="/images/threeSvg.svg">
                                     <p class="font12">보통</p>
                                 </div>
                                 <div class="select-item flex-column">
-                                    <input type="radio" th:field="*{answerDiagnoseWriteReq.answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}" th:value=2  id="low" />
+                                    <input type="radio" th:field="*{answerDiagnoseWriteReq.answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}" th:value=2  id="low" hidden/>
                                     <img src="/images/fourSvg.svg">
                                     <p class="font12" >자신</p>
                                 </div>
                                 <div class="select-item flex-column">
-                                    <input type="radio" th:field="*{answerDiagnoseWriteReq.answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}"  th:value=1  id="none" />
+                                    <input type="radio" th:field="*{answerDiagnoseWriteReq.answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].avg}"  th:value=1  id="none" hidden/>
                                     <img src="/images/fiveSvg.svg">
                                     <p class="font12" >매우 자신</p>
                                 </div>
@@ -98,28 +98,28 @@
                         <p class="font18" th:text="${question.context}">1. 최근 경기력에 대해 만족하시나요?</p>
                         <div class="select__container" >
                             <div class="select-item flex-column">
-                                <input type="radio" th:field="*{answerWriteReq.answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=5  id="worst" required>
+                                <input type="radio" th:field="*{answerWriteReq.answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=1  id="worst" hidden required>
                                     <img class = "one" >
                                     <p class="font12" th:text="${question.questionDetailReadResList[0].optionValue}">매우 없음</p>
                                 </input>
                             </div>
                             <div class="select-item flex-column">
-                                <input type="radio" th:field="*{answerWriteReq.answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=4  id="high" />
+                                <input type="radio" th:field="*{answerWriteReq.answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=2  id="high" hidden/>
                                 <img class = "two">
                                 <p class="font12" th:text="${question.questionDetailReadResList[1].optionValue}">없음</p>
                             </div>
                             <div class="select-item flex-column">
-                                <input type="radio" th:field="*{answerWriteReq.answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=3  id="soso" />
+                                <input type="radio" th:field="*{answerWriteReq.answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=3  id="soso" hidden/>
                                 <img class = "three">
                                 <p class="font12" th:text="${question.questionDetailReadResList[2].optionValue}">보통</p>
                             </div>
                             <div class="select-item flex-column">
-                                <input type="radio" th:field="*{answerWriteReq.answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=2  id="low" />
+                                <input type="radio" th:field="*{answerWriteReq.answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=4  id="low" hidden/>
                                 <img class = "four" >
                                 <p class="font12" th:text="${question.questionDetailReadResList[3].optionValue}">자신</p>
                             </div>
                             <div class="select-item flex-column">
-                                <input type="radio" th:field="*{answerWriteReq.answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=1  id="none" />
+                                <input type="radio" th:field="*{answerWriteReq.answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=5  id="none"hidden />
                                 <img class = "five" >
                                 <p class="font12" th:text="${question.questionDetailReadResList[4].optionValue}">매우 자신</p>
                             </div>
@@ -159,6 +159,21 @@
             }
 
         }
+
+        const selectItems = document.querySelectorAll('.select-item');
+
+        selectItems.forEach(item => {
+            const hiddenInput = item.querySelector("input");
+            const imageButton = item.querySelector("img");
+            const inputText = item.querySelector("p");
+            imageButton.addEventListener("click",function () {
+                hiddenInput.click();
+            });
+            inputText.addEventListener("click",function () {
+                hiddenInput.click();
+            });
+        });
+
 
     </script>
 

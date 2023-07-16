@@ -47,28 +47,28 @@
                         <p class="font18" th:text="${question.context}">1. 최근 경기력에 대해 만족하시나요?</p>
                         <div class="select__container" >
                             <div class="select-item flex-column">
-                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=5  id="worst" required>
+                                <input type="radio" class="testInput" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=1  id="worst" hidden required>
                                     <img class = "one" >
                                     <p class="font12" th:text="${question.questionDetailReadResList[0].optionValue}">매우 없음</p>
                                 </input>
                             </div>
                             <div class="select-item flex-column">
-                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=4  id="high" />
+                                <input type="radio" class="testInput"  th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=2 hidden id="high" />
                                 <img class = "two">
                                 <p class="font12" th:text="${question.questionDetailReadResList[1].optionValue}">없음</p>
                             </div>
                             <div class="select-item flex-column">
-                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=3  id="soso" />
+                                <input type="radio" class="testInput"  th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=3  id="soso"hidden />
                                 <img class = "three">
                                 <p class="font12" th:text="${question.questionDetailReadResList[2].optionValue}">보통</p>
                             </div>
                             <div class="select-item flex-column">
-                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=2  id="low" />
+                                <input type="radio" class="testInput"  th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=4  id="low" hidden/>
                                 <img class = "four" >
                                 <p class="font12" th:text="${question.questionDetailReadResList[3].optionValue}">자신</p>
                             </div>
                             <div class="select-item flex-column">
-                                <input type="radio" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=1  id="none" />
+                                <input type="radio" class="testInput"  th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=5  id="none" hidden/>
                                 <img class = "five" >
                                 <p class="font12" th:text="${question.questionDetailReadResList[4].optionValue}">매우 자신</p>
                             </div>
@@ -108,6 +108,17 @@
             }
 
         }
+
+
+        const selectItems = document.querySelectorAll('.select-item');
+
+        selectItems.forEach(item => {
+           const hiddenInput = item.querySelector("input");
+           const imageButton = item.querySelector("img");
+           imageButton.addEventListener("click",function () {
+               hiddenInput.click();
+            });
+        });
 
     </script>
 

@@ -121,11 +121,11 @@
                 <i class="uil uil-angle-down"></i>
             </div>
             <div class="filter-box">
-                <select name="date-filter" id="date-filter" onchange="dateFilterChange()">
-                    <option value="byMonth" selected>월별 평균</option>
-                    <option value="byWeek">주별 평균</option>
-                </select>
-                <i class="uil uil-angle-down"></i>
+<!--                <select name="date-filter" id="date-filter" onchange="dateFilterChange()">-->
+<!--                    <option value="byMonth" selected>월별 평균</option>-->
+<!--                    <option value="byWeek">주별 평균</option>-->
+<!--                </select>-->
+<!--                <i class="uil uil-angle-down"></i>-->
             </div>
         </div>
 
@@ -179,7 +179,7 @@
                     var diagmonthlyLabel = [[${monthly.yearMonth}]]
                     myMonthlyLabel.push(diagmonthlyLabel)
                 </script>
-                <div class="type-filter flex-center active"th:each="diagList, diagStat:${monthly.diagnoseResultList}">
+                <div class="type-filter flex-center" th:each="diagList, diagStat:${monthly.diagnoseResultList}">
                     <p class="font14" th:text="${diagList.title}">경기력</p>
                     <script th:inline="javascript">
                         var diagListAvg = [[${diagList.avg}]];
@@ -287,6 +287,8 @@
     const typeDetailContainer = document.querySelector(".type-detail__container");
     const typeFilterContainer = document.querySelector(".type-filter__container");
 
+
+
     // 유형 차트 아이템 동작
     const typeChartItems = document.querySelectorAll(".type-chart-item");
 
@@ -334,6 +336,7 @@
 
     // 기간별 보기의 유형 필터 동작
     const typeFilters = typeFilterContainer.querySelectorAll(".type-filter");
+    typeFilters[0].classList.add('active');
     const dateDataList = [];
 
 
