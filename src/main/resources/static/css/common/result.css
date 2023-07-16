@@ -273,3 +273,10 @@ canvas#chart-line {
     display: none;
     margin-top: 20px;
 }
+
+
+@media screen and (max-width:600px) {
+    .result-chart__container {
+        padding: 0;
+    }
+}
