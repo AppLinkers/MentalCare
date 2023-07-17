@@ -37,10 +37,6 @@
                 </div>
                 <p class="font20" th:text="${player.name}">손흥민</p>
                 <p class="font12" th:text="${player.teamName}">토트넘 훗스퍼 FC</p>
-                <div class="date flex-left">
-                    <p class="font10">마지막 검사</p>
-                    <p class="font10">2023.06.22</p>
-                </div>
             </div>
             <img th:src="${player.imgUrl}" class="profile">
         </div>
@@ -133,15 +129,15 @@
         <div class="canvas__container radar__container active">
             <canvas id="chart-radar" class="main-chart"></canvas>
             <img src="/images/brain.png">
-            <span class="dot type-dot1"></span>
-            <span class="dot type-dot2"></span>
-            <span class="dot type-dot3"></span>
-            <span class="dot type-dot4"></span>
-            <span class="dot type-dot5"></span>
-            <span class="dot type-dot6"></span>
-            <span class="dot type-dot7"></span>
-            <span class="dot type-dot8"></span>
-            <span class="dot type-dot9"></span>
+<!--            <span class="dot type-dot1"></span>-->
+<!--            <span class="dot type-dot2"></span>-->
+<!--            <span class="dot type-dot3"></span>-->
+<!--            <span class="dot type-dot4"></span>-->
+<!--            <span class="dot type-dot5"></span>-->
+<!--            <span class="dot type-dot6"></span>-->
+<!--            <span class="dot type-dot7"></span>-->
+<!--            <span class="dot type-dot8"></span>-->
+<!--            <span class="dot type-dot9"></span>-->
         </div>
         <div class="canvas__container">
             <canvas id="chart-line" class="main-chart"></canvas>
@@ -367,6 +363,7 @@
 
     // 라벨 - 메인
     const monthLabels = myMonthlyLabel.reverse();
+    const radar_background = [5,5,5,5,5,5,5,5,5]
     const dayLabels = ["05.01", "05.13", "05.18", "05.20"];
     // 라벨 - 유형별
     const elementLabels = ["요인 1", "요인 2", "요인 3", "요인 4", "요인 5"];
@@ -557,6 +554,15 @@
         borderWidth: 1
     };
 
+
+    const background_data = {
+        data: radar_background,
+        fill: true,
+        backgroundColor: 'rgba(220,220,220,0.3)',
+        borderColor: '#A9A9A9',
+        borderWidth: 1
+    };
+
     const ageDatasets = {
         label: '나이 평균',
         data: avgByAgeData,
@@ -624,24 +630,28 @@
     // 평균 보기 - 내 평균
     const data_myAvg = {
         labels: typeLabels,
-        datasets: [myDatasets]
+        datasets: [background_data,myDatasets]
     };
+
 
     // 평균 보기 - 나이별 평균
     const data_byAge = {
         labels: typeLabels,
-        datasets: [myDatasets, ageDatasets]
+        datasets: [background_data,myDatasets, ageDatasets]
     };
 
     // 평균 보기 - 포지션별 평균
     const data_byPosition = {
         labels: typeLabels,
-        datasets: [myDatasets, positionDatasets]
+        datasets: [background_data, myDatasets, positionDatasets]
     };
 
 
+    // radar option
 
-    /////// 차트 Configuration ///////
+
+
+
 
     // 레이더 차트
     const config_radar = {
@@ -708,6 +718,7 @@
         var selected = averageFilter.options[averageFilter.selectedIndex].value;
 
         typeDetailContainer.classList.add("show");
+        config_radar.data = background_data;
 
         if (selected === "byAge") {
             config_radar.data = data_byAge;
