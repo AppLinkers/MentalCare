@@ -126,18 +126,25 @@
         </div>
 
         <!-- 메인 레이더 차트 -->
-        <div class="canvas__container radar__container active">
-            <canvas id="chart-radar" class="main-chart"></canvas>
-            <img src="/images/brain.png">
-<!--            <span class="dot type-dot1"></span>-->
-<!--            <span class="dot type-dot2"></span>-->
-<!--            <span class="dot type-dot3"></span>-->
-<!--            <span class="dot type-dot4"></span>-->
-<!--            <span class="dot type-dot5"></span>-->
-<!--            <span class="dot type-dot6"></span>-->
-<!--            <span class="dot type-dot7"></span>-->
-<!--            <span class="dot type-dot8"></span>-->
-<!--            <span class="dot type-dot9"></span>-->
+        <div class="canvas__container active">
+            <div class="radar__container">
+                <canvas id="chart-radar" class="main-chart"></canvas>
+                <img src="/images/brain.png">
+            </div>
+            <div class="label__container flex-center">
+                <div class="radar-label active flex-left">
+                    <div class="radar-label-color my"></div>
+                    <p class="font12">내 심리상태</p>
+                </div>
+                <div class="radar-label flex-left">
+                    <div class="radar-label-color"></div>
+                    <p class="font12">나이 평균</p>
+                </div>
+                <div class="radar-label flex-left">
+                    <div class="radar-label-color"></div>
+                    <p class="font12">포지션 평균</p>
+                </div>
+            </div>
         </div>
         <div class="canvas__container">
             <canvas id="chart-line" class="main-chart"></canvas>
@@ -691,8 +698,7 @@
             },
             plugins: {
                 legend: {
-                    display: true,
-                    position: 'bottom'
+                    display: false,
                 },
             },
 
