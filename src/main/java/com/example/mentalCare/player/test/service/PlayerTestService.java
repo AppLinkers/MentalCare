@@ -76,7 +76,7 @@ public class PlayerTestService {
      * 통합진단 답변 제출
      */
     @Transactional
-    public void submitTestAll(String userLoginId, AnswerWriteReq answerWriteReq) {
+    public long submitTestAll(String userLoginId, AnswerWriteReq answerWriteReq) {
         Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
 
         Answer answer = Answer.builder()
@@ -110,6 +110,8 @@ public class PlayerTestService {
             List<AnswerDetail> savedAnswerDetailList = answerDetailRepository.saveAll(answerDetailList);
             savedAnswerDiagnose.addAnswerDetailList(savedAnswerDetailList);
         }
+
+        return savedAnswer.getId();
 
     }
 
@@ -182,7 +184,7 @@ public class PlayerTestService {
      * 최근 Answer 에 덮어 씌우기
      */
     @Transactional
-    public void submitTestType(String userLoginId, AnswerWriteReq answerWriteReq, AnswerDiagnoseWriteReq answerDiagnoseWriteReq) {
+    public long submitTestType(String userLoginId, AnswerWriteReq answerWriteReq, AnswerDiagnoseWriteReq answerDiagnoseWriteReq) {
         Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
 
         Answer answer = Answer.builder()
@@ -240,6 +242,7 @@ public class PlayerTestService {
             List<AnswerDetail> savedAnswerDetailList = answerDetailRepository.saveAll(answerDetailList);
             savedAnswerDiagnose.addAnswerDetailList(savedAnswerDetailList);
         }
+        return savedAnswer.getId();
     }
 
     /**

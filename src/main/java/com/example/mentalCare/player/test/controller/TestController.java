@@ -47,9 +47,9 @@ public class TestController {
     public String testAllSubmit(AnswerWriteReq answerWriteReq) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        playerTestService.submitTestAll(userLoginId, answerWriteReq);
+        long id = playerTestService.submitTestAll(userLoginId, answerWriteReq);
 
-        return "redirect:/player/test/result";
+        return "redirect:/player/test/result/"+id;
     }
 
     /**
@@ -116,9 +116,9 @@ public class TestController {
         AnswerWriteReq answerWriteReq = typeTestReq.getAnswerWriteReq();
         AnswerDiagnoseWriteReq answerDiagnoseWriteReq = typeTestReq.getAnswerDiagnoseWriteReq();
 
-        playerTestService.submitTestType(userLoginId, answerWriteReq, answerDiagnoseWriteReq);
+        long id = playerTestService.submitTestType(userLoginId, answerWriteReq, answerDiagnoseWriteReq);
 
-        return "redirect:/player/test/result";
+        return "redirect:/player/test/result/"+id;
     }
 
     /**

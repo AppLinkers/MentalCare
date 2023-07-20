@@ -173,7 +173,7 @@
             <div class="type-filter__container"th:each="monthly:${monthlyList}">
                 <script th:inline="javascript">
                     var diagmonthlyLabel = [[${monthly.yearMonth}]]
-                    myMonthlyLabel.push(diagmonthlyLabel)
+                    myMonthlyLabel.push(diagmonthlyLabel.substr(2));
                 </script>
                 <div class="type-filter flex-center" th:each="diagList, diagStat:${monthly.diagnoseResultList}">
                     <p class="font14" th:text="${diagList.title}">경기력</p>
