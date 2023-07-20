@@ -14,8 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -328,12 +327,16 @@ public class PlayerTestService {
 
             diagnoseResultList.add(
                     DiagnoseResultReadOfTestResultRes.builder()
+                            .diagId(Long.valueOf(answerDiagnose.getDiagnose().getId()).intValue())
                             .title(answerDiagnose.getDiagnose().getTitle())
                             .avg(answerDiagnoseAvg)
                             .questionResultList(questionResultList)
                             .build()
             );
         }
+
+        Collections.sort(diagnoseResultList);
+
 
         answerAvg /= answer.getAnswerDiagnoseList().size();
         answerAvg = Math.round(answerAvg * 100.0) / 100.0;

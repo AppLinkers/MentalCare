@@ -8,11 +8,22 @@ import java.util.List;
 
 @Getter
 @Builder
-public class DiagnoseResultReadOfTestResultRes {
+public class DiagnoseResultReadOfTestResultRes implements Comparable<DiagnoseResultReadOfTestResultRes> {
 
     private String title;
+
+    int diagId;
 
     private Double avg;
 
     List<QuestionResultReadOfDiagnoseResult> questionResultList;
+
+
+    @Override
+    public int compareTo(DiagnoseResultReadOfTestResultRes o) {
+        if (this.diagId != o.getDiagId()) {
+            return this.diagId - o.getDiagId();
+        }
+        return this.title.compareTo(o.getTitle());
+    }
 }
