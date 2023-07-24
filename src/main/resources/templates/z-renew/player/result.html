@@ -127,23 +127,23 @@
 
         <!-- 메인 레이더 차트 -->
         <div class="canvas__container active">
+            <div class="label__container flex-left">
+                <div class="radar-label active flex-left">
+                    <img class="radar-label-color my" src="/images/nonagon.svg">
+                    <p class="font12">본인</p>
+                </div>
+                <div class="radar-label flex-left">
+                    <img class="radar-label-color" src="/images/nonagon.svg">
+                    <p class="font12">평균</p>
+                </div>
+                <div class="radar-label flex-left">
+                    <img class="radar-label-color" src="/images/nonagon.svg">
+                    <p class="font12">평균</p>
+                </div>
+            </div>
             <div class="radar__container">
                 <canvas id="chart-radar" class="main-chart"></canvas>
-                <img src="/images/brain.png">
-            </div>
-            <div class="label__container flex-center">
-                <div class="radar-label active flex-left">
-                    <div class="radar-label-color my"></div>
-                    <p class="font12">내 심리상태</p>
-                </div>
-                <div class="radar-label flex-left">
-                    <div class="radar-label-color"></div>
-                    <p class="font12">나이 평균</p>
-                </div>
-                <div class="radar-label flex-left">
-                    <div class="radar-label-color"></div>
-                    <p class="font12">포지션 평균</p>
-                </div>
+                <img src="/images/brain.PNG">
             </div>
         </div>
         <div class="canvas__container">
@@ -382,10 +382,10 @@
     function makeDateDatasets(data) {
         return {
             data: data,
-            borderColor: '#FFE400',
+            borderColor: '#000000',
             borderWidth: 1,
             pointRadius: 5,
-            pointBackgroundColor: '#FFE400',
+            pointBackgroundColor: '#000000',
         };
     };
 
@@ -556,9 +556,9 @@
         label: '내 심리상태',
         data: myAvgData,
         fill: true,
-        backgroundColor: 'rgba(101, 39, 190, 0.3)',
-        borderColor: '#6527BE',
-        borderWidth: 1
+        backgroundColor: 'rgba(103, 163, 210, 0.4)',
+        borderColor: '#67A3D2',
+        borderWidth: 2
     };
 
 
@@ -573,19 +573,19 @@
     const ageDatasets = {
         label: '나이 평균',
         data: avgByAgeData,
-        fill: false,
-        backgroundColor: 'white',
-        borderColor: '#F86F03',
-        borderWidth: 3
+        fill: true,
+        backgroundColor: 'rgba(206, 108, 106, 0.4)',
+        borderColor: '#CE6C6A',
+        borderWidth: 2
     };
 
     const positionDatasets = {
         label: '포지션별 평균',
         data: avgByPositionData,
-        fill: false,
-        backgroundColor: 'white',
-        borderColor: '#F86F03',
-        borderWidth: 3
+        fill: true,
+        backgroundColor: 'rgba(206, 108, 106, 0.4)',
+        borderColor: '#CE6C6A',
+        borderWidth: 2
     };
 
     const dayDatasets = {
@@ -637,20 +637,20 @@
     // 평균 보기 - 내 평균
     const data_myAvg = {
         labels: typeLabels,
-        datasets: [background_data,myDatasets]
+        datasets: [myDatasets]
     };
 
 
     // 평균 보기 - 나이별 평균
     const data_byAge = {
         labels: typeLabels,
-        datasets: [background_data,myDatasets, ageDatasets]
+        datasets: [myDatasets, ageDatasets]
     };
 
     // 평균 보기 - 포지션별 평균
     const data_byPosition = {
         labels: typeLabels,
-        datasets: [background_data, myDatasets, positionDatasets]
+        datasets: [ myDatasets, positionDatasets]
     };
 
 
@@ -678,7 +678,7 @@
                     angleLines: {
                         display: true
                     },
-                    suggestedMin: 1,
+                    suggestedMin: 0,
                     suggestedMax: 5,
                     ticks: {
                         beginAtZero: false,
@@ -718,25 +718,31 @@
     // 필터
     const averageFilter = document.getElementById("average-filter");
     const dateFilter = document.getElementById("date-filter");
+    const radarLabels = document.querySelectorAll(".radar-label");
 
     function avgFilterChange() {
 
         var selected = averageFilter.options[averageFilter.selectedIndex].value;
 
         typeDetailContainer.classList.add("show");
-        config_radar.data = background_data;
 
         if (selected === "byAge") {
             config_radar.data = data_byAge;
             updateTypeDetailCharts(0);
+            radarLabels[1].classList.add('active');
+            radarLabels[2].classList.remove('active');
         }
         if (selected === "byPosition") {
             config_radar.data = data_byPosition;
             updateTypeDetailCharts(1);
+            radarLabels[1].classList.remove('active');
+            radarLabels[2].classList.add('active');
         }
         if (selected === "myAvg") {
             config_radar.data = data_myAvg;
             typeDetailContainer.classList.remove("show");
+            radarLabels[1].classList.remove('active');
+            radarLabels[2].classList.remove('active');
         }
         avgChart.update();
     }

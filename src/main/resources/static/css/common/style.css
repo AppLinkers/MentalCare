@@ -3,15 +3,13 @@
 :root {
 
     --color-primary: #FFE400;
-    --color-primary-dark: #d4c004;
-    --color-primary-light: #fff8bc;
-
 
     --color-white: #FFFFFF;
     --color-black: #000000;
     --color-gray100: #FAFAFA;
     --color-gray200: #B5B5B5;
     --color-gray300: #575757;
+    --color-dark: #2D2727;
 
     --color-red: #FC5230;
     --color-lightRed: #FFE2DC;
@@ -21,6 +19,8 @@
     --color-lightGreen: #CDF3E6;
     --color-pink: #FA6EA1;
     --color-blue: #4B77FA;
+    --color-orange: #FF6000;
+    --color-lightOrange: #f8e1d2;
 
     --transition: all 300ms ease;
 
@@ -407,7 +407,6 @@ section {
 /* 레이더 차트 */
 .radar__container {
     position: relative;
-    padding: 25px;
 }
 
 .radar__container img {
@@ -415,13 +414,13 @@ section {
     width: 70px;
     height: 70px;
     border-radius: 35px;
-    top: 49%;
-    left: 52%;
+    top: 52%;
+    left: 52.5%;
     transform: translate(-50%, -50%);
 }
 
 .label__container {
-    padding-bottom: 20px;
+    padding-top: 20px;
 }
 
 .radar-label {
@@ -438,15 +437,14 @@ section {
 }
 
 .radar-label-color {
-    width: 40px;
-    height: 14px;
-    border: 2px solid #F86F03;
+    width: 25px;
+    height: 25px;
+    filter: invert(10%) sepia(75%) saturate(7470%) hue-rotate(13deg) brightness(95%) contrast(117%);
     margin-right: 5px;
 }
 
 .radar-label-color.my {
-    border: 2px solid #6527BE;
-    background-color: rgba(101, 39, 190, 0.3);
+    filter: invert(21%) sepia(99%) saturate(2120%) hue-rotate(189deg) brightness(95%) contrast(104%);
 }
 
 .radar-label p {
@@ -466,34 +464,39 @@ section {
 
 @media screen and (max-width:600px) {
     .radar__container img {
-        width: 65px;
-        height: 65px;
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media screen and (max-width:550px) {
+    .radar__container img {
+        width: 55px;
+        height: 55px;
     }
 }
 
 @media screen and (max-width:500px) {
     .radar__container img {
-        width: 45px;
-        height: 45px;
-        top: 48.5%;
-        left: 51.7%;
+        width: 48px;
+        height: 48px;
+        top: 52.5%;
     }
 }
 
 @media screen and (max-width:450px) {
     .radar__container img {
-        width: 30px;
-        height: 30px;
-        top: 48%;
-        left: 51.5%;
+        width: 40px;
+        height: 40px;
+        top: 52.3%;
+        left: 52.3%;
     }
 }
 
 @media screen and (max-width:400px) {
     .radar__container img {
-        width: 25px;
-        height: 25px;
-        top: 47.5%;
-        left: 51%;
+        width: 35px;
+        height: 35px;
+        left: 52.2%;
     }
 }
