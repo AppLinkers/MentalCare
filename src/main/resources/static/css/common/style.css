@@ -415,7 +415,7 @@ section {
     height: 70px;
     border-radius: 35px;
     top: 52%;
-    left: 52.5%;
+    left: 50%;
     transform: translate(-50%, -50%);
 }
 
@@ -425,7 +425,7 @@ section {
 
 .radar-label {
     display: none;
-    margin-left: 10px;
+    margin-left: 12px;
 }
 
 .radar-label.active {
@@ -437,14 +437,17 @@ section {
 }
 
 .radar-label-color {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     filter: invert(10%) sepia(75%) saturate(7470%) hue-rotate(13deg) brightness(95%) contrast(117%);
-    margin-right: 5px;
+    margin-right: 8px;
+    border-radius: 14px;
+    background-color: rgba(199, 97, 94, 0.4);
 }
 
 .radar-label-color.my {
     filter: invert(21%) sepia(99%) saturate(2120%) hue-rotate(189deg) brightness(95%) contrast(104%);
+    background-color: rgba(44, 134, 202, 0.4);
 }
 
 .radar-label p {
