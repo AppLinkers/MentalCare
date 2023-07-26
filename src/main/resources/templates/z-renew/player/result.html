@@ -129,15 +129,15 @@
         <div class="canvas__container active">
             <div class="label__container flex-left">
                 <div class="radar-label active flex-left">
-                    <img class="radar-label-color my" src="/images/nonagon.svg">
+                    <img class="radar-label-color" src="/images/nonagon.svg">
                     <p class="font12">본인</p>
                 </div>
                 <div class="radar-label flex-left">
-                    <img class="radar-label-color" src="/images/nonagon.svg">
+                    <img class="radar-label-color my" src="/images/nonagon.svg">
                     <p class="font12">평균</p>
                 </div>
                 <div class="radar-label flex-left">
-                    <img class="radar-label-color" src="/images/nonagon.svg">
+                    <img class="radar-label-color my" src="/images/nonagon.svg">
                     <p class="font12">평균</p>
                 </div>
             </div>
@@ -556,8 +556,8 @@
         label: '내 심리상태',
         data: myAvgData,
         fill: true,
-        backgroundColor: 'rgba(103, 163, 210, 0.4)',
-        borderColor: '#67A3D2',
+        backgroundColor: 'rgba(206, 108, 106, 0.4)',
+        borderColor: '#CE6C6A',
         borderWidth: 2
     };
 
@@ -574,8 +574,8 @@
         label: '나이 평균',
         data: avgByAgeData,
         fill: true,
-        backgroundColor: 'rgba(206, 108, 106, 0.4)',
-        borderColor: '#CE6C6A',
+        backgroundColor: 'rgba(103, 163, 210, 0.4)',
+        borderColor: '#67A3D2',
         borderWidth: 2
     };
 
@@ -583,8 +583,8 @@
         label: '포지션별 평균',
         data: avgByPositionData,
         fill: true,
-        backgroundColor: 'rgba(206, 108, 106, 0.4)',
-        borderColor: '#CE6C6A',
+        backgroundColor: 'rgba(103, 163, 210, 0.4)',
+        borderColor: '#67A3D2',
         borderWidth: 2
     };
 
@@ -802,13 +802,13 @@
             const compareDatasets = {
                 data: [myAvg, compareAvg],
                 backgroundColor: [
-                    'rgba(255,228,0,0.2)',
-                    '#F9F9F9'
+                   'rgba(206, 108, 106, 0.4)',
+                    'rgba(103, 163, 210, 0.4)',
 
                 ],
                 borderColor: [
-                    '#FFE400',
-                    '#B5B5B5'
+                    '#CE6C6A',
+                    '#67A3D2'
                 ],
                 borderWidth: 1
             };
