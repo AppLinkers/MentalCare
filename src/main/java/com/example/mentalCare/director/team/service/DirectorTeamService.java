@@ -47,7 +47,7 @@ public class DirectorTeamService {
         for (Player player : playerList) {
             Long userId = player.getUser().getId();
             if (answerRepository.existsByPlayer_UserId(userId)) {
-                Answer answer = answerRepository.getFirstByPlayerUserIdOrderByUpdatedAtDesc(userId);
+                Answer answer = answerRepository.getFirstByPlayerUserIdOrderByCreatedAtDesc(userId);
                 for (AnswerDiagnose answerDiagnose : answer.getAnswerDiagnoseList()) {
                     Long diagnoseId = answerDiagnose.getDiagnose().getId();
                     Double diagnoseAvg = answerDiagnose.getAvg();
@@ -174,8 +174,8 @@ public class DirectorTeamService {
         LocalDate answerDate = null;
 
         if (answerRepository.existsByPlayer_UserId(userId)) {
-            Answer answer = answerRepository.getFirstByPlayerUserIdOrderByUpdatedAtDesc(userId);
-            answerDate = answer.getUpdatedAt().toLocalDate();
+            Answer answer = answerRepository.getFirstByPlayerUserIdOrderByCreatedAtDesc(userId);
+            answerDate = answer.getCreatedAt().toLocalDate();
             for (AnswerDiagnose answerDiagnose : answer.getAnswerDiagnoseList()) {
                 avgList.add(answerDiagnose.getAvg());
             }

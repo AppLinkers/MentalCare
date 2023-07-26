@@ -9,10 +9,10 @@ import java.util.Optional;
 
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
 
-    @Query("select a from Answer a where a.player.user.id = :userId order by a.updatedAt desc")
-    List<Answer> findAnswersByPlayerUserIdOrderByUpdatedAt(Long userId);
+    @Query("select a from Answer a where a.player.user.id = :userId order by a.createdAt desc")
+    List<Answer> findAnswersByPlayerUserIdOrderByCreatedAt(Long userId);
 
-    Answer getFirstByPlayerUserIdOrderByUpdatedAtDesc(Long userId);
+    Answer getFirstByPlayerUserIdOrderByCreatedAtDesc(Long userId);
 
     Boolean existsByPlayer_UserId(Long userId);
 

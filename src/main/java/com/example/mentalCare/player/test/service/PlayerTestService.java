@@ -250,7 +250,7 @@ public class PlayerTestService {
     @Transactional(readOnly = true)
     public List<TestResultInfoReadRes> getAllTestResultByUserLoginId(String userLoginId) {
         Long userId = userRepository.findUserIdByLoginId(userLoginId);
-        List<Answer> answerList = answerRepository.findAnswersByPlayerUserIdOrderByUpdatedAt(userId);
+        List<Answer> answerList = answerRepository.findAnswersByPlayerUserIdOrderByCreatedAt(userId);
 
         List<TestResultInfoReadRes> result = new ArrayList<>();
         answerList.forEach(
@@ -258,7 +258,7 @@ public class PlayerTestService {
                     result.add(
                             TestResultInfoReadRes.builder()
                                     .id(answer.getId())
-                                    .date(answer.getUpdatedAt().toLocalDate())
+                                    .date(answer.getCreatedAt().toLocalDate())
                                     .build()
                     );
 
@@ -342,7 +342,7 @@ public class PlayerTestService {
         answerAvg = Math.round(answerAvg * 100.0) / 100.0;
 
         return TestResultReadRes.builder()
-                .date(answer.getUpdatedAt().toLocalDate())
+                .date(answer.getCreatedAt().toLocalDate())
                 .avg(answerAvg)
                 .diagnoseResultList(diagnoseResultList)
                 .build();

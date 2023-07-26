@@ -1,18 +1,14 @@
 package com.example.mentalCare.player.test.domain;
 
-import javax.persistence.*;
-
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,13 +31,6 @@ public class AnswerDiagnose {
     @ManyToOne
     @JoinColumn(name = "diagnose_id")
     private Diagnose diagnose;
-
-    @CreatedDate
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "answerDiagnose")
     private List<AnswerDetail> answerDetailList = new ArrayList<>();
