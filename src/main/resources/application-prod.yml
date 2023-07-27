@@ -1,5 +1,7 @@
 spring:
-  profiles: prod
+  config:
+    activate:
+      on-profile: prod
 # RDS - MySQL
   datasource:
     url: jdbc:mysql://mindup-rds.c9v1roxnwdza.ap-northeast-2.rds.amazonaws.com/mindup
