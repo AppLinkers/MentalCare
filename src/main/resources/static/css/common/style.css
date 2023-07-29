@@ -411,11 +411,11 @@ section {
 
 .radar__container img {
     position: absolute;
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
     border-radius: 35px;
-    top: 52%;
-    left: 50%;
+    top: 53%;
+    left: 49%;
     transform: translate(-50%, -50%);
 }
 
@@ -467,39 +467,40 @@ section {
 
 @media screen and (max-width:600px) {
     .radar__container img {
-        width: 60px;
-        height: 60px;
+        width: 85px;
+        height: 85px;
     }
 }
 
 @media screen and (max-width:550px) {
     .radar__container img {
-        width: 55px;
-        height: 55px;
+        width: 75px;
+        height: 75px;
+        left: 48.5%;
     }
 }
 
 @media screen and (max-width:500px) {
     .radar__container img {
-        width: 48px;
-        height: 48px;
+        width: 70px;
+        height: 70px;
         top: 52.5%;
+        left: 48%;
     }
 }
 
 @media screen and (max-width:450px) {
     .radar__container img {
-        width: 40px;
-        height: 40px;
-        top: 52.3%;
-        left: 52.3%;
+        width: 60px;
+        height: 60px;
+        left: 47%;
     }
 }
 
 @media screen and (max-width:400px) {
     .radar__container img {
-        width: 35px;
-        height: 35px;
-        left: 52.2%;
+        width: 50px;
+        height: 50px;
+        left: 46.5%;
     }
 }

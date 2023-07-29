@@ -251,7 +251,7 @@ function calculateAverage(numbers) {
 /////// 라벨 ///////
 
 // 라벨 - 메인
-const typeLabels = ["경기력 문제", "부상", "불안감", "훈련 스트레스", "기능 자신감", "관계 문제", "진로 미래", "학업 스트레스", "생활 문제"];
+const typeLabels = ["경기력", "불안감", "훈련", "기능자신감", "부상", "관계", "진로", "학업", "생활"];
 const dayLabels = ["05.01", "05.13", "05.18", "05.20"];
 
 // 라벨 - 유형별
@@ -404,13 +404,13 @@ const config_radar = {
                 borderWidth: 4
             },
             point: {
-                radius: 0,
+                radius: 2,
             }
         },
         scales: {
             r: {
                 angleLines: {
-                    display: false
+                    display: true
                 },
                 suggestedMin: 0,
                 suggestedMax: 5,
@@ -424,7 +424,7 @@ const config_radar = {
                 pointLabels: {
                     font: {
                         family: 'Arial',
-                        size: 12,
+                        size: 14,
                         weight: 'bold'
                     }
                 }
