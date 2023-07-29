@@ -63,7 +63,10 @@
                         avgSet.push(avg);
                     </script>
                 </div>
-                <canvas id="chart"></canvas>
+                <div class="radar__container">
+                    <canvas id="chart"></canvas>
+                    <img src="/images/brain.png">
+                </div>
             </div>
             <!-- 팀 관리 -->
             <div class="manage">
@@ -162,7 +165,7 @@
                         borderWidth: 4
                     },
                     point: {
-                        radius: 0,
+                        radius: 2,
                     }
                 },
                 scales: {
@@ -170,7 +173,7 @@
                         angleLines: {
                             display: false
                         },
-                        suggestedMin: 1,
+                        suggestedMin: 0,
                         suggestedMax: 5,
                         ticks: {
                             beginAtZero: true,
