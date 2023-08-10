@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -144,7 +146,39 @@ public class TestController {
         model.addAttribute("testResult", testResult);
         model.addAttribute("positionResult", playerTestService.getPositionResult(userLoginId));
         model.addAttribute("ageResult", playerTestService.getAgeResult(userLoginId));
-        model.addAttribute("monthlyResult", playerTestService.getMonthlyResult(userLoginId, testResult.getDate()));
+        List<MonthlyResultReadRes> monthlyResult = playerTestService.getMonthlyResult(userLoginId, testResult.getDate());
+        model.addAttribute("monthlyResult", monthlyResult);
+
+        List<List> monthlyResultAvgList = new ArrayList<List>();
+        List<List> monthlyResultAvg = new ArrayList<List>();
+
+        for (MonthlyResultReadRes m : monthlyResult) {
+            List<Double> monthlyAvg = new ArrayList<Double>();
+            if(m.getDiagnoseResultList().size() == 0){
+                for(int i =0; i<9; i++){
+                    monthlyAvg.add(0.0);
+                }
+            }
+            else {
+                for (TestDiagnoseResultReadRes tdr : m.getDiagnoseResultList()) {
+                    monthlyAvg.add(tdr.getAvg());
+                }
+                Collections.reverse(monthlyAvg);
+            }
+            monthlyResultAvgList.add(monthlyAvg);
+        }
+
+
+        for(int j=0; j<9; j++){
+            List<Double> monthResultAvg = new ArrayList<Double>();
+            for(int i = 0; i<monthlyResultAvgList.size(); i++){
+                monthResultAvg.add((Double) monthlyResultAvgList.get(i).get(j));
+            }
+            monthlyResultAvg.add(monthResultAvg);
+        }
+
+        model.addAttribute("monthlyResultAvg", monthlyResultAvg);
+
 
         return "z-renew/player/result";
     }

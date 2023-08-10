@@ -81,7 +81,6 @@
         var myQuestionLabelList = new Array();
         var myQuestionDataList = new Array();
         var myMonthlyLabel = new Array();
-        var myMonthlyAvgData = Array.from(Array(9), () => new Array());
     </script>
 
     <div th:each="ageData : ${ageResult}">
@@ -185,9 +184,10 @@
                 <div class="type-filter flex-center" th:each="diagList, diagStat:${monthly.diagnoseResultList}">
                     <p class="font14" th:text="${diagList.title}">경기력</p>
                     <script th:inline="javascript">
-                        var diagListAvg = [[${diagList.avg}]];
-                        var diagIndex = [[${__diagStat.index__}]];
-                        myMonthlyAvgData[diagIndex].push(diagListAvg);
+                        // var diagListAvg = [[${diagList.avg}]];
+                        // var diagIndex = [[${__diagStat.index__}]];
+                        // var test = [[${monthly.yearMonth}]];
+                        // myMonthlyAvgData[diagIndex].push(diagListAvg);
                     </script>
                 </div>
             </div>
@@ -276,6 +276,7 @@
     const scoreBox = document.querySelector(".info-score");
     const mindScore = scoreBox.querySelector("p");
     const score = parseFloat(mindScore.innerHTML);
+    var myMonthlyAvgData = [[${monthlyResultAvg}]];
 
     if (score >= 4) scoreBox.classList.add("green");
     else if (score >= 2) scoreBox.classList.add("yellow");
