@@ -134,6 +134,8 @@ public class TestController {
         return "z-renew/player/result_list";
     }
 
+
+
     /**
      * 테스트 결과 상세 페이지
      */
@@ -151,6 +153,7 @@ public class TestController {
 
         List<List> monthlyResultAvgList = new ArrayList<List>();
         List<List> monthlyResultAvg = new ArrayList<List>();
+        List<Double> monthlyTotalAvg = new ArrayList<Double>();
 
         for (MonthlyResultReadRes m : monthlyResult) {
             List<Double> monthlyAvg = new ArrayList<Double>();
@@ -169,6 +172,8 @@ public class TestController {
         }
 
 
+
+
         for(int j=0; j<9; j++){
             List<Double> monthResultAvg = new ArrayList<Double>();
             for(int i = 0; i<monthlyResultAvgList.size(); i++){
@@ -177,9 +182,25 @@ public class TestController {
             monthlyResultAvg.add(monthResultAvg);
         }
 
+        for(int i = 0; i<monthlyResultAvgList.size(); i++){
+            Double sum = getSum(monthlyResultAvgList.get(i));
+            monthlyTotalAvg.add( Math.round((sum*100)/9)/100.0);
+        }
+
+        System.out.println(monthlyTotalAvg);
+        model.addAttribute("monthlyTotalAvg", monthlyTotalAvg);
         model.addAttribute("monthlyResultAvg", monthlyResultAvg);
 
 
         return "z-renew/player/result";
+    }
+
+
+    public static Double getSum(List<Double> nums) {
+        Double sum = 0.0;
+        for (Double i: nums) {
+            sum += i;
+        }
+        return sum;
     }
 }

@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 public class TestDiagnoseResultReadRes {
 
+
     private String title;
 
     private Double avg;
