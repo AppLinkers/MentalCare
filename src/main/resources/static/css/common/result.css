@@ -166,7 +166,7 @@ canvas#chart-line {
 .type-filter__container {
     margin-top: 35px;
     display: none;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr repeat(2, 1fr);
     column-gap: 20px;
     row-gap: 10px;
 }
@@ -183,6 +183,10 @@ canvas#chart-line {
     color: var(--color-dark);
     cursor: pointer;
     transition: var(--transition);
+}
+
+.type-filter.large {
+    grid-column: 1 / span 3;
 }
 
 .type-filter.active {

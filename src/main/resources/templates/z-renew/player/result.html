@@ -181,6 +181,9 @@
                     var diagmonthlyLabel = [[${monthly.yearMonth}]]
                     myMonthlyLabel.push(diagmonthlyLabel.substr(2));
                 </script>
+                <div class="type-filter large flex-center active">
+                    <p class="font14">전체 보기</p>
+                </div>
                 <div class="type-filter flex-center" th:each="diagList, diagStat:${monthly.diagnoseResultList}">
                     <p class="font14" th:text="${diagList.title}">경기력</p>
                     <script th:inline="javascript">
