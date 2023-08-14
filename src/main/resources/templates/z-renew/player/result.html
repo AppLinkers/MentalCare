@@ -405,10 +405,13 @@
         }
     }
 
+    const monthlyTotalAvg = [[${monthlyTotalAvg}]];
+
+
+    monthData.push(monthlyTotalAvg.reverse());
     for(var i=0; i<myMonthlyAvgData.length; i++){
         monthData.push(myMonthlyAvgData[i].reverse());
     }
-
 
 
     const config_line = makeLineConfig(makeDateData(makeDateDatasets(monthData[0])));
