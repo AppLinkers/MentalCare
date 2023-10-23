@@ -187,7 +187,6 @@ public class TestController {
             monthlyTotalAvg.add( Math.round((sum*100)/9)/100.0);
         }
 
-        System.out.println(monthlyTotalAvg);
         model.addAttribute("monthlyTotalAvg", monthlyTotalAvg);
         model.addAttribute("monthlyResultAvg", monthlyResultAvg);
 

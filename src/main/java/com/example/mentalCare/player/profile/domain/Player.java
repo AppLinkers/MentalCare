@@ -1,6 +1,7 @@
 package com.example.mentalCare.player.profile.domain;
 
 import com.example.mentalCare.common.domain.User;
+import com.example.mentalCare.consultant.domain.Consultant;
 import com.example.mentalCare.player.test.domain.Answer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,4 +41,8 @@ public class Player {
     public void addAnswer(Answer answer) {
         this.answerList.add(answer);
     }
+
+    @ManyToOne
+    @JoinColumn(name = "consultant_id")
+    private Consultant consultant;
 }
