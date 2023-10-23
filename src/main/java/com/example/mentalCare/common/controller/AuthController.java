@@ -1,10 +1,7 @@
 package com.example.mentalCare.common.controller;
 
 
-import com.example.mentalCare.common.dto.ChangePwReq;
-import com.example.mentalCare.common.dto.SignUpDirectorReq;
-import com.example.mentalCare.common.dto.SignUpPlayerReq;
-import com.example.mentalCare.common.dto.UserLoginReq;
+import com.example.mentalCare.common.dto.*;
 import com.example.mentalCare.common.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -50,6 +47,15 @@ public class AuthController {
      */
     @PostMapping("/sign_up/director")
     public String directorSignUp(SignUpDirectorReq request) {
+        authService.signUp(request);
+        return "redirect:/login";
+    }
+
+    /**
+     * 컨설턴트 회원가입 서비스
+     */
+    @PostMapping("/sign_up/consultant")
+    public String consultantSignUp(SignUpConsultantReq request) {
         authService.signUp(request);
         return "redirect:/login";
     }

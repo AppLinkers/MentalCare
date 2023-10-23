@@ -3,11 +3,10 @@ package com.example.mentalCare.common.service;
 import com.example.mentalCare.common.domain.User;
 import com.example.mentalCare.common.domain.UserDetail;
 import com.example.mentalCare.common.domain.type.Role;
-import com.example.mentalCare.common.dto.ChangePwReq;
-import com.example.mentalCare.common.dto.SignUpDirectorReq;
-import com.example.mentalCare.common.dto.SignUpPlayerReq;
-import com.example.mentalCare.common.dto.SignUpUserReq;
+import com.example.mentalCare.common.dto.*;
 import com.example.mentalCare.common.repository.UserRepository;
+import com.example.mentalCare.consultant.domain.Consultant;
+import com.example.mentalCare.consultant.repository.ConsultantRepository;
 import com.example.mentalCare.director.profile.domain.Director;
 import com.example.mentalCare.director.profile.repository.DirectorRepository;
 import com.example.mentalCare.player.profile.domain.Player;
@@ -26,7 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +35,7 @@ public class AuthService implements UserDetailsService {
     private final UserRepository userRepository;
     private final PlayerRepository playerRepository;
     private final DirectorRepository directorRepository;
+    private final ConsultantRepository consultantRepository;
     private final TeamRepository teamRepository;
 
     /**
@@ -93,6 +92,24 @@ public class AuthService implements UserDetailsService {
 
         userRepository.save(user);
         directorRepository.save(director);
+
+    }
+
+    /**
+     * 상담가 회원가입 서비스
+     */
+    @Transactional
+    public void signUp(SignUpConsultantReq request) {
+        validateDuplicated(request.getLogin_id());
+
+        User user = userSignUpReqToUser(request, Role.CONSULTANT_PENDING);
+        user.setLogin_pw(passwordEncoder.encode(user.getLogin_pw()));
+
+        Consultant consultant = Consultant.builder()
+                .user(user)
+                .build();
+        userRepository.save(user);
+        consultantRepository.save(consultant);
 
     }
 
