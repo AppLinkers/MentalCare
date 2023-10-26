@@ -3,7 +3,7 @@ package com.example.mentalCare.consultant.consulting.dto;
 import lombok.Getter;
 
 @Getter
-public class DiagnoseResultReadRes {
+public class DiagnoseResultWithAnswerIdReadRes {
 
     private Double avg;
 
@@ -13,7 +13,7 @@ public class DiagnoseResultReadRes {
 
     private String playerImgUrl;
 
-    public DiagnoseResultReadRes(Long answerId, String playerName, String playerImgUrl, Double avg) {
+    public DiagnoseResultWithAnswerIdReadRes(Long answerId, String playerName, String playerImgUrl, Double avg) {
         this.avg = avg;
         this.answerId = answerId;
         this.playerName = playerName;

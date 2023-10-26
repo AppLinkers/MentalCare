@@ -14,5 +14,5 @@ public class DiagnoseResultDateRes {
 
     private Integer count;
 
-    private List<DiagnoseResultReadRes> diagnoseResultReadResList;
+    private List<DiagnoseResultWithAnswerIdReadRes> diagnoseResultReadResList;
 }

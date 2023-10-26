@@ -3,10 +3,9 @@ package com.example.mentalCare.consultant.consulting.service;
 import com.example.mentalCare.common.domain.User;
 import com.example.mentalCare.common.repository.UserRepository;
 import com.example.mentalCare.consultant.consulting.dto.DiagnoseResultDateRes;
-import com.example.mentalCare.consultant.consulting.dto.DiagnoseResultReadRes;
+import com.example.mentalCare.consultant.consulting.dto.DiagnoseResultWithAnswerIdReadRes;
 import com.example.mentalCare.consultant.profile.domain.Consultant;
 import com.example.mentalCare.consultant.profile.repository.ConsultantRepository;
-import com.example.mentalCare.player.profile.domain.Player;
 import com.example.mentalCare.player.test.repository.AnswerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -38,7 +37,7 @@ public class ConsultingService {
 
             for (LocalDate answerDate : answerDateList) {
 
-                List<DiagnoseResultReadRes> diagnoseResultReadResList = answerRepository.findAnswerAvgByTeamIdAndDate(user.getTeam().getId(), answerDate);
+                List<DiagnoseResultWithAnswerIdReadRes> diagnoseResultReadResList = answerRepository.findAnswerAvgByTeamIdAndDate(user.getTeam().getId(), answerDate);
 
                 DiagnoseResultDateRes diagnoseResultDateRes = DiagnoseResultDateRes.builder()
                         .date(answerDate)
@@ -66,7 +65,7 @@ public class ConsultingService {
 
         for (LocalDate answerDate : answerDateList) {
 
-            List<DiagnoseResultReadRes> diagnoseResultReadResList = answerRepository.findAnswerAvgByConsultantIdAndDate(consultant.getId(), answerDate);
+            List<DiagnoseResultWithAnswerIdReadRes> diagnoseResultReadResList = answerRepository.findAnswerAvgByConsultantIdAndDate(consultant.getId(), answerDate);
 
             DiagnoseResultDateRes diagnoseResultDateRes = DiagnoseResultDateRes.builder()
                     .date(answerDate)
