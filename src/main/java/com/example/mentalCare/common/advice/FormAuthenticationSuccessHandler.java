@@ -34,6 +34,8 @@ public class FormAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
                 redirectUrl = "/player/profile";
             } else if (authentication.getAuthorities().toArray()[0].toString().equals("DIRECTOR")) {
                 redirectUrl = "/director/profile";
+            } else if (authentication.getAuthorities().toArray()[0].toString().equals("CONSULTANT")) {
+                redirectUrl = "/consultant/profile";
             } else if (authentication.getAuthorities().toArray()[0].toString().equals("ADMIN")) {
                 redirectUrl = "/admin/user";
             } else {

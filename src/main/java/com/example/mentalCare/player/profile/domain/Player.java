@@ -1,7 +1,7 @@
 package com.example.mentalCare.player.profile.domain;
 
 import com.example.mentalCare.common.domain.User;
-import com.example.mentalCare.consultant.domain.Consultant;
+import com.example.mentalCare.consultant.profile.domain.Consultant;
 import com.example.mentalCare.player.test.domain.Answer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

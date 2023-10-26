@@ -1,4 +1,4 @@
-package com.example.mentalCare.consultant.domain;
+package com.example.mentalCare.consultant.profile.domain;
 
 import com.example.mentalCare.common.domain.User;
 import com.example.mentalCare.player.feed.domain.Comment;

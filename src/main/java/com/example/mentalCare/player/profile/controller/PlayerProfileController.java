@@ -52,7 +52,7 @@ public class PlayerProfileController {
     public String profileSettingService(PlayerProfileUpdateReq playerProfileUpdateReq) throws IOException {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        playerProfileService.UpdateProfile(userLoginId, playerProfileUpdateReq);
+        playerProfileService.updateProfile(userLoginId, playerProfileUpdateReq);
 
         return "redirect:/player/profile";
     }

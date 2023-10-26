@@ -77,7 +77,7 @@ public class PlayerProfileService {
      * 선수 프로필 설정 서비스
      */
     @Transactional
-    public void UpdateProfile(String userLoginId, PlayerProfileUpdateReq request) throws IOException {
+    public void updateProfile(String userLoginId, PlayerProfileUpdateReq request) throws IOException {
 
         Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
 

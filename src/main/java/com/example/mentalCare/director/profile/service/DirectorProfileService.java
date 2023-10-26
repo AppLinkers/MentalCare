@@ -69,7 +69,7 @@ public class DirectorProfileService {
      * 감독 프로필 설정 서비스
      */
     @Transactional
-    public void UpdateProfile(String userLoginId, DirectorProfileUpdateReq request) throws IOException {
+    public void updateProfile(String userLoginId, DirectorProfileUpdateReq request) throws IOException {
         User user = userRepository.findUserByLoginId(userLoginId).get();
 
         Team team = teamRepository.findTeamByCode(request.getTeamCode()).get();

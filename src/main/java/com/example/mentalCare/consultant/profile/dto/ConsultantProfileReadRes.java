@@ -1,11 +1,11 @@
-package com.example.mentalCare.director.profile.dto;
+package com.example.mentalCare.consultant.profile.dto;
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
-public class DirectorProfileReadRes {
+public class ConsultantProfileReadRes {
 
     private String name;
 

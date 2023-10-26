@@ -64,7 +64,7 @@ public class DirectorProfileController {
     public String profileSettingService(DirectorProfileUpdateReq directorProfileUpdateReq) throws IOException {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        directorProfileService.UpdateProfile(userLoginId, directorProfileUpdateReq);
+        directorProfileService.updateProfile(userLoginId, directorProfileUpdateReq);
 
         return "redirect:/director/profile";
     }
