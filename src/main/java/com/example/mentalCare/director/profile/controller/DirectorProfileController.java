@@ -37,6 +37,7 @@ public class DirectorProfileController {
         model.addAttribute("teamDiagnoseResultList", directorTeamService.getTeamDiagnoseResultList(teamId));
         model.addAttribute("teamDirectorInfoList", directorTeamService.getTeamDirectorInfoList(teamId));
         model.addAttribute("teamPlayerInfoList", directorTeamService.getTeamPlayerInfoList(teamId));
+        model.addAttribute("teamConsultantInfoList", directorTeamService.getTeamConsultantInfoList(teamId));
 
         return "z-renew/director/profile";
     }

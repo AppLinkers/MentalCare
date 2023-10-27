@@ -64,4 +64,28 @@ public class DirectorTeamController {
         return "redirect:/director/profile";
     }
 
+    /**
+     * 상담가 상세 정보 페이지
+     */
+    @GetMapping("/consultant/{id}")
+    public String teamConsultantPage(Model model, @PathVariable Long id) {
+
+        TeamConsultantInfoReadRes teamConsultantDetail = directorTeamService.getTeamConsultantDetail(id);
+        model.addAttribute("teamConsultantDetail", teamConsultantDetail);
+
+        model.addAttribute("consultantRoleUpdateReq", teamConsultantDetail.toConsultantRoleUpdateReq());
+
+        return "z-renew/consultant/consultant_manage";
+    }
+
+    /**
+     * 상담가 권한 변경 서비스
+     */
+    @PutMapping("/director")
+    public String changeConsultantRole(ConsultantRoleUpdateReq consultantRoleUpdateReq) {
+        directorTeamService.changeConsultantRole(consultantRoleUpdateReq);
+
+        return "redirect:/director/profile";
+    }
+
 }

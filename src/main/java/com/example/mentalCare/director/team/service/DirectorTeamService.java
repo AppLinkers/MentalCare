@@ -1,6 +1,8 @@
 package com.example.mentalCare.director.team.service;
 
 import com.example.mentalCare.common.domain.type.Role;
+import com.example.mentalCare.consultant.profile.domain.Consultant;
+import com.example.mentalCare.consultant.profile.repository.ConsultantRepository;
 import com.example.mentalCare.director.profile.domain.Director;
 import com.example.mentalCare.director.profile.repository.DirectorRepository;
 import com.example.mentalCare.director.team.dto.*;
@@ -30,6 +32,7 @@ public class DirectorTeamService {
 
     private final PlayerRepository playerRepository;
     private final DirectorRepository directorRepository;
+    private final ConsultantRepository consultantRepository;
     private final AnswerRepository answerRepository;
     private final DiagnoseRepository diagnoseRepository;
 
@@ -135,6 +138,58 @@ public class DirectorTeamService {
         Role directorRole = director.getUser().getRole();
         if (!directorRole.equals(directorRoleUpdateReq.getRole())) {
             director.getUser().setRole(directorRoleUpdateReq.getRole());
+        }
+    }
+
+    /**
+     * 감독 정보 목록 조회
+     */
+    @Transactional(readOnly = true)
+    public List<TeamConsultantInfoReadRes> getTeamConsultantInfoList(Long teamId) {
+        List<Consultant> consultantList = consultantRepository.findConsultantByUserTeamId(teamId);
+
+        List<TeamConsultantInfoReadRes> result = new ArrayList<>();
+
+        for (Consultant teamConsultant : consultantList) {
+            result.add(
+                    TeamConsultantInfoReadRes.builder()
+                            .id(teamConsultant.getId())
+                            .imgUrl(teamConsultant.getUser().getImgUrl())
+                            .name(teamConsultant.getUser().getName())
+                            .role(teamConsultant.getUser().getRole())
+                            .build()
+            );
+        }
+
+        return result;
+    }
+
+    /**
+     * 감독 정보 조회
+     */
+    @Transactional(readOnly = true)
+    public TeamConsultantInfoReadRes getTeamConsultantDetail(Long consultantId) {
+        Consultant consultant = consultantRepository.findById(consultantId).get();
+
+        return TeamConsultantInfoReadRes.builder()
+                .id(consultant.getId())
+                .imgUrl(consultant.getUser().getImgUrl())
+                .name(consultant.getUser().getName())
+                .teamName(consultant.getUser().getTeam().getName())
+                .role(consultant.getUser().getRole())
+                .build();
+    }
+
+    /**
+     * 감독 권한 변경 서비스
+     */
+    @Transactional
+    public void changeConsultantRole(ConsultantRoleUpdateReq consultantRoleUpdateReq) {
+        Consultant consultant = consultantRepository.findById(consultantRoleUpdateReq.getId()).get();
+
+        Role consultantRole = consultant.getUser().getRole();
+        if (!consultantRole.equals(consultantRoleUpdateReq.getRole())) {
+            consultant.getUser().setRole(consultantRoleUpdateReq.getRole());
         }
     }
 
