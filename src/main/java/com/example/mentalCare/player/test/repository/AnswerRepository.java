@@ -73,4 +73,14 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
             "from Answer a, AnswerDiagnose ad, AnswerDetail adt, Player p, User u " +
             "where ad.id = adt.answerDiagnose.id and a.id = ad.answer.id and a.player.id = p.id and p.user.id = u.id and u.team.id = :teamId and substring(a.createdAt, 1, 7) = :formattedYearMonth and ad.diagnose.id = :diagnoseId")
     Optional<Double> findMonthlyAvgByTeamIdAndYearMonthAndDiagnoseId(Long teamId, String formattedYearMonth, Long diagnoseId);
+
+    @Query("select round(avg(adt.answer), 2) " +
+            "from Answer a, AnswerDiagnose ad, AnswerDetail adt, Player p " +
+            "where ad.id = adt.answerDiagnose.id and a.id = ad.answer.id and a.player.id = p.id and p.consultant.id = :consultantId and substring(a.createdAt, 1, 7) = :formattedYearMonth")
+    Optional<Double> findMonthlyAvgByConsultantIdAndYearMonth(Long consultantId, String formattedYearMonth);
+
+    @Query("select round(avg(adt.answer), 2) " +
+            "from Answer a, AnswerDiagnose ad, AnswerDetail adt, Player p " +
+            "where ad.id = adt.answerDiagnose.id and a.id = ad.answer.id and a.player.id = p.id and p.consultant.id = :consultantId and substring(a.createdAt, 1, 7) = :formattedYearMonth and ad.diagnose.id = :diagnoseId")
+    Optional<Double> findMonthlyAvgByConsultantIdAndYearMonthAndDiagnoseId(Long consultantId, String formattedYearMonth, Long diagnoseId);
 }

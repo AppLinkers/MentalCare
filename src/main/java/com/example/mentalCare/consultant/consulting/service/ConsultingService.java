@@ -364,7 +364,7 @@ public class ConsultingService {
         return response;
     }
 
-    public List<DiagnoseMonthlyTypeAvgReadRes> getTEamPlayerMonthlyTypeAvg(String userLoginId) {
+    public List<DiagnoseMonthlyTypeAvgReadRes> getTeamPlayerMonthlyTypeAvg(String userLoginId) {
         List<DiagnoseMonthlyTypeAvgReadRes> response = new ArrayList<>();
 
         User user = userRepository.findUserByLoginId(userLoginId).get();
@@ -394,6 +394,133 @@ public class ConsultingService {
                                 .build()
                 );
             }
+        }
+
+        return response;
+    }
+
+    public List<TestDiagnoseResultList> getIndividualPlayerDiagnoseResult(String userLoginId) {
+        List<TestDiagnoseResultList> response = new ArrayList<>();
+
+        Consultant consultant = consultantRepository.findByUserLogin_id(userLoginId);
+
+        List<UserIdAndAnswerDate> userIdAndAnswerDateList = answerRepository.findUserIdAndLatestAnswerDateByConsultantId(consultant.getId());
+        Integer answerCnt = userIdAndAnswerDateList.size();
+
+        List<Diagnose> diagnoseList = diagnoseRepository.findAllByDeletedFalse();
+
+        for (Diagnose diagnose : diagnoseList) {
+            String title = diagnose.getTitle();
+            List<DiagnoseResultWithPlayerIdReadRes> diagnoseResultWithPlayerIdReadResList = new ArrayList<>();
+            Double avg = 0.0;
+            for (UserIdAndAnswerDate userIdAndAnswerDate : userIdAndAnswerDateList) {
+                for (DiagnoseResultWithPlayerIdReadRes diagnoseResultWithPlayerIdReadRes : answerRepository.findAnswerAvgByUserIdAndAnswerDateAndDiagnoseId(userIdAndAnswerDate.getUserId(), userIdAndAnswerDate.getAnswerDate(), diagnose.getId())) {
+                    avg += diagnoseResultWithPlayerIdReadRes.getAvg();
+                    diagnoseResultWithPlayerIdReadResList.add(diagnoseResultWithPlayerIdReadRes);
+                }
+            }
+            avg /= answerCnt;
+            avg = Math.round(avg * 100.0) / 100.0;
+
+            List<QuestionResultReadOfDiagnoseResult> questionResultList = new ArrayList<>();
+            List<Question> questionList = questionRepository.findAllByDiagnoseIdAndDeletedFalse(diagnose.getId());
+            for (Question question : questionList) {
+                Double questionAvg = 0.0;
+                for (UserIdAndAnswerDate userIdAndAnswerDate : userIdAndAnswerDateList) {
+                    AnswerDetail answerDetail = answerDetailRepository.findByUserIdAndAnswerDateAndQuestionId(userIdAndAnswerDate.getUserId(), userIdAndAnswerDate.getAnswerDate(), question.getId());
+                    questionAvg += answerDetail.getAnswer();
+                }
+                questionAvg /= answerCnt;
+                questionAvg = Math.round(questionAvg * 100.0) / 100.0;
+
+                questionResultList.add(
+                        QuestionResultReadOfDiagnoseResult.builder()
+                                .keyword(question.getKeyword())
+                                .answer(questionAvg)
+                                .build()
+                );
+            }
+
+            Collections.sort(diagnoseResultWithPlayerIdReadResList);
+            Collections.reverse(diagnoseResultWithPlayerIdReadResList);
+
+            Integer lastIdx = 6;
+            if (answerCnt < 6) {
+                lastIdx = answerCnt;
+            }
+
+            List<PlayerInfoAndAvgScore> worst6PlayerList = new ArrayList<>();
+            for (int i = 0; i < lastIdx; i++) {
+                DiagnoseResultWithPlayerIdReadRes diagnoseResultWithPlayerIdReadRes = diagnoseResultWithPlayerIdReadResList.get(i);
+                worst6PlayerList.add(PlayerInfoAndAvgScore.builder()
+                        .playerId(diagnoseResultWithPlayerIdReadRes.getPlayerId())
+                        .name(diagnoseResultWithPlayerIdReadRes.getPlayerName())
+                        .score(diagnoseResultWithPlayerIdReadRes.getAvg())
+                        .build());
+            }
+
+            response.add(
+                    TestDiagnoseResultList.builder()
+                            .title(title)
+                            .avg(avg)
+                            .questionResultList(questionResultList)
+                            .worst6PlayerList(worst6PlayerList)
+                            .build()
+            );
+        }
+
+
+        return response;
+    }
+
+    public List<DiagnoseMonthlyAvgReadRes> getIndividualPlayerMonthlyTotalAvg(String userLoginId) {
+        List<DiagnoseMonthlyAvgReadRes> response = new ArrayList<>();
+
+        Consultant consultant = consultantRepository.findByUserLogin_id(userLoginId);
+
+        for (int i = 0; i < 6; i++) {
+            YearMonth yearMonth = YearMonth.from(LocalDate.now().minusMonths(i)); // 현재 날짜부터 i달 전의 YearMonth 객체
+            String formattedYearMonth = yearMonth.format(DateTimeFormatter.ofPattern("yyyy-MM")); // YearMonth를 원하는 형식으로 포맷
+
+            DiagnoseMonthlyAvgReadRes monthlyTotalAvg = DiagnoseMonthlyAvgReadRes.builder()
+                    .yearMonth(formattedYearMonth)
+                    .avg(answerRepository.findMonthlyAvgByConsultantIdAndYearMonth(consultant.getId(), formattedYearMonth).orElse(0.0))
+                    .build();
+
+            response.add(monthlyTotalAvg);
+        }
+
+        return response;
+    }
+
+    public List<DiagnoseMonthlyTypeAvgReadRes> getIndividualPlayerMonthlyTypeAvg(String userLoginId) {
+        List<DiagnoseMonthlyTypeAvgReadRes> response = new ArrayList<>();
+
+        Consultant consultant = consultantRepository.findByUserLogin_id(userLoginId);
+
+        List<Diagnose> diagnoseList = diagnoseRepository.findAllByDeletedFalse();
+
+        for (Diagnose diagnose : diagnoseList) {
+            String title = diagnose.getTitle();
+            List<DiagnoseMonthlyAvgReadRes> diagnoseMonthlyAvgList = new ArrayList<>();
+            for (int i = 0; i < 6; i++) {
+                YearMonth yearMonth = YearMonth.from(LocalDate.now().minusMonths(i)); // 현재 날짜부터 i달 전의 YearMonth 객체
+                String formattedYearMonth = yearMonth.format(DateTimeFormatter.ofPattern("yyyy-MM")); // YearMonth를 원하는 형식으로 포맷
+
+                DiagnoseMonthlyAvgReadRes monthlyTotalAvg = DiagnoseMonthlyAvgReadRes.builder()
+                        .yearMonth(formattedYearMonth)
+                        .avg(answerRepository.findMonthlyAvgByConsultantIdAndYearMonthAndDiagnoseId(consultant.getId(), formattedYearMonth, diagnose.getId()).orElse(0.0))
+                        .build();
+
+                diagnoseMonthlyAvgList.add(monthlyTotalAvg);
+            }
+
+            response.add(
+                    DiagnoseMonthlyTypeAvgReadRes.builder()
+                            .title(title)
+                            .monthlyResultList(diagnoseMonthlyAvgList)
+                            .build()
+            );
         }
 
         return response;

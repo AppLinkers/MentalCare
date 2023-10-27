@@ -137,7 +137,21 @@ public class ConsultantConsultingController {
 
         model.addAttribute("testDiagnoseResultList", consultingService.getTeamPlayerDiagnoseResult(userLoginId));
         model.addAttribute("monthlyTotalAvgList", consultingService.getTeamPlayerMonthlyTotalAvg(userLoginId));
-        model.addAttribute("monthlyTypeAvgList", consultingService.getTEamPlayerMonthlyTypeAvg(userLoginId));
+        model.addAttribute("monthlyTypeAvgList", consultingService.getTeamPlayerMonthlyTypeAvg(userLoginId));
+
+        return "z-renew/consultant/test_result";
+    }
+
+    /**
+     * 담당 개인 선수들의 평균 검사 결과 조회 화면 호출
+     */
+    @GetMapping("/individual/test/result")
+    public String individualTestResultPage(Model model) {
+        String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        model.addAttribute("testDiagnoseResultList", consultingService.getIndividualPlayerDiagnoseResult(userLoginId));
+        model.addAttribute("monthlyTotalAvgList", consultingService.getIndividualPlayerMonthlyTotalAvg(userLoginId));
+        model.addAttribute("monthlyTypeAvgList", consultingService.getIndividualPlayerMonthlyTypeAvg(userLoginId));
 
         return "z-renew/consultant/test_result";
     }
