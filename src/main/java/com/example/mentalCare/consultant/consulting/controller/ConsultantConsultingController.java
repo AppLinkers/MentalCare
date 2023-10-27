@@ -1,11 +1,13 @@
 package com.example.mentalCare.consultant.consulting.controller;
 
 import com.example.mentalCare.consultant.consulting.service.ConsultingService;
+import com.example.mentalCare.director.team.dto.TeamDirectorInfoReadRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -39,5 +41,17 @@ public class ConsultantConsultingController {
         model.addAttribute("typeDiagnoseResultReadResList", consultingService.getTypeDiagnoseResultByIndividual(userLoginId));
 
         return "consultant/individual_player_list";
+    }
+
+    /**
+     * 특정 선수의 검사 결과 리스트 화면 호출
+     */
+    @GetMapping("/test/result/player/{id}")
+    public String playerTestResultListPage(Model model, @PathVariable Long id) {
+
+        model.addAttribute("player", consultingService.getPlayerInfoOfTestResult(id));
+        model.addAttribute("testResultInfoList", consultingService.getAllTestResultByPlayerId(id));
+
+        return "consultant/test_result_list";
     }
 }
