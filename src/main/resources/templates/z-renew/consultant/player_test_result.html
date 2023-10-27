@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Best Mind</title>
+
+  <!-- GOOGLE FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap"
+          rel="stylesheet">
+
+  <!-- ICON SCOUT -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+  <!-- STYLE SHEET -->
+  <link rel="stylesheet" href="/css/common/style.css">
+  <link rel="stylesheet" href="/css/common/result.css">
+</head>
+
+<body>
+<!-- =========== CHECK-RESULT ========== -->
+<section id="result">
+
+  <nav id="navigation"></nav>
+
+  <!-- 헤더 선수 정보 -->
+  <div class="result-header__container container-fit flex-center">
+    <div class="container flex-between">
+      <div class="header-info">
+        <div class="user-type player flex-center">
+          <p class="font10">PLAYER</p>
+        </div>
+        <p class="font20" th:text="${player.name}">손흥민</p>
+        <p class="font12" th:text="${player.teamName}">토트넘 훗스퍼 FC</p>
+      </div>
+      <img th:src="${player.imgUrl}" class="profile">
+    </div>
+  </div>
+  <!-- 선수 상세 정보 -->
+  <div class="result-info__container container">
+    <div class="info-left">
+      <p class="font16">정보</p>
+      <div class="info-box flex-between">
+        <p class="info-label font14">나이</p>
+        <p class="font14" th:text="${player.name}">26세</p>
+      </div>
+      <div class="info-box flex-between">
+        <p class="info-label font14">포지션</p>
+        <p class="font14" th:text="${player.position}">FW</p>
+      </div>
+      <div class="info-box flex-between">
+        <p class="info-label font14">다음 경기</p>
+        <p class="font14" th:text="'D ' + ${player.nextMatchDDay}"></p>
+      </div>
+    </div>
+    <div class="info-right">
+      <p class="font16">심리점수</p>
+      <div class="info-score-box flex-column-center">
+        <div class="info-score flex-center">
+          <p class="font20" th:text="${testResult.avg}">4.7</p>
+        </div>
+        <p class="font12">5점 만점 기준입니다</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var positionAvgList= new Array();
+    var ageAvgList = new Array();
+  </script>
+  <script>
+    var myAvgData = new Array();
+    var typeLabels = new Array();
+    var myAgeAvgList = new Array();
+    var myAgeLabelList = new Array();
+    var myQuestionLabelList = new Array();
+    var myQuestionDataList = new Array();
+    var myMonthlyLabel = new Array();
+  </script>
+
+  <div th:each="ageData : ${ageResult}">
+    <script th:inline="javascript">
+      var ageAvgData = [[${ageData.avg}]];
+      ageAvgList.push(ageAvgData);
+    </script>
+  </div>
+
+  <div th:each="positionData : ${positionResult}">
+    <script th:inline="javascript">
+      var positionAvgData = [[${positionData.avg}]];
+      positionAvgList.push(positionAvgData);
+    </script>
+  </div>
+  <!-- DIVIDER -->
+  <div class="divider container-fit"></div>
+  <!-- 선수 차트 -->
+  <div class="result-chart__container container">
+    <!-- 탭 -->
+    <div class="chart-tab flex-left">
+      <p class="font16 active">평균 보기</p>
+      <p class="font16">기간별 보기</p>
+    </div>
+    <!-- 필터 -->
+    <div class="chart-filter flex-right">
+      <div class="filter-box active">
+        <select name="average-filter" id="average-filter" onchange="avgFilterChange()">
+          <option value="myAvg" selected>선수 평균</option>
+          <option value="byAge">나이별 평균</option>
+          <option value="byPosition">포지션별 평균</option>
+        </select>
+        <i class="uil uil-angle-down"></i>
+      </div>
+      <div class="filter-box">
+        <!--                <select name="date-filter" id="date-filter" onchange="dateFilterChange()">-->
+        <!--                    <option value="byMonth" selected>월별 평균</option>-->
+        <!--                    <option value="byWeek">주별 평균</option>-->
+        <!--                </select>-->
+        <!--                <i class="uil uil-angle-down"></i>-->
+      </div>
+    </div>
+
+    <!-- 메인 레이더 차트 -->
+    <div class="canvas__container active">
+      <div class="label__container flex-left">
+        <div class="radar-label active flex-left">
+          <img class="radar-label-color" src="/images/nonagon.svg">
+          <p class="font12">선수</p>
+        </div>
+        <div class="radar-label flex-left">
+          <img class="radar-label-color my" src="/images/nonagon.svg">
+          <p class="font12">평균</p>
+        </div>
+        <div class="radar-label flex-left">
+          <img class="radar-label-color my" src="/images/nonagon.svg">
+          <p class="font12">평균</p>
+        </div>
+      </div>
+      <div class="radar__container">
+        <img src="/images/brain.png">
+        <canvas id="chart-radar" class="main-chart"></canvas>
+      </div>
+    </div>
+    <div class="canvas__container">
+      <canvas id="chart-line" class="main-chart"></canvas>
+    </div>
+    <!-- 유형별 상세 데이터 - 평균 보기 -->
+    <div class="type-detail__container active">
+
+      <div class="type-detail-header flex-even">
+        <div></div>
+        <p class="font16">9가지 유형에 대한 나의 평균 데이터입니다</p>
+        <i class="uil uil-angle-down font24"></i>
+      </div>
+
+
+      <div class="type-detail-body" >
+        <div th:each="agelist : ${ageResult}">
+          <div class="type-detail-item flex-column-center" th:each="age : ${agelist}">
+            <canvas class="type-detail-item-canvas"></canvas>
+            <p class="font14" th:text="${age.title}">경기력</p>
+            <script th:inline="javascript">
+              var myAvgDetail = [[${age.avg}]]
+              var myAvgLabel = [[${age.title}]]
+              myAgeAvgList.push(myAvgDetail)
+              myAgeLabelList.push(myAvgLabel)
+            </script>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- 유형별 필터 - 기간별 보기 -->
+    <div th:each="monthlyList : ${monthlyResult}">
+      <div class="type-filter__container"th:each="monthly:${monthlyList}">
+        <script th:inline="javascript">
+          var diagmonthlyLabel = [[${monthly.yearMonth}]]
+          myMonthlyLabel.push(diagmonthlyLabel.substr(2));
+        </script>
+        <div class="type-filter large flex-center active">
+          <p class="font14">전체 보기</p>
+        </div>
+        <div class="type-filter flex-center" th:each="diagList, diagStat:${monthly.diagnoseResultList}">
+          <p class="font14" th:text="${diagList.title}">경기력</p>
+          <script th:inline="javascript">
+            // var diagListAvg = [[${diagList.avg}]];
+            // var diagIndex = [[${__diagStat.index__}]];
+            // var test = [[${monthly.yearMonth}]];
+            // myMonthlyAvgData[diagIndex].push(diagListAvg);
+          </script>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- DIVIDER -->
+  <div class="divider container-fit"></div>
+  <!-- 유형별 차트 -->
+  <div class="type-chart__container container">
+    <!-- 색상 설명 -->
+    <div class="type-color flex-right">
+      <div class="status green"></div>
+      <p class="font14">양호</p>
+      <div class="status yellow"></div>
+      <p class="font14">보통</p>
+      <div class="status red"></div>
+      <p class="font14">심각</p>
+    </div>
+    <!-- 유형별 차트 리스트 -->
+    <div class="type-chart-list">
+
+
+      <div class="type-chart-item" th:each="diagnose : ${testResult.diagnoseResultList}">
+        <div class="item-info flex-between">
+          <div class="flex-column">
+            <div class="flex-left">
+              <p class="font18" th:text="${diagnose.title}">경기력</p>
+              <div class="status"></div>
+            </div>
+
+            <div class="flex-left">
+              <div class="font12">평균:</div>
+              <div class="font12 item-average" th:text="${diagnose.avg}">3.2</div>
+            </div>
+          </div>
+          <script>
+            var diagnoseList = [];
+            var diagnoseLabelList = [];
+          </script>
+          <div th:each="question : ${diagnose.questionResultList}">
+            <script th:inline="javascript">
+              var questionLabel = [[${question.keyword}]]
+              var questionData = [[${question.answer}]]
+
+              diagnoseLabelList.push(questionLabel)
+              diagnoseList.push(questionData)
+            </script>
+          </div>
+          <script>
+            myQuestionLabelList.push(diagnoseLabelList);
+            myQuestionDataList.push(diagnoseList);
+          </script>
+          <i class="uil uil-angle-down"></i>
+        </div>
+        <div class="item-chart flex-center">
+
+          <canvas class="chart-by-type0"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div th:each="diagnose : ${testResult.diagnoseResultList}">
+    <script th:inline="javascript">
+      var title = [[${diagnose.title}]];
+      var avg = [[${diagnose.avg}]];
+
+      typeLabels.push(title);
+      myAvgData.push(avg);
+    </script>
+  </div>
+</section>
+
+<script src="/javascript/common/base.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+
+
+<!--    차트 script-->
+<script type="text/javascript" th:inline="javascript">
+  // 심리 점수
+  const scoreBox = document.querySelector(".info-score");
+  const mindScore = scoreBox.querySelector("p");
+  const score = parseFloat(mindScore.innerHTML);
+  var myMonthlyAvgData = [[${monthlyResultAvg}]];
+
+  if (score >= 4) scoreBox.classList.add("green");
+  else if (score >= 2) scoreBox.classList.add("yellow");
+  else if (score >= 0) scoreBox.classList.add("red");
+
+
+
+  // 탭 동작 (평균 보기, 기간별 보기)
+  const tabs = document.querySelectorAll(".chart-tab p");
+  const filters = document.querySelectorAll(".filter-box");
+  const canvases = document.querySelectorAll(".canvas__container");
+  const typeDetailContainer = document.querySelector(".type-detail__container");
+  const typeFilterContainer = document.querySelector(".type-filter__container");
+
+
+
+  // 유형 차트 아이템 동작
+  const typeChartItems = document.querySelectorAll(".type-chart-item");
+
+  tabs.forEach((tab, idx) => {
+
+    tab.addEventListener("click", () => {
+
+      tabs.forEach(each => {
+        each.classList.remove("active");
+      });
+
+      filters.forEach(each => {
+        each.classList.remove("active");
+      });
+
+      canvases.forEach(each => {
+        each.classList.remove("active");
+      });
+
+      typeDetailContainer.classList.remove("active");
+      typeFilterContainer.classList.remove("active");
+
+
+      tabs[idx].classList.add("active");
+      filters[idx].classList.add("active");
+      canvases[idx].classList.add("active");
+      if (idx === 0) typeDetailContainer.classList.add("active");
+      if (idx === 1) typeFilterContainer.classList.add("active");
+
+    });
+
+  });
+
+  // 평균 보기의 유형별 상세 데이터 동작
+  const typeDetailHeader = typeDetailContainer.querySelector(".type-detail-header");
+  const typeDetailBody = typeDetailContainer.querySelector(".type-detail-body");
+  const typeDetailIcon = typeDetailContainer.querySelector("i");
+
+  typeDetailHeader.addEventListener("click", () => {
+
+    typeDetailBody.classList.toggle("active");
+    typeDetailIcon.classList.toggle("active");
+
+  });
+
+  // 기간별 보기의 유형 필터 동작
+  const typeFilters = typeFilterContainer.querySelectorAll(".type-filter");
+  typeFilters[0].classList.add('active');
+  const dateDataList = [];
+
+
+
+
+  typeChartItems.forEach(item => {
+
+    item.addEventListener("click", () => {
+      item.querySelector(".item-info i").classList.toggle("active");
+      item.classList.toggle("active");
+    });
+
+    const colorStatus = item.querySelector(".status");
+    const itemAverage = item.querySelector(".item-average");
+    const average = parseFloat(itemAverage.innerHTML);
+
+    if (average >= 4) colorStatus.classList.add("green");
+    else if (average >= 2) colorStatus.classList.add("yellow");
+    else if (average >= 0) colorStatus.classList.add("red");
+
+  });
+
+  /////////// 메인 차트 ///////////
+  const radarChart = document.getElementById("chart-radar");
+  const lineChart = document.getElementById("chart-line");
+
+  /////// 라벨 ///////
+
+  // 라벨 - 메인
+  const monthLabels = myMonthlyLabel.reverse();
+  const radar_background = [5,5,5,5,5,5,5,5,5]
+  const dayLabels = ["05.01", "05.13", "05.18", "05.20"];
+  // 라벨 - 유형별
+  const elementLabels = ["요인 1", "요인 2", "요인 3", "요인 4", "요인 5"];
+  const compareAgeLabel = ["내 데이터", "나이 평균"];
+  const comparePositionLabel = ["내 데이터", "포지션 평균"];
+
+  //월별보기 데이
+
+  function makeDateDatasets(data) {
+    return {
+      data: data,
+      borderColor: '#000000',
+      borderWidth: 1,
+      pointRadius: 5,
+      pointBackgroundColor: '#000000',
+    };
+  };
+
+
+
+  var monthData = [];
+
+  for(var i=0; i<myMonthlyAvgData.length; i++){
+    for(var j=0; j<6; j++){
+      if(myMonthlyAvgData[i][j]==null){
+        myMonthlyAvgData[i][j] = 0;
+      }
+    }
+  }
+
+  const monthlyTotalAvg = [[${monthlyTotalAvg}]];
+
+
+  monthData.push(monthlyTotalAvg.reverse());
+  for(var i=0; i<myMonthlyAvgData.length; i++){
+    monthData.push(myMonthlyAvgData[i].reverse());
+  }
+
+
+  const config_line = makeLineConfig(makeDateData(makeDateDatasets(monthData[0])));
+  const dateChart = new Chart(lineChart, config_line);
+
+
+  // 기간별 보기 - 월별 평균
+  const data_byMonth2 = {
+    labels: monthLabels,
+    datasets: [makeDateDatasets(monthData)]
+  };
+
+  function makeDateData(datasets) {
+    return {
+      labels: monthLabels,
+      datasets: [datasets]
+    };
+  };
+
+  function makeLineConfig(data) {
+    return {
+      type: 'line',
+      data: data,
+      plugins: [ChartDataLabels],
+      options: {
+        scales: {
+          x: {
+            offset: true,
+            ticks: {
+              padding: 10,
+              font: {
+                size: 14,
+                weight: 'bold'
+              }
+            }
+          },
+          y: {
+            beginAtZero: true,
+            max: 5,
+            ticks: {
+              stepSize: 1,
+              font: {
+                size: 14
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          datalabels: {
+            formatter: function (value) {
+              return value.toFixed(1);
+            },
+            align: 'top',
+            anchor: 'center',
+            padding: 10,
+            font: {
+              size: 14,
+              weight: 'bold'
+            },
+          },
+        }
+      }
+    };
+  };
+
+
+  //유형별
+
+  for(var i=0; i<typeChartItems.length; i++){
+    var typeCanvas = typeChartItems[i].getElementsByClassName('chart-by-type0');
+    const byTypeData = myQuestionDataList[i]
+
+    const byTypeDatasets = {
+      label: '심리 상태',
+      data: byTypeData,
+      backgroundColor: byTypeData.map(function (value) {
+        if (value >= 4) {
+          return '#CDF3E6';
+        } else if (value >= 2) {
+          return '#F5ECD7';
+        } else {
+          return '#F8C4BA';
+        }
+      }),
+      borderColor: byTypeData.map(function (value) {
+        if (value >= 4) {
+          return '#1DBA84';
+        } else if (value >= 2) {
+          return '#EFB93A';
+        } else {
+          return '#F94B28';
+        }
+      }),
+      borderWidth: 1
+    };
+
+
+    // 유형별 차트
+    var data_byType = {
+      labels: myQuestionLabelList[i],
+      datasets: [byTypeDatasets]
+    };
+
+    // 바 차트 - 유형별
+    var config_bar = {
+      type: 'bar',
+      data: data_byType,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 5,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+        },
+      }
+    };
+
+    var barChart = new Chart(typeCanvas, config_bar);
+
+  }
+
+
+  /////// 데이터 ///////
+
+  // 데이터 - 메인
+  const avgByAgeData = ageAvgList;
+  const avgByPositionData = positionAvgList;
+  const dayData = [2.8, 3.3, 2.5, 3.9];
+  // 데이터 - 유형별
+  const byTypeData = [4, 3, 2, 1, 4];
+  const compareData = [4, 3];
+
+
+  /////// 데이터 세트 ///////
+
+  // 데이터 세트
+  const myDatasets = {
+    label: '내 심리상태',
+    data: myAvgData,
+    fill: true,
+    backgroundColor: 'rgba(206, 108, 106, 0.4)',
+    borderColor: '#CE6C6A',
+    borderWidth: 2
+  };
+
+
+  const background_data = {
+    data: radar_background,
+    fill: true,
+    backgroundColor: 'rgba(220,220,220,0.3)',
+    borderColor: '#A9A9A9',
+    borderWidth: 1
+  };
+
+  const ageDatasets = {
+    label: '나이 평균',
+    data: avgByAgeData,
+    fill: true,
+    backgroundColor: 'rgba(103, 163, 210, 0.4)',
+    borderColor: '#67A3D2',
+    borderWidth: 2
+  };
+
+  const positionDatasets = {
+    label: '포지션별 평균',
+    data: avgByPositionData,
+    fill: true,
+    backgroundColor: 'rgba(103, 163, 210, 0.4)',
+    borderColor: '#67A3D2',
+    borderWidth: 2
+  };
+
+  const dayDatasets = {
+    data: dayData,
+    borderColor: '#FFE400',
+    borderWidth: 1,
+    pointRadius: 5,
+    pointBackgroundColor: '#FFE400',
+  };
+
+  const byTypeDatasets = {
+    label: '심리 상태',
+    data: byTypeData,
+    backgroundColor: byTypeData.map(function (value) {
+      if (value >= 4) {
+        return '#CDF3E6';
+      } else if (value >= 2) {
+        return '#F5ECD7';
+      } else {
+        return '#FFE2DC';
+      }
+    }),
+    borderColor: byTypeData.map(function (value) {
+      if (value >= 4) {
+        return '#1DBA84';
+      } else if (value >= 2) {
+        return '#EFB93A';
+      } else {
+        return '#FC5230';
+      }
+    }),
+    borderWidth: 1
+  };
+
+  const compareDatasets = {
+    data: compareData,
+    backgroundColor: [
+      'rgba(255,228,0,0.2)',
+      '#F9F9F9'
+
+    ],
+    borderColor: [
+      '#FFE400',
+      '#B5B5B5'
+    ],
+    borderWidth: 1
+  };
+
+  // 평균 보기 - 내 평균
+  const data_myAvg = {
+    labels: typeLabels,
+    datasets: [myDatasets]
+  };
+
+
+  // 평균 보기 - 나이별 평균
+  const data_byAge = {
+    labels: typeLabels,
+    datasets: [myDatasets, ageDatasets]
+  };
+
+  // 평균 보기 - 포지션별 평균
+  const data_byPosition = {
+    labels: typeLabels,
+    datasets: [ myDatasets, positionDatasets]
+  };
+
+
+  // radar option
+
+
+
+
+
+  // 레이더 차트
+  const config_radar = {
+    type: 'radar',
+    data: data_myAvg,
+    options: {
+      elements: {
+        line: {
+          borderWidth: 4
+        },
+        point: {
+          radius: 2,
+        }
+      },
+      scales: {
+        r: {
+          angleLines: {
+            display: true
+          },
+          suggestedMin: 0,
+          suggestedMax: 5,
+          ticks: {
+            beginAtZero: false,
+            stepSize: 1,
+            callback: function (value) {
+              return Math.round(value);
+            }
+          },
+          pointLabels: {
+            font: {
+              family: 'Arial',
+              size: 14,
+              weight: 'bold'
+            }
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+
+    }
+  };
+
+  // 첫 화면: 평균 보기 - 내 평균
+  const avgChart = new Chart(radarChart, config_radar);
+  let myPositionAvgList = [];
+
+  /*[# th:each="n : ${positionResult}"]*/
+  myPositionAvgList.push("[(${n.avg})]");
+  /*[/]*/
+
+  var avgDetailContainer = document.getElementsByClassName("type-detail-item");
+
+  // 필터
+  const averageFilter = document.getElementById("average-filter");
+  const dateFilter = document.getElementById("date-filter");
+  const radarLabels = document.querySelectorAll(".radar-label");
+
+  function avgFilterChange() {
+
+    var selected = averageFilter.options[averageFilter.selectedIndex].value;
+
+    typeDetailContainer.classList.add("show");
+
+    if (selected === "byAge") {
+      config_radar.data = data_byAge;
+      updateTypeDetailCharts(0);
+      radarLabels[1].classList.add('active');
+      radarLabels[2].classList.remove('active');
+    }
+    if (selected === "byPosition") {
+      config_radar.data = data_byPosition;
+      updateTypeDetailCharts(1);
+      radarLabels[1].classList.remove('active');
+      radarLabels[2].classList.add('active');
+    }
+    if (selected === "myAvg") {
+      config_radar.data = data_myAvg;
+      typeDetailContainer.classList.remove("show");
+      radarLabels[1].classList.remove('active');
+      radarLabels[2].classList.remove('active');
+    }
+    avgChart.update();
+  }
+
+  function dateFilterChange() {
+    var selected = dateFilter.options[dateFilter.selectedIndex].value;
+    if (selected === "byMonth") config_line.data = data_byMonth2;
+    if (selected === "byWeek") config_line.data = data_byDay;
+    dateChart.update();
+  }
+
+  function updateTypeDetailCharts(selected) {
+    if (selected === 0) CompareChart(avgDetailContainer,compareAgeLabel,myAvgData,myAgeAvgList);
+    if (selected === 1) CompareChart(avgDetailContainer, comparePositionLabel ,myAvgData, positionAvgList);
+
+  }
+
+  typeFilters.forEach((typeFilter, idx) => {
+
+    dateDataList[idx] = makeDateData(makeDateDatasets(monthData[idx]));
+
+    typeFilter.addEventListener("click", () => {
+
+      typeFilters.forEach(each => {
+        each.classList.remove("active");
+      });
+      config_line.data = dateDataList[idx];
+      dateChart.update();
+      typeFilters[idx].classList.add("active");
+
+    });
+
+  });
+
+
+
+
+  //유형별 비교 차트
+
+  function CompareChart(avgDetailContainer,compareLabel ,myDataList, myCompareAvgList){
+    var canvasList = []
+    for(var n=0; n<avgDetailContainer.length; n++){
+      var oldcanvas = avgDetailContainer[n].getElementsByClassName("type-detail-item-canvas");
+      while(oldcanvas.length > 0){
+        oldcanvas[0].parentNode.removeChild(oldcanvas[0]);
+      }
+      var canvas = document.createElement('canvas');
+      canvas.setAttribute('class', "type-detail-item-canvas")
+      canvas.setAttribute('style', "display: block; box-sizing: border-box; height: 90px; width: 180.5px;")
+      avgDetailContainer[n].append(canvas);
+
+      // var canvas = avgDetailContainer[n].getElementsByClassName("type-detail-item-canvas")[0];
+      var myAvg = myAvgData[n];
+      //또래애들 데이터
+      var compareAvg = myCompareAvgList[n]
+
+      const compareDatasets = {
+        data: [myAvg, compareAvg],
+        backgroundColor: [
+          'rgba(206, 108, 106, 0.4)',
+          'rgba(103, 163, 210, 0.4)',
+
+        ],
+        borderColor: [
+          '#CE6C6A',
+          '#67A3D2'
+        ],
+        borderWidth: 1
+      };
+
+
+      // 유형별 상세
+      var data_compare = {
+        labels: compareLabel,
+        datasets: [compareDatasets]
+      };
+
+      // 바 차트 - 평균 상세
+      var config_bar_comapre = {
+        type: 'bar',
+        data: data_compare,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 5,
+              ticks: {
+                stepSize: 1
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+          },
+        }
+      };
+      canvasList.push(new Chart(canvas, config_bar_comapre));
+    }
+  }
+
+
+
+
+
+</script>
+
+</body>
+
+</html>

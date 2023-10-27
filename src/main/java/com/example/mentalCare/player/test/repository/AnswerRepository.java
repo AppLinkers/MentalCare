@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
 
@@ -63,4 +64,13 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
     @Query("select u.login_id from User u, Player p, Answer a where p.user.id = u.id and a.player.id = p.id and a.id = :answerId")
     String findUserLoginIdByAnswerId(Long answerId);
 
+    @Query("select round(avg(adt.answer), 2) " +
+            "from Answer a, AnswerDiagnose ad, AnswerDetail adt, Player p, User u " +
+            "where ad.id = adt.answerDiagnose.id and a.id = ad.answer.id and a.player.id = p.id and p.user.id = u.id and u.team.id = :teamId and substring(a.createdAt, 1, 7) = :formattedYearMonth")
+    Optional<Double> findMonthlyAvgByTeamIdAndYearMonth(Long teamId, String formattedYearMonth);
+
+    @Query("select round(avg(adt.answer), 2) " +
+            "from Answer a, AnswerDiagnose ad, AnswerDetail adt, Player p, User u " +
+            "where ad.id = adt.answerDiagnose.id and a.id = ad.answer.id and a.player.id = p.id and p.user.id = u.id and u.team.id = :teamId and substring(a.createdAt, 1, 7) = :formattedYearMonth and ad.diagnose.id = :diagnoseId")
+    Optional<Double> findMonthlyAvgByTeamIdAndYearMonthAndDiagnoseId(Long teamId, String formattedYearMonth, Long diagnoseId);
 }

@@ -60,7 +60,7 @@ public class ConsultantConsultingController {
         model.addAttribute("player", consultingService.getPlayerInfoOfTestResult(id));
         model.addAttribute("testResultInfoList", consultingService.getAllTestResultByPlayerId(id));
 
-        return "z-renew/consultant/test_result_list";
+        return "z-renew/consultant/player_test_result_list";
     }
 
     /**
@@ -85,12 +85,11 @@ public class ConsultantConsultingController {
 
         for (MonthlyResultReadRes m : monthlyResult) {
             List<Double> monthlyAvg = new ArrayList<>();
-            if(m.getDiagnoseResultList().size() == 0){
-                for(int i =0; i<9; i++){
+            if (m.getDiagnoseResultList().size() == 0) {
+                for (int i = 0; i < 9; i++) {
                     monthlyAvg.add(0.0);
                 }
-            }
-            else {
+            } else {
                 for (TestDiagnoseResultReadRes tdr : m.getDiagnoseResultList()) {
                     monthlyAvg.add(tdr.getAvg());
                 }
@@ -100,34 +99,46 @@ public class ConsultantConsultingController {
         }
 
 
-
-
-        for(int j=0; j<9; j++){
+        for (int j = 0; j < 9; j++) {
             List<Double> monthResultAvg = new ArrayList<>();
-            for(int i = 0; i<monthlyResultAvgList.size(); i++){
+            for (int i = 0; i < monthlyResultAvgList.size(); i++) {
                 monthResultAvg.add((Double) monthlyResultAvgList.get(i).get(j));
             }
             monthlyResultAvg.add(monthResultAvg);
         }
 
-        for(int i = 0; i<monthlyResultAvgList.size(); i++){
+        for (int i = 0; i < monthlyResultAvgList.size(); i++) {
             Double sum = getSum(monthlyResultAvgList.get(i));
-            monthlyTotalAvg.add( Math.round((sum*100)/9)/100.0);
+            monthlyTotalAvg.add(Math.round((sum * 100) / 9) / 100.0);
         }
 
         model.addAttribute("monthlyTotalAvg", monthlyTotalAvg);
         model.addAttribute("monthlyResultAvg", monthlyResultAvg);
 
 
-        return "z-renew/consultant/test_result";
+        return "z-renew/consultant/player_test_result";
     }
 
 
     public static Double getSum(List<Double> nums) {
         Double sum = 0.0;
-        for (Double i: nums) {
+        for (Double i : nums) {
             sum += i;
         }
         return sum;
+    }
+
+    /**
+     * 담당 팀 선수들의 평균 검사 결과 조회 화면 호출
+     */
+    @GetMapping("/team/test/result")
+    public String teamTestResultPage(Model model) {
+        String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        model.addAttribute("testDiagnoseResultList", consultingService.getTeamPlayerDiagnoseResult(userLoginId));
+        model.addAttribute("monthlyTotalAvgList", consultingService.getTeamPlayerMonthlyTotalAvg(userLoginId));
+        model.addAttribute("monthlyTypeAvgList", consultingService.getTEamPlayerMonthlyTypeAvg(userLoginId));
+
+        return "z-renew/consultant/test_result";
     }
 }
