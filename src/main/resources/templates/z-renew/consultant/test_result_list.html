@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Best Mind</title>
+
+  <!-- GOOGLE FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap"
+          rel="stylesheet">
+
+  <!-- ICON SCOUT -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+  <!-- STYLE SHEET -->
+  <link rel="stylesheet" href="/css/common/style.css">
+  <link rel="stylesheet" href="/css/player/result_list.css">
+  <link rel="stylesheet" href="/css/common/profile.css">
+
+</head>
+
+<body>
+<!-- =========== RESULT-LIST ========== -->
+<section id="result-list">
+
+  <nav id="navigation"></nav>
+
+  <div class="container profile__container" >
+    <!-- 인사말 -->
+
+    <p class="greeting font24" id="greeting" th:text="${player.name}">손흥민</p>
+    <!-- 프로필 -->
+    <div class="profile">
+      <div class="profile__content flex-between">
+        <div class="profile__info flex-column">
+          <div class="profile__info-item flex-column">
+            <p class="font12">다음 경기까지</p>
+            <p class="font16"th:text="'D ' + ${player.nextMatchDDay}">-24</p>
+          </div>
+          <div class="profile__info-item flex-column">
+            <p class="font12">소속팀</p>
+            <p class="font16" th:text="${player.teamName}">토트넘 훗스퍼 FC</p>
+          </div>
+          <div class="profile__info-item flex-column">
+            <p class="font12">포지션</p>
+            <p class="font16" th:text="${player.position}">FW</p>
+          </div>
+        </div>
+        <img class="profile-img" th:src="${player.imgUrl}">
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="result-list__container container">
+
+    <p class="font24">검사 결과</p>
+
+    <div class="result-list">
+
+
+      <div class="result-list-item flex-between" th:each="test : ${testResultInfoList}">
+        <div class="result-date flex-between-column">
+          <p class="font12">검사 날짜</p>
+          <p class="font20" th:text="${test.date}">2023. 06. 30</p>
+        </div>
+        <a th:href="@{|/consultant/test/result/${test.id}|}"><button class="btn-small">결과 보기</button></a>
+      </div>
+
+    </div>
+
+
+  </div>
+
+  <script src="/javascript/common/base.js"></script>
+
+</section>
+
+</body>
+
+</html>

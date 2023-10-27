@@ -9,8 +9,6 @@ import com.example.mentalCare.player.profile.domain.Player;
 import com.example.mentalCare.player.profile.repository.PlayerRepository;
 import com.example.mentalCare.player.test.domain.Answer;
 import com.example.mentalCare.player.test.domain.Diagnose;
-import com.example.mentalCare.player.test.dto.TestResultInfoReadRes;
-import com.example.mentalCare.player.test.dto.TestResultPlayerInfoReadRes;
 import com.example.mentalCare.player.test.repository.AnswerRepository;
 import com.example.mentalCare.player.test.repository.DiagnoseRepository;
 import lombok.RequiredArgsConstructor;
@@ -249,5 +247,13 @@ public class ConsultingService {
         );
 
         return result;
+    }
+
+    /**
+     * test Id 를 통해 선수 사용자 로그인 아이디 조회
+     */
+    @Transactional(readOnly = true)
+    public String getPlayerUserLoginIdByTestId(Long id) {
+        return answerRepository.findUserLoginIdByAnswerId(id);
     }
 }

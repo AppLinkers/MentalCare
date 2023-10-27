@@ -59,4 +59,8 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
             "from Answer a, AnswerDiagnose ad, AnswerDetail adt, Player p, User u " +
             "where ad.id = adt.answerDiagnose.id and a.id = ad.answer.id and a.player.id = p.id and p.user.id = u.id and u.id = :userId and a.createdAt = :answerDate and ad.diagnose.id = :diagnoseId")
     List<DiagnoseResultWithPlayerIdReadRes> findAnswerAvgByUserIdAndAnswerDateAndDiagnoseId(Long userId, LocalDateTime answerDate, Long diagnoseId);
+
+    @Query("select u.login_id from User u, Player p, Answer a where p.user.id = u.id and a.player.id = p.id and a.id = :answerId")
+    String findUserLoginIdByAnswerId(Long answerId);
+
 }
