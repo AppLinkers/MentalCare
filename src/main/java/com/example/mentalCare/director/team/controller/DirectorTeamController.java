@@ -81,7 +81,7 @@ public class DirectorTeamController {
     /**
      * 상담가 권한 변경 서비스
      */
-    @PutMapping("/director")
+    @PutMapping("/consultant")
     public String changeConsultantRole(ConsultantRoleUpdateReq consultantRoleUpdateReq) {
         directorTeamService.changeConsultantRole(consultantRoleUpdateReq);
 
