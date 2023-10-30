@@ -9,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -157,12 +154,17 @@ public class ConsultantConsultingController {
         return "z-renew/consultant/test_result";
     }
 
+    @ResponseBody
     @PostMapping("request_test")
-    public String requestTest() {
+    public void requestTest() {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
-
         consultingService.testRequest(userLoginId);
+    }
 
-        return "redirect:/consultant/profile";
+    @ResponseBody
+    @PostMapping("request_test/{id}")
+    public void requestTestByPlayerId(@PathVariable Long id) {
+        String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        consultingService.testRequestByPlayerId(userLoginId, id);
     }
 }

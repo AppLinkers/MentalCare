@@ -547,7 +547,7 @@ public class ConsultingService {
                 Feed feed = Feed.builder()
                         .user(user)
                         .player(player)
-                        .content("컨설턴트가 " + player.getUser().getName() + "님 에게 검사를 요청하였습니다.")
+                        .content(getTestRequestContent(player))
                         .build();
                 feedList.add(feed);
             }
@@ -559,12 +559,30 @@ public class ConsultingService {
             Feed feed = Feed.builder()
                     .user(user)
                     .player(player)
-                    .content("컨설턴트가 " + player.getUser().getName() + "님 에게 검사를 요청하였습니다.")
+                    .content(getTestRequestContent(player))
                     .build();
             feedList.add(feed);
         }
 
         feedRepository.saveAll(feedList);
 
+    }
+
+    @Transactional
+    public void testRequestByPlayerId(String userLoginId, Long playerId) {
+        User user = userRepository.findUserByLoginId(userLoginId).get();
+        Player player = playerRepository.findById(playerId).get();
+
+        Feed feed = Feed.builder()
+                .user(user)
+                .player(player)
+                .content(getTestRequestContent(player))
+                .build();
+
+        feedRepository.save(feed);
+    }
+
+    private String getTestRequestContent(Player player) {
+        return "컨설턴트가 " + player.getUser().getName() + "님 에게 검사를 요청하였습니다.";
     }
 }
