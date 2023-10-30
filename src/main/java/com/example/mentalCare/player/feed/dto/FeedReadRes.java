@@ -1,6 +1,7 @@
 package com.example.mentalCare.player.feed.dto;
 
 import com.example.mentalCare.player.feed.domain.Comment;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -23,6 +24,7 @@ public class FeedReadRes {
 
     private String topComment;
 
+    @Builder
     public FeedReadRes(Long id, String userName, String userImgUrl, String content, LocalDate date, List<Comment> commentList) {
         this.id = id;
         this.userName = userName;

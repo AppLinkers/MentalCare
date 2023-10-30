@@ -1,5 +1,6 @@
 package com.example.mentalCare.player.feed.controller;
 
+import com.example.mentalCare.player.feed.dto.CommentWriteReq;
 import com.example.mentalCare.player.feed.dto.FeedWriteReq;
 import com.example.mentalCare.player.feed.service.PlayerFeedService;
 import com.example.mentalCare.player.profile.domain.Player;
@@ -8,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/player/feed")
@@ -77,4 +75,19 @@ public class PlayerFeedController {
         return "redirect:/player/feed?id=" + id;
     }
 
+    @GetMapping("/{id}/detail")
+    public String feedDetailPage(Model model, @PathVariable Long id) {
+        model.addAttribute("feedReadResWithCommentList", playerFeedService.getFeedDetail(id));
+        model.addAttribute("commentWriteReq", new CommentWriteReq());
+
+        return "z-renew/player/feed_detail";
+    }
+
+    @PostMapping("/{id}/comment")
+    public String commentWrite(@PathVariable Long id, CommentWriteReq commentWriteReq) {
+        String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        playerFeedService.commentWrite(userLoginId, id, commentWriteReq);
+
+        return "redirect:/player/feed/" + id + "/detail";
+    }
 }

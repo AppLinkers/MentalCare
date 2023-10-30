@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface FeedRepository extends JpaRepository<Feed, Long> {
 
-    @Query("select new com.example.mentalCare.player.feed.dto.FeedReadRes(f.id, f.user.name, f.user.imgUrl, f.content, f.date, f.commentList) " +
+    @Query("select f " +
             "from Feed f " +
             "where f.player.id = :playerId")
-    List<FeedReadRes> findFeedByPlayerId(Long playerId);
+    List<Feed> findFeedByPlayerId(Long playerId);
 }
