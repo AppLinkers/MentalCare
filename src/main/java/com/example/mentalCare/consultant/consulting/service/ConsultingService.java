@@ -5,6 +5,8 @@ import com.example.mentalCare.common.repository.UserRepository;
 import com.example.mentalCare.consultant.consulting.dto.*;
 import com.example.mentalCare.consultant.profile.domain.Consultant;
 import com.example.mentalCare.consultant.profile.repository.ConsultantRepository;
+import com.example.mentalCare.player.feed.domain.Feed;
+import com.example.mentalCare.player.feed.repository.FeedRepository;
 import com.example.mentalCare.player.profile.domain.Player;
 import com.example.mentalCare.player.profile.repository.PlayerRepository;
 import com.example.mentalCare.player.test.domain.Answer;
@@ -40,6 +42,7 @@ public class ConsultingService {
     private final AnswerRepository answerRepository;
     private final AnswerDetailRepository answerDetailRepository;
     private final QuestionRepository questionRepository;
+    private final FeedRepository feedRepository;
 
     /**
      * 상담가가 속한 팀의 선수들의 날짜별 검사 결과 리스트
@@ -342,6 +345,7 @@ public class ConsultingService {
         return response;
     }
 
+    @Transactional(readOnly = true)
     public List<DiagnoseMonthlyAvgReadRes> getTeamPlayerMonthlyTotalAvg(String userLoginId) {
         List<DiagnoseMonthlyAvgReadRes> response = new ArrayList<>();
 
@@ -364,6 +368,7 @@ public class ConsultingService {
         return response;
     }
 
+    @Transactional(readOnly = true)
     public List<DiagnoseMonthlyTypeAvgReadRes> getTeamPlayerMonthlyTypeAvg(String userLoginId) {
         List<DiagnoseMonthlyTypeAvgReadRes> response = new ArrayList<>();
 
@@ -399,6 +404,7 @@ public class ConsultingService {
         return response;
     }
 
+    @Transactional(readOnly = true)
     public List<TestDiagnoseResultList> getIndividualPlayerDiagnoseResult(String userLoginId) {
         List<TestDiagnoseResultList> response = new ArrayList<>();
 
@@ -473,6 +479,7 @@ public class ConsultingService {
         return response;
     }
 
+    @Transactional(readOnly = true)
     public List<DiagnoseMonthlyAvgReadRes> getIndividualPlayerMonthlyTotalAvg(String userLoginId) {
         List<DiagnoseMonthlyAvgReadRes> response = new ArrayList<>();
 
@@ -493,6 +500,7 @@ public class ConsultingService {
         return response;
     }
 
+    @Transactional(readOnly = true)
     public List<DiagnoseMonthlyTypeAvgReadRes> getIndividualPlayerMonthlyTypeAvg(String userLoginId) {
         List<DiagnoseMonthlyTypeAvgReadRes> response = new ArrayList<>();
 
@@ -524,5 +532,39 @@ public class ConsultingService {
         }
 
         return response;
+    }
+
+    @Transactional
+    public void testRequest(String userLoginId) {
+        Consultant consultant = consultantRepository.findByUserLogin_id(userLoginId);
+        User user = consultant.getUser();
+
+        List<Feed> feedList = new ArrayList<>();
+        // 담당 Team 선수에게 Feed 작성
+        if (user.getTeam() != null) {
+            List<Player> teamPlayerList = playerRepository.findPlayerByUserTeamId(user.getTeam().getId());
+            for (Player player : teamPlayerList) {
+                Feed feed = Feed.builder()
+                        .user(user)
+                        .player(player)
+                        .content("컨설턴트가 " + player.getUser().getName() + "님 에게 검사를 요청하였습니다.")
+                        .build();
+                feedList.add(feed);
+            }
+        }
+
+        // 담당 개인 선수에게 Feed 작성
+        List<Player> individualPlayerList = playerRepository.findPlayerByConsultantId(consultant.getId());
+        for (Player player : individualPlayerList) {
+            Feed feed = Feed.builder()
+                    .user(user)
+                    .player(player)
+                    .content("컨설턴트가 " + player.getUser().getName() + "님 에게 검사를 요청하였습니다.")
+                    .build();
+            feedList.add(feed);
+        }
+
+        feedRepository.saveAll(feedList);
+
     }
 }

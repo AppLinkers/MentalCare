@@ -1,7 +1,6 @@
 package com.example.mentalCare.consultant.profile.repository;
 
 import com.example.mentalCare.consultant.profile.domain.Consultant;
-import com.example.mentalCare.director.profile.domain.Director;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
