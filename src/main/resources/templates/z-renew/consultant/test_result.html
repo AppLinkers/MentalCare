@@ -98,6 +98,9 @@
 
           <canvas class="chart-by-type0"></canvas>
         </div>
+        <div th:each="player : ${diagnose.worst6PlayerList}">
+          <div th:text="${'이름' + player.name + ', 점수 : ' + player.score}"></div>
+        </div>
       </div>
 
     </div>
@@ -108,8 +111,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-
-
 
 <!--    차트 script-->
 <script type="text/javascript" th:inline="javascript">
@@ -123,8 +124,6 @@
   const typeFilterContainer = document.querySelector(".type-filter__container");
 
   // 유형 차트 아이템 동작
-  const typeChartItems = document.querySelectorAll(".type-chart-item");
-
   tabs.forEach((tab, idx) => {
 
     tab.addEventListener("click", () => {
@@ -183,7 +182,6 @@
     datasets: [myDatasets]
   };
 
-
   // 레이더 차트
   const config_radar = {
     type: 'radar',
@@ -235,8 +233,6 @@
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // 기간별 보기
-
-
   const monthlyTotalAvgList = [[${monthlyTotalAvgList}]];
 
   // 데이터 - 월별
@@ -272,25 +268,6 @@
   // 기간별 보기의 유형 필터 동작
   const typeFilters = typeFilterContainer.querySelectorAll(".type-filter");
   typeFilters[0].classList.add('active');
-
-  const dateDataList = [];
-
-  typeChartItems.forEach(item => {
-
-    item.addEventListener("click", () => {
-      item.querySelector(".item-info i").classList.toggle("active");
-      item.classList.toggle("active");
-    });
-
-    const colorStatus = item.querySelector(".status");
-    const itemAverage = item.querySelector(".item-average");
-    const average = parseFloat(itemAverage.innerHTML);
-
-    if (average >= 4) colorStatus.classList.add("green");
-    else if (average >= 2) colorStatus.classList.add("yellow");
-    else if (average >= 0) colorStatus.classList.add("red");
-
-  });
 
   const lineChart = document.getElementById("chart-line");
 
@@ -341,14 +318,14 @@
         }
       }
     };
-  };
+  }
 
   function makeDateData(datasets) {
     return {
       labels: monthLabels,
       datasets: [datasets]
     };
-  };
+  }
 
   function makeDateDatasets(data) {
     return {
@@ -366,14 +343,12 @@
   // 기간별 보기 -> 유형별 필터
   typeFilters.forEach((typeFilter, idx) => {
 
-    dateDataList[idx] = makeDateData(makeDateDatasets(monthData[idx]));
-
     typeFilter.addEventListener("click", () => {
 
       typeFilters.forEach(each => {
         each.classList.remove("active");
       });
-      config_line.data = dateDataList[idx];
+      config_line.data = makeDateData(makeDateDatasets(monthData[idx]));
       dateChart.update();
       typeFilters[idx].classList.add("active");
 
@@ -387,8 +362,8 @@
 
   // 각 유형의 question data
 
-  var myQuestionLabelList = new Array();
-  var myQuestionDataList = new Array();
+  var myQuestionLabelList = [];
+  var myQuestionDataList = [];
 
   testDiagnoseResultList.forEach(diagnose => {
     var questionKeywordList = [];
@@ -403,6 +378,24 @@
     myQuestionDataList.push(questionDataList);
   })
 
+  const typeChartItems = document.querySelectorAll(".type-chart-item");
+
+  typeChartItems.forEach(item => {
+
+    item.addEventListener("click", () => {
+      item.querySelector(".item-info i").classList.toggle("active");
+      item.classList.toggle("active");
+    });
+
+    const colorStatus = item.querySelector(".status");
+    const itemAverage = item.querySelector(".item-average");
+    const average = parseFloat(itemAverage.innerHTML);
+
+    if (average >= 4) colorStatus.classList.add("green");
+    else if (average >= 2) colorStatus.classList.add("yellow");
+    else if (average >= 0) colorStatus.classList.add("red");
+
+  });
 
   for(var i=0; i<typeChartItems.length; i++){
     var typeCanvas = typeChartItems[i].getElementsByClassName('chart-by-type0');
