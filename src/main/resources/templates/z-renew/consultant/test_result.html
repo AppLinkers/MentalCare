@@ -26,13 +26,6 @@
 
   <nav id="navigation"></nav>
 
-  <script>
-    var myAvgData = new Array();
-    var typeLabels = new Array();
-    var myQuestionLabelList = new Array();
-    var myQuestionDataList = new Array();
-  </script>
-
   <!-- DIVIDER -->
   <div class="divider container-fit"></div>
   <!-- 선수 차트 -->
@@ -55,12 +48,6 @@
     </div>
     <!-- 유형별 상세 데이터 - 평균 보기 -->
     <div class="type-detail__container active">
-
-      <div class="type-detail-header flex-even">
-        <div></div>
-        <p class="font16">9가지 유형에 대한 나의 평균 데이터입니다</p>
-        <i class="uil uil-angle-down font24"></i>
-      </div>
 
     </div>
     <!-- 유형별 필터 - 기간별 보기 -->
@@ -100,29 +87,11 @@
               <p class="font18" th:text="${diagnose.title}">경기력</p>
               <div class="status"></div>
             </div>
-
             <div class="flex-left">
               <div class="font12">평균:</div>
               <div class="font12 item-average" th:text="${diagnose.avg}">3.2</div>
             </div>
           </div>
-          <script>
-            var diagnoseList = [];
-            var diagnoseLabelList = [];
-          </script>
-          <div th:each="question : ${diagnose.questionResultList}">
-            <script th:inline="javascript">
-              var questionLabel = [[${question.keyword}]]
-              var questionData = [[${question.answer}]]
-
-              diagnoseLabelList.push(questionLabel)
-              diagnoseList.push(questionData)
-            </script>
-          </div>
-          <script>
-            myQuestionLabelList.push(diagnoseLabelList);
-            myQuestionDataList.push(diagnoseList);
-          </script>
           <i class="uil uil-angle-down"></i>
         </div>
         <div class="item-chart flex-center">
@@ -132,16 +101,6 @@
       </div>
 
     </div>
-  </div>
-
-  <div th:each="diagnose : ${testDiagnoseResultList}">
-    <script th:inline="javascript">
-      var title = [[${diagnose.title}]];
-      var avg = [[${diagnose.avg}]];
-
-      typeLabels.push(title);
-      myAvgData.push(avg);
-    </script>
   </div>
 </section>
 
@@ -155,15 +114,13 @@
 <!--    차트 script-->
 <script type="text/javascript" th:inline="javascript">
 
-  var myMonthlyAvgData = [[${monthlyTypeAvgList}]];
+  // 공통
 
   // 탭 동작 (평균 보기, 기간별 보기)
   const tabs = document.querySelectorAll(".chart-tab p");
   const canvases = document.querySelectorAll(".canvas__container");
   const typeDetailContainer = document.querySelector(".type-detail__container");
   const typeFilterContainer = document.querySelector(".type-filter__container");
-
-
 
   // 유형 차트 아이템 동작
   const typeChartItems = document.querySelectorAll(".type-chart-item");
@@ -194,210 +151,21 @@
 
   });
 
-  // 평균 보기의 유형별 상세 데이터 동작
-  const typeDetailHeader = typeDetailContainer.querySelector(".type-detail-header");
-  const typeDetailBody = typeDetailContainer.querySelector(".type-detail-body");
-  const typeDetailIcon = typeDetailContainer.querySelector("i");
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  typeDetailHeader.addEventListener("click", () => {
+  // 평균 보기
 
-    typeDetailBody.classList.toggle("active");
-    typeDetailIcon.classList.toggle("active");
+  // 평균보기 data
+  var myAvgData = [];
+  var typeLabels = [];
 
-  });
-
-  // 기간별 보기의 유형 필터 동작
-  const typeFilters = typeFilterContainer.querySelectorAll(".type-filter");
-  typeFilters[0].classList.add('active');
-  const dateDataList = [];
-
-  typeChartItems.forEach(item => {
-
-    item.addEventListener("click", () => {
-      item.querySelector(".item-info i").classList.toggle("active");
-      item.classList.toggle("active");
-    });
-
-    const colorStatus = item.querySelector(".status");
-    const itemAverage = item.querySelector(".item-average");
-    const average = parseFloat(itemAverage.innerHTML);
-
-    if (average >= 4) colorStatus.classList.add("green");
-    else if (average >= 2) colorStatus.classList.add("yellow");
-    else if (average >= 0) colorStatus.classList.add("red");
-
-  });
-
-  /////////// 메인 차트 ///////////
-  const radarChart = document.getElementById("chart-radar");
-  const lineChart = document.getElementById("chart-line");
-
-  /////// 라벨 ///////
-
-  const monthlyTotalAvgList = [[${monthlyTotalAvgList}]];
-
-  // 데이터 - 월별
-  var monthData = [];
-
-  // 라벨 - 월별
-  const monthLabels = [];
-  const monthlyTotalAvgDataList = [];
-  monthlyTotalAvgList.reverse();
-  monthlyTotalAvgList.forEach(function(monthlyTotalAvg) {
-    monthLabels.push(monthlyTotalAvg.yearMonth.substr(2));
-    monthlyTotalAvgDataList.push(monthlyTotalAvg.avg);
+  const testDiagnoseResultList = [[${testDiagnoseResultList}]];
+  testDiagnoseResultList.forEach(diagnose => {
+    typeLabels.push(diagnose.title);
+    myAvgData.push(diagnose.avg);
   })
-  // total data 추가
-  monthData.push(monthlyTotalAvgDataList);
 
-  // type data 추가
-  const monthlyTypeAvgList = [[${monthlyTypeAvgList}]];
-
-  monthlyTypeAvgList.forEach(function(monthlyTypeAvg) {
-    monthlyTypeAvg.monthlyResultList.reverse();
-
-    const monthlyTypeAvgDataList = [];
-    monthlyTypeAvg.monthlyResultList.forEach(function (monthlyTypeResult) {
-      monthlyTypeAvgDataList.push(monthlyTypeResult.avg);
-    });
-    monthData.push(monthlyTypeAvgDataList);
-  });
-
-
-  function makeDateDatasets(data) {
-    return {
-      data: data,
-      borderColor: '#000000',
-      borderWidth: 1,
-      pointRadius: 5,
-      pointBackgroundColor: '#000000',
-    };
-  }
-
-  const config_line = makeLineConfig(makeDateData(makeDateDatasets(monthData[0])));
-  const dateChart = new Chart(lineChart, config_line);
-
-
-  // 기간별 보기 - 월별 평균
-
-  function makeDateData(datasets) {
-    return {
-      labels: monthLabels,
-      datasets: [datasets]
-    };
-  };
-
-  function makeLineConfig(data) {
-    return {
-      type: 'line',
-      data: data,
-      plugins: [ChartDataLabels],
-      options: {
-        scales: {
-          x: {
-            offset: true,
-            ticks: {
-              padding: 10,
-              font: {
-                size: 14,
-                weight: 'bold'
-              }
-            }
-          },
-          y: {
-            beginAtZero: true,
-            max: 5,
-            ticks: {
-              stepSize: 1,
-              font: {
-                size: 14
-              }
-            }
-          }
-        },
-        plugins: {
-          legend: {
-            display: false
-          },
-          datalabels: {
-            formatter: function (value) {
-              return value.toFixed(1);
-            },
-            align: 'top',
-            anchor: 'center',
-            padding: 10,
-            font: {
-              size: 14,
-              weight: 'bold'
-            },
-          },
-        }
-      }
-    };
-  };
-
-  for(var i=0; i<typeChartItems.length; i++){
-    var typeCanvas = typeChartItems[i].getElementsByClassName('chart-by-type0');
-    const byTypeData = myQuestionDataList[i]
-
-    const byTypeDatasets = {
-      label: '심리 상태',
-      data: byTypeData,
-      backgroundColor: byTypeData.map(function (value) {
-        if (value >= 4) {
-          return '#CDF3E6';
-        } else if (value >= 2) {
-          return '#F5ECD7';
-        } else {
-          return '#F8C4BA';
-        }
-      }),
-      borderColor: byTypeData.map(function (value) {
-        if (value >= 4) {
-          return '#1DBA84';
-        } else if (value >= 2) {
-          return '#EFB93A';
-        } else {
-          return '#F94B28';
-        }
-      }),
-      borderWidth: 1
-    };
-
-
-    // 유형별 차트
-    var data_byType = {
-      labels: myQuestionLabelList[i],
-      datasets: [byTypeDatasets]
-    };
-
-    // 바 차트 - 유형별
-    var config_bar = {
-      type: 'bar',
-      data: data_byType,
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 5,
-            ticks: {
-              stepSize: 1
-            }
-          }
-        },
-        plugins: {
-          legend: {
-            display: false
-          },
-        },
-      }
-    };
-
-    var barChart = new Chart(typeCanvas, config_bar);
-
-  }
-
-  /////// 데이터 세트 ///////
+  const radarChart = document.getElementById("chart-radar");
 
   // 데이터 세트
   const myDatasets = {
@@ -462,29 +230,140 @@
   };
 
   // 첫 화면: 평균 보기 - 내 평균
-  const avgChart = new Chart(radarChart, config_radar);
+  new Chart(radarChart, config_radar);
 
-  // 필터
-  const mindScore = scoreBox = document.getElementById("average-filter");
-  const dateFilter = document.getElementById("date-filter");
-  const radarLabels = document.querySelectorAll(".radar-label");
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  function avgFilterChange() {
+  // 기간별 보기
 
-    var selected = averageFilter.options[averageFilter.selectedIndex].value;
 
-    typeDetailContainer.classList.add("show");
+  const monthlyTotalAvgList = [[${monthlyTotalAvgList}]];
 
-    if (selected === "myAvg") {
-      config_radar.data = data_myAvg;
-      typeDetailContainer.classList.remove("show");
-      radarLabels[1].classList.remove('active');
-      radarLabels[2].classList.remove('active');
-    }
-    avgChart.update();
+  // 데이터 - 월별
+  var monthData = [];
+
+  // 라벨 - 월별
+  const monthLabels = [];
+
+  // 기간별 보기 - 전체 보기 데이터
+  const monthlyTotalAvgDataList = [];
+  monthlyTotalAvgList.reverse();
+  monthlyTotalAvgList.forEach(function(monthlyTotalAvg) {
+    monthLabels.push(monthlyTotalAvg.yearMonth.substr(2));
+    monthlyTotalAvgDataList.push(monthlyTotalAvg.avg);
+  })
+  // total data 추가
+  monthData.push(monthlyTotalAvgDataList);
+
+  // 기간별 보기 - 각 유형별 보기 데이터
+  // type data 추가
+  const monthlyTypeAvgList = [[${monthlyTypeAvgList}]];
+
+  monthlyTypeAvgList.forEach(function(monthlyTypeAvg) {
+    monthlyTypeAvg.monthlyResultList.reverse();
+
+    const monthlyTypeAvgDataList = [];
+    monthlyTypeAvg.monthlyResultList.forEach(function (monthlyTypeResult) {
+      monthlyTypeAvgDataList.push(monthlyTypeResult.avg);
+    });
+    monthData.push(monthlyTypeAvgDataList);
+  });
+
+  // 기간별 보기의 유형 필터 동작
+  const typeFilters = typeFilterContainer.querySelectorAll(".type-filter");
+  typeFilters[0].classList.add('active');
+
+  const dateDataList = [];
+
+  typeChartItems.forEach(item => {
+
+    item.addEventListener("click", () => {
+      item.querySelector(".item-info i").classList.toggle("active");
+      item.classList.toggle("active");
+    });
+
+    const colorStatus = item.querySelector(".status");
+    const itemAverage = item.querySelector(".item-average");
+    const average = parseFloat(itemAverage.innerHTML);
+
+    if (average >= 4) colorStatus.classList.add("green");
+    else if (average >= 2) colorStatus.classList.add("yellow");
+    else if (average >= 0) colorStatus.classList.add("red");
+
+  });
+
+  const lineChart = document.getElementById("chart-line");
+
+  function makeLineConfig(data) {
+    return {
+      type: 'line',
+      data: data,
+      plugins: [ChartDataLabels],
+      options: {
+        scales: {
+          x: {
+            offset: true,
+            ticks: {
+              padding: 10,
+              font: {
+                size: 14,
+                weight: 'bold'
+              }
+            }
+          },
+          y: {
+            beginAtZero: true,
+            max: 5,
+            ticks: {
+              stepSize: 1,
+              font: {
+                size: 14
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          datalabels: {
+            formatter: function (value) {
+              return value.toFixed(1);
+            },
+            align: 'top',
+            anchor: 'center',
+            padding: 10,
+            font: {
+              size: 14,
+              weight: 'bold'
+            },
+          },
+        }
+      }
+    };
+  };
+
+  function makeDateData(datasets) {
+    return {
+      labels: monthLabels,
+      datasets: [datasets]
+    };
+  };
+
+  function makeDateDatasets(data) {
+    return {
+      data: data,
+      borderColor: '#000000',
+      borderWidth: 1,
+      pointRadius: 5,
+      pointBackgroundColor: '#000000',
+    };
   }
 
+  const config_line = makeLineConfig(makeDateData(makeDateDatasets(monthData[0])));
+  const dateChart = new Chart(lineChart, config_line);
 
+  // 기간별 보기 -> 유형별 필터
   typeFilters.forEach((typeFilter, idx) => {
 
     dateDataList[idx] = makeDateData(makeDateDatasets(monthData[idx]));
@@ -502,71 +381,88 @@
 
   });
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // 유형별 검사 결과 보기
+
+  // 각 유형의 question data
+
+  var myQuestionLabelList = new Array();
+  var myQuestionDataList = new Array();
+
+  testDiagnoseResultList.forEach(diagnose => {
+    var questionKeywordList = [];
+    var questionDataList = [];
+
+    diagnose.questionResultList.forEach(question => {
+      questionKeywordList.push(question.keyword);
+      questionDataList.push(question.answer);
+    });
+
+    myQuestionLabelList.push(questionKeywordList);
+    myQuestionDataList.push(questionDataList);
+  })
 
 
+  for(var i=0; i<typeChartItems.length; i++){
+    var typeCanvas = typeChartItems[i].getElementsByClassName('chart-by-type0');
+    const byTypeData = myQuestionDataList[i]
 
-  //유형별 비교 차트
-
-  function CompareChart(avgDetailContainer,compareLabel ,myDataList, myCompareAvgList){
-    var canvasList = []
-    for(var n=0; n<avgDetailContainer.length; n++){
-      var oldcanvas = avgDetailContainer[n].getElementsByClassName("type-detail-item-canvas");
-      while(oldcanvas.length > 0){
-        oldcanvas[0].parentNode.removeChild(oldcanvas[0]);
-      }
-      var canvas = document.createElement('canvas');
-      canvas.setAttribute('class', "type-detail-item-canvas")
-      canvas.setAttribute('style', "display: block; box-sizing: border-box; height: 90px; width: 180.5px;")
-      avgDetailContainer[n].append(canvas);
-
-      var myAvg = myAvgData[n];
-      //또래애들 데이터
-      var compareAvg = myCompareAvgList[n]
-
-      const compareDatasets = {
-        data: [myAvg, compareAvg],
-        backgroundColor: [
-          'rgba(206, 108, 106, 0.4)',
-          'rgba(103, 163, 210, 0.4)',
-
-        ],
-        borderColor: [
-          '#CE6C6A',
-          '#67A3D2'
-        ],
-        borderWidth: 1
-      };
-
-
-      // 유형별 상세
-      var data_compare = {
-        labels: compareLabel,
-        datasets: [compareDatasets]
-      };
-
-      // 바 차트 - 평균 상세
-      var config_bar_compare = {
-        type: 'bar',
-        data: data_compare,
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-              max: 5,
-              ticks: {
-                stepSize: 1
-              }
-            }
-          },
-          plugins: {
-            legend: {
-              display: false
-            },
-          },
+    const byTypeDatasets = {
+      label: '심리 상태',
+      data: byTypeData,
+      backgroundColor: byTypeData.map(function (value) {
+        if (value >= 4) {
+          return '#CDF3E6';
+        } else if (value >= 2) {
+          return '#F5ECD7';
+        } else {
+          return '#F8C4BA';
         }
-      };
-      canvasList.push(new Chart(canvas, config_bar_compare));
-    }
+      }),
+      borderColor: byTypeData.map(function (value) {
+        if (value >= 4) {
+          return '#1DBA84';
+        } else if (value >= 2) {
+          return '#EFB93A';
+        } else {
+          return '#F94B28';
+        }
+      }),
+      borderWidth: 1
+    };
+
+
+    // 유형별 차트
+    var data_byType = {
+      labels: myQuestionLabelList[i],
+      datasets: [byTypeDatasets]
+    };
+
+    // 바 차트 - 유형별
+    var config_bar = {
+      type: 'bar',
+      data: data_byType,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 5,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+        },
+      }
+    };
+
+    new Chart(typeCanvas, config_bar);
+
   }
 
 </script>
