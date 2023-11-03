@@ -1,24 +1,9 @@
 /* ========= 공통 부분 ======== */
-.label {
-    display: flex;
-    align-items: center;
-}
-
-.label h3 {
-    font-weight: 600;
-    color: var(--color-lightgray);
-}
-
-.label h3.active {
-    color: var(--color-black);
-}
-
 .button__container {
-    padding: 1.5rem 0;
+    margin: 20px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--color-lightgray);
 }
 
 .button__container h2 {
@@ -36,11 +21,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 1rem 0;
-    border-bottom: 1px solid var(--color-lightgray);
-}
-
-.team-code {
-    font-weight: 900;
+    border-bottom: 1px solid var(--color-gray200);
 }
 
 .btn-light {
@@ -61,7 +42,7 @@
 
 /* ========= 멤버 관리 ======== */
 .list article {
-    border-bottom: 1px solid var(--color-lightgray);
+    border-bottom: 1px solid var(--color-gray200);
 }
 
 .user__con {
@@ -97,24 +78,23 @@
 }
 
 .user__con button {
-    border: 1px solid var(--color-lightgray);
-    border-radius: 0.4rem;
-    padding: 0.5rem 0;
+    border: 1px solid var(--color-gray200);
+    background: var(--color-white);
+    color: var(--color-gray200);
     width: 100px;
     cursor: pointer;
     transition: var(--transition);
 }
 
 .user__con button.active {
-    border: 1px solid var(--color-primary);
-    background: var(--color-primary);
+    border: 1px solid var(--color-black);
+    background: var(--color-black);
     color: var(--color-white);
 }
 
 .type {
     padding: 0.15rem 0.8rem;
     border-radius: 0.4rem;
-    background: var(--color-yellow);
     margin-right: 0.5rem;
 }
 
@@ -126,18 +106,10 @@
 
 
 /*========== SPINNER ============*/
-.spinner__container {
-    border-bottom: 1px solid var(--color-lightgray);
-    padding: 1rem 0;
-}
-
 .select-menu {
-    border: solid 1px var(--color-gray);
-    padding: 0.5rem 1rem;
-    position: relative;
-    background: var(--color-white);
     width: 100%;
-    border-radius: 0.2rem;
+    margin-bottom: 15px;
+    position: relative;
 }
 
 .select-btn {
@@ -145,13 +117,16 @@
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+    border: 1px solid var(--color-gray200);
+    border-radius: var(--input-radius);
+    padding: 0 15px;
 }
 
 .select-btn input {
     outline: none;
+    border: none;
+    margin: 0;
     cursor: pointer;
-    margin-top: 0;
-    font-size: 0.9rem;
 }
 
 .select-btn i {
@@ -163,7 +138,8 @@
     z-index: 1;
     position: absolute;
     background-color: var(--color-white);
-    border: 1px solid var(--color-gray);
+    border: 1px solid var(--color-gray200);
+    border-radius: var(--input-radius);
     padding: 0.5rem 1rem;
     top: 4rem;
     left: 50%;

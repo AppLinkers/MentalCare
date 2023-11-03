@@ -16,7 +16,7 @@
             <p class="logo-big eng">BEST MIND</p>
         </div>
 
-        <!-- 공통-임시 -->
+        <!-- 공통 메뉴 -->
         <p class="font18">공통 메뉴</p>
         <div class="menu-content flex-column">
             <a th:unless="${userRole == 'ADMIN'}" th:href="@{/noti/list}" class="font28">공지사항</a>
@@ -47,7 +47,6 @@
             <p class="font18">지도자 메뉴</p>
             <div class="menu-content flex-column">
                 <a th:href="@{/director/profile}" class="font28">프로필</a>
-<!--                <a th:href="@{/noti/list}" class="font28">공지사항</a>-->
             </div>
         </div>
 
@@ -56,8 +55,6 @@
             <p class="font18">상담가 메뉴</p>
             <div class="menu-content flex-column">
                 <a href="../../templates/consultant/profile.html" class="font28">프로필</a>
-                <!-- <a href="/templates/common/announce.html" class="font28">공지사항</a>
-                <a href="/templates/common/password_change.html" class="font28">비밀번호 변경</a> -->
             </div>
         </div>
     </div>

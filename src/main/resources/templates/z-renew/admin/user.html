@@ -34,20 +34,19 @@
         <form th:method="put" th:action="@{/admin/user}" th:object="${userRoleUpdateReqList}">
             <div class="button__container" style="border: none;">
                 <h2>멤버 관리</h2>
-                <button class="btn" type="submit">저장하기</button>
+                <button class="btn-basic" type="submit">저장</button>
             </div>
 
-            <div class="spinner__container">
-                <div class="select-menu">
-                    <div class="select-btn">
-                        <input id="teamName" class="sBtn-text" placeholder="전체 보기" readonly>
-                        <i class="uil uil-angle-down"></i>
-                    </div>
-                    <ul class="options" >
-                        <li class="option"><span class="option-text">전체 보기</span></li>
-                        <li class="option" th:each="team : ${teamInfoResList}"><span class="option-text" th:text="${team.name}">서울 FC</span></li>
-                    </ul>
+
+            <div class="select-menu">
+                <div class="select-btn">
+                    <input id="teamName" class="sBtn-text" placeholder="전체 보기" readonly>
+                    <i class="uil uil-angle-down"></i>
                 </div>
+                <ul class="options" >
+                    <li class="option"><span class="option-text">전체 보기</span></li>
+                    <li class="option" th:each="team : ${teamInfoResList}"><span class="option-text" th:text="${team.name}">서울 FC</span></li>
+                </ul>
             </div>
 
             <div class="list" th:each="user, userStat : ${userInfoResList}">
@@ -62,26 +61,30 @@
                             <div>
                                 <div class="user__text">
                                     <h3 th:text="${user.name}">이름 에러</h3>
-                                    <div class="type" style="background: var(--color-green);"
+                                    <div class="type" style="background: var(--color-red);"
                                          th:if="${user.role.toString().equals('DIRECTOR')} or ${user.role.toString().equals('DIRECTOR_PENDING')}">
                                         <h4>지도자</h4>
                                     </div>
-                                    <div class="type"
+                                    <div class="type" style="background: var(--color-green);"
                                          th:if="${user.role.toString().equals('PLAYER')} or ${user.role.toString().equals('PLAYER_PENDING')}">
                                         <h4>선수</h4>
                                     </div>
+                                    <div class="type" style="background: var(--color-yellow);"
+                                         th:if="${user.role.toString().equals('CONSULTANT')} or ${user.role.toString().equals('CONSULTANT_PENDING')}">
+                                        <h4>상담가</h4>
+                                    </div>
                                 </div>
-                                <h4 th:text="${user.teamName} + ' (' + ${user.teamCode} + ')'">FC 서울 (S)</h4>
+                                <p class="font14" style="margin-top: 5px" th:text="${user.teamName} + ' (' + ${user.teamCode} + ')'">FC 서울 (S)</p>
                             </div>
                         </div>
                         <!-- 'active'로 css가 바뀜, 만약 허가돼있으면 밑 button의 classList에 active를 추가해주면 됩니다 -->
                         <!-- 상태에 따라서 권한 없음 or 허가됨으로 button 텍스트도 바꿔줘야합니다-->
                         <input class="user__role" type="hidden" th:field="*{userRoleUpdateReqList[__${userStat.index}__].role}"/>
                         <!-- 수정 필요 -->
-                        <button class="active" th:if="${user.role.toString().equals('DIRECTOR')} or ${user.role.toString().equals('PLAYER')}" onclick="return false;">
+                        <button class="btn-small active" th:unless="${user.role.toString().contains('PENDING')}" onclick="return false;">
                             허가됨
                         </button>
-                        <button th:if="${user.role.toString().equals('PLAYER_PENDING')} or ${user.role.toString().equals('DIRECTOR_PENDING')}" onclick="return false;">
+                        <button class="btn-small" th:if="${user.role.toString().contains('PENDING')}" onclick="return false;">
                             권한 없음
                         </button>
                     </div>

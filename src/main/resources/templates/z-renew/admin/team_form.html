@@ -31,16 +31,6 @@
 <section id="admin">
     <div class="container admin__container">
 
-        <div class="label">
-            <a href="/admin/team">
-                <h3 class="active" style="margin-right: 1rem;">팀 코드 관리</h3>
-            </a>
-            <a href="/admin/user">
-                <h3>사용자 관리</h3>
-            </a>
-        </div>
-
-
         <div class="button__container">
             <h2>팀 코드 추가</h2>
         </div>
@@ -49,7 +39,9 @@
             <div class="code-form">
                 <input th:field="*{teamCode}" type="text" class="btn btn-input" placeholder="팀 코드" minlength="6">
                 <input th:field="*{name}" type="text" class="btn btn-input" placeholder="팀 이름">
-                <button class="btn" type="submit">추가하기</button>
+                <div class="flex-right">
+                    <button class="btn-basic" type="submit">추가하기</button>
+                </div>
             </div>
         </form>
 
