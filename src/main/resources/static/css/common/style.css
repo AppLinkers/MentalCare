@@ -1,25 +1,24 @@
 /* =================GENERAL CSS================ */
 
 :root {
+    --color-primary: #ffe400;
 
-    --color-primary: #FFE400;
-
-    --color-white: #FFFFFF;
+    --color-white: #ffffff;
     --color-black: #000000;
-    --color-gray100: #FAFAFA;
-    --color-gray200: #B5B5B5;
+    --color-gray100: #fafafa;
+    --color-gray200: #b5b5b5;
     --color-gray300: #575757;
-    --color-dark: #2D2727;
+    --color-dark: #2d2727;
 
-    --color-red: #F94B28;
-    --color-lightRed: #F8C4BA;
-    --color-yellow: #EFB93A;
-    --color-lightYellow: #F5ECD7;
-    --color-green: #1DBA84;
-    --color-lightGreen: #CDF3E6;
-    --color-pink: #FA6EA1;
-    --color-blue: #4B77FA;
-    --color-orange: #FF6000;
+    --color-red: #f94b28;
+    --color-lightRed: #f8c4ba;
+    --color-yellow: #efb93a;
+    --color-lightYellow: #f5ecd7;
+    --color-green: #1dba84;
+    --color-lightGreen: #cdf3e6;
+    --color-pink: #fa6ea1;
+    --color-blue: #4b77fa;
+    --color-orange: #ff6000;
     --color-lightOrange: #f8e1d2;
 
     --transition: all 300ms ease;
@@ -47,7 +46,6 @@
     --margin-top: 25px;
     --margin-label: 10px;
     --margin-input: 30px;
-
 }
 
 * {
@@ -66,7 +64,7 @@ html {
 
 body {
     /* 300,400,500,700,900 사용가능 */
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: "Noto Sans KR", sans-serif;
     color: var(--color-black);
     background: var(--color-white);
 }
@@ -79,7 +77,7 @@ body::-webkit-scrollbar {
 /* =================LANGUAGE CSS================ */
 .eng {
     /* 300,400,500,700,900 사용가능 */
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 /* =================FONT CSS================ */
@@ -247,7 +245,7 @@ textarea {
     border-radius: var(--input-radius);
     font-size: var(--font16);
     padding: 20px 10px;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 textarea:focus {
@@ -285,7 +283,6 @@ img {
     border-radius: var(--card-radius);
 }
 
-
 section {
     width: 100%;
 }
@@ -294,13 +291,10 @@ section {
     height: 100vh;
 }
 
-
-
 /* =================CUSTOM CSS================ */
 
 /* flex 요소 */
 .flex-center {
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -339,6 +333,12 @@ section {
 .flex-left {
     display: flex;
     align-items: center;
+    justify-content: left;
+}
+
+.flex-left-bottom {
+    display: flex;
+    align-items: end;
     justify-content: left;
 }
 
@@ -439,14 +439,16 @@ section {
 .radar-label-color {
     width: 30px;
     height: 30px;
-    filter: invert(10%) sepia(75%) saturate(7470%) hue-rotate(13deg) brightness(95%) contrast(117%);
+    filter: invert(10%) sepia(75%) saturate(7470%) hue-rotate(13deg)
+    brightness(95%) contrast(117%);
     margin-right: 8px;
     border-radius: 14px;
     background-color: rgba(199, 97, 94, 0.4);
 }
 
 .radar-label-color.my {
-    filter: invert(21%) sepia(99%) saturate(2120%) hue-rotate(189deg) brightness(95%) contrast(104%);
+    filter: invert(21%) sepia(99%) saturate(2120%) hue-rotate(189deg)
+    brightness(95%) contrast(104%);
     background-color: rgba(44, 134, 202, 0.4);
 }
 
@@ -455,7 +457,7 @@ section {
 }
 
 /* =================MEDIA QUERY================ */
-@media screen and (max-width:780px) {
+@media screen and (max-width: 780px) {
     .container {
         width: var(--container-width-phone);
     }
@@ -465,14 +467,14 @@ section {
     }
 }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width: 600px) {
     .radar__container img {
         width: 85px;
         height: 85px;
     }
 }
 
-@media screen and (max-width:550px) {
+@media screen and (max-width: 550px) {
     .radar__container img {
         width: 75px;
         height: 75px;
@@ -480,7 +482,7 @@ section {
     }
 }
 
-@media screen and (max-width:500px) {
+@media screen and (max-width: 500px) {
     .radar__container img {
         width: 70px;
         height: 70px;
@@ -489,7 +491,7 @@ section {
     }
 }
 
-@media screen and (max-width:450px) {
+@media screen and (max-width: 450px) {
     .radar__container img {
         width: 60px;
         height: 60px;
@@ -497,7 +499,7 @@ section {
     }
 }
 
-@media screen and (max-width:400px) {
+@media screen and (max-width: 400px) {
     .radar__container img {
         width: 50px;
         height: 50px;

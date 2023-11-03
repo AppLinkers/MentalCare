@@ -1,0 +1,41 @@
+.player-item {
+    padding: 10px 0;
+}
+
+.player-img {
+    position: relative;
+    margin-right: 22px;
+}
+
+.player-item img {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+}
+
+.player-status {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 14px;
+    background-color: var(--color-green);
+}
+
+.player-item .item-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 36px;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    cursor: pointer;
+}
+
+.player-item .item-icon:first-of-type {
+    margin-right: 15px;
+}
+
+.player-item .item-icon i {
+    font-size: 24px;
+}
