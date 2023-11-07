@@ -1,0 +1,52 @@
+.header-tab {
+    color: var(--color-gray200);
+    font-weight: bold;
+
+    &:first-of-type {
+        margin-right: 18px;
+    }
+    &.active {
+        color: var(--color-black);
+    }
+}
+
+.filter__container {
+    position: relative;
+}
+
+.filter__container i {
+    position: absolute;
+    font-size: 25px;
+    top: -2%;
+    right: 3%;
+}
+
+select {
+    width: 100px;
+    padding: 10px;
+    font-size: var(--font14);
+}
+
+.type-filter__container {
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 10px;
+    row-gap: 10px;
+    margin: 20px 0 10px 0;
+
+    &.active {
+        display: grid;
+    }
+}
+
+.type-filter {
+    padding: 10px 0;
+    background-color: var(--color-gray200);
+    color: var(--color-white);
+    font-weight: bold;
+    border-radius: var(--button-radius);
+
+    &.active {
+        background-color: var(--color-black);
+    }
+}
