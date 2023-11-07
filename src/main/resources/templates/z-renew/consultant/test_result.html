@@ -35,11 +35,10 @@
       <p class="font16 active">평균 보기</p>
       <p class="font16">기간별 보기</p>
     </div>
-    <!-- 필터 -->
     <!-- 메인 레이더 차트 -->
     <div class="canvas__container active">
       <div class="radar__container">
-        <img src="/images/brain.png">
+        <img src="/images/brain.png" alt="">
         <canvas id="chart-radar" class="main-chart"></canvas>
       </div>
     </div>
@@ -47,9 +46,7 @@
       <canvas id="chart-line" class="main-chart"></canvas>
     </div>
     <!-- 유형별 상세 데이터 - 평균 보기 -->
-    <div class="type-detail__container active">
-
-    </div>
+    <div class="type-detail__container active"></div>
     <!-- 유형별 필터 - 기간별 보기 -->
     <div>
       <div class="type-filter__container">
@@ -79,30 +76,36 @@
     </div>
     <!-- 유형별 차트 리스트 -->
     <div class="type-chart-list">
-
       <div class="type-chart-item" th:each="diagnose : ${testDiagnoseResultList}">
         <div class="item-info flex-between">
           <div class="flex-column">
             <div class="flex-left">
-              <p class="font18" th:text="${diagnose.title}">경기력</p>
+              <p class="font18" th:text="${diagnose.title}"></p>
               <div class="status"></div>
             </div>
             <div class="flex-left">
               <div class="font12">평균:</div>
-              <div class="font12 item-average" th:text="${diagnose.avg}">3.2</div>
+              <div class="font12 item-average" th:text="${diagnose.avg}"></div>
             </div>
           </div>
           <i class="uil uil-angle-down"></i>
         </div>
+        <!--아이템 차트-->
         <div class="item-chart flex-center">
-
           <canvas class="chart-by-type0"></canvas>
-        </div>
-        <div th:each="player : ${diagnose.worst6PlayerList}">
-          <div th:text="${'이름' + player.name + ', 점수 : ' + player.score}"></div>
+          <div class="worst-list__container">
+            <p class="worst-list-label font14">Worst6</p>
+            <div class="worst-list">
+              <!--페이지 이동 기능 필요-->
+              <a class="worst-list-item flex-between" th:each="player, iterStat : ${diagnose.worst6PlayerList}">
+                <p class="font12" th:text="${iterStat.count} + '위'"></p>
+                <p class="font12" th:text="${player.name}"></p>
+                <p class="font12" th:text="${player.score}" style="font-weight: bold"></p>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>

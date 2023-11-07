@@ -277,3 +277,25 @@ canvas#chart-line {
     display: none;
     margin-top: 20px;
 }
+
+.worst-list__container {
+    margin-top: 20px;
+}
+
+.worst-list {
+    margin-top: 13px;
+}
+
+.worst-list-label {
+    color: var(--color-gray300);
+    font-weight: bold;
+}
+
+.worst-list-item {
+    padding: 12px 18px;
+    border-top: 1px solid var(--color-gray200);
+}
+
+.worst-list-item:nth-of-type(even) {
+    background-color: var(--color-gray100);
+}
