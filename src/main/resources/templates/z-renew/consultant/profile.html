@@ -51,7 +51,28 @@
         };
 
         document.addEventListener("DOMContentLoaded", function () {
-            const calendarEl = document.getElementById("calendar");
+            const calendarEl = document.getElementById("calendar-team");
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: "dayGridMonth",
+                locale: "ko",
+                headerToolbar: {
+                    start: "title",
+                    center: "",
+                    end: "prev,next",
+                },
+                dateClick: function (info) {
+                    const dateEl = document.getElementById("date");
+                    let dateString = info.dateStr;
+                    dateEl.innerText = isToday(dateString)
+                        ? "오늘"
+                        : formatDate(dateString);
+                },
+            });
+            calendar.render();
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const calendarEl = document.getElementById("calendar-personal");
             const calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: "dayGridMonth",
                 locale: "ko",
@@ -104,7 +125,10 @@
                 <p class="font16 active">팀 선수</p>
                 <p class="font16">개인 선수</p>
             </div>
-            <div id="calendar"></div>
+            <!--팀 선수 캘린더-->
+            <div id="calendar-team"></div>
+            <!--개인 선수 캘린더-->
+            <div id="calendar-personal"></div>
         </div>
         <!-- 날짜별 선수 리스트 -->
         <div class="player_list">

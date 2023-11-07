@@ -150,8 +150,13 @@ canvas#chart {
     margin-bottom: 60px;
 }
 
-#calendar {
+#calendar-team {
     margin-top: 20px;
+}
+
+#calendar-personal {
+    margin-top: 20px;
+    display: none;
 }
 
 .date-label {
