@@ -330,6 +330,12 @@ section {
     justify-content: space-between;
 }
 
+.flex-between-bottom {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+}
+
 .flex-even {
     display: flex;
     align-items: center;
@@ -339,6 +345,12 @@ section {
 .flex-left {
     display: flex;
     align-items: center;
+    justify-content: left;
+}
+
+.flex-left-top {
+    display: flex;
+    align-items: start;
     justify-content: left;
 }
 
