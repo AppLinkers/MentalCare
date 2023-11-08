@@ -170,6 +170,12 @@ a {
     margin: 0 auto;
 }
 
+.container-cover {
+    width: var(--container-width);
+    max-width: var(--container-center-fit);
+    margin: 0 auto;
+}
+
 .container-fit {
     width: var(--container-width);
     max-width: var(--container-width);
@@ -478,6 +484,10 @@ section {
 @media screen and (max-width: 780px) {
     .container {
         width: var(--container-width-phone);
+    }
+
+    .container-cover {
+        width: 100%;
     }
 
     .container-fit {
