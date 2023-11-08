@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Best Mind</title>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet"
+    />
+
+    <!-- ICON SCOUT -->
+    <link
+        rel="stylesheet"
+        href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="/css/common/style.css" />
+    <link rel="stylesheet" href="/css/player/feed.css" />
+</head>
+
+<body>
+<section id="feed-detail">
+    <nav id="navigation"></nav>
+    <!-- 피드 컨테이너 -->
+    <div class="container-cover">
+        <div class="feed-item" th:each="">
+            <!-- 피드 header -->
+            <div class="feed-header container flex-between">
+                <div class="flex-left">
+                    <img
+                        class="feed-header-img"
+                        src="/images/consultant.jpg"
+                        alt=""
+                    />
+                    <p class="font14" th:text="">김정민</p>
+                </div>
+                <!-- 작성자 본인일 경우만 보이게 -->
+                <i class="open-popup feed-menu uil uil-ellipsis-h" th:if=""></i>
+            </div>
+            <!-- 피드 body -->
+            <div class="feed-body flex-center">
+                <div>
+                    <p class="font18 feed-content" th:text="">
+                        나를 죽이지 못한<br />고통은<br />나를 성장시킨다
+                    </p>
+                    <!-- 링크가 있다면 띄우기 -->
+                    <a
+                        class="feed-link"
+                        href="https://www.naver.com"
+                        th:if=""
+                        th:text=""
+                        target="_blank"
+                    >
+                        https://www.naver.com
+                    </a>
+                </div>
+            </div>
+            <!-- 피드 footer -->
+            <div class="feed-footer container">
+                <p class="font10 feed-date" th:text="">2023-09-15</p>
+            </div>
+        </div>
+    </div>
+    <!-- 댓글 컨테이너 -->
+    <div class="container comments__container flex-column">
+        <!-- 댓글 목록 -->
+        <div class="comments-list">
+            <div class="comment-item flex-between-top" th:each="">
+                <div class="flex-left-top">
+                    <img
+                        class="comment-img"
+                        src="/images/consultant.jpg"
+                        alt=""
+                    />
+                    <div>
+                        <div class="flex-left">
+                            <p class="font12" th:text="">김정민</p>
+                            <p class="font12 comment-date" th:text="">2023-11-06</p>
+                        </div>
+                        <p class="font14 comment" th:text="">
+                            제가 동기부여가 필요할 때마다 보는 글이에요
+                        </p>
+                    </div>
+                </div>
+                <!-- 작성자 본인일 경우만 보이게 -->
+                <i class="comment-menu uil uil-ellipsis-h" th:if=""></i>
+            </div>
+        </div>
+        <!-- 댓글 작성 영역 -->
+        <form action="" method="post">
+            <div class="comment-input__container flex-between">
+                <input class="comment-input" type="text" placeholder="댓글..." />
+                <button class="send-button" type="submit">
+                    <i class="send-icon uil uil-message"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+<script src="/javascript/common/base.js"></script>
+<script src="/javascript/player/feed.js"></script>
+</body>
+</html>
