@@ -57,7 +57,7 @@ public class PlayerFeedController {
         return "z-renew/player/feed_form";
     }
 
-    @PostMapping("")
+    @PostMapping("/write")
     public String feedWrite(
             @RequestParam(name = "id", required = false) Long id,
             FeedWriteReq feedWriteReq

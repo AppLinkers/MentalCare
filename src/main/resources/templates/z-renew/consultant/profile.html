@@ -60,13 +60,30 @@
             return `${year}년 ${month}월 ${day}일`;
         };
 
+        function requestTest(playerId){
+            const request = new XMLHttpRequest();
+            request.open("POST", "/consultant/request_test/"+playerId, true);
+
+            request.onreadystatechange = function (){
+                if(request.readyState == 4){
+                    if(request.status==200 || request.status ==201){
+                        console.log((request.status));
+                    }else{
+                        console.log("failed : "+ request.status);
+                    }
+                }
+            }
+            request.send(null);
+        }
+
 
         const dateTestedListItem = (data) => {
             let result = "";
-            const str = (name, avg, answerId, imgUrl) =>{
+            const str = (name, playerId ,avg,answerId, imgUrl) =>{
 
-                const item = "<a class=\"player-item flex-between\" href ='/consultant/test/result/"+answerId+"'>" +
-                    "<div class=\"flex-left\">" +
+                const item =
+                    "<div class=\"player-item flex-between\" >" +
+                    "<a class=\"flex-left\" href ='/consultant/test/result/"+answerId+"'>" +
                     "<div class=\"player-img flex-center\">" +
                     "<img src= '"+imgUrl+ "' alt=\"선수 프로필\" />" +
                     "<div class=\"player-status\"></div>" +
@@ -75,21 +92,23 @@
                     "<p class=\"font18\" >" + name+"</p>" +
                     "<p class=\"font12\" > 평균 : "+avg+"</p>" +
                     "</div>" +
-                    "</div>" +
+                    "</a>" +
                     "<div class=\"flex-left\">" +
-                    "<div class=\"item-icon flex-center\">" +
-                    "<i class=\"uil uil-comment-message\" style=\"padding-bottom: 3px\"></i>" +
+                    "<a  href = '/player/feed?id="+playerId+"'>" +
+                        "<div class=\"item-icon flex-center\">" +
+                            "<i class=\"uil uil-comment-message\" style=\"padding-bottom: 3px\"></i>" +
+                        "</div>" +
+                    "</a>"+
+                        "<div class=\"item-icon flex-center\" onclick='requestTest("+playerId+")'>" +
+                            "<i class=\"uil uil-message\" style=\"padding: 0 0 3px 3px\"></i>" +
+                        "</div>" +
                     "</div>" +
-                    "<div class=\"item-icon flex-center\">" +
-                    "<i class=\"uil uil-message\" style=\"padding: 0 0 3px 3px\"></i>" +
-                    "</div>" +
-                    "</div>" +
-                    "</a>";
+                    "</div>";
 
                 return item
             }
             for(var i=0; i<data.length; i++){
-                result += str(data[i].playerName, data[i].avg, data[i].answerId, data[i].playerImgUrl);
+                result += str(data[i].playerName,data[i].playerId ,data[i].avg, data[i].answerId, data[i].playerImgUrl);
             }
             return result;
         }
@@ -122,6 +141,7 @@
                             i = teamDateData.length;
                         }else{
                             dateCnt.innerText = '0';
+                            newData.innerHTML = "";
                         }
                     }
                     dateEl.innerText = isToday(dateString)
