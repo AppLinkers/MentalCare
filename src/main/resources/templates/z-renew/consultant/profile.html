@@ -28,7 +28,7 @@
     <!-- CALENDAR -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
 
-    <script>
+    <script th:inline="javascript">
         const isToday = (dateString) => {
             const today = new Date();
 
@@ -41,6 +41,16 @@
             return dateString === todayString;
         };
 
+        /*<![CDATA[*/
+
+        const teamDateData = [[${teamPlayerDiagnoseResultDateResList}]];
+
+        for(var i=0; i<teamDateData.length; i++){
+            console.log(teamDateData[i].date);
+        }
+
+        /*]]>*/
+
         const formatDate = (dateString) => {
             const parts = dateString.split("-");
             const year = parts[0].substring(2);
@@ -49,6 +59,43 @@
 
             return `${year}년 ${month}월 ${day}일`;
         };
+
+
+        const dateTestedListItem = (data) => {
+            let result = "";
+            const str = (name, avg, answerId, imgUrl) =>{
+
+                const item = "<a class=\"player-item flex-between\" href ='/consultant/test/result/"+answerId+"'>" +
+                    "<div class=\"flex-left\">" +
+                    "<div class=\"player-img flex-center\">" +
+                    "<img src= '"+imgUrl+ "' alt=\"선수 프로필\" />" +
+                    "<div class=\"player-status\"></div>" +
+                    "</div>" +
+                    "<div class=\"player-info\">" +
+                    "<p class=\"font18\" >" + name+"</p>" +
+                    "<p class=\"font12\" > 평균 : "+avg+"</p>" +
+                    "</div>" +
+                    "</div>" +
+                    "<div class=\"flex-left\">" +
+                    "<div class=\"item-icon flex-center\">" +
+                    "<i class=\"uil uil-comment-message\" style=\"padding-bottom: 3px\"></i>" +
+                    "</div>" +
+                    "<div class=\"item-icon flex-center\">" +
+                    "<i class=\"uil uil-message\" style=\"padding: 0 0 3px 3px\"></i>" +
+                    "</div>" +
+                    "</div>" +
+                    "</a>";
+
+                return item
+            }
+            for(var i=0; i<data.length; i++){
+                result += str(data[i].playerName, data[i].avg, data[i].answerId, data[i].playerImgUrl);
+            }
+            return result;
+        }
+
+
+
 
         document.addEventListener("DOMContentLoaded", function () {
             const calendarEl = document.getElementById("calendar-team");
@@ -62,10 +109,25 @@
                 },
                 dateClick: function (info) {
                     const dateEl = document.getElementById("date");
+                    const dateCnt = document.getElementById("cnt");
+                    const newData = document.getElementById("playerItem");
+                    let teamTestedPlayer;
                     let dateString = info.dateStr;
+
+                    for(var i=0; i<teamDateData.length; i++){
+                        if(dateString == teamDateData[i].date){
+                            teamTestedPlayer= teamDateData[i].diagnoseResultReadResList;
+                            dateCnt.innerText = teamDateData[i].count;
+                            newData.innerHTML = dateTestedListItem(teamTestedPlayer);
+                            i = teamDateData.length;
+                        }else{
+                            dateCnt.innerText = '0';
+                        }
+                    }
                     dateEl.innerText = isToday(dateString)
                         ? "오늘"
                         : formatDate(dateString);
+
                 },
             });
             calendar.render();
@@ -101,21 +163,21 @@
 
     <div class="container profile__container">
         <!-- 인사말 -->
-        <p class="greeting font24" id="greeting">김정민</p>
+        <p class="greeting font24" id="greeting" th:text="${profile.getName()}">김정민</p>
         <!-- 프로필 -->
         <div class="profile">
             <div class="profile__header flex-between">
                 <p class="font20">프로필</p>
-                <a class="font14" href="">변경하기</a>
+                <a class="font14" th:href="@{/consultant/profile/setting}">변경하기</a>
             </div>
             <div class="profile__content flex-between">
                 <div class="profile__info flex-column">
                     <div class="profile__info-item flex-column">
                         <p class="font12">소속팀</p>
-                        <p class="font16">토트넘 훗스퍼 FC</p>
+                        <p class="font16" th:text="${profile.getTeamName()}">토트넘 훗스퍼 FC</p>
                     </div>
                 </div>
-                <img class="profile-img" src="/images/consultant.jpg" alt="상담가 이미지"/>
+                <img class="profile-img" th:src="${profile.getImgUrl()}" alt="상담가 이미지"/>
             </div>
         </div>
         <!-- 캘린더 -->
@@ -126,38 +188,22 @@
                 <p class="font16">개인 선수</p>
             </div>
             <!--팀 선수 캘린더-->
-            <div id="calendar-team"></div>
+            <div id="calendar-team">
+
+            </div>
             <!--개인 선수 캘린더-->
             <div id="calendar-personal"></div>
         </div>
         <!-- 날짜별 선수 리스트 -->
         <div class="player_list">
             <div class="date-label flex-left-bottom">
-                <p id="date" class="font20" th:text="">오늘</p>
-                <p class="font12 player_count" th:text="">3</p>
+                <p id="date" class="font20">오늘</p>
+                <p id="cnt" class="font12 player_count"></p>
             </div>
             <!-- 선수 아이템 -->
-            <a class="player-item flex-between" th:each="" th:href="">
-                <div class="flex-left">
-                    <div class="player-img flex-center">
-                        <img src="/static/images/son.jpg" alt="선수 프로필" />
-                        <!-- 평균에 따라서 녹색, 노란색, 빨간색 -->
-                        <div class="player-status"></div>
-                    </div>
-                    <div class="player-info">
-                        <p class="font18" th:text="">손흥민</p>
-                        <p class="font12" th:text="">평균: 3.2</p>
-                    </div>
-                </div>
-                <div class="flex-left">
-                    <div class="item-icon flex-center">
-                        <i class="uil uil-comment-message" style="padding-bottom: 3px"></i>
-                    </div>
-                    <div class="item-icon flex-center">
-                        <i class="uil uil-message" style="padding: 0 0 3px 3px"></i>
-                    </div>
-                </div>
-            </a>
+            <div id="playerItem">
+
+            </div>
         </div>
         <button class="btn-basic send-all">모두에게 설문 요청하기</button>
     </div>
