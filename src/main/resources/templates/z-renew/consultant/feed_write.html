@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Best Mind</title>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet"
+    />
+
+    <!-- ICON SCOUT -->
+    <link
+        rel="stylesheet"
+        href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="/css/common/style.css" />
+    <link rel="stylesheet" href="/css/consultant/feed_write.css" />
+</head>
+
+<body>
+<section id="post-feed">
+    <nav id="navigation"></nav>
+
+    <form action="#" method="post" onsubmit="return validateURL(this.url)">
+        <div class="wrapper flex-between-column">
+            <!-- 작성 영역 -->
+            <div class="container input__container">
+                <p class="font24">피드 작성하기</p>
+                <label class="input-label" for="content-input">내용</label>
+                <textarea
+                    id="content-input"
+                    placeholder="피드 내용을 입력하세요."
+                    required
+                ></textarea>
+                <label class="input-label" for="url-input">URL (선택)</label>
+                <input
+                    id="url-input"
+                    type="text"
+                    placeholder="https://"
+                    name="url"
+                />
+                <p class="font14 url-error">올바른 URL 링크를 입력해주세요</p>
+            </div>
+            <!-- 제출 영역 -->
+            <div class="container btn-bottom__container">
+                <button class="btn-basic" type="submit">발행하기</button>
+            </div>
+        </div>
+    </form>
+</section>
+<script src="/javascript/common/base.js"></script>
+<script src="/javascript/consultant/feed_write.js"></script>
+</body>
+</html>
