@@ -65,8 +65,8 @@
             request.open("POST", "/consultant/request_test/"+playerId, true);
 
             request.onreadystatechange = function (){
-                if(request.readyState == 4){
-                    if(request.status==200 || request.status ==201){
+                if(request.readyState === 4){
+                    if(request.status === 200 || request.status === 201){
                         console.log((request.status));
                     }else{
                         console.log("failed : "+ request.status);
@@ -107,7 +107,7 @@
 
                 return item
             }
-            for(var i=0; i<data.length; i++){
+            for(let i=0; i<data.length; i++){
                 result += str(data[i].playerName,data[i].playerId ,data[i].avg, data[i].answerId, data[i].playerImgUrl);
             }
             return result;
@@ -117,8 +117,12 @@
 
 
         document.addEventListener("DOMContentLoaded", function () {
-            const calendarEl = document.getElementById("calendar-team");
-            const calendar = new FullCalendar.Calendar(calendarEl, {
+            const dateEl = document.getElementById("date");
+            const dateCnt = document.getElementById("cnt");
+            const newData = document.getElementById("playerItem");
+
+            const teamCalendarEl = document.getElementById("calendar-team");
+            const teamCalendar = new FullCalendar.Calendar(teamCalendarEl, {
                 initialView: "dayGridMonth",
                 locale: "ko",
                 headerToolbar: {
@@ -127,14 +131,12 @@
                     end: "prev,next",
                 },
                 dateClick: function (info) {
-                    const dateEl = document.getElementById("date");
-                    const dateCnt = document.getElementById("cnt");
-                    const newData = document.getElementById("playerItem");
+
                     let teamTestedPlayer;
                     let dateString = info.dateStr;
 
-                    for(var i=0; i<teamDateData.length; i++){
-                        if(dateString == teamDateData[i].date){
+                    for(let i=0; i<teamDateData.length; i++){
+                        if(dateString === teamDateData[i].date){
                             teamTestedPlayer= teamDateData[i].diagnoseResultReadResList;
                             dateCnt.innerText = teamDateData[i].count;
                             newData.innerHTML = dateTestedListItem(teamTestedPlayer);
@@ -150,12 +152,10 @@
 
                 },
             });
-            calendar.render();
-        });
+            teamCalendar.render();
 
-        document.addEventListener("DOMContentLoaded", function () {
-            const calendarEl = document.getElementById("calendar-personal");
-            const calendar = new FullCalendar.Calendar(calendarEl, {
+            const personalCalendarEl = document.getElementById("calendar-personal");
+            const personalCalendar = new FullCalendar.Calendar(personalCalendarEl, {
                 initialView: "dayGridMonth",
                 locale: "ko",
                 headerToolbar: {
@@ -164,14 +164,13 @@
                     end: "prev,next",
                 },
                 dateClick: function (info) {
-                    const dateEl = document.getElementById("date");
                     let dateString = info.dateStr;
                     dateEl.innerText = isToday(dateString)
                         ? "오늘"
                         : formatDate(dateString);
                 },
             });
-            calendar.render();
+            personalCalendar.render();
         });
     </script>
 </head>
@@ -208,11 +207,9 @@
                 <p class="font16">개인 선수</p>
             </div>
             <!--팀 선수 캘린더-->
-            <div id="calendar-team">
-
-            </div>
+            <div id="calendar-team" class="calendar active"></div>
             <!--개인 선수 캘린더-->
-            <div id="calendar-personal"></div>
+            <div id="calendar-personal" class="calendar"></div>
         </div>
         <!-- 날짜별 선수 리스트 -->
         <div class="player_list">
