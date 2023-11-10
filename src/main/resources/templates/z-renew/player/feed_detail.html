@@ -42,7 +42,7 @@
                     <p class="font14" th:text="">김정민</p>
                 </div>
                 <!-- 작성자 본인일 경우만 보이게 -->
-                <i class="open-popup feed-menu uil uil-ellipsis-h" th:if=""></i>
+                <i class="feed-menu uil uil-ellipsis-h" th:if=""></i>
             </div>
             <!-- 피드 body -->
             <div class="feed-body flex-center">
@@ -104,6 +104,24 @@
         </form>
     </div>
 </section>
+
+<!-- 글 삭제 dialog -->
+<div id="feed-dialog" class="dialog__container">
+    <div class="flex-center">
+        <div class="dialog flex-center">
+            <a class="font14">글 삭제하기</a>
+        </div>
+    </div>
+</div>
+<!-- 댓글 삭제 dialog -->
+<div id="comment-dialog" class="dialog__container">
+    <div class="flex-center">
+        <div class="dialog flex-center">
+            <a class="font14">댓글 삭제하기</a>
+        </div>
+    </div>
+</div>
+
 <script src="/javascript/common/base.js"></script>
 <script src="/javascript/player/feed.js"></script>
 </body>
