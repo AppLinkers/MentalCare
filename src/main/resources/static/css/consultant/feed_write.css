@@ -1,0 +1,36 @@
+.input__container {
+    .font24 {
+        margin-bottom: 20px;
+    }
+
+    #content-input {
+        height: 300px;
+        resize: none;
+        margin-top: var(--margin-label);
+        margin-bottom: var(--margin-input);
+    }
+
+    #url-input {
+        margin-top: var(--margin-label);
+        margin-bottom: 0;
+
+        &.error {
+            border: 1px solid var(--color-red);
+        }
+    }
+
+    .url-error {
+        display: none;
+        margin-left: 5px;
+        margin-top: 3px;
+        color: var(--color-red);
+
+        &.active {
+            display: block;
+        }
+    }
+}
+
+.btn-basic {
+    width: 100%;
+}
