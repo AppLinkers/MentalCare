@@ -19,16 +19,19 @@ public class FeedReadWithCommentRes {
 
     private String content;
 
+    private String url;
+
     private LocalDate date;
 
     private List<CommentReadRes> commentList;
 
     @Builder
-    public FeedReadWithCommentRes(Long id, String userName, String userImgUrl, String content, LocalDate date, List<Comment> commentList) {
+    public FeedReadWithCommentRes(Long id, String userName, String userImgUrl, String content,String url ,LocalDate date, List<Comment> commentList) {
         this.id = id;
         this.userName = userName;
         this.userImgUrl = userImgUrl;
         this.content = content;
+        this.url = url;
         this.date = date;
         this.commentList = new ArrayList<>();
 

@@ -48,4 +48,8 @@ public class Feed {
 
     private String content;
 
+    private String url;
+
 }
+
+

@@ -37,6 +37,7 @@ public class PlayerFeedService {
                     .userName(feed.getUser().getName())
                     .userImgUrl(feed.getUser().getImgUrl())
                     .content(feed.getContent())
+                    .url(feed.getUrl())
                     .date(feed.getDate())
                     .commentList(feed.getCommentList())
                     .build());
@@ -50,6 +51,7 @@ public class PlayerFeedService {
         Feed feed = Feed.builder()
                 .player(player)
                 .user(user)
+                .url(feedWriteReq.getUrl())
                 .content(feedWriteReq.getContent())
                 .build();
 
@@ -65,6 +67,7 @@ public class PlayerFeedService {
                 .userName(feed.getUser().getName())
                 .userImgUrl(feed.getUser().getImgUrl())
                 .content(feed.getContent())
+                .url(feed.getUrl())
                 .date(feed.getDate())
                 .commentList(feed.getCommentList())
                 .build();

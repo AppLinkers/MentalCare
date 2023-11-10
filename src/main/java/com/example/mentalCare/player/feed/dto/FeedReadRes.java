@@ -17,6 +17,7 @@ public class FeedReadRes {
     private String userImgUrl;
 
     private String content;
+    private String url;
 
     private LocalDate date;
 
@@ -24,17 +25,22 @@ public class FeedReadRes {
 
     private String topComment;
 
+    private String topCommentWriter;
+
     @Builder
-    public FeedReadRes(Long id, String userName, String userImgUrl, String content, LocalDate date, List<Comment> commentList) {
+    public FeedReadRes(Long id, String userName, String userImgUrl, String content,String url ,LocalDate date, List<Comment> commentList, String topCommentWriter) {
         this.id = id;
         this.userName = userName;
         this.userImgUrl = userImgUrl;
         this.content = content;
+        this.url = url;
         this.date = date;
         this.commentCnt = (long) commentList.size();
         this.topComment = null;
+        this.topCommentWriter = null;
         if (this.commentCnt > 0) {
             this.topComment = commentList.get(0).getContent();
+            this.topCommentWriter = commentList.get(0).getUser().getName();
         }
     }
 }

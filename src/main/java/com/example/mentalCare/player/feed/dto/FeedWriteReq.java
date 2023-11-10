@@ -9,4 +9,6 @@ public class FeedWriteReq {
 
     private String content;
 
+    private String url;
+
 }
