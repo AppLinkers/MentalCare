@@ -26,7 +26,7 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
             "where a.player.id = p.id and p.user.id = u.id and u.team.id = :teamId")
     List<LocalDate> findDistinctDateByTeamId(Long teamId);
 
-    @Query("select new com.example.mentalCare.consultant.consulting.dto.DiagnoseResultWithAnswerIdReadRes(a.id, u.name, u.imgUrl, round(avg(adt.answer),2))" +
+    @Query("select new com.example.mentalCare.consultant.consulting.dto.DiagnoseResultWithAnswerIdReadRes(a.id, p.id ,u.name, u.imgUrl, round(avg(adt.answer),2))" +
             "from Answer a, AnswerDiagnose ad, AnswerDetail adt, Player p, User u " +
             "where ad.id = adt.answerDiagnose.id and a.id = ad.answer.id and a.player.id = p.id and p.user.id = u.id and u.team.id = :teamId and cast(a.createdAt as LocalDate) = :answerDate group by a.id")
     List<DiagnoseResultWithAnswerIdReadRes> findAnswerAvgByTeamIdAndDate(Long teamId, LocalDate answerDate);
@@ -36,7 +36,7 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
             "where a.player.id = p.id and p.consultant.id = :consultantId")
     List<LocalDate> findDistinctDateByConsultantId(Long consultantId);
 
-    @Query("select new com.example.mentalCare.consultant.consulting.dto.DiagnoseResultWithAnswerIdReadRes(a.id, u.name, u.imgUrl, round(avg(adt.answer),2))" +
+    @Query("select new com.example.mentalCare.consultant.consulting.dto.DiagnoseResultWithAnswerIdReadRes(a.id, p.id, u.name, u.imgUrl, round(avg(adt.answer),2))" +
             "from Answer a, AnswerDiagnose ad, AnswerDetail adt, Player p, User u " +
             "where ad.id = adt.answerDiagnose.id and a.id = ad.answer.id and a.player.id = p.id and p.consultant.id = :consultantId and cast(a.createdAt as LocalDate) = :answerDate group by a.id")
     List<DiagnoseResultWithAnswerIdReadRes> findAnswerAvgByConsultantIdAndDate(Long consultantId, LocalDate answerDate);

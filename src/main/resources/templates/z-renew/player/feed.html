@@ -32,14 +32,14 @@
     <div class="container">
         <!-- 헤더 -->
         <div class="page-header flex-between-bottom">
-            <p class="font20" th:text="">손흥민님의 피드</p>
+            <p class="font20">손흥민님의 피드</p>
             <!-- 컨설턴트만 보이게, 작성하기 페이지로 이동 기능 -->
-            <a href="" class="font14 write" th:if="">작성하기</a>
+            <a href="" class="font14 write" >작성하기</a>
         </div>
     </div>
     <!-- 피드 컨테이너 -->
     <div class="container-cover">
-        <div class="feed-item" th:each="">
+        <div class="feed-item" >
             <!-- 피드 header -->
             <div class="feed-header container flex-between">
                 <div class="flex-left">
@@ -48,22 +48,20 @@
                         src="/images/consultant.jpg"
                         alt=""
                     />
-                    <p class="font14" th:text="">김정민</p>
+                    <p class="font14">김정민</p>
                 </div>
                 <i class="feed-menu uil uil-ellipsis-h"></i>
             </div>
             <!-- 피드 body -->
             <div class="feed-body flex-center">
                 <div>
-                    <p class="font18 feed-content" th:text="">
+                    <p class="font18 feed-content">
                         나를 죽이지 못한<br />고통은<br />나를 성장시킨다
                     </p>
                     <!-- 링크가 있다면 띄우기 -->
                     <a
                         class="feed-link"
                         href="https://www.naver.com"
-                        th:if=""
-                        th:text=""
                         target="_blank"
                     >
                         https://www.naver.com
@@ -73,22 +71,22 @@
             <!-- 피드 footer -->
             <div class="feed-footer container">
                 <!-- 댓글 2개 이상일 때, 클릭시 피드 상세로-->
-                <a class="font12 comments-count" th:if="" th:text="">
+                <a class="font12 comments-count">
                     댓글 2개 모두 보기
                 </a>
                 <!-- 댓글 1개 이하일 때, 클릭시 피드 상세로-->
-                <a class="font12 comments-count" th:if="" th:text="">
+                <a class="font12 comments-count" >
                     댓글 작성하기
                 </a>
                 <!-- 댓글이 있으면, 최신 댓글 하나만 -->
-                <div class="flex-left-top comment-item" th:if="">
-                    <p class="font12 comment-writer" th:text="">손흥민</p>
-                    <p class="font12 comment-content" th:text="">
+                <div class="flex-left-top comment-item" >
+                    <p class="font12 comment-writer" >손흥민</p>
+                    <p class="font12 comment-content" >
                         동기부여 됩니다. 좋은 글 감사해요 동기부여 됩니다. 좋은 글
                         감사해요 동기부여 됩니다. 좋은 글 감사해요
                     </p>
                 </div>
-                <p class="font10 feed-date" th:text="">2023-09-15</p>
+                <p class="font10 feed-date" >2023-09-15</p>
             </div>
         </div>
     </div>

@@ -33,7 +33,7 @@ public class ConsultantProfileController {
         model.addAttribute("teamPlayerDiagnoseResultDateResList", consultingService.getTeamPlayerDiagnoseResultByDate(userLoginId));
         model.addAttribute("individualPlayerDiagnoseResultDateResList", consultingService.getIndividualPlayerDiagnoseResultByDate(userLoginId));
 
-        return "consultant/profile";
+        return "/z-renew/consultant/profile";
     }
 
     /**
@@ -49,7 +49,7 @@ public class ConsultantProfileController {
 
         model.addAttribute("consultantProfileUpdateReq", consultantProfileUpdateRes.toConsultantProfileUpdateReq());
 
-        return "consultant/profile_edit";
+        return "z-renew/consultant/profile_edit";
     }
 
     /**
