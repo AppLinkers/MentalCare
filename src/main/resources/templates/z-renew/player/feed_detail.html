@@ -30,32 +30,34 @@
     <nav id="navigation"></nav>
     <!-- 피드 컨테이너 -->
     <div class="container-cover">
-        <div class="feed-item" th:each="">
+        <!--th:each-->
+        <div class="feed-item">
             <!-- 피드 header -->
             <div class="feed-header container flex-between">
                 <div class="flex-left">
+                    <!--이미지-->
                     <img
                         class="feed-header-img"
                         src="/images/consultant.jpg"
                         alt=""
                     />
-                    <p class="font14" th:text="">김정민</p>
+                    <!--작성자-->
+                    <p class="font14">김정민</p>
                 </div>
                 <!-- 작성자 본인일 경우만 보이게 -->
-                <i class="feed-menu uil uil-ellipsis-h" th:if=""></i>
+                <i class="feed-menu uil uil-ellipsis-h"></i>
             </div>
             <!-- 피드 body -->
             <div class="feed-body flex-center">
                 <div>
-                    <p class="font18 feed-content" th:text="">
+                    <!--피드 내용-->
+                    <p class="font18 feed-content">
                         나를 죽이지 못한<br />고통은<br />나를 성장시킨다
                     </p>
                     <!-- 링크가 있다면 띄우기 -->
                     <a
                         class="feed-link"
                         href="https://www.naver.com"
-                        th:if=""
-                        th:text=""
                         target="_blank"
                     >
                         https://www.naver.com
@@ -64,7 +66,8 @@
             </div>
             <!-- 피드 footer -->
             <div class="feed-footer container">
-                <p class="font10 feed-date" th:text="">2023-09-15</p>
+                <!--날짜 그대로 넣기-->
+                <p class="font10 feed-date">2023-09-15</p>
             </div>
         </div>
     </div>
@@ -72,8 +75,10 @@
     <div class="container comments__container flex-column">
         <!-- 댓글 목록 -->
         <div class="comments-list">
-            <div class="comment-item flex-between-top" th:each="">
+            <!--th:each-->
+            <div class="comment-item flex-between-top">
                 <div class="flex-left-top">
+                    <!--사진-->
                     <img
                         class="comment-img"
                         src="/images/consultant.jpg"
@@ -81,20 +86,23 @@
                     />
                     <div>
                         <div class="flex-left">
-                            <p class="font12" th:text="">김정민</p>
-                            <p class="font12 comment-date" th:text="">2023-11-06</p>
+                            <!--작성자-->
+                            <p class="font12">김정민</p>
+                            <!--닐짜 그대로 넣기-->
+                            <p class="font12 comment-date">2023-11-06</p>
                         </div>
-                        <p class="font14 comment" th:text="">
+                        <!--댓글 내용-->
+                        <p class="font14 comment">
                             제가 동기부여가 필요할 때마다 보는 글이에요
                         </p>
                     </div>
                 </div>
                 <!-- 작성자 본인일 경우만 보이게 -->
-                <i class="comment-menu uil uil-ellipsis-h" th:if=""></i>
+                <i class="comment-menu uil uil-ellipsis-h"></i>
             </div>
         </div>
         <!-- 댓글 작성 영역 -->
-        <form action="" method="post">
+        <form method="post">
             <div class="comment-input__container flex-between">
                 <input class="comment-input" type="text" placeholder="댓글..." />
                 <button class="send-button" type="submit">
