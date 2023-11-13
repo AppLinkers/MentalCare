@@ -38,11 +38,11 @@
                     <!--이미지-->
                     <img
                         class="feed-header-img"
-                        src="/images/consultant.jpg"
+                        th:src="${feedReadResWithCommentList.getUserImgUrl()}"
                         alt=""
                     />
                     <!--작성자-->
-                    <p class="font14">김정민</p>
+                    <p class="font14" th:text="${feedReadResWithCommentList.getUserName()}">김정민</p>
                 </div>
                 <!-- 작성자 본인일 경우만 보이게 -->
                 <i class="feed-menu uil uil-ellipsis-h"></i>
@@ -51,13 +51,13 @@
             <div class="feed-body flex-center">
                 <div>
                     <!--피드 내용-->
-                    <p class="font18 feed-content">
+                    <p class="font18 feed-content" th:text="${feedReadResWithCommentList.getContent()}">
                         나를 죽이지 못한<br />고통은<br />나를 성장시킨다
                     </p>
                     <!-- 링크가 있다면 띄우기 -->
                     <a
                         class="feed-link"
-                        href="https://www.naver.com"
+                        th:href="${feedReadResWithCommentList.getUrl()}"
                         target="_blank"
                     >
                         https://www.naver.com
@@ -67,32 +67,32 @@
             <!-- 피드 footer -->
             <div class="feed-footer container">
                 <!--날짜 그대로 넣기-->
-                <p class="font10 feed-date">2023-09-15</p>
+                <p class="font10 feed-date" th:text="${feedReadResWithCommentList.getDate()}">2023-09-15</p>
             </div>
         </div>
     </div>
     <!-- 댓글 컨테이너 -->
     <div class="container comments__container flex-column">
         <!-- 댓글 목록 -->
-        <div class="comments-list">
+        <div class="comments-list" th:each="comment : ${feedReadResWithCommentList.getCommentList()}">
             <!--th:each-->
             <div class="comment-item flex-between-top">
                 <div class="flex-left-top">
                     <!--사진-->
                     <img
                         class="comment-img"
-                        src="/images/consultant.jpg"
+                        th:src="${comment.getUserImgUrl()}"
                         alt=""
                     />
                     <div>
                         <div class="flex-left">
                             <!--작성자-->
-                            <p class="font12">김정민</p>
+                            <p class="font12" th:text="${comment.getUserName()}">김정민</p>
                             <!--닐짜 그대로 넣기-->
-                            <p class="font12 comment-date">2023-11-06</p>
+                            <p class="font12 comment-date" th:text="${comment.getDate()}">2023-11-06</p>
                         </div>
                         <!--댓글 내용-->
-                        <p class="font14 comment">
+                        <p class="font14 comment" th:text="${comment.getContent()}">
                             제가 동기부여가 필요할 때마다 보는 글이에요
                         </p>
                     </div>
@@ -102,9 +102,9 @@
             </div>
         </div>
         <!-- 댓글 작성 영역 -->
-        <form method="post">
+        <form method="post" th:action = "'/player/feed/comment/'+ ${feedReadResWithCommentList.getId()}" th:object="${commentWriteReq}">
             <div class="comment-input__container flex-between">
-                <input class="comment-input" type="text" placeholder="댓글..." />
+                <input class="comment-input" th:field="*{content}" type="text" placeholder="댓글..." />
                 <button class="send-button" type="submit">
                     <i class="send-icon uil uil-message"></i>
                 </button>

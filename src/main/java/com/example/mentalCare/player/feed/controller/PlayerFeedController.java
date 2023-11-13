@@ -33,6 +33,7 @@ public class PlayerFeedController {
         }
 
         model.addAttribute("name", player.getUser().getName());
+        model.addAttribute("playerId", player.getId());
         model.addAttribute("feedReadResList", playerFeedService.getPlayerFeedList(player.getId()));
 
         return "z-renew/player/feed";
@@ -52,9 +53,10 @@ public class PlayerFeedController {
         }
 
         model.addAttribute("name", player.getUser().getName());
+        model.addAttribute("playerId", player.getId());
         model.addAttribute("feedWriteReq", new FeedWriteReq());
 
-        return "z-renew/player/feed_form";
+        return "z-renew/consultant/feed_write";
     }
 
     @PostMapping("/write")
@@ -75,7 +77,7 @@ public class PlayerFeedController {
         return "redirect:/player/feed?id=" + id;
     }
 
-    @GetMapping("/{id}/detail")
+    @GetMapping("/detail/{id}")
     public String feedDetailPage(Model model, @PathVariable Long id) {
         model.addAttribute("feedReadResWithCommentList", playerFeedService.getFeedDetail(id));
         model.addAttribute("commentWriteReq", new CommentWriteReq());
@@ -83,11 +85,11 @@ public class PlayerFeedController {
         return "z-renew/player/feed_detail";
     }
 
-    @PostMapping("/{id}/comment")
+    @PostMapping("/comment/{id}")
     public String commentWrite(@PathVariable Long id, CommentWriteReq commentWriteReq) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
         playerFeedService.commentWrite(userLoginId, id, commentWriteReq);
 
-        return "redirect:/player/feed/" + id + "/detail";
+        return "redirect:/player/feed/detail/" + id ;
     }
 }

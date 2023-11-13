@@ -29,7 +29,7 @@
 <section id="post-feed">
     <nav id="navigation"></nav>
 
-    <form action="#" method="post" onsubmit="return validateURL(this.url)">
+    <form onsubmit="return validateURL(this.url)" th:method="post" th:action="'/player/feed/write?id='+${playerId}" th:object="${feedWriteReq}" >
         <div class="wrapper flex-between-column">
             <!-- 작성 영역 -->
             <div class="container input__container">
@@ -37,11 +37,13 @@
                 <label class="input-label" for="content-input">내용</label>
                 <textarea
                     id="content-input"
+                    th:field = "*{content}"
                     placeholder="피드 내용을 입력하세요."
                     required
                 ></textarea>
                 <label class="input-label" for="url-input">URL (선택)</label>
                 <input
+                        th:field="*{url}"
                     id="url-input"
                     type="text"
                     placeholder="https://"

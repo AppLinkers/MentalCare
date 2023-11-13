@@ -42,7 +42,7 @@
             </div>
 
             <!--선수 (팀,개인)-->
-            <form class="sign_up_form" th:method="post" th:action="@{/sign_up/player}" th:object="${signUpPlayerReq}">
+            <form class="sign_up_form" th:method="post" th:action= "@{/sign_up/player}" th:object="${signUpPlayerReq}">
                 <div class="form__container flex-column">
                     <p class="input-label">이름</p>
                     <input type="text" placeholder="이름을 입력하세요" th:field="*{name}" required>

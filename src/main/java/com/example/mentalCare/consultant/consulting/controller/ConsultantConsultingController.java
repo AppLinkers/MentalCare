@@ -46,7 +46,7 @@ public class ConsultantConsultingController {
         model.addAttribute("totalDiagnoseResultReadResList", consultingService.getTotalDiagnoseResultByIndividual(userLoginId));
         model.addAttribute("typeDiagnoseResultReadResList", consultingService.getTypeDiagnoseResultByIndividual(userLoginId));
 
-        return "z-renew/consultant/individual_player_list";
+        return "z-renew/consultant/team_player_list";
     }
 
     /**
