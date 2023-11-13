@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -42,6 +43,8 @@ public class PlayerFeedService {
                     .commentList(feed.getCommentList())
                     .build());
         }
+
+        Collections.reverse(response);
         return response;
     }
 
