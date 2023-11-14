@@ -35,6 +35,7 @@ public class PlayerFeedService {
         for (Feed feed : feedList) {
             response.add(FeedReadRes.builder()
                     .id(feed.getId())
+                    .userLoginId(feed.getUser().getLogin_id())
                     .userName(feed.getUser().getName())
                     .userImgUrl(feed.getUser().getImgUrl())
                     .content(feed.getContent())
@@ -67,6 +68,7 @@ public class PlayerFeedService {
 
         return FeedReadWithCommentRes.builder()
                 .id(feed.getId())
+                .userLoginId(feed.getUser().getLogin_id())
                 .userName(feed.getUser().getName())
                 .userImgUrl(feed.getUser().getImgUrl())
                 .content(feed.getContent())
@@ -74,6 +76,17 @@ public class PlayerFeedService {
                 .date(feed.getDate())
                 .commentList(feed.getCommentList())
                 .build();
+    }
+
+    @Transactional
+    public void feedDelete(String userLoginId, Long feedId) {
+        feedRepository.findById(feedId).ifPresent(
+                feed -> {
+                    if (feed.getUser().getLogin_id().equals(userLoginId)) {
+                        feedRepository.deleteById(feedId);
+                    }
+                }
+        );
     }
 
     @Transactional
@@ -91,5 +104,16 @@ public class PlayerFeedService {
 
         feed.addComment(savedComment);
         feedRepository.save(feed);
+    }
+
+    @Transactional
+    public void commentDelete(String userLoginId, Long commentId) {
+        commentRepository.findById(commentId).ifPresent(
+                comment -> {
+                    if (comment.getUser().getLogin_id().equals(userLoginId)) {
+                        commentRepository.deleteById(commentId);
+                    }
+                }
+        );
     }
 }

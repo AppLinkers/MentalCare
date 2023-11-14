@@ -12,6 +12,8 @@ public class FeedReadRes {
 
     private Long id;
 
+    private String userLoginId;
+
     private String userName;
 
     private String userImgUrl;
@@ -28,8 +30,9 @@ public class FeedReadRes {
     private String topCommentWriter;
 
     @Builder
-    public FeedReadRes(Long id, String userName, String userImgUrl, String content,String url ,LocalDate date, List<Comment> commentList, String topCommentWriter) {
+    public FeedReadRes(Long id, String userLoginId, String userName, String userImgUrl, String content,String url ,LocalDate date, List<Comment> commentList, String topCommentWriter) {
         this.id = id;
+        this.userLoginId = userLoginId;
         this.userName = userName;
         this.userImgUrl = userImgUrl;
         this.content = content;

@@ -11,6 +11,8 @@ public class CommentReadRes {
 
     private Long id;
 
+    private String userLoginId;
+
     private String userName;
 
     private String userImgUrl;

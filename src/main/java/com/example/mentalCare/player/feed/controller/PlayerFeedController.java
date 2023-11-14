@@ -85,11 +85,25 @@ public class PlayerFeedController {
         return "z-renew/player/feed_detail";
     }
 
+    @ResponseBody
+    @DeleteMapping("/{id}")
+    public void feedDelete(@PathVariable Long id) {
+        String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        playerFeedService.feedDelete(userLoginId, id);
+    }
+
     @PostMapping("/comment/{id}")
     public String commentWrite(@PathVariable Long id, CommentWriteReq commentWriteReq) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
         playerFeedService.commentWrite(userLoginId, id, commentWriteReq);
 
-        return "redirect:/player/feed/detail/" + id ;
+        return "redirect:/player/feed/detail/" + id;
+    }
+
+    @ResponseBody
+    @DeleteMapping("/comment/{id}")
+    public void commentDelete(@PathVariable Long id) {
+        String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        playerFeedService.commentDelete(userLoginId, id);
     }
 }

@@ -13,6 +13,8 @@ public class FeedReadWithCommentRes {
 
     private Long id;
 
+    private String userLoginId;
+
     private String userName;
 
     private String userImgUrl;
@@ -26,8 +28,9 @@ public class FeedReadWithCommentRes {
     private List<CommentReadRes> commentList;
 
     @Builder
-    public FeedReadWithCommentRes(Long id, String userName, String userImgUrl, String content,String url ,LocalDate date, List<Comment> commentList) {
+    public FeedReadWithCommentRes(Long id, String userLoginId, String userName, String userImgUrl, String content,String url ,LocalDate date, List<Comment> commentList) {
         this.id = id;
+        this.userLoginId = userLoginId;
         this.userName = userName;
         this.userImgUrl = userImgUrl;
         this.content = content;
@@ -39,6 +42,7 @@ public class FeedReadWithCommentRes {
             this.commentList.add(
                     CommentReadRes.builder()
                             .id(comment.getId())
+                            .userLoginId(comment.getUser().getLogin_id())
                             .userName(comment.getUser().getName())
                             .userImgUrl(comment.getUser().getImgUrl())
                             .content(comment.getContent())
