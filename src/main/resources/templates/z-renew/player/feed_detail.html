@@ -74,9 +74,9 @@
     <!-- 댓글 컨테이너 -->
     <div class="container comments__container flex-column">
         <!-- 댓글 목록 -->
-        <div class="comments-list" th:each="comment : ${feedReadResWithCommentList.getCommentList()}">
+        <div class="comments-list">
             <!--th:each-->
-            <div class="comment-item flex-between-top">
+            <div class="comment-item flex-between-top" th:each="comment : ${feedReadResWithCommentList.getCommentList()}">
                 <div class="flex-left-top">
                     <!--사진-->
                     <img
@@ -92,9 +92,7 @@
                             <p class="font12 comment-date" th:text="${comment.getDate()}">2023-11-06</p>
                         </div>
                         <!--댓글 내용-->
-                        <p class="font14 comment" th:text="${comment.getContent()}">
-                            제가 동기부여가 필요할 때마다 보는 글이에요
-                        </p>
+                        <p class="font14 comment" th:text="${comment.getContent()}"></p>
                     </div>
                 </div>
                 <!-- 작성자 본인일 경우만 보이게 -->

@@ -75,15 +75,13 @@
                     댓글 작성하기
                 </a>
                 <!-- 댓글이 있으면, 최신 댓글 하나만 -->
-                <div class="flex-left-top comment-item" >
+                <div class="flex-left-top comment-item" th:if="${feed.getCommentCnt() > 0}">
                     <p class="font12 comment-writer" th:text="${feed.getTopCommentWriter()}">손흥민</p>
                     <p class="font12 comment-content" th:text="${feed.getTopComment()}">test</p>
-
+                </div>
                 <p class="font10 feed-date" th:text="${feed.getDate()}">2023-09-15</p>
-
             </div>
         </div>
-    </div>
     </div>
 </section>
 <!-- 글 삭제 dialog -->
