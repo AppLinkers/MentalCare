@@ -86,7 +86,7 @@ public class PlayerFeedController {
     }
 
     @ResponseBody
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void feedDelete(@PathVariable Long id) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
         playerFeedService.feedDelete(userLoginId, id);

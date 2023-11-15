@@ -26,17 +26,38 @@ const formatCommentDateString = (dateString) => {
     }
 };
 
+function deleteFeed(feedId){
+    const request = new XMLHttpRequest();
+    request.open("DELETE", "/player/feed/delete/"+feedId, true);
+
+    request.onreadystatechange = function (){
+        if(request.readyState === 4){
+            if(request.status === 200 || request.status === 201){
+                console.log((request.status));
+            }else{
+                console.log("failed : "+ request.status);
+            }
+        }
+    }
+    request.send(null);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     const feeds = document.querySelectorAll(".feed-item");
     const feedDialog = document.getElementById("feed-dialog");
+    let feedId;
 
     feeds.forEach((feed) => {
+        const feedIdEl = feed.querySelector(".feed-id");
+
         const date = feed.querySelector(".feed-date");
         date.innerText = formatDateString(date.innerText);
 
         const menu = feed.querySelector(".feed-menu");
         menu.addEventListener("click", () => {
             feedDialog.classList.add("active");
+            feedId = feedIdEl.id
+            console.log(feedId);
         });
     });
 
@@ -46,6 +67,13 @@ document.addEventListener("DOMContentLoaded", function () {
             feedDialog.classList.remove("active");
         }
     });
+
+    const deleteFeedButton = feedDialog.querySelector(".font14");
+    deleteFeedButton.addEventListener("click", () => {
+        deleteFeed(feedId);
+        alert(feedId);
+        feedDialog.classList.remove("active");
+    })
 
     const comments = document.querySelectorAll(".comments-list .comment-item");
     const commentDialog = document.getElementById("comment-dialog");

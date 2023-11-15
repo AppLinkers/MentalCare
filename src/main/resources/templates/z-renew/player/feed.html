@@ -23,6 +23,14 @@
     <!-- STYLE SHEET -->
     <link rel="stylesheet" href="/css/common/style.css" />
     <link rel="stylesheet" href="/css/player/feed.css" />
+
+    <script th:inline="javascript">
+
+        var feedId;
+
+    </script>
+
+
 </head>
 
 <body>
@@ -41,6 +49,7 @@
     <div class="container-cover">
         <div class="feed-item" th:each = "feed : ${feedReadResList}">
             <!-- 피드 header -->
+            <div th:id=" ${feed.getId()}" class="feed-id">
             <div class="feed-header container flex-between">
                 <div class="flex-left">
                     <img
@@ -50,7 +59,8 @@
                     />
                     <p class="font14" th:text="${feed.getUserName()}">김정민</p>
                 </div>
-                <i class="feed-menu uil uil-ellipsis-h"></i>
+                <i class="feed-menu uil uil-ellipsis-h" ></i>
+
             </div>
             <!-- 피드 body -->
             <div class="feed-body flex-center">
@@ -81,19 +91,28 @@
 
                 <p class="font10 feed-date" th:text="${feed.getDate()}">2023-09-15</p>
 
+
             </div>
+
+        </div>
+
+
+    </div>
         </div>
     </div>
-    </div>
 </section>
+
+
 <!-- 글 삭제 dialog -->
-<div id="feed-dialog" class="dialog__container">
+<div id="feed-dialog" class="dialog__container" >
     <div class="flex-center">
         <div class="dialog flex-center">
             <a class="font14">글 삭제하기</a>
         </div>
     </div>
 </div>
+
+
 
 <script src="/javascript/common/base.js"></script>
 <script src="/javascript/player/feed.js"></script>

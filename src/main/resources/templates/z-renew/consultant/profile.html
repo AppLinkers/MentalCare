@@ -222,7 +222,9 @@
 
             </div>
         </div>
-        <button class="btn-basic send-all">모두에게 설문 요청하기</button>
+        <form method="post" th:action="@{/consultant/request_test}">
+            <button class="btn-basic send-all" type="submit">모두에게 설문 요청하기</button>
+        </form>
     </div>
 </section>
 
