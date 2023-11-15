@@ -29,9 +29,10 @@
 <section id="feed-detail">
     <nav id="navigation"></nav>
     <!-- 피드 컨테이너 -->
-    <div class="container-cover">
+    <div class="container-cover" >
         <!--th:each-->
-        <div class="feed-item">
+        <div class="feed-item"  th:id = "${feedReadResWithCommentList.getId()}">
+            <div th:id = "${feedReadResWithCommentList.getId()}" class="feed-id">
             <!-- 피드 header -->
             <div class="feed-header container flex-between">
                 <div class="flex-left">
@@ -50,16 +51,11 @@
             <!-- 피드 body -->
             <div class="feed-body flex-center">
                 <div>
-                    <!--피드 내용-->
                     <p class="font18 feed-content" th:text="${feedReadResWithCommentList.getContent()}">
                         나를 죽이지 못한<br />고통은<br />나를 성장시킨다
                     </p>
                     <!-- 링크가 있다면 띄우기 -->
-                    <a
-                        class="feed-link"
-                        th:href="${feedReadResWithCommentList.getUrl()}"
-                        target="_blank"
-                    >
+                    <a class="feed-link" th:href="${feedReadResWithCommentList.getUrl()}" target="_blank" th:text = "${feedReadResWithCommentList.getUrl()}">
                         https://www.naver.com
                     </a>
                 </div>
@@ -70,13 +66,15 @@
                 <p class="font10 feed-date" th:text="${feedReadResWithCommentList.getDate()}">2023-09-15</p>
             </div>
         </div>
+        </div>
     </div>
     <!-- 댓글 컨테이너 -->
     <div class="container comments__container flex-column">
         <!-- 댓글 목록 -->
-        <div class="comments-list" th:each="comment : ${feedReadResWithCommentList.getCommentList()}">
+        <div class="comments-list">
             <!--th:each-->
-            <div class="comment-item flex-between-top">
+            <div class="comment-item flex-between-top" th:each="comment : ${feedReadResWithCommentList.getCommentList()}">
+                <div th:id = "${comment.getId()}" class="comment-id">
                 <div class="flex-left-top">
                     <!--사진-->
                     <img
@@ -92,14 +90,15 @@
                             <p class="font12 comment-date" th:text="${comment.getDate()}">2023-11-06</p>
                         </div>
                         <!--댓글 내용-->
-                        <p class="font14 comment" th:text="${comment.getContent()}">
-                            제가 동기부여가 필요할 때마다 보는 글이에요
-                        </p>
+                        <p class="font14 comment" th:text="${comment.getContent()}"></p>
                     </div>
+                </div>
                 </div>
                 <!-- 작성자 본인일 경우만 보이게 -->
                 <i class="comment-menu uil uil-ellipsis-h"></i>
+
             </div>
+
         </div>
         <!-- 댓글 작성 영역 -->
         <form method="post" th:action = "'/player/feed/comment/'+ ${feedReadResWithCommentList.getId()}" th:object="${commentWriteReq}">

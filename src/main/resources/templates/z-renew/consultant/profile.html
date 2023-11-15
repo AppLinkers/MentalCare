@@ -29,9 +29,10 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
 
     <script th:inline="javascript">
-        const isToday = (dateString) => {
-            const today = new Date();
 
+        const today = new Date();
+        const todayDateString = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+        const isToday = (dateString) => {
             const year = today.getFullYear().toString();
             const month = (today.getMonth() + 1).toString().padStart(2, "0");
             const day = today.getDate().toString().padStart(2, "0");
@@ -44,9 +45,16 @@
         /*<![CDATA[*/
 
         const teamDateData = [[${teamPlayerDiagnoseResultDateResList}]];
-
-        for(var i=0; i<teamDateData.length; i++){
-            console.log(teamDateData[i].date);
+        const teamDateMap = teamDateData.reduce((map, obj) => {
+            map.set(obj.date, obj.diagnoseResultReadResList);
+            return map
+        }, new Map);
+        let teamEvents = [];
+        for(const [key, value] of teamDateMap) {
+            teamEvents.push({
+                title: `${value.length}명`,
+                start: key
+            })
         }
 
         /*]]>*/
@@ -68,6 +76,25 @@
                 if(request.readyState === 4){
                     if(request.status === 200 || request.status === 201){
                         console.log((request.status));
+                        alert("요청을 보냈습니다.")
+                    }else{
+                        console.log("failed : "+ request.status);
+                    }
+                }
+            }
+            request.send(null);
+        }
+
+
+        function requestTestAll(){
+            const request = new XMLHttpRequest();
+            request.open("POST", "/consultant/request_test/", true);
+
+            request.onreadystatechange = function (){
+                if(request.readyState === 4){
+                    if(request.status === 200 || request.status === 201){
+                        console.log((request.status));
+                        alert("모두에게 요청을 보냈습니다.")
                     }else{
                         console.log("failed : "+ request.status);
                     }
@@ -81,31 +108,28 @@
             let result = "";
             const str = (name, playerId ,avg,answerId, imgUrl) =>{
 
-                const item =
-                    "<div class=\"player-item flex-between\" >" +
-                    "<a class=\"flex-left\" href ='/consultant/test/result/"+answerId+"'>" +
+                return "<div class=\"player-item flex-between\" >" +
+                    "<a class=\"flex-left\" href ='/consultant/test/result/" + answerId + "'>" +
                     "<div class=\"player-img flex-center\">" +
-                    "<img src= '"+imgUrl+ "' alt=\"선수 프로필\" />" +
+                    "<img src= '" + imgUrl + "' alt=\"선수 프로필\" />" +
                     "<div class=\"player-status\"></div>" +
                     "</div>" +
                     "<div class=\"player-info\">" +
-                    "<p class=\"font18\" >" + name+"</p>" +
-                    "<p class=\"font12\" > 평균 : "+avg+"</p>" +
+                    "<p class=\"font18\" >" + name + "</p>" +
+                    "<p class=\"font12\" > 평균 : " + avg + "</p>" +
                     "</div>" +
                     "</a>" +
                     "<div class=\"flex-left\">" +
-                    "<a  href = '/player/feed?id="+playerId+"'>" +
-                        "<div class=\"item-icon flex-center\">" +
-                            "<i class=\"uil uil-comment-message\" style=\"padding-bottom: 3px\"></i>" +
-                        "</div>" +
-                    "</a>"+
-                        "<div class=\"item-icon flex-center\" onclick='requestTest("+playerId+")'>" +
-                            "<i class=\"uil uil-message\" style=\"padding: 0 0 3px 3px\"></i>" +
-                        "</div>" +
+                    "<a  href = '/player/feed?id=" + playerId + "'>" +
+                    "<div class=\"item-icon flex-center\">" +
+                    "<i class=\"uil uil-comment-message\" style=\"padding-bottom: 3px\"></i>" +
                     "</div>" +
-                    "</div>";
-
-                return item
+                    "</a>" +
+                    "<div class=\"item-icon flex-center\" onclick='requestTest(" + playerId + ")'>" +
+                    "<i class=\"uil uil-message\" style=\"padding: 0 0 3px 3px\"></i>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>"
             }
             for(let i=0; i<data.length; i++){
                 result += str(data[i].playerName,data[i].playerId ,data[i].avg, data[i].answerId, data[i].playerImgUrl);
@@ -115,11 +139,26 @@
 
 
 
+        const fetchTeamPlayersByDate = (dateString, dateEl, dateCnt, newData) => {
+            const result = teamDateMap.get(dateString);
+            if(result) {
+                dateCnt.innerText = result.length;
+                newData.innerHTML = dateTestedListItem(result)
+            } else {
+                dateCnt.innerText = "0";
+                newData.innerHTML = "";
+            }
+            dateEl.innerText = isToday(dateString)
+                ? "오늘"
+                : formatDate(dateString);
+        }
 
         document.addEventListener("DOMContentLoaded", function () {
+
             const dateEl = document.getElementById("date");
             const dateCnt = document.getElementById("cnt");
             const newData = document.getElementById("playerItem");
+            fetchTeamPlayersByDate(todayDateString, dateEl, dateCnt, newData);
 
             const teamCalendarEl = document.getElementById("calendar-team");
             const teamCalendar = new FullCalendar.Calendar(teamCalendarEl, {
@@ -131,26 +170,12 @@
                     end: "prev,next",
                 },
                 dateClick: function (info) {
-
-                    let teamTestedPlayer;
-                    let dateString = info.dateStr;
-
-                    for(let i=0; i<teamDateData.length; i++){
-                        if(dateString === teamDateData[i].date){
-                            teamTestedPlayer= teamDateData[i].diagnoseResultReadResList;
-                            dateCnt.innerText = teamDateData[i].count;
-                            newData.innerHTML = dateTestedListItem(teamTestedPlayer);
-                            i = teamDateData.length;
-                        }else{
-                            dateCnt.innerText = '0';
-                            newData.innerHTML = "";
-                        }
-                    }
-                    dateEl.innerText = isToday(dateString)
-                        ? "오늘"
-                        : formatDate(dateString);
-
+                    fetchTeamPlayersByDate(info.dateStr, dateEl, dateCnt, newData);
                 },
+                events: teamEvents,
+                eventClick: function (info) {
+                    fetchTeamPlayersByDate(info.event.startStr, dateEl, dateCnt, newData);
+                }
             });
             teamCalendar.render();
 
@@ -222,9 +247,9 @@
 
             </div>
         </div>
-        <form method="post" th:action="@{/consultant/request_test}">
-            <button class="btn-basic send-all" type="submit">모두에게 설문 요청하기</button>
-        </form>
+
+        <button class="btn-basic send-all" th:onclick="requestTestAll()">모두에게 설문 요청하기</button>
+
     </div>
 </section>
 

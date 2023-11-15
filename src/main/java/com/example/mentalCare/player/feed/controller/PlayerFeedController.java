@@ -101,7 +101,7 @@ public class PlayerFeedController {
     }
 
     @ResponseBody
-    @DeleteMapping("/comment/{id}")
+    @DeleteMapping("/delete/comment/{id}")
     public void commentDelete(@PathVariable Long id) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
         playerFeedService.commentDelete(userLoginId, id);

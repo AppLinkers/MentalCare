@@ -42,6 +42,23 @@ function deleteFeed(feedId){
     request.send(null);
 }
 
+
+function deleteComment(commentId){
+    const request = new XMLHttpRequest();
+    request.open("DELETE", "/player/feed/delete/comment/"+commentId, true);
+
+    request.onreadystatechange = function (){
+        if(request.readyState === 4){
+            if(request.status === 200 || request.status === 201){
+                console.log((request.status));
+            }else{
+                console.log("failed : "+ request.status);
+            }
+        }
+    }
+    request.send(null);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     const feeds = document.querySelectorAll(".feed-item");
     const feedDialog = document.getElementById("feed-dialog");
@@ -71,19 +88,23 @@ document.addEventListener("DOMContentLoaded", function () {
     const deleteFeedButton = feedDialog.querySelector(".font14");
     deleteFeedButton.addEventListener("click", () => {
         deleteFeed(feedId);
-        alert(feedId);
         feedDialog.classList.remove("active");
+        location.reload(true);
     })
 
     const comments = document.querySelectorAll(".comments-list .comment-item");
     const commentDialog = document.getElementById("comment-dialog");
+    let commentId;
     comments.forEach((comment) => {
+        const commentIdEl = comment.querySelector(".comment-id");
         const date = comment.querySelector(".comment-date");
         date.innerText = formatCommentDateString(date.innerText);
 
         const menu = comment.querySelector(".comment-menu");
         menu.addEventListener("click", () => {
             commentDialog.classList.add("active");
+            commentId = commentIdEl.id;
+            console.log(commentId);
         });
     });
 
@@ -93,4 +114,11 @@ document.addEventListener("DOMContentLoaded", function () {
             commentDialog.classList.remove("active");
         }
     });
+
+    const deleteCommentButton = commentDialog.querySelector(".font14");
+    deleteCommentButton.addEventListener("click", () => {
+        deleteComment(commentId);
+        commentDialog.classList.remove("active");
+        location.reload(true);
+    })
 });

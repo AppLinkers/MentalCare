@@ -34,7 +34,7 @@
       const context = (name, avg, imgUrl, playerId) =>{
         const playerItem =
                 "   <div class=\"player-item flex-between\" >\n" +
-                "      <a class=\"flex-left\" href='/test/result/player/"+ playerId+"'>\n" +
+                "      <a class=\"flex-left\" href='/consultant/test/result/player/"+ playerId+"'>\n" +
                 "        <div class=\"player-img flex-center\">\n" +
                 "          <img src='"+imgUrl+"' alt=\"선수 프로필\" />\n" +
                 "          <!-- 평균에 따라서 녹색, 노란색, 빨간색 -->\n" +
@@ -90,19 +90,57 @@
 
     /*]]>*/
 
-
     document.addEventListener("DOMContentLoaded", function (){
       document.getElementById("playerList").innerHTML = loadHtml(totalPlayerData);
-
     });
 
-    function reverseAndLoad(data){
-      document.getElementById("playerList").innerHTML = loadHtml(data.reverse());
-    }
+
 
     function loadTypeRank(data){
-      document.getElementById("playerList").innerHTML = loadHtml(typePlayerDataList[data].diagnoseResultReadResList);
+      const filter = document.getElementById('sort-filter');
+      const highData = typePlayerDataList[data].diagnoseResultReadResList;
+      let reveseData = typePlayerDataList[data].diagnoseResultReadResList.slice().reverse();
+
+      if(filter.value == 'sort-high'){
+        document.getElementById("playerList").innerHTML = loadHtml(highData);
+      }else{
+        document.getElementById("playerList").innerHTML = loadHtml(reveseData);
+      }
+
     }
+
+
+    function loadTotal(){
+      const filter = document.getElementById('sort-filter');
+      let reverseData = totalPlayerData.slice().reverse();
+
+      if(filter.value == 'sort-high'){
+        document.getElementById("playerList").innerHTML = loadHtml(totalPlayerData);
+      }else{
+        document.getElementById("playerList").innerHTML = loadHtml(totalPlayerData.reverse());
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+      document.getElementById('sort-filter').addEventListener('change', function() {
+        let currentActive = document.querySelector('.active');
+        if(currentActive.id == "total"){
+          loadTotal();
+        }else{
+          let typeId = document.querySelector('.type-filter.font14.flex-center.active').id;
+          loadTypeRank(typeId);
+        }
+
+
+      });
+    });
+
+
+
+
+
+
 
 
 
@@ -120,9 +158,10 @@
     <div class="flex-between-top">
       <!-- 탭 -->
       <div class="tab__container flex-left">
-        <a class="font16 header-tab active">평균 순위</a>
-        <a class="font16 header-tab">유형별 순위</a>
+        <a id="total" class="font16 header-tab active" onclick="loadTotal()">평균 순위</a>
+        <a id="type" class="font16 header-tab" onclick="loadTypeRank(0)">유형별 순위</a>
       </div>
+
       <!-- 정렬 필터 -->
       <div class="filter__container">
         <select name="sort-filter" id="sort-filter">
@@ -134,15 +173,15 @@
     </div>
     <!-- 유형별 필터 -->
     <div class="type-filter__container">
-      <a class="type-filter font14 flex-center active" onclick="loadTypeRank(0)">경기력</a>
-      <a class="type-filter font14 flex-center" onclick="loadTypeRank(1)">불안감</a>
-      <a class="type-filter font14 flex-center" onclick="loadTypeRank(2)">훈련</a>
-      <a class="type-filter font14 flex-center" onclick="loadTypeRank(3)">기능자신감</a>
-      <a class="type-filter font14 flex-center" onclick="loadTypeRank(4)">부상</a>
-      <a class="type-filter font14 flex-center" onclick="loadTypeRank(5)">관계</a>
-      <a class="type-filter font14 flex-center" onclick="loadTypeRank(6)">진로</a>
-      <a class="type-filter font14 flex-center" onclick="loadTypeRank(7)">학업</a>
-      <a class="type-filter font14 flex-center" onclick="loadTypeRank(8)">생활</a>
+      <a id="0" class="type-filter font14 flex-center active" onclick="loadTypeRank(0)">경기력</a>
+      <a id="1"  class="type-filter font14 flex-center" onclick="loadTypeRank(1)">불안감</a>
+      <a id="2"  class="type-filter font14 flex-center" onclick="loadTypeRank(2)">훈련</a>
+      <a id="3"  class="type-filter font14 flex-center" onclick="loadTypeRank(3)">기능자신감</a>
+      <a id="4"  class="type-filter font14 flex-center" onclick="loadTypeRank(4)">부상</a>
+      <a id="5"  class="type-filter font14 flex-center" onclick="loadTypeRank(5)">관계</a>
+      <a id="6"  class="type-filter font14 flex-center" onclick="loadTypeRank(6)">진로</a>
+      <a id="7"  class="type-filter font14 flex-center" onclick="loadTypeRank(7)">학업</a>
+      <a id="8"  class="type-filter font14 flex-center" onclick="loadTypeRank(8)">생활</a>
     </div>
 
 
@@ -157,4 +196,5 @@
 <script src="/javascript/common/base.js"></script>
 <script src="/javascript/consultant/player_list.js"></script>
 </body>
+
 </html>
