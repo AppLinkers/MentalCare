@@ -75,7 +75,7 @@ public class DirectorTeamController {
 
         model.addAttribute("consultantRoleUpdateReq", teamConsultantDetail.toConsultantRoleUpdateReq());
 
-        return "z-renew/consultant/consultant_manage";
+        return "z-renew/director/consultant_manage";
     }
 
     /**

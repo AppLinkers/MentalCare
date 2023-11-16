@@ -114,21 +114,22 @@
                         </a>
                     </div>
                     <!-- 상담가 리스트 -->
-<!--                    <div class="target-grid">-->
-<!--                        <a href="manage.html">-->
-<!--                            <div class="target-item flex-column">-->
-<!--                                <img src="/static/images/son.jpg">-->
-<!--                                <div class="target-info flex-between-column">-->
-<!--                                    <p class="font16">손흥민</p>-->
-<!--                                    <div class="flex-between">-->
-<!--                                        <p class="font12">권한</p>-->
-<!--                                        &lt;!&ndash; 권한 있음 &ndash;&gt;-->
-<!--                                        <div class="status green"></div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </a>-->
-<!--                    </div>-->
+                    <div class="target-grid">
+                        <a th:href="@{|/director/consultant/${consultant.id}|}" th:each="consultant : ${teamConsultantInfoList}">
+                            <div class="target-item flex-column">
+                                <img th:src="${consultant.getImgUrl()}">
+                                <div class="target-info flex-between-column">
+                                    <p class="font16" th:text="${consultant.getName()}">손흥민</p>
+                                    <div class="flex-between">
+                                        <p class="font12">권한</p>
+                                        <!-- 권한 있음 -->
+                                        <div class="status green" th:if="${consultant.getRole().toString().equals('CONSULTANT')}"></div>
+                                        <div class="status gray" th:if="${consultant.getRole().toString().equals('CONSULTANT_PENDING')}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
 
                 </div>
             </div>

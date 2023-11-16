@@ -191,6 +191,7 @@ public class DirectorTeamService {
         if (!consultantRole.equals(consultantRoleUpdateReq.getRole())) {
             consultant.getUser().setRole(consultantRoleUpdateReq.getRole());
         }
+        System.out.println(consultant.getUser().getRole());
     }
 
     /**
