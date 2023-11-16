@@ -50,7 +50,7 @@ public class PlayerProfileService {
         return PlayerProfileReadRes.builder()
                 .name(player.getUser().getName())
                 .imgUrl(player.getUser().getImgUrl())
-                .teamName(player.getUser().getTeam().getName())
+                .teamName(player.getUser().getTeam() == null ? null : player.getUser().getTeam().getName())
                 .nextMatchDDay(nextMatchDDay.toString())
                 .position(player.getPosition())
                 .build();
