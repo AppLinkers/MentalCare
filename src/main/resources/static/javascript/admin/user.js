@@ -11,6 +11,8 @@ authBtns.forEach(authBtn => {
                 user__role.value = "PLAYER_PENDING";
             } else if (user__role.value === "DIRECTOR"){
                 user__role.value = "DIRECTOR_PENDING";
+            } else if (user__role.value === "CONSULTANT"){
+                user__role.value = "CONSULTANT_PENDING";
             }
             authBtn.innerText = "권한 없음";
         } else {
@@ -18,6 +20,8 @@ authBtns.forEach(authBtn => {
                 user__role.value = "PLAYER";
             } else if (user__role.value === "DIRECTOR_PENDING"){
                 user__role.value = "DIRECTOR";
+            } else if (user__role.value === "CONSULTANT_PENDING"){
+                user__role.value = "CONSULTANT";
             }
             authBtn.innerText = "허가됨";
         }

@@ -33,7 +33,7 @@ public class ConsultantProfileService {
         return ConsultantProfileReadRes.builder()
                 .name(user.getName())
                 .imgUrl(user.getImgUrl())
-                .teamName(user.getTeam().getName())
+                .teamName(user.getTeam() == null ? null : user.getTeam().getName())
                 .build();
     }
 
@@ -47,7 +47,7 @@ public class ConsultantProfileService {
         return ConsultantProfileUpdateRes.builder()
                 .name(user.getName())
                 .imgUrl(user.getImgUrl())
-                .teamCode(user.getTeam().getCode())
+                .teamCode(user.getTeam() == null ? null : user.getTeam().getCode())
                 .build();
     }
 

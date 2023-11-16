@@ -39,8 +39,8 @@ public class AdminService {
                             .name(user.getName())
                             .role(user.getRole())
                             .imgUrl(user.getImgUrl())
-                            .teamName(user.getTeam().getName())
-                            .teamCode(user.getTeam().getCode())
+                            .teamName(user.getTeam() == null ? null : user.getTeam().getName())
+                            .teamCode(user.getTeam() == null ? null : user.getTeam().getCode())
                             .build()
             );
 

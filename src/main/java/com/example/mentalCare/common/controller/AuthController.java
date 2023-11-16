@@ -29,6 +29,7 @@ public class AuthController {
     public String signUpPage(Model model) {
         model.addAttribute("signUpPlayerReq", new SignUpPlayerReq());
         model.addAttribute("signUpDirectorReq", new SignUpDirectorReq());
+        model.addAttribute("signUpConsultantReq", new SignUpConsultantReq());
 
         return "z-renew/common/sign_up";
     }

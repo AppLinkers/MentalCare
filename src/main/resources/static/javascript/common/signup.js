@@ -15,8 +15,12 @@ function selectChange() {
 
     if(select === "player_personal") forms[0].querySelector(".team_code").style.display = "none";
 
-    if (select === "director" || select === "consultant") {
+    if (select === "director") {
         forms[1].classList.add("active");
+    }
+
+    if(select == "consultant") {
+        forms[2].classList.add("active");
     }
 
 }
