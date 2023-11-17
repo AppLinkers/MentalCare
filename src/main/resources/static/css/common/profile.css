@@ -54,6 +54,37 @@ img.profile-img {
 }
 
 /* 선수용 */
+.my-consultant {
+    margin-bottom: 60px;
+
+    .font20 {
+        margin-bottom: 25px;
+    }
+    .matched-consultant {
+        .consultant-img {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--card-radius);
+            border: 1px solid var(--color-gray100);
+            margin-right: 25px;
+        }
+        .go-feed {
+            width: 36px;
+            height: 36px;
+            border-radius: 36px;
+            background-color: var(--color-black);
+            color: var(--color-white);
+            cursor: pointer;
+        }
+    }
+    .before-matched {
+        padding: 30px 0;
+        .font16 {
+            margin-bottom: 15px;
+        }
+    }
+}
+
 .check {
     margin-bottom: 550px;
 }
