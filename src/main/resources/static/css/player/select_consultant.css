@@ -1,0 +1,34 @@
+.selct_consultant__container {
+    margin-top: var(--margin-top);
+}
+
+.consultant-list {
+    margin-top: 20px;
+}
+
+.consultant-item {
+    padding: 20px 0;
+
+    .consultant-info {
+        .consultant-img {
+            width: 50px;
+            height: 50px;
+            border: 1px solid var(--color-gray100);
+            border-radius: 50px;
+            margin-right: 20px;
+        }
+        .team {
+            color: var(--color-gray300);
+        }
+    }
+
+    .btn-enabled {
+        transition: var(--transition);
+    }
+
+    .btn-disabled {
+        color: var(--color-gray300);
+        background-color: var(--color-white);
+        border: 1px solid var(--color-gray300);
+    }
+}

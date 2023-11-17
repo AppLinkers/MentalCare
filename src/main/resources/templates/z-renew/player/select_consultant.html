@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Best Mind</title>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap"
+            rel="stylesheet"
+    />
+
+    <!-- ICON SCOUT -->
+    <link
+        rel="stylesheet"
+        href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="/css/common/style.css" />
+    <link
+        rel="stylesheet"
+        href="/css/player/select_consultant.css"
+    />
+</head>
+
+<body>
+<section id="select_consultant">
+    <nav id="navigation"></nav>
+    <div class="container select_consultant__container">
+        <p class="font24">컨설턴트 매칭</p>
+        <!-- 상담가 리스트 -->
+        <div class="consultant-list">
+            <!-- item을 th:each -->
+            <div class="consultant-item flex-between">
+                <div class="consultant-info flex-left">
+                    <img
+                        class="consultant-img"
+                        src="/images/consultant.jpg"
+                        alt=""
+                    />
+                    <div>
+                        <p class="font16">김정민</p>
+                        <!-- th:if 소속팀 있으면 보여주기 -->
+                        <p class="team font12">FC서울</p>
+                    </div>
+                </div>
+                <!-- th:if 요청전일때 -->
+                <button class="btn-small btn-enabled">요청하기</button>
+                <!-- th:unless 이미 요청했을때, 연결할 때 style 빼주기-->
+                <button
+                    class="btn-small btn-disabled"
+                    disabled
+                    style="display: none"
+                >
+                    요청됨
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/javascript/common/base.js"></script>
+<script src="/javascript/player/select_consultant.js"></script>
+</body>
+</html>
