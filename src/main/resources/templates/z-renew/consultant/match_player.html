@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Best Mind</title>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet"
+    />
+
+    <!-- ICON SCOUT -->
+    <link
+        rel="stylesheet"
+        href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="/css/common/style.css" />
+    <link rel="stylesheet" href="/css/consultant/match_player.css"/>
+</head>
+
+<body>
+<section id="match_player">
+    <nav id="navigation"></nav>
+    <div class="container match_player__container">
+        <p class="font24">선수 매칭</p>
+        <!-- 요청한 플레이어 리스트 -->
+        <div class="player-list">
+            <!-- item을 th:each로 -->
+            <div class="player-item flex-between">
+                <div class="player-info flex-left">
+                    <img
+                        class="player-img"
+                        src="/images/son.jpg"
+                        alt=""
+                    />
+                    <p class="font16">손흥민</p>
+                </div>
+                <div class="item-btns flex-left">
+                    <button class="btn-small btn-accept">수락하기</button>
+                    <!-- 거절시 list에서 삭제 -->
+                    <button class="btn-small btn-reject">거절하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/javascript/common/base.js"></script>
+<script src="/javascript/consultant/match_player.js"></script>
+</body>
+</html>
