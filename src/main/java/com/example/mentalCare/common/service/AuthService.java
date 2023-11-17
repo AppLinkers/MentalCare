@@ -140,10 +140,14 @@ public class AuthService implements UserDetailsService {
                 .role(role)
                 .build();
 
-        if (!request.getTeamCode().isEmpty()) {
+        if (request.getTeamCode() != null) {
             Team team = teamRepository.findTeamByCode(request.getTeamCode()).get();
             user.setTeam(team);
             team.addUser(user);
+        } else {
+            if (role.equals(Role.PLAYER_PENDING)) {
+                user.setRole(Role.PLAYER);
+            }
         }
 
         return user;
