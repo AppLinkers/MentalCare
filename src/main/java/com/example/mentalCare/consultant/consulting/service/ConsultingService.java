@@ -5,6 +5,8 @@ import com.example.mentalCare.common.repository.UserRepository;
 import com.example.mentalCare.consultant.consulting.dto.*;
 import com.example.mentalCare.consultant.profile.domain.Consultant;
 import com.example.mentalCare.consultant.profile.repository.ConsultantRepository;
+import com.example.mentalCare.player.consulting.domain.RequestConsulting;
+import com.example.mentalCare.player.consulting.repository.RequestConsultingRepository;
 import com.example.mentalCare.player.feed.domain.Feed;
 import com.example.mentalCare.player.feed.repository.FeedRepository;
 import com.example.mentalCare.player.profile.domain.Player;
@@ -43,6 +45,7 @@ public class ConsultingService {
     private final AnswerDetailRepository answerDetailRepository;
     private final QuestionRepository questionRepository;
     private final FeedRepository feedRepository;
+    private final RequestConsultingRepository requestConsultingRepository;
 
     /**
      * 상담가가 속한 팀의 선수들의 날짜별 검사 결과 리스트
@@ -584,5 +587,40 @@ public class ConsultingService {
 
     private String getTestRequestContent(Player player) {
         return "컨설턴트가 " + player.getUser().getName() + "님 에게 검사를 요청하였습니다.";
+    }
+
+    @Transactional(readOnly = true)
+    public List<PlayerInfoReadRes> getIndividualPlayerConsultingRequest(String userLoginId) {
+
+        List<PlayerInfoReadRes> response = new ArrayList<>();
+
+        requestConsultingRepository.findByConsultantUserLogin_id(userLoginId).forEach(
+                requestConsulting -> {
+                    response.add(
+                            PlayerInfoReadRes.builder()
+                                    .id(requestConsulting.getPlayer().getId())
+                                    .name(requestConsulting.getPlayer().getUser().getName())
+                                    .imgUrl(requestConsulting.getPlayer().getUser().getImgUrl())
+                                    .build()
+                    );
+                }
+        );
+
+
+        return response;
+    }
+
+    @Transactional
+    public void individualPlayerConsultingRequest(String userLoginId, Long playerId, Boolean accept) {
+        Consultant consultant = consultantRepository.findByUserLogin_id(userLoginId);
+        Player player = playerRepository.findById(playerId).get();
+        if (accept) {
+            player.setConsultant(consultant);
+            requestConsultingRepository.deleteAllByPlayer(player);
+        } else {
+            requestConsultingRepository.deleteByConsultantAndPlayer(consultant, player);
+        }
+
+        playerRepository.save(player);
     }
 }
