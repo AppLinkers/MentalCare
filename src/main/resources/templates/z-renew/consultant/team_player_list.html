@@ -72,6 +72,7 @@
         if(request.readyState == 4){
           if(request.status==200 || request.status ==201){
             console.log((request.status));
+            alert("요청이 정상 처리되었습니다.")
           }else{
             console.log("failed : "+ request.status);
           }
