@@ -39,7 +39,7 @@ public class Feed {
     private LocalDate date;
 
     @Builder.Default
-    @OneToMany(mappedBy = "feed")
+    @OneToMany(mappedBy = "feed", cascade = CascadeType.REMOVE)
     private List<Comment> commentList = new ArrayList<>();
 
     public void addComment(Comment comment) {
