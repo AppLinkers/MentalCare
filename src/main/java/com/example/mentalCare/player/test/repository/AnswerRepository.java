@@ -38,7 +38,7 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
 
     @Query("select new com.example.mentalCare.consultant.consulting.dto.DiagnoseResultWithAnswerIdReadRes(a.id, p.id, u.name, u.imgUrl, round(avg(adt.answer),2))" +
             "from Answer a, AnswerDiagnose ad, AnswerDetail adt, Player p, User u " +
-            "where ad.id = adt.answerDiagnose.id and a.id = ad.answer.id and a.player.id = p.id and p.consultant.id = :consultantId and cast(a.createdAt as LocalDate) = :answerDate group by a.id")
+            "where ad.id = adt.answerDiagnose.id and a.id = ad.answer.id and a.player.id = p.id and p.user.id = u.id and p.consultant.id = :consultantId and cast(a.createdAt as LocalDate) = :answerDate group by a.id")
     List<DiagnoseResultWithAnswerIdReadRes> findAnswerAvgByConsultantIdAndDate(Long consultantId, LocalDate answerDate);
 
     @Query("select  new com.example.mentalCare.consultant.consulting.dto.UserIdAndAnswerDate(u.id, max(a.createdAt))" +
