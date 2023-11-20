@@ -57,6 +57,20 @@
             })
         }
 
+
+        const indivDateData = [[${individualPlayerDiagnoseResultDateResList}]];
+        const indivDateMap = indivDateData.reduce((map, obj) => {
+            map.set(obj.date, obj.diagnoseResultReadResList);
+            return map
+        }, new Map);
+        let indivEvents = [];
+        for(const [key, value] of indivDateMap) {
+            indivEvents.push({
+                title: `${value.length}명`,
+                start: key
+            })
+        }
+
         /*]]>*/
 
         const formatDate = (dateString) => {
@@ -153,6 +167,21 @@
                 : formatDate(dateString);
         }
 
+
+        const fetchIndivPlayersByDate = (dateString, dateEl, dateCnt, newData) => {
+            const result = indivDateMap.get(dateString);
+            if(result) {
+                dateCnt.innerText = result.length;
+                newData.innerHTML = dateTestedListItem(result)
+            } else {
+                dateCnt.innerText = "0";
+                newData.innerHTML = "";
+            }
+            dateEl.innerText = isToday(dateString)
+                ? "오늘"
+                : formatDate(dateString);
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
 
             const dateEl = document.getElementById("date");
@@ -179,6 +208,8 @@
             });
             teamCalendar.render();
 
+
+
             const personalCalendarEl = document.getElementById("calendar-personal");
             const personalCalendar = new FullCalendar.Calendar(personalCalendarEl, {
                 initialView: "dayGridMonth",
@@ -189,11 +220,12 @@
                     end: "prev,next",
                 },
                 dateClick: function (info) {
-                    let dateString = info.dateStr;
-                    dateEl.innerText = isToday(dateString)
-                        ? "오늘"
-                        : formatDate(dateString);
+                    fetchIndivPlayersByDate(info.dateStr, dateEl, dateCnt, newData);
                 },
+                events: teamEvents,
+                eventClick: function (info) {
+                    fetchIndivPlayersByDate(info.event.startStr, dateEl, dateCnt, newData);
+                }
             });
             personalCalendar.render();
         });

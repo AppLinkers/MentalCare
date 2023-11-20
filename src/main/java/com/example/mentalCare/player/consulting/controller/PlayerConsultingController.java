@@ -21,7 +21,7 @@ public class PlayerConsultingController {
 
         model.addAttribute("consultantInfoReadResList", playerConsultingService.getConsultantInfoReadResList(userLoginId));
 
-        return "z-renew/player/request_consultant";
+        return "z-renew/player/select_consultant";
     }
 
     @ResponseBody

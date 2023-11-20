@@ -23,6 +23,28 @@
     <!-- STYLE SHEET -->
     <link rel="stylesheet" href="/css/common/style.css" />
     <link rel="stylesheet" href="/css/consultant/match_player.css"/>
+
+
+    <script th:inline="javascript">
+        function acceptRequest(playerId, accept){
+            const request = new XMLHttpRequest();
+            const formData = new FormData();
+            formData.append("accept", accept);
+            request.open("POST", "/consultant/individual/player/"+playerId, true);
+
+            request.onreadystatechange = function (){
+                if(request.readyState === 4){
+                    if(request.status === 200 || request.status === 201){
+                        console.log((request.status));
+                        alert("요청을 수락하였습니다.")
+                    }else{
+                        console.log("failed : "+ request.status);
+                    }
+                }
+            }
+            request.send(formData);
+        }
+    </script>
 </head>
 
 <body>
@@ -33,19 +55,19 @@
         <!-- 요청한 플레이어 리스트 -->
         <div class="player-list">
             <!-- item을 th:each로 -->
-            <div class="player-item flex-between">
+            <div class="player-item flex-between" th:each="player : ${playerInfoReadResList}">
                 <div class="player-info flex-left">
                     <img
                         class="player-img"
-                        src="/images/son.jpg"
+                        th:src="${player.getImgUrl()}"
                         alt=""
                     />
-                    <p class="font16">손흥민</p>
+                    <p class="font16" th:text="${player.getName()}">손흥민</p>
                 </div>
                 <div class="item-btns flex-left">
-                    <button class="btn-small btn-accept">수락하기</button>
+                    <button class="btn-small btn-accept" th:onclick="acceptRequest([[${player.getId()}]], true)">수락하기</button>
                     <!-- 거절시 list에서 삭제 -->
-                    <button class="btn-small btn-reject">거절하기</button>
+                    <button class="btn-small btn-reject" th:onclick="acceptRequest([[${player.getId()}]], false)">거절하기</button>
                 </div>
             </div>
         </div>
