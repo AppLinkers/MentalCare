@@ -42,7 +42,7 @@
             <div class="menu-content flex-column">
                 <a th:href="@{/player/profile}" class="font28">프로필</a>
                 <a th:href="@{/player/test/result}" class="font28">검사 결과</a>
-                <a th:href="@{/player/consultant}" class="font28">컨설턴트 매칭</a>
+                <a th:if="${ableRequestConsulting}" th:href="@{/player/consultant}" class="font28">컨설턴트 매칭</a>
                 <a th:href="@{/player/feed}" class="font28">내 피드</a>
             </div>
         </div>
