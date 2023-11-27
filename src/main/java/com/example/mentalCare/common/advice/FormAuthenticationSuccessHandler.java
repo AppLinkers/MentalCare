@@ -39,7 +39,7 @@ public class FormAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
             } else if (authentication.getAuthorities().toArray()[0].toString().equals("ADMIN")) {
                 redirectUrl = "/admin/user";
             } else {
-                redirectUrl = getDefaultTargetUrl();
+                redirectUrl = "/pending";
             }
             redirectStrategy.sendRedirect(request, response, redirectUrl);
         }

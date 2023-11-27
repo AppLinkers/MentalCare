@@ -56,7 +56,7 @@
                     <p class="input-label">이름</p>
                     <input type="text" placeholder="이름을 입력하세요" th:field="*{name}" required>
                     <p class="input-label">생년월일</p>
-                    <input type="text" placeholder="생년월일 8자리를 입력하세요" th:field="*{birthDate}" required>
+                    <input type="date" onkeyup="dateFormat(this)" maxlength="10"th:field="*{birthDate}" required>
                     <div class="team_code">
                         <p class="input-label">팀 코드</p>
                         <input type="text" placeholder="팀 코드를 입력하세요" th:field="*{teamCode}">
@@ -88,7 +88,7 @@
                     <p class="input-label">이름</p>
                     <input type="text" placeholder="이름을 입력하세요" th:field="*{name}" required>
                     <p class="input-label">생년월일</p>
-                    <input type="text" placeholder="생년월일 8자리를 입력하세요" th:field="*{birthDate}" required>
+                    <input type="date" onkeyup="dateFormat(this)" maxlength="10"th:field="*{birthDate}" required>
                     <div class="team_code">
                         <p class="input-label">팀 코드</p>
                         <input type="text" placeholder="팀 코드를 입력하세요" th:field="*{teamCode}">
@@ -115,7 +115,7 @@
                     <p class="input-label">이름</p>
                     <input type="text" placeholder="이름을 입력하세요" th:field="*{name}" required>
                     <p class="input-label">생년월일</p>
-                    <input type="text" placeholder="생년월일 8자리를 입력하세요" th:field="*{birthDate}" required>
+                    <input type="date" onkeyup="dateFormat(this)" maxlength="10"th:field="*{birthDate}" required>
                     <div class="team_code">
                         <p class="input-label">팀 코드</p>
                         <input type="text" placeholder="팀 코드를 입력하세요" th:field="*{teamCode}">
