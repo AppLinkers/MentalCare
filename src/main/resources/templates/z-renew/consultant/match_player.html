@@ -39,8 +39,10 @@
                         if(accept == true){
                             console.log((request.status));
                             alert("요청을 수락하였습니다.");
+
                         }else{
                             alert("요청을 거절하셨습니다.");
+                            location.reload(true);
                         }
 
                     }else{
