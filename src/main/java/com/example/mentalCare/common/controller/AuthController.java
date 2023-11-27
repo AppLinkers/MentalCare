@@ -40,6 +40,7 @@ public class AuthController {
     @PostMapping("/sign_up/player")
     public String playerSignUp(SignUpPlayerReq request) {
         authService.signUp(request);
+        System.out.println(request.getTeamCode());
         return "redirect:/login";
     }
 

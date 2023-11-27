@@ -13,5 +13,7 @@ public class ConsultantInfoReadRes {
 
     private String name;
 
+    private int age;
+
     private Boolean hasRequest;
 }

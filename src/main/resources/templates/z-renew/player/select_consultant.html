@@ -70,7 +70,7 @@
                     <div>
                         <p class="font16" th:text="${consultant.getName()}">김정민</p>
                         <!-- th:if 소속팀 있으면 보여주기 -->
-                        <p class="team font12" th:text="${consultant.getHasRequest()}">FC서울</p>
+                        <p class="team font12" th:text="'나이 : '+ ${consultant.getAge()}+ '세'">FC서울</p>
                     </div>
                 </div>
                 <!-- th:if 요청전일때 -->

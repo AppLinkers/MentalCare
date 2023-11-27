@@ -37,6 +37,7 @@ public class PlayerConsultingService {
                             .id(consultant.getId())
                             .imgUrl(consultant.getUser().getImgUrl())
                             .name(consultant.getUser().getName())
+                            .age(consultant.getUser().getAge())
                             .hasRequest(hasRequest)
                             .build();
 
