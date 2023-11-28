@@ -82,9 +82,11 @@ public class PlayerProfileService {
 
         Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
 
-        Team team = teamRepository.findTeamByCode(request.getTeamCode()).get();
+        if (!request.getTeamCode().equals("")) {
+            Team team = teamRepository.findTeamByCode(request.getTeamCode()).get();
+            player.getUser().setTeam(team);
+        }
 
-        player.getUser().setTeam(team);
         player.setPosition(request.getPosition());
         player.setNextMatch(request.getNextMatchDate());
         // 이미지 설정
