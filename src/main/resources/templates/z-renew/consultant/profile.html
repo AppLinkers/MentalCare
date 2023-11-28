@@ -58,18 +58,22 @@
         }
 
 
-        const indivDateData = [[${individualPlayerDiagnoseResultDateResList}]];
-        const indivDateMap = indivDateData.reduce((map, obj) => {
+        const personalDateData = [[${individualPlayerDiagnoseResultDateResList}]];
+        const personalDateMap = personalDateData.reduce((map, obj) => {
             map.set(obj.date, obj.diagnoseResultReadResList);
             return map
         }, new Map);
-        let indivEvents = [];
-        for(const [key, value] of indivDateMap) {
-            indivEvents.push({
+        let personalEvents = [];
+        for(const [key, value] of personalDateMap) {
+            personalEvents.push({
                 title: `${value.length}명`,
                 start: key
             })
         }
+
+        personalEvents.forEach((e) => {
+            console.log(`title: ${e.title} start: ${e.start}`);
+        })
 
         /*]]>*/
 
@@ -120,7 +124,7 @@
 
         const dateTestedListItem = (data) => {
             let result = "";
-            const str = (name, playerId ,avg,answerId, imgUrl) =>{
+            const str = (name, playerId ,avg, answerId, imgUrl) =>{
 
                 return "<div class=\"player-item flex-between\" >" +
                     "<a class=\"flex-left\" href ='/consultant/test/result/" + answerId + "'>" +
@@ -146,7 +150,7 @@
                     "</div>"
             }
             for(let i=0; i<data.length; i++){
-                result += str(data[i].playerName,data[i].playerId ,data[i].avg, data[i].answerId, data[i].playerImgUrl);
+                result += str(data[i].playerName, data[i].playerId ,data[i].avg, data[i].answerId, data[i].playerImgUrl);
             }
             return result;
         }
@@ -168,8 +172,8 @@
         }
 
 
-        const fetchIndivPlayersByDate = (dateString, dateEl, dateCnt, newData) => {
-            const result = indivDateMap.get(dateString);
+        const fetchPersonalPlayersByDate = (dateString, dateEl, dateCnt, newData) => {
+            const result = personalDateMap.get(dateString);
             if(result) {
                 dateCnt.innerText = result.length;
                 newData.innerHTML = dateTestedListItem(result)
@@ -220,11 +224,11 @@
                     end: "prev,next",
                 },
                 dateClick: function (info) {
-                    fetchIndivPlayersByDate(info.dateStr, dateEl, dateCnt, newData);
+                    fetchPersonalPlayersByDate(info.dateStr, dateEl, dateCnt, newData);
                 },
-                events: teamEvents,
+                events: personalEvents,
                 eventClick: function (info) {
-                    fetchIndivPlayersByDate(info.event.startStr, dateEl, dateCnt, newData);
+                    fetchPersonalPlayersByDate(info.event.startStr, dateEl, dateCnt, newData);
                 }
             });
             personalCalendar.render();
