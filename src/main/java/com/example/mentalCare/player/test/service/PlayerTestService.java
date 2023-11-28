@@ -293,7 +293,7 @@ public class PlayerTestService {
                 .name(player.getUser().getName())
                 .age(player.getUser().getAge())
                 .position(player.getPosition())
-                .teamName(player.getUser().getTeam().getName())
+                .teamName(player.getUser().getTeam() == null ? null : player.getUser().getTeam().getName())
                 .nextMatchDDay(nextMatchDDay.toString())
                 .imgUrl(player.getUser().getImgUrl())
                 .build();

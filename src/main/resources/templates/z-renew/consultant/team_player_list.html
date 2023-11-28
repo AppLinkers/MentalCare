@@ -72,6 +72,7 @@
         if(request.readyState == 4){
           if(request.status==200 || request.status ==201){
             console.log((request.status));
+            alert("요청이 정상 처리되었습니다.")
           }else{
             console.log("failed : "+ request.status);
           }
@@ -83,9 +84,14 @@
 
     /*<![CDATA[*/
 
+    //team 데이터
     const totalPlayerData = [[${totalDiagnoseResultReadResList}]]; // 전체평균 높은순
     const typePlayerDataList = [[${typeDiagnoseResultReadResList}]];
       // 유형별 높은순 - 0:경기력 1:불안감 2:훈련 3:훈련, 4:기능자신감, 5:부상, 6:관계, 7:진로, 8학업, 9:생활
+
+
+    //indiv 데이터
+
 
 
     /*]]>*/

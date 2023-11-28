@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -17,5 +18,10 @@ public class GlobalExceptionHandler {
                 .message(e.getMessage()).build();
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    protected String handleNoSuchElementException() {
+        return "redirect:/sign_up";
     }
 }

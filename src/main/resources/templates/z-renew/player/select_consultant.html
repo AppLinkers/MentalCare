@@ -26,6 +26,30 @@
         rel="stylesheet"
         href="/css/player/select_consultant.css"
     />
+
+    <script th:inline="javascript">
+        function requestConsultant(consultantId){
+            const request = new XMLHttpRequest();
+            request.open("POST", "/player/consultant/"+consultantId, true);
+
+            request.onreadystatechange = function (){
+                if(request.readyState === 4){
+                    if(request.status === 200 || request.status === 201){
+                        console.log((request.status));
+                        alert("요청을 보냈습니다.")
+                    }else{
+                        console.log("failed : "+ request.status);
+                    }
+                }
+            }
+            request.send(null);
+            console.log(consultantId)
+        }
+
+        function asdf(consultantId){
+            console.log(consultantId)
+        }
+    </script>
 </head>
 
 <body>
@@ -36,29 +60,33 @@
         <!-- 상담가 리스트 -->
         <div class="consultant-list">
             <!-- item을 th:each -->
-            <div class="consultant-item flex-between">
+            <div class="consultant-item flex-between" th:each="consultant : ${consultantInfoReadResList}">
                 <div class="consultant-info flex-left">
                     <img
                         class="consultant-img"
-                        src="/images/consultant.jpg"
+                        th:src="${consultant.getImgUrl()}"
                         alt=""
                     />
                     <div>
-                        <p class="font16">김정민</p>
+                        <p class="font16" th:text="${consultant.getName()}">김정민</p>
                         <!-- th:if 소속팀 있으면 보여주기 -->
-                        <p class="team font12">FC서울</p>
+                        <p class="team font12" th:text="'나이 : '+ ${consultant.getAge()}+ '세'">FC서울</p>
                     </div>
                 </div>
                 <!-- th:if 요청전일때 -->
-                <button class="btn-small btn-enabled">요청하기</button>
+                <div th:if="${consultant.getHasRequest()} == false">
+                    <button class="btn-small btn-enabled" th:onclick="requestConsultant([[${consultant.getId()}]])">요청하기</button>
+                </div>
+
                 <!-- th:unless 이미 요청했을때, 연결할 때 style 빼주기-->
-                <button
-                    class="btn-small btn-disabled"
-                    disabled
-                    style="display: none"
-                >
-                    요청됨
-                </button>
+                <div th:unless="${consultant.getHasRequest()} == false">
+                    <button
+                        class="btn-small btn-disabled"
+                        disabled
+                    >
+                        요청됨
+                    </button>
+                </div>
             </div>
         </div>
     </div>

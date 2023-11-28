@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/nav", "/login", "/sign_up/**").permitAll()
+                .antMatchers("/", "/nav", "/login", "/sign_up/**", "/pending").permitAll()
                 .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
                 .antMatchers("/noti/**").hasAnyAuthority("DIRECTOR", "PLAYER", "CONSULTANT")
                 .antMatchers("/director/**").hasAnyAuthority("DIRECTOR")
@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login_proc")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/pending")
                 .successHandler(formAuthenticationSuccessHandler)
                 .failureHandler(formAuthenticationFailureHandler)
                 .permitAll()

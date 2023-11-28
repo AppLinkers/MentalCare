@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Mind</title>
+
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- ICON SCOUT -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- STYLE SHEET -->
+    <link rel="stylesheet" href="/css/common/style.css">
+    <link rel="stylesheet" href="/css/common/profile.css">
+</head>
+
+<body>
+    <!-- =========== PROFILE-PLAYER ========== -->
+    <section id="profile-player">
+        <nav id="navigation"></nav>
+        <!-- 인사말 -->
+        <div class="container profile__container">
+            <p class="greeting font24" id="greeting" th:text="${name}">손흥민</p>
+
+            <p> 아직 승인 대기중 입니다, 조금만 기댜려주세요 </p>
+
+        </div>
+    </section>
+
+    <script src="/javascript/common/base.js"></script>
+    <script src="/javascript/common/greeting.js"></script>
+
+</body>
+
+</html>

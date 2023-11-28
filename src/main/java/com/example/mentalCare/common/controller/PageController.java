@@ -1,5 +1,8 @@
 package com.example.mentalCare.common.controller;
 
+import com.example.mentalCare.player.profile.domain.Player;
+import com.example.mentalCare.player.profile.repository.PlayerRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -7,7 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
+@RequiredArgsConstructor
 public class PageController {
+
+    private final PlayerRepository playerRepository;
 
     /**
      * 네비게이션 바 페이지
@@ -20,6 +26,14 @@ public class PageController {
         }
 
         model.addAttribute("userRole", authority);
+
+        if (authority.equals("PLAYER")) {
+            String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
+            Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
+
+            model.addAttribute("ableRequestConsulting", player.ableRequestConsulting());
+        }
+
         return "z-renew/common/nav";
     }
 

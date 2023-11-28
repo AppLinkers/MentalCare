@@ -45,4 +45,8 @@ public class Player {
     @ManyToOne
     @JoinColumn(name = "consultant_id")
     private Consultant consultant;
+
+    public Boolean ableRequestConsulting() {
+        return consultant == null && user.getTeam() == null;
+    }
 }

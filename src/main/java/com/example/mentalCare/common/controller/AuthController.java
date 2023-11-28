@@ -96,4 +96,17 @@ public class AuthController {
 
         return "redirect:/login";
     }
+
+
+    /**
+     * Pending 서비스
+     */
+    @GetMapping("/pending")
+    public String profilePendingPage(Model model) {
+        String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        model.addAttribute("name", userLoginId);
+
+        return "z-renew/common/profile_pending";
+    }
 }
