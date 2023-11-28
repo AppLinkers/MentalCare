@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/css/common/navigation.css">
 <div class="navigation__container container flex-between">
-    <a onclick="document.getElementById('menu').style.display='block'"><i class="uil uil-bars font20"></i></a>
+    <a onclick="document.getElementById('menu').classList.add('active')"><i class="uil uil-bars font20"></i></a>
 
     <a th:if="${userRole == 'CONSULTANT_PENDING'}" th:href="@{/pending}" class="logo-big eng">BEST MIND</a>
     <a th:if="${userRole == 'PLAYER_PENDING'}" th:href="@{/pending}" class="logo-big eng">BEST MIND</a>
@@ -14,10 +14,10 @@
     <a th:href="@{/logout}"><i class="uil uil-signout font20"></i></a>
 </div>
 
-<menu id="menu" style="z-index: 9; display: none;">
+<menu id="menu">
     <li class="menu__container container">
         <div class="menu-header flex-between">
-            <a onclick="document.getElementById('menu').style.display='none'">
+            <a onclick="document.getElementById('menu').classList.remove('active')">
                 <i class="uil uil-multiply font20"></i>
             </a>
             <p class="logo-big eng">BEST MIND</p>
