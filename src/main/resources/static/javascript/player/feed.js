@@ -66,15 +66,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     feeds.forEach((feed) => {
         const feedIdEl = feed.querySelector(".feed-id");
-
         const date = feed.querySelector(".feed-date");
         date.innerText = formatDateString(date.innerText);
 
         const menu = feed.querySelector(".feed-menu");
         menu.addEventListener("click", () => {
             feedDialog.classList.add("active");
+            document.body.style.overflow = "hidden";
             feedId = feedIdEl.id
-            console.log(feedId);
         });
     });
 
@@ -82,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const dialogContent = feedDialog.querySelector(".dialog");
         if (!dialogContent.contains(event.target)) {
             feedDialog.classList.remove("active");
+            document.body.style.overflow = "";
         }
     });
 
@@ -89,6 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
     deleteFeedButton.addEventListener("click", () => {
         deleteFeed(feedId);
         feedDialog.classList.remove("active");
+        document.body.style.overflow = "";
         location.reload(true);
     })
 
@@ -104,7 +105,6 @@ document.addEventListener("DOMContentLoaded", function () {
         menu.addEventListener("click", () => {
             commentDialog.classList.add("active");
             commentId = commentIdEl.id;
-            console.log(commentId);
         });
     });
 
