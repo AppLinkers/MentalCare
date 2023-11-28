@@ -1,8 +1,11 @@
 package com.example.mentalCare.player.profile.controller;
 
+import com.example.mentalCare.player.profile.domain.Player;
 import com.example.mentalCare.player.profile.dto.PlayerProfileUpdateReq;
+import com.example.mentalCare.player.profile.repository.PlayerRepository;
 import com.example.mentalCare.player.profile.service.PlayerProfileService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +21,7 @@ import java.io.IOException;
 public class PlayerProfileController {
 
     private final PlayerProfileService playerProfileService;
+    private final PlayerRepository playerRepository;
 
     /**
      * 선수 프로필 조회 페이지
@@ -25,8 +29,11 @@ public class PlayerProfileController {
     @GetMapping("")
     public String profilePage(Model model) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
 
+        model.addAttribute("ableRequestConsulting", player.ableRequestConsulting());
         model.addAttribute("profile", playerProfileService.getProfileRead(userLoginId));
+
 
         return "z-renew/player/profile";
     }

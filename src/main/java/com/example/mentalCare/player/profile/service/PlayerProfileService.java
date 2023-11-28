@@ -52,6 +52,7 @@ public class PlayerProfileService {
                 .imgUrl(player.getUser().getImgUrl())
                 .teamName(player.getUser().getTeam() == null ? null : player.getUser().getTeam().getName())
                 .nextMatchDDay(nextMatchDDay.toString())
+                .consultant(player.getConsultant())
                 .position(player.getPosition())
                 .build();
     }

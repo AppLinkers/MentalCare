@@ -25,7 +25,6 @@
         <!-- 공통 메뉴 -->
         <p class="font16">공통 메뉴</p>
         <div class="menu-content flex-column">
-            <a th:unless="${userRole == 'ADMIN'}" th:href="@{/noti/list}" class="font24">공지사항</a>
             <a th:href="@{/pwChange}" class="font24">비밀번호 변경</a>
         </div>
         <!-- 지도자 -->
@@ -40,6 +39,7 @@
         <div th:if="${userRole == 'PLAYER'}">
             <p class="font16">선수 메뉴</p>
             <div class="menu-content flex-column">
+                <a th:if="${ableRequestConsulting}" th:href="@{/noti/list}" class="font24">공지사항</a>
                 <a th:href="@{/player/profile}" class="font24">프로필</a>
                 <a th:href="@{/player/test/result}" class="font24">검사 결과</a>
                 <a th:if="${ableRequestConsulting}" th:href="@{/player/consultant}" class="font24">컨설턴트 매칭</a>
@@ -50,6 +50,7 @@
         <div th:if="${userRole == 'DIRECTOR'}">
             <p class="font16">지도자 메뉴</p>
             <div class="menu-content flex-column">
+                <a th:href="@{/noti/list}" class="font24">공지사항</a>
                 <a th:href="@{/director/profile}" class="font24">프로필</a>
             </div>
         </div>
@@ -57,6 +58,7 @@
         <div th:if="${userRole == 'CONSULTANT'}">
             <p class="font16">상담가 메뉴</p>
             <div class="menu-content flex-column">
+                <a th:href="@{/noti/list}" class="font24">공지사항</a>
                 <a href="/consultant/profile" class="font24">프로필</a>
                 <a href="/consultant/team/test/result" class="font24">소속팀 통계</a>
                 <a href="/consultant/individual/test/result" class="font24">개인선수 통계</a>

@@ -58,28 +58,22 @@
                 </div>
             </div>
             <!-- 내 컨설턴트 -->
-            <div class="my-consultant">
+            <div class="my-consultant" th:if="${profile.getConsultant()} != null">
                 <p class="font20">내 컨설턴트</p>
                 <!--th:if 컨설턴트 매칭된 경우 -->
                 <div class="matched-consultant flex-between">
                     <div class="flex-left">
                         <img
                             class="consultant-img"
-                            src="/images/consultant.jpg"
+                            th:src="${profile.getConsultant().getUser().getImgUrl()}"
                             alt=""
                         />
-                        <p class="font16">김정민</p>
+                        <p class="font16" th:text="${profile.getConsultant().getUser().getName()}">김정민</p>
                     </div>
                     <!-- 피드로 이동 -->
-                    <a href="" class="go-feed flex-center">
+                    <a href="" class="go-feed flex-center" th:href="@{/player/feed}">
                         <i class="uil uil-comment-message" style="padding-bottom: 4px; font-size: 24px"></i>
                     </a>
-                </div>
-                <!--th:unless 매칭 전인 경우 -->
-                <div class="before-matched flex-column-center">
-                    <p class="font16">나의 컨설턴트를 찾아보세요</p>
-                    <!-- 컨설턴트 매칭 화면으로 이동 -->
-                    <button class="btn-small">찾아보기</button>
                 </div>
             </div>
             <!-- 검사하기 -->
