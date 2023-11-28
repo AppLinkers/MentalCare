@@ -68,7 +68,7 @@ public class PlayerProfileService {
         return PlayerProfileUpdateRes.builder()
                 .name(player.getUser().getName())
                 .imgUrl(player.getUser().getImgUrl())
-                .teamCode(player.getUser().getTeam().getCode())
+                .teamCode(player.getUser().getTeam() == null ? null : player.getUser().getTeam().getCode())
                 .nextMatchDate(player.getNextMatch())
                 .position(player.getPosition())
                 .build();
