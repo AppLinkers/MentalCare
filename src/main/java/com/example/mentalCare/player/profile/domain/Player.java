@@ -49,4 +49,8 @@ public class Player {
     public Boolean ableRequestConsulting() {
         return consultant == null && user.getTeam() == null;
     }
+
+    public Boolean isIndividualPlayer() {
+        return user.getTeam() == null;
+    }
 }

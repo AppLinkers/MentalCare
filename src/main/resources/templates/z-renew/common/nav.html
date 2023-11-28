@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/css/common/navigation.css">
 <div class="navigation__container container flex-between">
-    <a onclick="document.getElementById('menu').style.display='block'"><i class="uil uil-bars font20"></i></a>
+    <a onclick="document.getElementById('menu').classList.add('active')"><i class="uil uil-bars font20"></i></a>
 
     <a th:if="${userRole == 'CONSULTANT_PENDING'}" th:href="@{/pending}" class="logo-big eng">BEST MIND</a>
     <a th:if="${userRole == 'PLAYER_PENDING'}" th:href="@{/pending}" class="logo-big eng">BEST MIND</a>
@@ -14,10 +14,10 @@
     <a th:href="@{/logout}"><i class="uil uil-signout font20"></i></a>
 </div>
 
-<menu id="menu" style="z-index: 9; display: none;">
+<menu id="menu">
     <li class="menu__container container">
         <div class="menu-header flex-between">
-            <a onclick="document.getElementById('menu').style.display='none'">
+            <a onclick="document.getElementById('menu').classList.remove('active')">
                 <i class="uil uil-multiply font20"></i>
             </a>
             <p class="logo-big eng">BEST MIND</p>
@@ -39,7 +39,7 @@
         <div th:if="${userRole == 'PLAYER'}">
             <p class="font16">선수 메뉴</p>
             <div class="menu-content flex-column">
-                <a th:if="${ableRequestConsulting}" th:href="@{/noti/list}" class="font24">공지사항</a>
+                <a th:unless="${isIndividualPlayer}" th:href="@{/noti/list}" class="font24">공지사항</a>
                 <a th:href="@{/player/profile}" class="font24">프로필</a>
                 <a th:href="@{/player/test/result}" class="font24">검사 결과</a>
                 <a th:if="${ableRequestConsulting}" th:href="@{/player/consultant}" class="font24">컨설턴트 매칭</a>

@@ -77,8 +77,11 @@
                 <!-- 피드 footer -->
                 <div class="feed-footer container">
                     <!-- 댓글 2개 이상일 때, 클릭시 피드 상세로-->
-                    <a class="font12 comments-count" th:href="'/player/feed/detail/'+${feed.getId()}" th:if="${feed.getCommentCnt() >=2}">
-                        댓글 2개 모두 보기
+                    <a
+                        class="font12 comments-count"
+                        th:href="'/player/feed/detail/'+${feed.getId()}"
+                        th:if="${feed.getCommentCnt() >=2}"
+                        th:text="'댓글 ' + ${feed.getCommentCnt()} + '개 모두 보기'">
                     </a>
                     <!-- 댓글 1개 이하일 때, 클릭시 피드 상세로-->
                     <a class="font12 comments-count" th:href="'/player/feed/detail/'+${feed.getId()}" th:unless="${feed.getCommentCnt() >=2}">

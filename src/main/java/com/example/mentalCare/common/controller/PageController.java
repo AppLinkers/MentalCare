@@ -32,6 +32,7 @@ public class PageController {
             Player player = playerRepository.findPlayerByUserLoginId(userLoginId);
 
             model.addAttribute("ableRequestConsulting", player.ableRequestConsulting());
+            model.addAttribute("isIndividualPlayer", player.isIndividualPlayer());
         }
 
         return "z-renew/common/nav";
