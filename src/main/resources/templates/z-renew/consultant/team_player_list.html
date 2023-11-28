@@ -31,32 +31,35 @@
 
     const loadHtml = (data) => {
       let result = "";
+      const status = (avg) => {
+        if(avg >= 4) return "<div class=\"player-status green\"></div>\n";
+        else if(avg >= 2) return "<div class=\"player-status yellow\"></div>\n";
+        else return "<div class=\"player-status red\"></div>\n";
+      }
       const context = (name, avg, imgUrl, playerId) =>{
-        const playerItem =
-                "   <div class=\"player-item flex-between\" >\n" +
-                "      <a class=\"flex-left\" href='/consultant/test/result/player/"+ playerId+"'>\n" +
+        return "   <div class=\"player-item flex-between\" >\n" +
+                "      <a class=\"flex-left\" href='/consultant/test/result/player/" + playerId + "'>\n" +
                 "        <div class=\"player-img flex-center\">\n" +
-                "          <img src='"+imgUrl+"' alt=\"선수 프로필\" />\n" +
+                "          <img src='" + imgUrl + "' alt=\"선수 프로필\" />\n" +
                 "          <!-- 평균에 따라서 녹색, 노란색, 빨간색 -->\n" +
-                "          <div class=\"player-status\"></div>\n" +
+                            status(avg) +
                 "        </div>\n" +
                 "        <div class=\"player-info\">\n" +
-                "          <p class=\"font18\">"+name+"</p>\n" +
-                "          <p class=\"font12\" >평균: "+avg+"</p>\n" +
+                "          <p class=\"font18\">" + name + "</p>\n" +
+                "          <p class=\"font12\" >평균: " + avg + "</p>\n" +
                 "        </div>\n" +
                 "      </a>\n" +
                 "      <div class=\"flex-left\">\n" +
-                "      <a  href = '/player/feed?id="+playerId+"'>" +
+                "      <a  href = '/player/feed?id=" + playerId + "'>" +
                 "        <div class=\"item-icon flex-center\">\n" +
                 "          <i class=\"uil uil-comment-message\" style=\"padding-bottom: 3px\"></i>\n" +
                 "        </div>\n" +
                 "      </a>" +
-                "        <div class=\"item-icon flex-center\" onclick='requestTest("+playerId+")'>\n" +
+                "        <div class=\"item-icon flex-center\" onclick='requestTest(" + playerId + ")'>\n" +
                 "          <i class=\"uil uil-message\" style=\"padding: 0 0 3px 3px\"></i>\n" +
                 "        </div>\n" +
                 "      </div>\n" +
-                "    </div>"
-        return playerItem;
+                "    </div>";
       }
       for(var i=0; i<data.length; i++){
         result += context(data[i].playerName, data[i].avg, data[i].playerImgUrl, data[i].playerId);
@@ -69,8 +72,8 @@
       request.open("POST", "/consultant/request_test/"+playerId, true);
 
       request.onreadystatechange = function (){
-        if(request.readyState == 4){
-          if(request.status==200 || request.status ==201){
+        if(request.readyState === 4){
+          if(request.status===200 || request.status ===201){
             console.log((request.status));
             alert("요청이 정상 처리되었습니다.")
           }else{
@@ -107,7 +110,7 @@
       const highData = typePlayerDataList[data].diagnoseResultReadResList;
       let reveseData = typePlayerDataList[data].diagnoseResultReadResList.slice().reverse();
 
-      if(filter.value == 'sort-high'){
+      if(filter.value === 'sort-high'){
         document.getElementById("playerList").innerHTML = loadHtml(highData);
       }else{
         document.getElementById("playerList").innerHTML = loadHtml(reveseData);
@@ -120,7 +123,7 @@
       const filter = document.getElementById('sort-filter');
       let reverseData = totalPlayerData.slice().reverse();
 
-      if(filter.value == 'sort-high'){
+      if(filter.value === 'sort-high'){
         document.getElementById("playerList").innerHTML = loadHtml(totalPlayerData);
       }else{
         document.getElementById("playerList").innerHTML = loadHtml(totalPlayerData.reverse());
@@ -131,7 +134,7 @@
 
       document.getElementById('sort-filter').addEventListener('change', function() {
         let currentActive = document.querySelector('.active');
-        if(currentActive.id == "total"){
+        if(currentActive.id === "total"){
           loadTotal();
         }else{
           let typeId = document.querySelector('.type-filter.font14.flex-center.active').id;

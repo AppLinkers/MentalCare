@@ -71,10 +71,6 @@
             })
         }
 
-        personalEvents.forEach((e) => {
-            console.log(`title: ${e.title} start: ${e.start}`);
-        })
-
         /*]]>*/
 
         const formatDate = (dateString) => {
@@ -124,13 +120,19 @@
 
         const dateTestedListItem = (data) => {
             let result = "";
-            const str = (name, playerId ,avg, answerId, imgUrl) =>{
+
+            const status = (avg) => {
+                if(avg >= 4) return "<div class=\"player-status green\"></div>";
+                else if(avg >= 2) return "<div class=\"player-status yellow\"></div>";
+                else return "<div class=\"player-status red\"></div>";
+            }
+            const str = (name, playerId ,avg, answerId, imgUrl) => {
 
                 return "<div class=\"player-item flex-between\" >" +
                     "<a class=\"flex-left\" href ='/consultant/test/result/" + answerId + "'>" +
                     "<div class=\"player-img flex-center\">" +
                     "<img src= '" + imgUrl + "' alt=\"선수 프로필\" />" +
-                    "<div class=\"player-status\"></div>" +
+                    status(avg) +
                     "</div>" +
                     "<div class=\"player-info\">" +
                     "<p class=\"font18\" >" + name + "</p>" +
