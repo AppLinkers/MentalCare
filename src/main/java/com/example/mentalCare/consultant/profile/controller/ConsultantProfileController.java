@@ -33,7 +33,7 @@ public class ConsultantProfileController {
         model.addAttribute("teamPlayerDiagnoseResultDateResList", consultingService.getTeamPlayerDiagnoseResultByDate(userLoginId));
         model.addAttribute("individualPlayerDiagnoseResultDateResList", consultingService.getIndividualPlayerDiagnoseResultByDate(userLoginId));
 
-        return "/z-renew/consultant/profile";
+        return "z-renew/consultant/profile";
     }
 
     /**
