@@ -54,6 +54,8 @@
                 <a th:href="@{/director/profile}" class="font24">프로필</a>
             </div>
         </div>
+
+  
         <!-- 상담가 -->
         <div th:if="${userRole == 'CONSULTANT'}">
             <p class="font16">상담가 메뉴</p>
@@ -61,9 +63,9 @@
                 <a th:href="@{/noti/list}" class="font24">공지사항</a>
                 <a href="/consultant/profile" class="font24">프로필</a>
                 <a href="/consultant/team/test/result" class="font24">소속팀 통계</a>
+                <a href = "/consultant/team/player" class="font24"> 소속 팀 관리</a>
                 <a href="/consultant/individual/test/result" class="font24">개인선수 통계</a>
-                <a href = "/consultant/team/player" class="font24"> 소속 팀 선수</a>
-                <a href = "/consultant/individual/player" class="font24"> 개인 관리 선수</a>
+                <a href = "/consultant/individual/player" class="font24"> 개인선수 관리</a>
                 <a href = "/consultant/individual/player/request" class="font24">선수 요청</a>
             </div>
         </div>
