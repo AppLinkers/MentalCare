@@ -1,6 +1,8 @@
 package com.example.mentalCare.consultant.consulting.controller;
 
+import com.example.mentalCare.consultant.consulting.dto.DiagnoseResultWithPlayerIdReadRes;
 import com.example.mentalCare.consultant.consulting.service.ConsultingService;
+import com.example.mentalCare.consultant.profile.service.ConsultantProfileService;
 import com.example.mentalCare.player.test.dto.MonthlyResultReadRes;
 import com.example.mentalCare.player.test.dto.TestDiagnoseResultReadRes;
 import com.example.mentalCare.player.test.dto.TestResultReadRes;
@@ -21,6 +23,7 @@ import java.util.List;
 public class ConsultantConsultingController {
 
     private final ConsultingService consultingService;
+    private final ConsultantProfileService consultantProfileService;
     private final PlayerTestService playerTestService;
 
     /**
@@ -132,8 +135,19 @@ public class ConsultantConsultingController {
     @GetMapping("/team/test/result")
     public String teamTestResultPage(Model model) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        double totalAvg = 0;
+        int totalPlayer = consultingService.getTotalDiagnoseResultByTeam(userLoginId).size();
+
+        for(DiagnoseResultWithPlayerIdReadRes i : consultingService.getTotalDiagnoseResultByTeam(userLoginId)){
+            totalAvg+=i.getAvg();
+        }
+
+        totalAvg = totalAvg / totalPlayer;
 
         model.addAttribute("testDiagnoseResultList", consultingService.getTeamPlayerDiagnoseResult(userLoginId));
+        model.addAttribute("profile", consultantProfileService.getProfileRead(userLoginId).getTeamName());
+        model.addAttribute("totalPlayer", totalPlayer);
+        model.addAttribute("totalAvg", Math.round(totalAvg*100)/100.0);
         model.addAttribute("monthlyTotalAvgList", consultingService.getTeamPlayerMonthlyTotalAvg(userLoginId));
         model.addAttribute("monthlyTypeAvgList", consultingService.getTeamPlayerMonthlyTypeAvg(userLoginId));
 
@@ -146,6 +160,18 @@ public class ConsultantConsultingController {
     @GetMapping("/individual/test/result")
     public String individualTestResultPage(Model model) {
         String userLoginId = SecurityContextHolder.getContext().getAuthentication().getName();
+        double totalAvg = 0;
+        int totalPlayer = consultingService.getTotalDiagnoseResultByIndividual(userLoginId).size();
+
+        for(DiagnoseResultWithPlayerIdReadRes i : consultingService.getTotalDiagnoseResultByIndividual(userLoginId)){
+            totalAvg+=i.getAvg();
+        }
+
+        totalAvg = totalAvg / totalPlayer;
+
+        model.addAttribute("profile", "개인 선수");
+        model.addAttribute("totalPlayer", totalPlayer);
+        model.addAttribute("totalAvg", Math.round(totalAvg*100)/100.0);
 
         model.addAttribute("testDiagnoseResultList", consultingService.getIndividualPlayerDiagnoseResult(userLoginId));
         model.addAttribute("monthlyTotalAvgList", consultingService.getIndividualPlayerMonthlyTotalAvg(userLoginId));

@@ -125,6 +125,8 @@ public class ConsultingService {
         return response;
     }
 
+
+
     /**
      * 상담가가 담당하고 있는 팀의 선수들의 최근 검사 결과 유형별 평균 리스트
      */
@@ -623,4 +625,6 @@ public class ConsultingService {
 
         playerRepository.save(player);
     }
+
+
 }

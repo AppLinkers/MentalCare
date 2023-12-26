@@ -26,6 +26,32 @@
 
   <nav id="navigation"></nav>
 
+
+  <!-- 선수 상세 정보 -->
+  <div class="result-info__container container">
+    <div class="info-left">
+      <p class="font16">정보</p>
+      <div class="info-box flex-between">
+        <p class="info-label font14">소속 팀</p>
+        <p class="font14" th:text="${profile}"></p>
+      </div>
+      <div class="info-box flex-between">
+        <p class="info-label font14">인원 수</p>
+        <p class="font14" th:text="${totalPlayer}">31 명</p>
+      </div>
+
+    </div>
+    <div class="info-right">
+      <p class="font16">심리점수</p>
+      <div class="info-score-box flex-column-center">
+        <div class="info-score flex-center">
+          <p class="font20" th:text="${totalAvg}">4.7</p>
+        </div>
+        <p class="font12">5점 만점 기준입니다</p>
+      </div>
+    </div>
+  </div>
+
   <!-- DIVIDER -->
   <div class="divider container-fit"></div>
   <!-- 선수 차트 -->
@@ -117,6 +143,15 @@
 
 <!--    차트 script-->
 <script type="text/javascript" th:inline="javascript">
+
+    // 심리 점수
+  const scoreBox = document.querySelector(".info-score");
+  const mindScore = scoreBox.querySelector("p");
+  const score = parseFloat(mindScore.innerHTML);
+
+  if (score >= 4) scoreBox.classList.add("green");
+  else if (score >= 2) scoreBox.classList.add("yellow");
+  else if (score >= 0) scoreBox.classList.add("red");
 
   // 공통
 
