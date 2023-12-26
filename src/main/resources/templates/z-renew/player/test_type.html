@@ -87,7 +87,7 @@
                     <img th:src="${diagnoseReadRes.iconUrl}">
                     <p class="font24" th:text="${diagnoseReadRes.title}">경기력</p>
                 </div>
-                <p class="font16 announce" th:text="${diagnoseReadRes.description}">현재 나의 경험이나 최근 상태와 가장 일치하는 곳에 표시 해주세요.</p>
+                <p class="font16 announce" th:text="|Q. ${diagnoseReadRes.description}|">현재 나의 경험이나 최근 상태와 가장 일치하는 곳에 표시 해주세요.</p>
 
 
                 <div class="form__container" >

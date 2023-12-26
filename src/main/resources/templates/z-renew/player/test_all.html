@@ -39,7 +39,7 @@
                     <!-- 질문과 평가 세트 1 -->
                     <div class="check-set set1" th:each="question, questionStat : ${diagnoseReadRes.questionReadResList}">
                         <input type="hidden" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].id}"/>
-                        <p class="font18" th:text="Q. ${question.context}">1. 최근 경기력에 대해 만족하시나요?</p>
+                        <p class="font18" th:text="|Q. ${question.context}|">1. 최근 경기력에 대해 만족하시나요?</p>
                         <div class="select__container" >
                             <div class="select-item flex-column">
                                 <input type="radio" class="testInput" th:field="*{answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=1  id="worst" hidden required>
