@@ -44,7 +44,7 @@
 
                         <!-- 질문과 평가 세트 1 -->
                         <div class="check-set set1">
-                            <p class="font18">해당 유형의 평소 만족도는 어떻게 되시나요? </p>
+                            <p class="font18">Q. 해당 유형의 평소 만족도는 어떻게 되시나요? </p>
                             <input type="hidden" th:field="*{answerDiagnoseWriteReq.answerDiagnoseWriteReq[__${unSelectedDiagnoseStat.index}__].id}"/>
                             <div class="select__container" >
                                 <div class="select-item flex-column">
@@ -87,15 +87,13 @@
                     <img th:src="${diagnoseReadRes.iconUrl}">
                     <p class="font24" th:text="${diagnoseReadRes.title}">경기력</p>
                 </div>
-                <p class="font16 announce" th:text="|Q. ${diagnoseReadRes.description}|">현재 나의 경험이나 최근 상태와 가장 일치하는 곳에 표시 해주세요.</p>
-
 
                 <div class="form__container" >
 
                     <!-- 질문과 평가 세트 1 -->
                     <div class="check-set set1" th:each="question, questionStat : ${diagnoseReadRes.questionReadResList}">
                         <input type="hidden" th:field="*{answerWriteReq.answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].id}"/>
-                        <p class="font18" th:text="${question.context}">1. 최근 경기력에 대해 만족하시나요?</p>
+                        <p class="font18" th:text="|Q. ${question.context}|">1. 최근 경기력에 대해 만족하시나요?</p>
                         <div class="select__container" >
                             <div class="select-item flex-column">
                                 <input type="radio" th:field="*{answerWriteReq.answerWriteReq[__${diagnoseStat.index}__].questionWriteReqList[__${questionStat.index}__].answer}" th:value=1  id="worst" hidden required>
