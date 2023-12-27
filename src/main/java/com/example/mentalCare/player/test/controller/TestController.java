@@ -155,6 +155,7 @@ public class TestController {
         List<List> monthlyResultAvg = new ArrayList<List>();
         List<Double> monthlyTotalAvg = new ArrayList<Double>();
 
+
         for (MonthlyResultReadRes m : monthlyResult) {
             List<Double> monthlyAvg = new ArrayList<Double>();
             if(m.getDiagnoseResultList().size() == 0){

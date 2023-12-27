@@ -36,8 +36,6 @@ public class AdminController {
     @PutMapping("/user")
     public String changeUserRoleList(UserRoleUpdateListReq userRoleUpdateListReq) {
 
-       String role = userRoleUpdateListReq.getUserRoleUpdateReqList().get(12).getRole()+"";
-        System.out.println(role);
         adminService.changeUserRoleList(userRoleUpdateListReq);
 
         return "redirect:/admin/user";

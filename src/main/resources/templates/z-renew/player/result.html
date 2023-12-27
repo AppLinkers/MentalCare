@@ -86,6 +86,10 @@
     <div th:each="ageData : ${ageResult}">
         <script th:inline="javascript">
             var ageAvgData = [[${ageData.avg}]];
+
+            if(ageAvgData == 0){
+                console.log("success")
+            }
             ageAvgList.push(ageAvgData);
         </script>
     </div>
