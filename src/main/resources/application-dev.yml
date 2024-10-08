@@ -4,7 +4,7 @@ spring:
       on-profile: dev
   # RDS - MySQL
   datasource:
-    url: jdbc:mysql://best-mind-rds.c9v1roxnwdza.ap-northeast-2.rds.amazonaws.com/mindup_dev
+    url: jdbc:mysql://bestmind-rds.c9v1roxnwdza.ap-northeast-2.rds.amazonaws.com/mindup_dev
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: admin
     password: 2db8ddasf!
